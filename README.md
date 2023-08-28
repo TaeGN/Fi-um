@@ -2,7 +2,7 @@
 
 ## 9기 A308팀 gitlab repository
 
-<br><br>  
+<br><br>
 
 # 📝PR & Commit Message Rule
 
@@ -23,7 +23,7 @@
 - :black_nib: MOD : 파일 수정 (파일명 수정도)
 - :scissors: DEL : 파일, 디렉토리 삭제
 - :open_file_folder: MOVE : 파일, 디렉토리 이동
-- :boom: MERGE : 브랜치 충돌 후 직접 Merge 
+- :boom: MERGE : 브랜치 충돌 후 직접 Merge
 
 ## Branch Rule
 
@@ -197,10 +197,10 @@
 - 매주 월요일 스프린트를 들어가기 전에 Epic들을 검토하고 수정사항과 수행해야하는 하위 Task 들을 정한다.
 - 논의한 Epic을 기본으로 해당 Epic에 담당자를 지정하여 생성한다.
 
-### - Task(작업)
+### - 스토리
 
-- Epic 하위에 기능명세서의 소분류 기준으로 task를 생성한다.
-- task의 Description에 스토리를 적는다.
+- Epic 하위에 기능명세서의 소분류 기준으로 스토리를 생성한다.
+- 스토리의 Description에 세부 작업내용을 적는다.
 - 스프린트에 넣을 때, `서브테스크 단위를 사용하지 않기 위해서` 생성컨벤션에 맞춰서 해당이슈를 재생성하여 추가한다.
 
 ```js
@@ -214,9 +214,5 @@ ex) [BE]1-1-1 일반회원가입 , [FE]1-1-1 일반회원가입, [IOT]1-1-3 기�
 
 [IOT] : Internet of Things
 ```
-
-### - 스토리
-
-- 기능 구현에 해당하지 않는 기타 내용들을 스토리로 작성한다.
 
 </details>
