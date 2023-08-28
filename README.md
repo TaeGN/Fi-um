@@ -2,7 +2,7 @@
 
 ## 9기 A308팀 gitlab repository
 
-<br><br>
+<br><br>  
 
 # 📝PR & Commit Message Rule
 
@@ -23,7 +23,7 @@
 - :black_nib: MOD : 파일 수정 (파일명 수정도)
 - :scissors: DEL : 파일, 디렉토리 삭제
 - :open_file_folder: MOVE : 파일, 디렉토리 이동
-- :boom: MERGE : 브랜치 충돌 후 직접 Merge
+- :boom: MERGE : 브랜치 충돌 후 직접 Merge 
 
 ## Branch Rule
 
