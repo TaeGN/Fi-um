@@ -2,7 +2,7 @@
 
 ## 9기 A308팀 gitlab repository
 
-<br><br>
+<br><br><br>
 
 # 📝PR & Commit Message Rule
 
