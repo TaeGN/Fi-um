@@ -15,7 +15,7 @@
 
 ### Commit Message
 
-- 명령 / 스토리 또는 테스크 / 내용
+- 명령 / 스토리 또는 테스크 / 내용 
 
 ### Command keyword
 
