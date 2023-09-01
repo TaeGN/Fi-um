@@ -226,6 +226,6 @@ ex) [BE]1-1-1 일반회원가입 , [FE]1-1-1 일반회원가입, [IOT]1-1-3 기�
 
 ### 네이밍 컨벤션
 
-- constants
+- constants : `PascalCase`로 진행합니다.
 
 ### 폴더 구조
