@@ -7,7 +7,7 @@
 # 📝PR & Commit Message Rule
 
 <details>
-<summary>📌 PR & Commit 컨벤션</summary>
+<summary>📌 PR & Commit 컨벤션</summary>   
 
 ### Pull Request
 
