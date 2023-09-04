@@ -2,13 +2,8 @@
 
 ## 9기 A308팀 gitlab repository
 
-<<<<<<< HEAD
 <br/>
 <br/>
-=======
-<br><br><br>
-
-> > > > > > > 83f8ada67a70d0f17a08fb9bf965860b702f9795
 
 # 📝PR & Commit Message Rule
 
