@@ -22,7 +22,7 @@ public class DepositEntity {
     @Id
     @ManyToOne
     @JoinColumn(name="user_no", referencedColumnName="user_no")
-    private User user;
+    private UserEntity user;
 
     @Column(name="deposit_balance", nullable=false)
     private int depositBalance;
@@ -35,18 +35,12 @@ public class DepositEntity {
 
     @ManyToOne
     @JoinColumn(name="bank_no", referencedColumnName="bank_no")
-    private BankProductData bank;
+    private BankProductDataEntity bank;
 
     @ManyToOne
     @JoinColumn(name="product_no", referencedColumnName="product_no")
-    private BankProductData product;
+    private BankProductDataEntity product;
 
     // 생성자, getter, setter 등은 생략되었습니다.
 }
 
-class DepositId implements Serializable {
-    private int depositNo;
-    private int userNo; // Note: This should match the type of user_no in User entity
-
-    // 생성자, equals, hashCode 메서드는 생략되었습니다.
-}
