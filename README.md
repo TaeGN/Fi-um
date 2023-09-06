@@ -117,50 +117,6 @@
 
 ---
 
-<br>
-
-# 📝JAVA
-
-<details>
-<summary>📌 JAVA 컨벤션</summary>
-
-[참고사이트](https://google.github.io/styleguide/javaguide.html)
-
-### 인코딩(ENCODING)
-
-기본 UTF-8
-
-### 자바 소스 파일 구조
-
-1. 시작 주석(있을 경우)  
-   ![image](https://github.com/yoonoi/algo-study/assets/94058311/8f21856d-df7b-404c-ad30-860597144e47)
-
-2. Package & Import 명세  
-   ![image](https://github.com/yoonoi/algo-study/assets/94058311/a036bb32-8b07-4088-97f4-3b184355b541)
-
-3. 최상위 Class 및 Interface 선언
-
-### 선언 ★
-
-- static import에만 와일드 카드(\*)를 허용한다.  
-  (클래스를 import할 때는 와일드 카드없이 모든 클래스명을 다 쓴다.)
-  ![image](https://github.com/yoonoi/ssafy-project/assets/94058311/b1c6d786-7315-45cf-abf1-4164a6dca6a6)
-- 클래스/메서드/멤버변수의 제한자는 아래의 순서로 쓴다.  
-   (https://docs.oracle.com/javase/specs/jls/se7/html/jls-18.html 참조)
-  ![image](https://github.com/yoonoi/ssafy-project/assets/94058311/bea8036c-e738-473e-a7da-f244c6f12cb7)
-- 어노테이션 선언 후 새 줄을 사용한다. 단, 파라미터가 없는 어노테이션은 같은 줄에 선언할 수 있다.
-- 문장이 끝나는 ; 뒤에는 새 줄을 삽입한다.
-- 하나의 선언문에는 하나의 변수만 작성한다.
-  ![image](https://github.com/yoonoi/ssafy-project/assets/94058311/713beb9c-2ada-449c-8523-d08173d487c1)
-- 배열 선언에 오는 대괄호([])는 타입의 바로 뒤에 붙인다.
-  ![image](https://github.com/yoonoi/ssafy-project/assets/94058311/8344861d-e095-45f3-8635-9017d939a0d2)
-- long형의 숫자에는 마지막에 대문자'L'을 붙인다.
-
-</details>
-
----
-
-<br>
 
 # 📝Jira
 
