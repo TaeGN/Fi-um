@@ -49,6 +49,7 @@ module.exports = {
       1,
       { extensions: ['.js', '.jsx', '.tsx'] },
     ],
+    'react/function-component-definition': 'arrow-function',
   },
   ignorePatterns: ['.eslintrc.cjs'],
 };
