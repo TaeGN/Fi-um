@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Table } from '..';
+import Table from './Table';
 
 describe('Text', () => {
   it('Text Render', () => {
