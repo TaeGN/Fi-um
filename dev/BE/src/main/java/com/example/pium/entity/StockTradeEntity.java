@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-@Table(name="STOCK_TRADE")
+@Table(name="stock_trade")
 public class StockTradeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

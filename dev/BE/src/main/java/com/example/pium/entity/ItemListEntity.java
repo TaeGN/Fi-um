@@ -14,9 +14,9 @@ import javax.validation.constraints.NotNull;
 @Data
 @Table(name="ITEM_LIST")
 public class ItemListEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull(message = "itemNo must not be null")
     @Column(name = "item_no")
     private Integer itemNo;
 
