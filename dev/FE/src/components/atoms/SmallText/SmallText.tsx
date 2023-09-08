@@ -1,10 +1,8 @@
-import React from 'react';
+interface SmallTextProps {
+  text: string;
+}
 
-type STProps = {
-  text: String;
-};
-
-const SmallText = ({ text }: STProps) => {
+const SmallText = ({ text }: SmallTextProps) => {
   return <h6>{text}</h6>;
 };
 
