@@ -2,7 +2,7 @@ package com.example.pium.service;
 
 import com.example.pium.dto.RankingDto;
 import com.example.pium.entity.RankingEntity;
-import com.example.pium.repositiory.RankingRepository;
+import com.example.pium.repository.RankingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
