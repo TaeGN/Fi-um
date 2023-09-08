@@ -1,7 +1,7 @@
 package com.example.pium.service;
 
 import com.example.pium.entity.UserEntity;
-import com.example.pium.repositiory.UserRepository;
+import com.example.pium.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

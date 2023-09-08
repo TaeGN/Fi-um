@@ -1,4 +1,4 @@
-package com.example.pium.repositiory;
+package com.example.pium.repository;
 
 import com.example.pium.entity.RankingEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
