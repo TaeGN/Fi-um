@@ -7,12 +7,15 @@ interface ImageProps {
   alt: string;
 }
 
+const initImageUrl: string = "/vite.svg";
+
 const Image = ({ className, src, alt }: ImageProps) => {
+
   return (
     <>
       <img
         className={convertClassName(className, styles)}
-        src={src}
+        src={src || initImageUrl}
         alt={alt}
         data-testid="image"
       />

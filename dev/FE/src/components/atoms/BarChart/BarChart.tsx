@@ -10,7 +10,7 @@ import {
 import { Bar } from 'react-chartjs-2';
 import { ChartData } from 'chart.js';
 
-import styles from './BarChart.module.css';
+import styles from './BarChart.module.scss';
 import { convertClassName } from '@/utils';
 
 ChartJS.register(
@@ -27,19 +27,17 @@ const options: any = {
   elements: {
     bar: {
       borderWidth: 2,
-      width: 10,
     },
   },
   responsive: true,
   plugins: {
     legend: {
-      position: 'right' as const,
       display: false,
     },
     title: {
-      display: true,
-      text: 'bar!!',
+      display: false,
     },
+
   },
 };
 
@@ -70,7 +68,7 @@ const BarChart = ({ className, ratio }: BarChartProps) => {
       ].join(' ')}
       data-testid="bar-chart"
     >
-      <Bar data={data} options={options}></Bar>
+      <Bar  data={data} options={options}></Bar>
     </div>
   );
 };

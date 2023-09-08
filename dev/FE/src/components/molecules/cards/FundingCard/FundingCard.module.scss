@@ -1,17 +1,16 @@
 .funding-card {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
   & :nth-child(1) {
     flex: 1;
   }
   & :nth-child(2) {
-    flex: 1;
+    flex: 1.5;
   }
   & :nth-child(3) {
     flex: 1;
   }
-}
-
-.bar-chart {
-  height: minmax(auto, 100px);
 }

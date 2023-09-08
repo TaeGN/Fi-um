@@ -1,47 +1,50 @@
+$shinhan-blue: #3579d4;
+$shinhan-orange: #d48100;
+$shinhan-skyblue: #aadaff;
+$shinhan-mint: #7ae6e9;
+$shinhan-turquoise: #07a59f;
+
 .blue {
-  --shinhan-blue: #3579d4;
-  color: var(--shinhan-blue);
+  color: $shinhan-blue;
 }
 
 .orange {
-  --shinhan-orange: #d48100;
-  color: var(--shinhan-orange);
+  color: $shinhan-orange;
 }
 
 .skyblue {
-  --shinhan-skyblue: #aadaff;
-  color: var(--shinhan-skyblue);
+  color: $shinhan-skyblue;
 }
 
 .mint {
-  --shinhan-mint: #7ae6e9;
-  color: var(--shinhan-mint);
+  color: $shinhan-mint;
 }
 
 .turquoise {
-  --shinhan-turquoise: #07a59f;
-  color: var(--shinhan-turquoise);
+  color: $shinhan-turquoise;
 }
 
 .bg {
   &-blue {
-    background-color: var(--shinhan-blue);
+    background-color: $shinhan-blue;
   }
   &-orange {
-    background-color: var(--shinhan-orange);
+    background-color: $shinhan-orange;
   }
   &-skyblue {
-    background-color: var(--shinhan-skyblue);
+    background-color: $shinhan-skyblue;
   }
   &-mint {
-    background-color: var(--shinhan-mint);
+    background-color: $shinhan-mint;
   }
   &-turquoise {
-    background-color: var(--shinhan-turquoise);
+    background-color: $shinhan-turquoise;
   }
 }
 
-.grid-container {
+.card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 300px);
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-auto-rows: minmax(20rem, auto);
+  gap: 1rem;
 }
