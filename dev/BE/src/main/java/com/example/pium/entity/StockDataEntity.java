@@ -2,8 +2,6 @@ package com.example.pium.entity;
 
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
-import java.math.BigInteger;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -25,10 +23,6 @@ public class StockDataEntity {
     @ManyToOne
     @JoinColumn(name = "stock_no")
     private StockEventEntity stockNo;
-
-    @NotNull(message = "dataTime must not be null")
-    @Column(name = "data_time")
-    private BigInteger dataTime;
 
     @NotNull(message = "nowPrice must not be null")
     @Column(name = "now_price")

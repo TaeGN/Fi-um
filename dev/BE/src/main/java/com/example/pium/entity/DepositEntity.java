@@ -22,7 +22,6 @@ public class DepositEntity {
     @Column(name="deposit_no")
     private Integer depositNo;
 
-
     @NotNull
     @ManyToOne
     @JoinColumn(name="user_no")

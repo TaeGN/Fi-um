@@ -20,12 +20,10 @@ public class BankProductDataEntity {
     @Column(name = "bank_product_data_no")
     private Integer bankProductDataNo;
 
-
     @NotNull
     @ManyToOne
     @JoinColumn(name="bank_no")
     private BankListEntity bankNo;
-
 
     @NotNull
     @ManyToOne

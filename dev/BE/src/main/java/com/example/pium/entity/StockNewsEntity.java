@@ -2,9 +2,6 @@ package com.example.pium.entity;
 
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
-
-import java.math.BigInteger;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -36,7 +33,4 @@ public class StockNewsEntity {
     @Column(name = "news_content")
     private String newsContent;
 
-    @NotNull(message = "newsNo must not be null")
-    @Column(name = "news_time")
-    private BigInteger newsTime;
 }
