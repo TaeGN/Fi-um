@@ -7,7 +7,11 @@ interface TextProps {
 }
 
 const Text = ({ text, className }: TextProps) => {
-  return <div className={convertClassName(className, styles)}>{text}</div>;
+  return (
+    <div className={convertClassName(className, styles)} data-testid="text">
+      {text}
+    </div>
+  );
 };
 
 export default Text;

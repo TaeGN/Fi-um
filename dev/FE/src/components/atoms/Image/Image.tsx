@@ -14,6 +14,7 @@ const Image = ({ className, src, alt }: ImageProps) => {
         className={convertClassName(className, styles)}
         src={src}
         alt={alt}
+        data-testid="image"
       />
     </>
   );
