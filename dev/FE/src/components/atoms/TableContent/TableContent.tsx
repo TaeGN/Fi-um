@@ -1,5 +1,5 @@
 interface TableContentProps {
-  arr: string;
+  arr: string[];
 }
 
 const TableContent = ({ arr }: TableContentProps) => {
