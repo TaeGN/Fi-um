@@ -1,10 +1,8 @@
-import React from 'react';
+interface ContentProps {
+  text: string;
+}
 
-type text = {
-  text: String;
-};
-
-const Content = ({ text }: text) => {
+const Content = ({ text }: ContentProps) => {
   return <p>{text}</p>;
 };
 
