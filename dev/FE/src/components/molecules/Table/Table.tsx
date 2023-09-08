@@ -47,7 +47,12 @@ const Table = () => {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                <th
+                  style={{ textAlign: 'center' }}
+                  {...column.getHeaderProps()}
+                >
+                  {column.render('Header')}
+                </th>
               ))}
             </tr>
           ))}
@@ -60,7 +65,12 @@ const Table = () => {
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell: any) => {
                   return (
-                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                    <td
+                      style={{ textAlign: 'center' }}
+                      {...cell.getCellProps()}
+                    >
+                      {cell.render('Cell')}
+                    </td>
                   );
                 })}
               </tr>
