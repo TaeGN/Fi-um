@@ -1,4 +1,4 @@
-package com.example.pium.repositiory;
+package com.example.pium.repository;
 
 import com.example.pium.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     Optional<UserEntity> findByUserId(String userId);
+    Optional<UserEntity> findByUserNo(Integer userNo);
 }

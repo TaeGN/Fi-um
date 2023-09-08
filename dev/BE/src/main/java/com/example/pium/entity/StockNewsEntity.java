@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 @Table(name="STOCK_NEWS")
-@IdClass(StockNewsPK.class)
 public class StockNewsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +22,6 @@ public class StockNewsEntity {
     @Column(name = "news_no")
     private Integer newsNo;
 
-    @Id
     @NotNull(message = "newsNo must not be null")
     @ManyToOne
     @JoinColumn(name = "stock_no")

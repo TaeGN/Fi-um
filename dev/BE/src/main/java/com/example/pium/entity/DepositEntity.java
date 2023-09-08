@@ -14,7 +14,6 @@ import javax.validation.constraints.NotNull;
 @Builder
 @DynamicInsert
 @Table(name = "DEPOSIT")
-@IdClass(DepositPK.class)
 public class DepositEntity {
 
     @Id
@@ -23,7 +22,7 @@ public class DepositEntity {
     @Column(name="deposit_no")
     private Integer depositNo;
 
-    @Id
+
     @NotNull
     @ManyToOne
     @JoinColumn(name="user_no")
@@ -42,11 +41,8 @@ public class DepositEntity {
     private Integer depositMoney;
 
     @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name="bank_no", referencedColumnName = "bank_no"),
-            @JoinColumn(name="product_no", referencedColumnName = "product_no")
-    })
-    private BankProductDataEntity bankProductData;
+    @JoinColumn(name="bank_product_data_no")
+    private BankProductDataEntity bankProductDataNo;
 
 }
 
