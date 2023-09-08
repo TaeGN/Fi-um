@@ -4,8 +4,7 @@ const convertClassName = (
 ) => {
   return className
     ?.split(' ')
-    .map((name) => styles[name])
-    .filter((name) => name)
+    .map((name) => styles[name] || name)
     .join(' ');
 };
 

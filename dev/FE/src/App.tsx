@@ -4,7 +4,11 @@ import { Image } from '@/components/atoms';
 const App = () => {
   return (
     <>
-      <Image className="bb big aa gg hbig big aa" src="aaa" alt="aaa" />
+      <Image
+        className="bg-blue big aa gg hbig big aa blue"
+        src="aaa"
+        alt="aaa"
+      />
       <div className={styles.app}>Hi my name is seung woo</div>;
     </>
   );

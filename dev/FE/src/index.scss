@@ -1,0 +1,42 @@
+.blue {
+  --shinhan-blue: #3579d4;
+  color: var(--shinhan-blue);
+}
+
+.orange {
+  --shinhan-orange: #d48100;
+  color: var(--shinhan-orange);
+}
+
+.skyblue {
+  --shinhan-skyblue: #aadaff;
+  color: var(--shinhan-skyblue);
+}
+
+.mint {
+  --shinhan-mint: #7ae6e9;
+  color: var(--shinhan-mint);
+}
+
+.turquoise {
+  --shinhan-turquoise: #07a59f;
+  color: var(--shinhan-turquoise);
+}
+
+.bg {
+  &-blue {
+    background-color: var(--shinhan-blue);
+  }
+  &-orange {
+    background-color: var(--shinhan-orange);
+  }
+  &-skyblue {
+    background-color: var(--shinhan-skyblue);
+  }
+  &-mint {
+    background-color: var(--shinhan-mint);
+  }
+  &-turquoise {
+    background-color: var(--shinhan-turquoise);
+  }
+}
