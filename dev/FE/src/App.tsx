@@ -1,6 +1,6 @@
 import styles from '@/App.module.scss';
 import { Image, Text } from '@/components/atoms';
-import Table from './components/molecules/Table/Table';
+import { Table } from './components/molecules';
 
 const App = () => {
   return (
@@ -11,6 +11,8 @@ const App = () => {
         alt="aaa"
       />
       <div className={styles.app}>Hi my name is seung woo</div>;
+      <Text className="text-lg blue" text="개쩌는 테이블" />
+      <Table />
     </>
   );
 };

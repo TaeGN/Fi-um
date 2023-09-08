@@ -2,28 +2,16 @@ import { useMemo } from 'react';
 import dummy from './dummy.json';
 import { usePagination, useTable } from 'react-table';
 import './Table.module.scss';
-const cols = [
-  {
-    Header: 'Id',
-    accessor: 'id',
-  },
-  {
-    Header: 'First Name',
-    accessor: 'first_name',
-  },
-  {
-    Header: 'Last Name',
-    accessor: 'last_name',
-  },
-  {
-    Header: 'Email',
-    accessor: 'email',
-  },
-  {
-    Header: 'Gender',
-    accessor: 'gender',
-  },
-];
+import { snakeToTitle } from '@/utils';
+
+const cols = Object.keys(dummy[0]).map((snake) => {
+  return {
+    Header: snakeToTitle(snake),
+    accessor: snake,
+  };
+});
+console.log(cols);
+
 const Table = () => {
   const columns = useMemo(() => cols, []);
   const data = useMemo(() => dummy, []);
@@ -94,7 +82,7 @@ const Table = () => {
           {'<<'}
         </button>
         <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          Previous
+          이전
         </button>
         <span>
           <strong
@@ -103,7 +91,7 @@ const Table = () => {
             {pageIndex + 1} / {pageOptions.length}
           </strong>
         </span>
-        <span>
+        {/* <span>
           Go to page:{' '}
           <input
             type="number"
@@ -116,9 +104,9 @@ const Table = () => {
             }}
             style={{ width: '50px' }}
           />
-        </span>
+        </span> */}
         <button onClick={() => nextPage()} disabled={!canNextPage}>
-          Next
+          다음
         </button>
         <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
           {'>>'}
