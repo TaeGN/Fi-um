@@ -17,8 +17,6 @@ const options: any = {
   },
 };
 
-const labels = []
-
 const data: ChartData<'doughnut', number[], string> = {
   labels: ['aa'],
   datasets: [
