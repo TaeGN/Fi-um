@@ -1,6 +1,12 @@
 // cards folder
 export { default as FundingCard } from '@/components/molecules/cards/FundingCard/FundingCard';
 
+// descriptions folder
+export { default as AuctionDescription } from '@/components/molecules/descriptions/AuctionDescription/AuctionDescription';
+export { default as AuctionDetailDescription } from '@/components/molecules/descriptions/AuctionDetailDescription/AuctionDetailDescription';
+export { default as FundingDescription } from '@/components/molecules/descriptions/FundingDescription/FundingDescription';
+export { default as MainAuctionDescription } from '@/components/molecules/descriptions/MainAuctionDescription/MainAuctionDescription';
+
 // funding folder
 export { default as FundingBar } from '@/components/molecules/funding/FundingBar/FundingBar';
 export { default as FundingItemStatus } from '@/components/molecules/funding/FundingItemStatus/FundingItemStatus';

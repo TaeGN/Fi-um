@@ -1,6 +1,13 @@
 // user folder
-export { default as CreaterProfile } from "@/components/organisms/user/CreatorProfile/CreatorProfile"
-export { default as Login } from "@/components/organisms/user/Login/Login"
-export { default as ProfileHeader } from "@/components/organisms/user/ProfileHeader/ProfileHeader"
-export { default as ProfileSection } from "@/components/organisms/user/ProfileSection/ProfileSection"
-export { default as UserList } from "@/components/organisms/user/UserList/UserList"
+export { default as CreaterProfile } from '@/components/organisms/user/CreatorProfile/CreatorProfile';
+export { default as Login } from '@/components/organisms/user/Login/Login';
+export { default as ProfileHeader } from '@/components/organisms/user/ProfileHeader/ProfileHeader';
+export { default as ProfileSection } from '@/components/organisms/user/ProfileSection/ProfileSection';
+export { default as UserList } from '@/components/organisms/user/UserList/UserList';
+
+// funding folder
+export { default as Funding } from '@/components/organisms/funding/Funding/Funding';
+export { default as FundingAdmin } from '@/components/organisms/funding/FundingAdmin/FundingAdmin';
+export { default as FundingInfo } from '@/components/organisms/funding/FundingInfo/FundingInfo';
+export { default as FundingItem } from '@/components/organisms/funding/FundingItem/FundingItem';
+export { default as FundingPayment } from '@/components/organisms/funding/FundingPayment/FundingPayment';
