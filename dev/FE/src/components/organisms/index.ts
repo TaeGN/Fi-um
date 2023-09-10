@@ -11,3 +11,16 @@ export { default as FundingAdmin } from '@/components/organisms/funding/FundingA
 export { default as FundingInfo } from '@/components/organisms/funding/FundingInfo/FundingInfo';
 export { default as FundingItem } from '@/components/organisms/funding/FundingItem/FundingItem';
 export { default as FundingPayment } from '@/components/organisms/funding/FundingPayment/FundingPayment';
+
+// auction folder
+export { default as MainAuction } from '@/components/organisms/auction/MainAuction/MainAuction';
+export { default as AuctionDetailMain } from '@/components/organisms/auction/AuctionDetailMain/AuctionDetailMain';
+
+// deposit folder
+export { default as DepositProduct } from '@/components/organisms/deposit/DepositProduct/DepositProduct';
+
+// ranking folder
+export { default as Ranking } from '@/components/organisms/ranking/Ranking/Ranking';
+
+// gallery folder
+export { default as GalleryDetail } from '@/components/organisms/gallery/GalleryDetail/GalleryDetail';
