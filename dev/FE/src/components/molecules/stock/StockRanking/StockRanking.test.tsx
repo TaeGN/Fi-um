@@ -1,0 +1,1 @@
+// StockRanking.test.tsx
