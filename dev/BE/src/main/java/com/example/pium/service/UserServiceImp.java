@@ -1,16 +1,10 @@
 package com.example.pium.service;
 
-import antlr.Token;
-import com.example.pium.dto.TokenResponseDto;
-import com.example.pium.dto.UserAuctionDto;
-import com.example.pium.dto.UserInfoDto;
-import com.example.pium.dto.UserLoginDto;
+import com.example.pium.dto.*;
 import com.example.pium.entity.ArtAuctionEntity;
-import com.example.pium.entity.FollowEntity;
 import com.example.pium.entity.RefreshTokenEntity;
 import com.example.pium.entity.UserEntity;
 import com.example.pium.repository.ArtAuctionRepository;
-import com.example.pium.repository.FollowRepository;
 import com.example.pium.repository.RefreshTokenRedisRepository;
 import com.example.pium.repository.UserRepository;
 
@@ -52,6 +46,24 @@ public class UserServiceImp {
             auctionDtoList.add(userAuctionDto);
         }
         return auctionDtoList;
+    }
+
+    public Integer getType(int userNo){
+        return userRepository.findByUserNo(userNo).get().getUserType();
+    }
+
+    public ChildUserDto getChildData(Integer userNo){
+        ChildUserDto childUserDto = new ChildUserDto();
+        UserEntity user = userRepository.findByUserNo(userNo).get();
+        childUserDto.setUserNo(user.getUserNo());
+        childUserDto.setUserName(user.getUserName());
+        childUserDto.setImagePath(user.getImagePath());
+        return childUserDto;
+    }
+
+    public SponsorUserInterface getSponsorData(Integer userNo){
+        SponsorUserInterface sponsorUserDto = userRepository.findByUserNoAndUserType(userNo);
+        return sponsorUserDto;
     }
 
     public Integer getUserNo(String userId){

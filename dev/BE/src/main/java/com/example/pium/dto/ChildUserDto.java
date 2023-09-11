@@ -10,4 +10,5 @@ public class ChildUserDto {
     private String userName;
 
     private String imagePath;
+
 }

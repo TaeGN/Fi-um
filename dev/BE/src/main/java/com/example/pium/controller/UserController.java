@@ -54,10 +54,24 @@ public class UserController {
         return ResponseEntity.ok(map);
     }
 
-//    @GetMapping
-//    public ResponseEntity<> getMyData(HttpServletRequest request){
-//        Integer userNo = (Integer) request.getAttribute("userNo");
-//    }
+    @GetMapping
+    public ResponseEntity<?> getMyData(HttpServletRequest request){
+        Integer userNo = (Integer) request.getAttribute("userNo");
+        int type = userService.getType(userNo);
+
+        // 아이들 or 원장쌤
+       if(type == 2 || type == 1){
+            ChildUserDto childUserDto = userService.getChildData(userNo);
+           return ResponseEntity.ok(childUserDto);
+        }
+        // 후원자
+        else{
+           Object sponsorUserDto = userService.getSponsorData(userNo);
+           return ResponseEntity.ok(sponsorUserDto);
+        }
+
+
+    }
 
 
     @GetMapping("artist/{userNo}")
