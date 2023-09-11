@@ -1,6 +1,6 @@
 import styles from './MainPage.module.scss';
 import { Image, LineChart, PieChart, Table, Text } from '@/components/atoms';
-import { FundingCard } from '@/components/molecules';
+import { AuctionDescription, FundingCard } from '@/components/molecules';
 import { MainAuction } from '@/components/organisms';
 
 const MainPage = () => {
@@ -17,7 +17,8 @@ const MainPage = () => {
       <div className="mint">Hi my name is seung woo</div>
       <Text className="text-lg blue" text="개쩌는 테이블" />
       <Table />
-      <MainAuction />;
+      <MainAuction />
+      <AuctionDescription />
     </div>
   );
 };

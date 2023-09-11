@@ -1,0 +1,9 @@
+.auction-description {
+  // 옆에 그림이 올 것을 감안해서 준 마진
+  margin-left: 5%;
+}
+
+.auction-description > * {
+  display: flex;
+  margin-bottom: 1rem;
+}

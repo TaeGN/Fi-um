@@ -1,4 +1,5 @@
-import './FundingDescription.module.scss';
+import styles from './FundingDescription.module.scss';
+
 const FundingDescription = () => {
   return <div>FundingDescription</div>;
 };

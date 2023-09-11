@@ -2,12 +2,34 @@
   color: #3579d4;
 }
 
-.text-xl {
-  font-size: xxx-large;
-}
-.text-lg {
+.text-xxl {
   font-size: xx-large;
 }
+
+.text-xl {
+  font-size: x-large;
+}
+
+.text-lg {
+  font-size: large;
+}
+
 .text-sm {
   font-size: small;
+}
+
+.bold {
+  font: bold;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.line-through {
+  text-decoration: line-through;
 }
