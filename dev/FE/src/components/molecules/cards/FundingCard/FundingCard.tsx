@@ -1,13 +1,23 @@
-import { Image, Text, BarChart } from '@/components/atoms';
+import { Image, Text } from '@/components/atoms';
 import styles from './FundingCard.module.scss';
-import { loremData } from '@/utils';
+import { convertClassNameList, loremData } from '@/utils';
+import { FundingBar } from '../..';
 
 const FundingCard = () => {
   return (
     <div className={styles['funding-card']} data-testid="funding-card">
-      <Image src="" alt="aa" />
-      <Text className="test-sm" text={loremData} />
-      <BarChart className={styles['bar-chart']} ratio={70} />
+      <Image className={styles['funding-card-image']} src="" alt="aa" />
+      <Text
+        className={convertClassNameList('test-sm', styles['funding-card-text'])}
+        text={loremData}
+      />
+      <FundingBar
+        className={convertClassNameList(
+          styles['bar-chart'],
+          styles['funding-card-funding-bar'],
+        )}
+        ratio={70}
+      />
     </div>
   );
 };

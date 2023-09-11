@@ -3,14 +3,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
-  & :nth-child(1) {
-    flex: 1;
+  flex-wrap: nowrap;
+
+  &-image {
+    height: 40%;
   }
-  & :nth-child(2) {
-    flex: 1.5;
+  &-text {
+    height: 40%;
   }
-  & :nth-child(3) {
-    flex: 1;
+  &-funding-bar {
+    height: 20%;
   }
 }
