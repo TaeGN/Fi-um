@@ -1,9 +1,21 @@
 import { Button, Text } from '@/components/atoms';
+import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './AuctionDescription.module.scss';
 
-const AuctionDescription = () => {
+interface AuctionDescriptionProps {
+  className?: string;
+}
+
+const AuctionDescription = ({
+  className,
+}: AuctionDescriptionProps): JSX.Element => {
   return (
-    <div className={styles['auction-description']}>
+    <div
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        styles['auction-description'],
+      )}
+    >
       <div>
         <Text className="text-lg" text="현재가" /> :
         <Text className="blue" text="123456" />

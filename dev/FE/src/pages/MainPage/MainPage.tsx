@@ -1,6 +1,11 @@
 import styles from './MainPage.module.scss';
 import { Image, LineChart, PieChart, Table, Text } from '@/components/atoms';
-import { AuctionDescription, FundingCard } from '@/components/molecules';
+import {
+  AuctionDescription,
+  AuctionDetailDescription,
+  FundingCard,
+  FundingDescription,
+} from '@/components/molecules';
 import { MainAuction } from '@/components/organisms';
 
 const MainPage = () => {
@@ -19,6 +24,8 @@ const MainPage = () => {
       <Table />
       <MainAuction />
       <AuctionDescription />
+      <AuctionDetailDescription />
+      <FundingDescription />
     </div>
   );
 };
