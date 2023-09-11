@@ -1,1 +1,5 @@
 // MainAuction.module.scss
+.main-auction {
+  display: flex;
+  flex-wrap: wrap-reverse;
+}
