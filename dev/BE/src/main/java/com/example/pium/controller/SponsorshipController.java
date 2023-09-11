@@ -45,8 +45,7 @@ public class SponsorshipController {
 
 //    @GetMapping("/{id}")
 //    public ResponseEntity<ItemListEntity> getDetailItemById(@PathVariable Integer id) {
-//        Optional<ItemListEntity> itemOpt = sponserShipServiceImp.findProductById(id);
-//
+//        ItemListEntity itemOpt = sponserShipServiceImp.findProductById(id);
 //        if (itemOpt.isPresent()) {
 //            return ResponseEntity.ok(itemOpt.get());
 //        } else {

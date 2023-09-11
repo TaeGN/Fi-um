@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -35,7 +36,7 @@ public class SponserShipServiceImp {
         return sponserShipRepository.findAll();
     }
 
-
+// 주석 추가
 //    후원 물품 상세 조회
 public ItemListEntity findProductById(Integer id) {
     return sponserShipRepository.findById(id)
