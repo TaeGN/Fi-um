@@ -4,8 +4,12 @@ $shinhan-skyblue: #aadaff;
 $shinhan-mint: #7ae6e9;
 $shinhan-turquoise: #07a59f;
 $shinhan-gray: #8595a9;
-$shinhan-gray-light: #777;
+$shinhan-gray-light: #ececec;
 $shinhan-gray-dark: #606972;
+$shinhan-white: #fff;
+
+$pink: #fde8e7;
+$red: #ed2926;
 
 .blue {
   color: $shinhan-blue;
@@ -26,14 +30,29 @@ $shinhan-gray-dark: #606972;
 .turquoise {
   color: $shinhan-turquoise;
 }
+
 .gray {
   color: $shinhan-gray;
+
+  &-light {
+    color: $shinhan-gray-light;
+  }
+
+  &-dark {
+    color: $shinhan-gray-dark;
+  }
 }
-.gray-light {
-  color: $shinhan-gray-light;
+
+.white {
+  color: $shinhan-white;
 }
-.gray-dark {
-  color: $shinhan-gray-dark;
+
+.pink {
+  color: $pink;
+}
+
+.red {
+  color: $red;
 }
 
 .bg {
@@ -54,12 +73,26 @@ $shinhan-gray-dark: #606972;
   }
   &-gray {
     background-color: $shinhan-gray;
+
+    &-light {
+      background-color: $shinhan-gray-light;
+    }
+
+    &-dark {
+      background-color: $shinhan-gray-dark;
+    }
   }
-  &-gray-light {
-    background-color: $shinhan-gray-light;
+
+  &-white {
+    background-color: $shinhan-white;
   }
-  &-gray-dark {
-    background-color: $shinhan-gray-dark;
+
+  &-pink {
+    background-color: $pink;
+  }
+
+  &-red {
+    background-color: $red;
   }
 }
 
@@ -72,6 +105,14 @@ $shinhan-gray-dark: #606972;
 
 .container {
   padding: 0 10rem;
+
+  @media screen and (max-width: 829px) {
+    padding: 0 5rem;
+  }
+
+  @media screen and (max-width: 449px) {
+    padding: 0 1rem;
+  }
 }
 
 .flex-container {
@@ -81,6 +122,18 @@ $shinhan-gray-dark: #606972;
 .flex-container-col {
   display: flex;
   flex-direction: column;
+}
+
+.jc-space-between {
+  justify-content: space-between;
+}
+
+.jc-center {
+  justify-content: center;
+}
+
+.text-align-center {
+  text-align: center;
 }
 
 .flex-item {

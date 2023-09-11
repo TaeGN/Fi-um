@@ -1,0 +1,8 @@
+.funding-item-status {
+  position: relative;
+  &__button {
+    position: absolute;
+    bottom: 0.2rem;
+    right: 0.2rem;
+  }
+}
