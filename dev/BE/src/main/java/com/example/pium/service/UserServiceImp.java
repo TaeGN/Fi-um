@@ -2,11 +2,14 @@ package com.example.pium.service;
 
 import antlr.Token;
 import com.example.pium.dto.TokenResponseDto;
+import com.example.pium.dto.UserAuctionDto;
 import com.example.pium.dto.UserInfoDto;
 import com.example.pium.dto.UserLoginDto;
+import com.example.pium.entity.ArtAuctionEntity;
 import com.example.pium.entity.FollowEntity;
 import com.example.pium.entity.RefreshTokenEntity;
 import com.example.pium.entity.UserEntity;
+import com.example.pium.repository.ArtAuctionRepository;
 import com.example.pium.repository.FollowRepository;
 import com.example.pium.repository.RefreshTokenRedisRepository;
 import com.example.pium.repository.UserRepository;
@@ -18,9 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +29,7 @@ public class UserServiceImp {
 
     private final UserRepository userRepository;
     private final RefreshTokenRedisRepository refreshTokenRedisRepository;
+    private final ArtAuctionRepository artAuctionRepository;
 
     public void save(UserEntity userEntity){
         userRepository.save(userEntity);
@@ -36,6 +38,20 @@ public class UserServiceImp {
     public boolean isUserIdExist(String userId) {
         return userRepository.findByUserId(userId).isPresent();
 
+    }
+
+    public List<UserAuctionDto> getAuctionList(int artistNo){
+        List<UserAuctionDto> auctionDtoList  = new ArrayList<>();
+        List<ArtAuctionEntity> list = artAuctionRepository.findByUserNo(userRepository.findByUserNo(artistNo).get());
+        for(ArtAuctionEntity art: list){
+            UserAuctionDto userAuctionDto = new UserAuctionDto();
+            userAuctionDto.setAuctionNo(art.getAuctionNo());
+            userAuctionDto.setTitle(art.getTitle());
+            userAuctionDto.setWinner(art.getWinner().getUserNo());
+            userAuctionDto.setImagePath(art.getImagePath());
+            auctionDtoList.add(userAuctionDto);
+        }
+        return auctionDtoList;
     }
 
     public Integer getUserNo(String userId){

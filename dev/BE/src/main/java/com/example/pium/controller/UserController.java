@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigInteger;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin("*")
@@ -53,10 +54,21 @@ public class UserController {
         return ResponseEntity.ok(map);
     }
 
+//    @GetMapping
+//    public ResponseEntity<> getMyData(HttpServletRequest request){
+//        Integer userNo = (Integer) request.getAttribute("userNo");
+//    }
 
 
+    @GetMapping("artist/{userNo}")
+    public List<UserAuctionDto> getAuctionList(@PathVariable("userNo") int artistNo){
 
+        List<UserAuctionDto> auctionDtoList = userService.getAuctionList(artistNo);
 
+        return auctionDtoList;
+    }
+
+    // Access token 만료시 헤더에 refresh token 을 담아서  해당 컨트롤러로 요청
     @GetMapping("reissue")
     public ResponseEntity<Map<String,String>> reissue(@RequestHeader HttpHeaders header){
 
