@@ -1,0 +1,32 @@
+.modal {
+  padding: 1rem;
+  &__title {
+    justify-content: center;
+    margin: 1rem 0;
+  }
+
+  &__quantity {
+    margin: 0.2rem 0;
+  }
+
+  &__input {
+    text-decoration: none;
+    height: 1.5rem;
+    width: 95%;
+    margin: 0.2rem;
+  }
+  &__price {
+    margin: 0.5rem 0;
+  }
+
+  &__button-container {
+    justify-content: space-between;
+    height: 2.5rem;
+  }
+  &__button {
+    width: 45%;
+    margin: 0.2rem;
+    border-radius: 5px;
+    border: 0;
+  }
+}

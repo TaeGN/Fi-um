@@ -1,1 +1,11 @@
-// GalleryDetail.module.scss
+.gallery-detail {
+  display: flex;
+
+  &__image {
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+}

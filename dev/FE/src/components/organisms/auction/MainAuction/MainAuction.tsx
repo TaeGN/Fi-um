@@ -10,8 +10,11 @@ const MainAuction = ({ data }: any) => {
   };
   return (
     <div className={styles['main-auction']}>
-      <MainAuctionDescription data={ddd} />
-      <Image src="" alt="aa" />
+      <MainAuctionDescription
+        className={styles['main-auction__description']}
+        data={ddd}
+      />
+      <Image className={styles['main-auction__image']} src="" alt="aa" />
     </div>
   );
 };

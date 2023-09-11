@@ -27,3 +27,5 @@ export { default as Carousel } from '@/components/molecules/utils/Carousel/Carou
 export { default as Comment } from '@/components/molecules/utils/Comment/Comment';
 export { default as Modal } from '@/components/molecules/utils/Modal/Modal';
 export { default as Swiper } from '@/components/molecules/utils/Swiper/Swiper';
+export { default as Navbar } from '@/components/molecules/utils/Navbar/Navbar';
+export { default as Footer } from '@/components/molecules/utils/Footer/Footer';

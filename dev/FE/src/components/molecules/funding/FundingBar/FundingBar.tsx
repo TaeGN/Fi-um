@@ -17,20 +17,19 @@ const FundingBar = ({ className, ratio }: FundingBar): JSX.Element => {
     >
       <Text
         text="목표금액"
-        className={convertClassNameList('text-sm', styles['funding-bar-item'])}
+        className={convertClassNameList('text-sm', styles['funding-bar__item'])}
       ></Text>
       <BarChart
         className={convertClassNameList(
           // 'bg-orange',
-          styles['funding-bar-item'],
-          styles['funding-bar-chart'],
+          styles['funding-bar__item'],
         )}
         ratio={ratio}
       />
       <div
         className={convertClassNameList(
           'flex-container',
-          styles['funding-bar-item-bottom'],
+          styles['funding-bar__item--bottom'],
         )}
       >
         <div className="flex-container-col flex-item">
