@@ -1,0 +1,58 @@
+.modal {
+  padding: 1rem;
+  &__title {
+    justify-content: center;
+    margin: 1rem 0;
+  }
+
+  &__quantity {
+    margin: 0.2rem 0;
+  }
+
+  &__input {
+    text-decoration: none;
+    height: 1.5rem;
+    width: 95%;
+    margin: 0.2rem;
+  }
+  &__price {
+    margin: 0.5rem 0;
+  }
+
+  &__button-container {
+    justify-content: space-between;
+    height: 2.5rem;
+  }
+  &__button {
+    width: 45%;
+    margin: 0.2rem;
+    border-radius: 5px;
+    border: 0;
+  }
+}
+
+.modal-overlay {
+  z-index: 9999;
+  width: 75vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-box {
+  display: block;
+  background: white;
+  width: 25rem;
+  height: 25rem;
+  padding: 1rem;
+  border-radius: 1rem;
+
+  @media screen and (max-width: 499px) {
+    width: 20rem;
+    height: 20rem;
+  }
+}

@@ -1,9 +1,12 @@
-import styles from './ProfilePage.module.scss'
-  
+import { ProfileAsset } from '@/components/molecules';
+import styles from './ProfilePage.module.scss';
+
 const ProfilePage = () => {
   return (
-    <div>ProfilePage</div>
-  )
-}
+    <div>
+      <ProfileAsset />
+    </div>
+  );
+};
 
 export default ProfilePage;

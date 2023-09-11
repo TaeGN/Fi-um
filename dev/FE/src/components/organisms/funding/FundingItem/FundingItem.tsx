@@ -1,7 +1,17 @@
-import './FundingItem.module.scss';
+import { convertClassName, convertClassNameList } from '@/utils';
+import styles from './FundingItem.module.scss';
+import { FundingItemStatus } from '@/components/molecules';
 
-const FundingItem = () => {
-  return <div>FundingItem</div>;
+interface FundingItemProps {
+  className?: string;
+}
+
+const FundingItem = ({ className }: FundingItemProps): JSX.Element => {
+  return (
+    <div className={convertClassNameList(convertClassName(className, styles))}>
+      <FundingItemStatus />
+    </div>
+  );
 };
 
 export default FundingItem;
