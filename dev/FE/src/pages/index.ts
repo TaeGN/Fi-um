@@ -7,3 +7,8 @@ export { default as FundingPaymentPage } from '@/pages/FundingPaymentPage/Fundin
 export { default as GalleryDetailPage } from '@/pages/GalleryDetailPage/GalleryDetailPage';
 export { default as GalleryPage } from '@/pages/GalleryPage/GalleryPage';
 export { default as ProfilePage } from '@/pages/ProfilePage/ProfilePage';
+export { default as LoginPage } from '@/pages/LoginPage/LoginPage';
+export { default as SignUpPage } from '@/pages/SignUpPage/SignUpPage';
+export { default as MainPage } from '@/pages/MainPage/MainPage';
+export { default as StockPage } from '@/pages/StockPage/StockPage';
+export { default as StockDetailPage } from '@/pages/StockDetailPage/StockDetailPage';
