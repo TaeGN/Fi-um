@@ -2,4 +2,14 @@
 .main-auction {
   display: flex;
   flex-wrap: wrap-reverse;
+  justify-content: space-around;
+  padding: 2rem;
+
+  &__description {
+    width: 50%;
+  }
+
+  &__image {
+    width: 30%;
+  }
 }

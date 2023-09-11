@@ -1,8 +1,15 @@
 .funding-item-status {
   position: relative;
+  flex: 1;
+  &__item {
+  }
   &__button {
-    position: absolute;
-    bottom: 0.2rem;
-    right: 0.2rem;
+    // position: absolute;
+    // bottom: 0.2rem;
+    // right: 0.2rem;
+    margin-left: auto;
+  }
+  &__price {
+    // padding-right: 4rem;
   }
 }

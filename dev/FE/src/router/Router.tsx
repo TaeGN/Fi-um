@@ -1,3 +1,4 @@
+import { Footer, Navbar } from '@/components/molecules';
 import {
   AuctionDetailPage,
   AuctionPage,
@@ -19,6 +20,7 @@ import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom';
 const Router = () => {
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="" element={<MainPage />} />
@@ -37,6 +39,7 @@ const Router = () => {
           <Route path="gallery/:detail" element={<GalleryDetailPage />} />
         </Route>
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };

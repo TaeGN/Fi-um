@@ -1,4 +1,4 @@
-import { convertClassName, convertClassNameList } from '@/utils';
+import { convertClassName, convertClassNameList, loremData } from '@/utils';
 import styles from './FundingItemStatus.module.scss';
 import { Button, Text } from '@/components/atoms';
 
@@ -16,15 +16,30 @@ const FundingItemStatus = ({
         styles['funding-item-status'],
       )}
     >
-      <Text className="text-lg" text="title" />
-      <Text className="text-md" text="content" />
-      <Button
-        label="펀딩하기"
+      <Text className="text-md" text={loremData} />
+      <Text
         className={convertClassNameList(
-          'bg-blue white',
-          styles['funding-item-status__button'],
+          'text-lg',
+          styles['funding-item-status__price'],
         )}
+        text="title1211111111111111111111111"
       />
+      <div className="flex-container jc-space-between flex-wrap">
+        <Text
+          className={convertClassNameList(
+            'text-lg',
+            styles['funding-item-status__price'],
+          )}
+          text="title1211111111111111111111111"
+        />
+        <Button
+          label="펀딩하기"
+          className={convertClassNameList(
+            'bg-blue white',
+            styles['funding-item-status__button'],
+          )}
+        />
+      </div>
     </div>
   );
 };
