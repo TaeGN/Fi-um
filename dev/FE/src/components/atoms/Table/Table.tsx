@@ -10,7 +10,6 @@ const cols = Object.keys(dummy[0]).map((snake) => {
     accessor: snake,
   };
 });
-console.log(cols);
 
 const Table = () => {
   const columns = useMemo(() => cols, []);

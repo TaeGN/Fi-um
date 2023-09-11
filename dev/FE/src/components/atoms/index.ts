@@ -6,3 +6,4 @@ export { default as Text } from '@/components/atoms/Text/Text';
 export { default as BankLogo } from '@/components/atoms/BankLogo/BankLogo';
 export { default as Button } from '@/components/atoms/Button/Button';
 export { default as Logo } from '@/components/atoms/Logo/Logo';
+export { default as Table } from '@/components/atoms/Table/Table';
