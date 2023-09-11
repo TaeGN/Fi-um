@@ -1,7 +1,16 @@
-import './DepositPage.module.scss';
+import { convertClassName, convertClassNameList } from '@/utils';
+import styles from './DepositPage.module.scss';
 
-const DepositPage = () => {
-  return <div>DepositPage</div>;
+interface DepositPageProps {
+  className?: string;
+}
+
+const DepositPage = ({ className }: DepositPageProps): JSX.Element => {
+  return (
+    <div
+      className={convertClassNameList(convertClassName(className, styles))}
+    ></div>
+  );
 };
 
 export default DepositPage;
