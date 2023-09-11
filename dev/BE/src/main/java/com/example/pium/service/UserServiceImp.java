@@ -4,8 +4,10 @@ import antlr.Token;
 import com.example.pium.dto.TokenResponseDto;
 import com.example.pium.dto.UserInfoDto;
 import com.example.pium.dto.UserLoginDto;
+import com.example.pium.entity.FollowEntity;
 import com.example.pium.entity.RefreshTokenEntity;
 import com.example.pium.entity.UserEntity;
+import com.example.pium.repository.FollowRepository;
 import com.example.pium.repository.RefreshTokenRedisRepository;
 import com.example.pium.repository.UserRepository;
 
@@ -16,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -49,6 +53,7 @@ public class UserServiceImp {
     public void deleteRefreshToken(int userNo){
         refreshTokenRedisRepository.deleteById(userNo);
     }
+
 
     public TokenResponseDto getTokenResponse(int userNo){
         String accessToken = JwtTokenProvider.createToken(userNo);
