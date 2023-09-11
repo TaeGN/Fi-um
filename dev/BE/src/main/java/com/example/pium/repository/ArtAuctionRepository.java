@@ -1,6 +1,5 @@
 package com.example.pium.repository;
 
-import com.example.pium.dto.RGSAuctionDto;
 import com.example.pium.entity.ArtAuctionEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

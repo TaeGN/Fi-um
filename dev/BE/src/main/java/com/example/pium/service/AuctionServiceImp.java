@@ -2,12 +2,8 @@ package com.example.pium.service;
 
 import com.example.pium.dto.AuctionDto;
 import com.example.pium.dto.RGSAuctionDto;
-import com.example.pium.entity.ArtAuctionEntity;
-import com.example.pium.entity.BidRecordEntity;
-import com.example.pium.entity.UserEntity;
-import com.example.pium.repository.ArtAuctionRepository;
-import com.example.pium.repository.BidRecordRepository;
-import com.example.pium.repository.LikeArtRepository;
+import com.example.pium.entity.*;
+import com.example.pium.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +17,10 @@ public class AuctionServiceImp {
     private final ArtAuctionRepository artAuctionRepository;
     private final LikeArtRepository likeArtRepository;
     private final BidRecordRepository bidRecordRepository;
+    private final PointTypeRepository pointTypeRepository;
+    private final PointRecordRepository pointRecordRepository;
+    private final UserRepository userRepository;
+    private final BalanceSheetRepository balanceSheetRepository;
 
     public void post(ArtAuctionEntity artAuctionEntity){
         artAuctionRepository.save(artAuctionEntity);
@@ -71,5 +71,33 @@ public class AuctionServiceImp {
                 .bidTime(BigInteger.valueOf(System.currentTimeMillis()))
                 .build();
         bidRecordRepository.save(bidRecordEntity);
+    }
+
+    public void changePoint(UserEntity buyer, UserEntity seller, Integer price){
+        PointTypeEntity pointType = pointTypeRepository.findByPointType("경매").get();
+        // 입찰자의 포인트 감소
+        PointRecordEntity buyerPointRecord = PointRecordEntity.builder()
+                .userNo(buyer)
+                .pointTypeNo(pointType)
+                .pointChange(-price)
+                .changedTime(BigInteger.valueOf(System.currentTimeMillis()))
+                .build();
+        pointRecordRepository.save(buyerPointRecord);
+        buyer.setPoint(buyer.getPoint()-price);
+        userRepository.save(buyer);
+        // 판매자 포인트 증가
+        PointRecordEntity sellerPointRecord = PointRecordEntity.builder()
+                .userNo(seller)
+                .pointTypeNo(pointType)
+                .pointChange(price)
+                .changedTime(BigInteger.valueOf(System.currentTimeMillis()))
+                .build();
+        pointRecordRepository.save(sellerPointRecord);
+        seller.setPoint(seller.getPoint()+price);
+        userRepository.save(seller);
+        // 재무상태표에 반영
+        BalanceSheetEntity sellerBalance = balanceSheetRepository.findByUserNo(seller).get();
+        sellerBalance.setAuctionIncome(sellerBalance.getAuctionIncome()+price);
+        balanceSheetRepository.save(sellerBalance);
     }
 }
