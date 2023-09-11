@@ -21,6 +21,7 @@ public class AuctionServiceImp {
     private final PointRecordRepository pointRecordRepository;
     private final UserRepository userRepository;
     private final BalanceSheetRepository balanceSheetRepository;
+    private final PointServiceImp pointService;
 
     public void post(ArtAuctionEntity artAuctionEntity){
         artAuctionRepository.save(artAuctionEntity);
@@ -34,6 +35,7 @@ public class AuctionServiceImp {
     public AuctionDto convertToAuctionDto(Integer auctionNo) {
         ArtAuctionEntity beforeDetail = artAuctionRepository.findByAuctionNo(auctionNo).get();
         AuctionDto dto = new AuctionDto();
+        dto.setUserNo(beforeDetail.getUser().getUserNo());
         dto.setTitle(beforeDetail.getTitle());
         dto.setContent(beforeDetail.getContent());
         dto.setName(beforeDetail.getUser().getUserName());
@@ -75,26 +77,13 @@ public class AuctionServiceImp {
 
     public void changePoint(UserEntity buyer, UserEntity seller, Integer price){
         PointTypeEntity pointType = pointTypeRepository.findByPointType("경매").get();
-        // 입찰자의 포인트 감소
-        PointRecordEntity buyerPointRecord = PointRecordEntity.builder()
-                .userNo(buyer)
-                .pointTypeNo(pointType)
-                .pointChange(-price)
-                .changedTime(BigInteger.valueOf(System.currentTimeMillis()))
-                .build();
-        pointRecordRepository.save(buyerPointRecord);
-        buyer.setPoint(buyer.getPoint()-price);
-        userRepository.save(buyer);
-        // 판매자 포인트 증가
-        PointRecordEntity sellerPointRecord = PointRecordEntity.builder()
-                .userNo(seller)
-                .pointTypeNo(pointType)
-                .pointChange(price)
-                .changedTime(BigInteger.valueOf(System.currentTimeMillis()))
-                .build();
-        pointRecordRepository.save(sellerPointRecord);
-        seller.setPoint(seller.getPoint()+price);
-        userRepository.save(seller);
+        // 입찰자의 포인트 감소, 판매자 포인트 증가 내역 추가
+        pointService.makePointRecord(buyer, pointType, -price);
+        pointService.makePointRecord(seller, pointType, price);
+        // 포인트 테이블 변경
+        pointService.changePointTable(buyer, price);
+        pointService.changePointTable(seller, -price);
+
         // 재무상태표에 반영
         BalanceSheetEntity sellerBalance = balanceSheetRepository.findByUserNo(seller).get();
         sellerBalance.setAuctionIncome(sellerBalance.getAuctionIncome()+price);

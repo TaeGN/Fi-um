@@ -31,4 +31,8 @@ public class StockDataEntity {
     @NotNull(message = "fluctuationPrice must not be null")
     @Column(name = "fluctuation_price")
     private Integer fluctuationPrice;
+
+    @NotNull
+    @Column(name="search_no")
+    private Integer searchNo;
 }

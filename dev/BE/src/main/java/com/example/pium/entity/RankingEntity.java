@@ -20,10 +20,6 @@ public class RankingEntity {
     @Column(name = "ranking_no")
     private Integer rankingNo;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user_no")
-    private UserEntity userNo;
-
     @NotNull(message = "rankingType must not be null")
     @Column(name="ranking_type")
     private String rankingType;

@@ -59,5 +59,7 @@ public class UserServiceImp {
     }
 
     public UserEntity getUserInfo(Integer userNo) { return userRepository.findByUserNo(userNo).get();}
+
+
 }
 
