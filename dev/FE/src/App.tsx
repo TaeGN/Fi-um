@@ -1,7 +1,6 @@
 import styles from '@/App.module.scss';
 import { Image, LineChart, PieChart, Table, Text } from '@/components/atoms';
 import { FundingCard } from './components/molecules';
-import { MainAuction } from './components/organisms';
 import Router from './router/Router';
 
 const App = () => {
@@ -17,7 +16,6 @@ const App = () => {
       <Text text="Hi my name is seung woo" />
       <Text className="text-lg blue" text="개쩌는 테이블" />
       <Table />
-      <MainAuction />
       <Router />
     </div>
   );

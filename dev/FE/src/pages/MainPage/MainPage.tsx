@@ -1,5 +1,7 @@
+import { MainAuction } from '@/components/organisms';
+
 const MainPage = () => {
-  return <div>MainPage</div>;
+  return <MainAuction />;
 };
 
 export default MainPage;
