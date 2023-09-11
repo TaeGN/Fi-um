@@ -73,7 +73,6 @@ public class AuctionController {
         ArtAuctionEntity artAuctionEntity = auctionService.getAuctionInfo(auctionNo);
         Integer tmpUser = 2;
         Map<String, String> returnMsg = new HashMap<>();
-        System.out.println(artAuctionEntity);
         // 일단 낙찰자가 있는지 없는지 확인하여 구분 있으면 이미 판매된 상품 메세지
         if (artAuctionEntity.getWinner() == null) {
             // 현재 경매품에 등록된 금액보다 작거나 같으면 경매입찰을 할수 없는 로직 설정
@@ -82,16 +81,8 @@ public class AuctionController {
                 return new ResponseEntity<>(returnMsg, HttpStatus.NOT_ACCEPTABLE);
             } else {
                 // 구매 가능한 경우 입찰 기록에 등록 및 즉시구매가일 경우 낙찰자까지 입력하는 로직
-                artAuctionEntity.setAuctionPrice(rgsAuctionDto.getAuctionPrice());
-                BidRecordEntity bidRecordEntity = BidRecordEntity.builder()
-                        .userNo(userService.getUserInfo(tmpUser))
-                        .auctionNo(artAuctionEntity)
-                        .bidPrice(rgsAuctionDto.getAuctionPrice())
-                        .bidTime(BigInteger.valueOf(System.currentTimeMillis()))
-                        .build();
-                auctionService.makeRecord(bidRecordEntity);
-                System.out.println(rgsAuctionDto.getAuctionPrice());
-                System.out.println(artAuctionEntity.getInstantPrice());
+                auctionService.makeRecord(userService.getUserInfo(tmpUser), artAuctionEntity, rgsAuctionDto);
+
                 if (rgsAuctionDto.getAuctionPrice().equals(artAuctionEntity.getInstantPrice())) {
                     artAuctionEntity.setWinner(userService.getUserInfo(tmpUser));
                     returnMsg.put("msg","구매에 성공하였습니다.");
@@ -99,6 +90,8 @@ public class AuctionController {
                 else {
                     returnMsg.put("msg","입찰에 성공하였습니다.");
                 }
+
+                artAuctionEntity.setAuctionPrice(rgsAuctionDto.getAuctionPrice());
                 auctionService.post(artAuctionEntity);
                 return new ResponseEntity<>(returnMsg, HttpStatus.OK);
             }

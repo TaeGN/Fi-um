@@ -1,14 +1,17 @@
 package com.example.pium.service;
 
 import com.example.pium.dto.AuctionDto;
+import com.example.pium.dto.RGSAuctionDto;
 import com.example.pium.entity.ArtAuctionEntity;
 import com.example.pium.entity.BidRecordEntity;
+import com.example.pium.entity.UserEntity;
 import com.example.pium.repository.ArtAuctionRepository;
 import com.example.pium.repository.BidRecordRepository;
 import com.example.pium.repository.LikeArtRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +63,13 @@ public class AuctionServiceImp {
         return onGoingList;
     }
 
-    public void makeRecord(BidRecordEntity bidRecordEntity) {
+    public void makeRecord(UserEntity userEntity,ArtAuctionEntity artAuctionEntity, RGSAuctionDto rgsAuctionDto) {
+        BidRecordEntity bidRecordEntity = BidRecordEntity.builder()
+                .userNo(userEntity)
+                .auctionNo(artAuctionEntity)
+                .bidPrice(rgsAuctionDto.getAuctionPrice())
+                .bidTime(BigInteger.valueOf(System.currentTimeMillis()))
+                .build();
         bidRecordRepository.save(bidRecordEntity);
     }
 }
