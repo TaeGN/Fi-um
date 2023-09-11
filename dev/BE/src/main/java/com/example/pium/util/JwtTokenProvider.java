@@ -22,7 +22,7 @@ public class JwtTokenProvider {
     //==토큰 생성 메소드==//
     public static String createToken(int userNo) {
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + Duration.ofSeconds(30).toMillis()); // 만료기간 30초 (임시)
+        Date expiration = new Date(now.getTime() + Duration.ofMinutes(30).toMillis()); // 만료기간 30초 (임시)
         Claims claims = Jwts.claims().setSubject(Integer.toString(userNo));
         return Jwts.builder()
                 .setClaims(claims)
@@ -38,8 +38,8 @@ public class JwtTokenProvider {
     //==토큰 생성 메소드==//
     public static String createRefreshToken(int userNo) {
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + Duration.ofDays(14).toMillis()); // 만료기간
-        Claims claims = Jwts.claims();
+        Date expiration = new Date(now.getTime() + Duration.ofDays(14).toMillis()); // 만료기간 2 주
+        Claims claims = Jwts.claims().setSubject(Integer.toString(userNo));
         return Jwts.builder()
                 .setClaims(claims)
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE) // (1)
@@ -83,12 +83,10 @@ public class JwtTokenProvider {
         try {
             Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             if (claims.getBody().getExpiration().before(new Date())) {
-                System.out.println("GO");
                 return false;
             }
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            System.out.println("BACK");
             return false;
         }
     }

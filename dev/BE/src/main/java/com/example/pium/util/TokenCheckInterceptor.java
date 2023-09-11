@@ -9,6 +9,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 
 @RequiredArgsConstructor
 public class TokenCheckInterceptor implements HandlerInterceptor {
@@ -16,16 +17,22 @@ public class TokenCheckInterceptor implements HandlerInterceptor {
     private final JwtTokenProvider jwtTokenProvider;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception{
-
+        String [] arr = request.getRequestURI().split("/");
+        if(arr[arr.length-1].equals("auction") && request.getMethod().equals("GET")){
+            return true;
+        };
         String jwtToken = jwtTokenProvider.getJwt();
         String uri = request.getRequestURI();
 
         if(jwtToken != null){
             try {
                 if(jwtTokenProvider.validateToken(jwtToken)) { // JWT 토큰이 유효하면
+                    int userNo = Integer.valueOf(jwtTokenProvider.getUserNo(jwtToken));
+                    request.setAttribute("userNo",userNo);
                     return HandlerInterceptor.super.preHandle(request, response, handler);
                 }
-                throw new InterceptorException(InterceptorExceptionEnum.UNAUTHORIZED);
+                throw new InterceptorException(InterceptorExceptionEnum.EXPIREDTOKEN);
+                //throw new InterceptorException(InterceptorExceptionEnum.UNAUTHORIZED);
             } catch (MalformedJwtException e) { // 위조 시도
 
                 throw new InterceptorException(InterceptorExceptionEnum.COUNTERFEIT);

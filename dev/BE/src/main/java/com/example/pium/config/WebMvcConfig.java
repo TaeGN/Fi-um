@@ -16,6 +16,20 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(new TokenCheckInterceptor(jwtTokenProvider)).excludePathPatterns("/user/login");
+        registry.addInterceptor(new TokenCheckInterceptor(jwtTokenProvider))
+                .excludePathPatterns("/user/login")
+                .excludePathPatterns("/user/signup")
+                .excludePathPatterns("/user/check-id")
+                .excludePathPatterns("/user/reissue")
+                .excludePathPatterns("/auction/detail/**")
+                .excludePathPatterns("/ranking")
+                .excludePathPatterns("/item/funding")
+                .excludePathPatterns("/news")
+                .excludePathPatterns("/edu")
+                .excludePathPatterns("/sponsorship")
+                .excludePathPatterns("/image/**")
+                .excludePathPatterns("/stock")
+                .excludePathPatterns("/stock/king");
+
     }
 }
