@@ -1,1 +1,12 @@
-// LoginPage.module.scss
+.login-page {
+  display: flex;
+  padding: 3rem;
+  justify-content: space-between;
+
+  &__image {
+    width: 50%;
+  }
+  &__content {
+    width: 40%;
+  }
+}

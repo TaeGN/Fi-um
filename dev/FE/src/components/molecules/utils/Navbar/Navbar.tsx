@@ -55,6 +55,12 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
         >
           gallery
         </Link>
+        <Link
+          className={convertClassNameList(styles['navbar__menu--item'])}
+          to={'/login'}
+        >
+          login
+        </Link>
       </div>
     </div>
   );
