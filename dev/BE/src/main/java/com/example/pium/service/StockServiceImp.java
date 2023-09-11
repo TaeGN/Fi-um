@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,7 @@ public class StockServiceImp {
     private final UserRepository userRepository;
     private final PointTypeRepository pointTypeRepository;
     private final BalanceSheetRepository balanceSheetRepository;
-    public Long startTime = Long.valueOf(1694411220);
+    public Long startTime = Long.valueOf(1694419000);
 
     public StockDataDto makeDtoData(StockDataEntity stockDataEntity) {
         StockDataDto stockData = new StockDataDto();
@@ -102,11 +101,11 @@ public class StockServiceImp {
         return true;
     }
 
-    public Boolean setBalance(UserEntity user, Integer price, String type){
+    public Boolean setBalance(UserEntity user,Integer price1, Integer price2, String type){
         BalanceSheetEntity sellerBalance = balanceSheetRepository.findByUserNo(user).get();
-        sellerBalance.setStock(sellerBalance.getStock()+price);
+        sellerBalance.setStock(price1);
         if (type == "판매") {
-            sellerBalance.setStockIncome(sellerBalance.getStock()-price);
+            sellerBalance.setStockIncome(sellerBalance.getStockIncome()+ price2);
         }
         balanceSheetRepository.save(sellerBalance);
         return true;
@@ -139,16 +138,17 @@ public class StockServiceImp {
             stockAccountRepository.save(newAccount);
         } else {
             StockAccountEntity stockAccount = stockAccountOpt.get();
-            stockAccount.setStockCount(stockAccount.getStockCount()+stockTradeDto.getCount());
             Integer newAverage = (int) Math.floor(((stockAccount.getStockAverage() * stockAccount.getStockCount()) + price) / (stockAccount.getStockCount()+stockTradeDto.getCount()));
+            stockAccount.setStockCount(stockAccount.getStockCount()+stockTradeDto.getCount());
             stockAccount.setStockAverage(newAverage);
             stockAccountRepository.save(stockAccount);
         }
         // 포인트 내역에 -로 추가, 총포인트에서 차감
         setPoint(user, price);
+        StockAccountEntity stockAccount = stockAccountOpt.get();
 
         //재무상태표 주식 추가
-        setBalance(user, price, "구매");
+        setBalance(user, (stockAccount.getStockCount()*stockAccount.getStockAverage()), price, "구매");
 
         // 거래 내역 추가
         makeTradeRecord(user, stockData, stockTradeDto.getCount(), stockTradeDto.getPrice());
@@ -160,41 +160,46 @@ public class StockServiceImp {
         StockEventEntity stockData = getStockType(stockTradeDto.getStockNo());
         StockAccountEntity stockAccount = stockAccountRepository.findByUserNoAndStockNo(user, stockData).get();
         Integer price = stockTradeDto.getCount() * stockTradeDto.getPrice();
-        stockAccount.setStockCount(stockAccount.getStockCount() - stockTradeDto.getCount());
+        Integer netPrice = ((stockTradeDto.getPrice() - stockAccount.getStockAverage()) * stockTradeDto.getCount());
+        Integer restPrice = (stockAccount.getStockCount() - stockTradeDto.getCount()) * stockAccount.getStockAverage();
         if (stockAccount.getStockCount() - stockTradeDto.getCount() == 0) {
             stockAccount.setStockAverage(0);
         }
+        stockAccount.setStockCount(stockAccount.getStockCount() - stockTradeDto.getCount());
         stockAccountRepository.save(stockAccount);
         // 포인트 내역에 +로 추가, 총포인트에 추가
         setPoint(user, -price);
 
         // 재무상태표 주식 차감 및 수익 계상
-        Integer netPrice = price - (stockAccount.getStockAverage() * stockTradeDto.getCount());
-        setBalance(user, -netPrice, "판매");
+        setBalance(user,restPrice, netPrice, "판매");
 
         // 거래 내역 추가
-        makeTradeRecord(user, stockData, stockTradeDto.getCount(), stockTradeDto.getPrice());
+        makeTradeRecord(user, stockData, stockTradeDto.getCount(), -stockTradeDto.getPrice());
         return true;
     }
 
     public List<StockStatusDto> getMyAccount(Integer userNo) {
-        List<StockAccountEntity> stockAccountEntityList = stockAccountRepository.findByUserNo(userRepository.findByUserNo(userNo).get());
+        Optional<List<StockAccountEntity>> stockAccountEntityListOpt = stockAccountRepository.findByUserNo(userRepository.findByUserNo(userNo).get());
         List<StockStatusDto> stockStatusDto = new ArrayList<>();
-        for (StockAccountEntity tmpAccount : stockAccountEntityList) {
-            StockStatusDto tmpDto = new StockStatusDto();
-            tmpDto.setStockNo(tmpAccount.getStockNo().getStockNo());
-            tmpDto.setStockName(tmpAccount.getStockNo().getStockName());
-            tmpDto.setStockUnitPrice(tmpAccount.getStockAverage());
-            Long nowTime = System.currentTimeMillis() / 1000;
-            int searchTime = (int) Math.floor( (nowTime - startTime) / 60);
-            tmpDto.setStockNowPrice(stockDataRepository.findByStockNoAndSearchNo(tmpAccount.getStockNo(), searchTime).getNowPrice());
-            tmpDto.setStockCount(tmpAccount.getStockCount());
-            stockStatusDto.add(tmpDto);
+        if (stockAccountEntityListOpt.isPresent()){
+            List<StockAccountEntity> stockAccountEntityList = stockAccountEntityListOpt.get();
+            for (StockAccountEntity tmpAccount : stockAccountEntityList) {
+                StockStatusDto tmpDto = new StockStatusDto();
+                tmpDto.setStockNo(tmpAccount.getStockNo().getStockNo());
+                tmpDto.setStockName(tmpAccount.getStockNo().getStockName());
+                tmpDto.setStockUnitPrice(tmpAccount.getStockAverage());
+                Long nowTime = System.currentTimeMillis() / 1000;
+                int searchTime = (int) Math.floor( (nowTime - startTime) / 60);
+                tmpDto.setStockNowPrice(stockDataRepository.findByStockNoAndSearchNo(tmpAccount.getStockNo(), searchTime).getNowPrice());
+                tmpDto.setStockCount(tmpAccount.getStockCount());
+                stockStatusDto.add(tmpDto);
+            }
         }
         return stockStatusDto;
     }
 
     public List<StockRankingDto> getRankerData(RankingDto rankingDto){
+        System.out.println(rankingDto);
         List<StockRankingDto> rankerDto = new ArrayList<>();
         StockRankingDto tmpDto1 = new StockRankingDto();
         tmpDto1.setUserName(rankingDto.getNo1());

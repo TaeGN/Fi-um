@@ -23,9 +23,9 @@ public class RankingServiceImp {
         tmpRankingDto.setNo2No(rankingEntity.getRankingNo2().getUserNo());
         tmpRankingDto.setNo2(rankingEntity.getRankingNo2().getUserName());
         tmpRankingDto.setNo2ImagePath(rankingEntity.getRankingNo2().getImagePath());
-        tmpRankingDto.setNo2No(rankingEntity.getRankingNo3().getUserNo());
-        tmpRankingDto.setNo2(rankingEntity.getRankingNo3().getUserName());
-        tmpRankingDto.setNo2ImagePath(rankingEntity.getRankingNo3().getImagePath());
+        tmpRankingDto.setNo3No(rankingEntity.getRankingNo3().getUserNo());
+        tmpRankingDto.setNo3(rankingEntity.getRankingNo3().getUserName());
+        tmpRankingDto.setNo3ImagePath(rankingEntity.getRankingNo3().getImagePath());
         return tmpRankingDto;
     }
 

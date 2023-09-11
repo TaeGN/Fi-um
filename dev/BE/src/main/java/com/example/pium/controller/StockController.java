@@ -28,13 +28,13 @@ public class StockController {
         return stockDataDto;
     }
 
-    @GetMapping("{stockNo}")
+    @GetMapping("chart/{stockNo}")
     public List<StockDataDto> getStockDetail(@PathVariable("stockNo") Integer stockNo) {
         List<StockDataDto> stockDetailDto = stockService.getDetailData(stockNo);
         return stockDetailDto;
     }
 
-    @GetMapping("myaccount/{stockNo}")
+    @GetMapping("myAccount/{stockNo}")
     public StockAccountDto getDetailStockAccount(@PathVariable("stockNo") Integer stockNo) {
         Integer tmpUser = 1;
         StockAccountDto myAccountDetail = stockService.getDetailAccount(stockNo, tmpUser);
@@ -43,7 +43,7 @@ public class StockController {
 
     @PostMapping("buying")
     public ResponseEntity<Map<String, String>> buyStock(@RequestBody StockTradeDto stockTradeDto) {
-        Integer buyUser = 1;
+        Integer buyUser = 3;
         Boolean checkPrice = stockService.getStockNow(stockTradeDto.getStockNo(), stockTradeDto.getPrice());
         Map<String, String> returnMsg = new HashMap<>();
         if (checkPrice) {
@@ -58,7 +58,7 @@ public class StockController {
 
     @PostMapping("selling")
     public ResponseEntity<Map<String, String>> sellStock(@RequestBody StockTradeDto stockTradeDto) {
-        Integer sellUser = 1;
+        Integer sellUser = 3;
         Boolean checkPrice = stockService.getStockNow(stockTradeDto.getStockNo(), stockTradeDto.getPrice());
         Map<String, String> returnMsg = new HashMap<>();
         if (checkPrice) {
@@ -71,9 +71,9 @@ public class StockController {
         }
     }
 
-    @GetMapping("mystock")
+    @GetMapping("myStock")
     public List<StockStatusDto> getMyStatus() {
-        Integer myUser = 1;
+        Integer myUser = 3;
         return stockService.getMyAccount(myUser);
     }
 

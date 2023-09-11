@@ -12,5 +12,5 @@ import java.util.Optional;
 @Repository
 public interface StockAccountRepository extends JpaRepository<StockAccountEntity, Integer> {
     Optional<StockAccountEntity> findByUserNoAndStockNo(UserEntity userEntity, StockEventEntity stockEventEntity);
-    List<StockAccountEntity> findByUserNo(UserEntity userEntity);
+    Optional<List<StockAccountEntity>> findByUserNo(UserEntity userEntity);
 }
