@@ -1,1 +1,38 @@
 // ProfileCard.module.scss
+
+.profileCard {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  border-radius: 8px;
+  background-color: #f2f2f2;
+}
+
+.medium {
+  width: 300px;
+  padding: 1.5rem 1rem 1.5rem 1rem;
+
+  .image {
+    width: 240px;
+    height: 180px;
+    background-color: #fff;
+  }
+  .text {
+    margin: 8px 0 8px 0;
+  }
+}
+
+.small {
+  width: 180px;
+  padding: 1rem 0 1rem 0;
+  .image {
+    width: 120px;
+    height: 90px;
+    background-color: #fff;
+  }
+  .text {
+    margin: 4px 0 4px 0;
+  }
+}

@@ -1,0 +1,16 @@
+.funding-bar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &-item {
+    flex: 1;
+    height: 20%;
+    margin: 0.1rem;
+  }
+  &-item-bottom {
+    flex: 2;
+    height: 40%;
+    margin: 0.1rem;
+  }
+}

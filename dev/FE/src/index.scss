@@ -3,6 +3,9 @@ $shinhan-orange: #d48100;
 $shinhan-skyblue: #aadaff;
 $shinhan-mint: #7ae6e9;
 $shinhan-turquoise: #07a59f;
+$shinhan-gray: #8595a9;
+$shinhan-gray-light: #777;
+$shinhan-gray-dark: #606972;
 
 .blue {
   color: $shinhan-blue;
@@ -23,6 +26,15 @@ $shinhan-turquoise: #07a59f;
 .turquoise {
   color: $shinhan-turquoise;
 }
+.gray {
+  color: $shinhan-gray;
+}
+.gray-light {
+  color: $shinhan-gray-light;
+}
+.gray-dark {
+  color: $shinhan-gray-dark;
+}
 
 .bg {
   &-blue {
@@ -40,6 +52,15 @@ $shinhan-turquoise: #07a59f;
   &-turquoise {
     background-color: $shinhan-turquoise;
   }
+  &-gray {
+    background-color: $shinhan-gray;
+  }
+  &-gray-light {
+    background-color: $shinhan-gray-light;
+  }
+  &-gray-dark {
+    background-color: $shinhan-gray-dark;
+  }
 }
 
 .card-container {
@@ -51,4 +72,21 @@ $shinhan-turquoise: #07a59f;
 
 .container {
   padding: 0 10rem;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.flex-container-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-item {
+  flex: 1;
+}
+
+.grid-container {
+  display: grid;
 }
