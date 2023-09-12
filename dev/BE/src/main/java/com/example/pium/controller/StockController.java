@@ -3,6 +3,7 @@ package com.example.pium.controller;
 import com.example.pium.dto.*;
 import com.example.pium.service.RankingServiceImp;
 import com.example.pium.service.StockServiceImp;
+import com.example.pium.service.UserServiceImp;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import java.util.Map;
 public class StockController {
     private final StockServiceImp stockService;
     private final RankingServiceImp rankingService;
+    private final UserServiceImp userService;
 
     @GetMapping
     public List<StockDataDto> getAllStockData() {
@@ -47,13 +49,21 @@ public class StockController {
         Integer buyUser = (Integer) request.getAttribute("userNo");
         Boolean checkPrice = stockService.getStockNow(stockTradeDto.getStockNo(), stockTradeDto.getPrice());
         Map<String, String> returnMsg = new HashMap<>();
+        // 현재 금액이 구매하려고 하는 금액과 일치하는지 여부
         if (checkPrice) {
-            stockService.buyStock(stockTradeDto, buyUser);
-            returnMsg.put("msg","구매가 완료되었습니다.");
-            return new ResponseEntity<>(returnMsg, HttpStatus.OK);
+            Integer price = stockTradeDto.getPrice() * stockTradeDto.getCount();
+            // 보유포인트가 구매 가능한 정도로 남았는지 체크
+            if (userService.checkValidPoint(buyUser, price)) {
+                stockService.buyStock(stockTradeDto, buyUser);
+                returnMsg.put("msg", "구매가 완료되었습니다.");
+                return new ResponseEntity<>(returnMsg, HttpStatus.OK);
+            } else {
+                returnMsg.put("msg", "보유 포인트가 부족합니다.");
+                return new ResponseEntity<>(returnMsg, HttpStatus.FAILED_DEPENDENCY);
+            }
         } else {
             returnMsg.put("msg","구매금액을 다시 확인해주시기 바랍니다.");
-            return new ResponseEntity<>(returnMsg, HttpStatus.FAILED_DEPENDENCY);
+            return new ResponseEntity<>(returnMsg, HttpStatus.NOT_ACCEPTABLE);
         }
     }
 

@@ -18,8 +18,6 @@ public class AuctionServiceImp {
     private final LikeArtRepository likeArtRepository;
     private final BidRecordRepository bidRecordRepository;
     private final PointTypeRepository pointTypeRepository;
-    private final PointRecordRepository pointRecordRepository;
-    private final UserRepository userRepository;
     private final BalanceSheetRepository balanceSheetRepository;
     private final PointServiceImp pointService;
 
@@ -35,7 +33,7 @@ public class AuctionServiceImp {
     public AuctionDto convertToAuctionDto(Integer auctionNo) {
         ArtAuctionEntity beforeDetail = artAuctionRepository.findByAuctionNo(auctionNo).get();
         AuctionDto dto = new AuctionDto();
-        dto.setUserNo(beforeDetail.getUser().getUserNo());
+        dto.setUserNo(beforeDetail.getUserNo().getUserNo());
         dto.setTitle(beforeDetail.getTitle());
         dto.setContent(beforeDetail.getContent());
         dto.setName(beforeDetail.getUserNo().getUserName());
