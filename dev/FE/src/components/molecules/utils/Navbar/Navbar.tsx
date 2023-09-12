@@ -15,9 +15,9 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
         styles['navbar'],
       )}
     >
-      <div className={convertClassNameList(styles['navbar__logo'])}>
+      <Link className={convertClassNameList(styles['navbar__logo'])} to={'/'}>
         <Image src="/vite.svg" alt="logo" />
-      </div>
+      </Link>
       <div className={convertClassNameList(styles['navbar__menu'])}>
         <Link
           className={convertClassNameList(styles['navbar__menu--item'])}

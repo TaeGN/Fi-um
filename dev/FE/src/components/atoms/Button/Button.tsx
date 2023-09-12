@@ -1,5 +1,5 @@
 import styles from '@/components/atoms/button/Button.module.scss';
-import { convertClassName } from '@/utils';
+import { convertClassName, convertClassNameList } from '@/utils';
 import { MouseEvent } from 'react';
 
 interface ButtonProps {
@@ -12,7 +12,13 @@ interface ButtonProps {
 
 const Button = ({ label, className, ...props }: ButtonProps) => {
   return (
-    <button className={convertClassName(className, styles)} {...props}>
+    <button
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        styles.button,
+      )}
+      {...props}
+    >
       {label}
     </button>
   );
