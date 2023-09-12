@@ -2,7 +2,7 @@ import { MainAuctionDescription } from '@/components/molecules';
 import styles from './MainAuction.module.scss';
 import { Image } from '@/components/atoms';
 
-const MainAuction = ({ data }: any) => {
+const MainAuction = ({}: any) => {
   const ddd = {
     title: '개쩌는 그림',
     user: '개쩌는 유저',

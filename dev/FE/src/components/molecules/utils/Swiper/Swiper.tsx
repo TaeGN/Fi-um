@@ -1,6 +1,6 @@
 import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './Swiper.module.scss';
-import { useMemo, useRef, useState } from 'react';
+import { useMemo } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';

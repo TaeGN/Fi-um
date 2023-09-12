@@ -53,7 +53,9 @@ const Login = ({ className }: LoginProps): JSX.Element => {
           styles['login__item--button'],
         )}
         label="로그인"
-        onClick={null}
+        onClick={() => {
+          console.log('로그인');
+        }}
       />
     </div>
   );

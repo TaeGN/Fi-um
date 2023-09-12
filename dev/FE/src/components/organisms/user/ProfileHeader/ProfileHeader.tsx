@@ -1,9 +1,7 @@
-import styles from './ProfileHeader.module.scss'
-  
+// import styles from './ProfileHeader.module.scss'
+
 const ProfileHeader = () => {
-  return (
-  <div>ProfileHeader</div>
-  )
-}
+  return <div>ProfileHeader</div>;
+};
 
 export default ProfileHeader;

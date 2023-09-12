@@ -1,9 +1,7 @@
-import styles from './ProfileSection.module.scss'
-  
+// import styles from './ProfileSection.module.scss'
+
 const ProfileSection = () => {
-  return (
-    <div>ProfileSection</div>
-  )
-}
+  return <div>ProfileSection</div>;
+};
 
 export default ProfileSection;

@@ -1,9 +1,7 @@
-import styles from './FundingPaymentPage.module.scss'
-  
+// import styles from './FundingPaymentPage.module.scss'
+
 const FundingPaymentPage = () => {
-  return (
-    <div>FundingPaymentPage</div>
-  )
-}
+  return <div>FundingPaymentPage</div>;
+};
 
 export default FundingPaymentPage;
