@@ -1,5 +1,5 @@
 import { convertClassName } from '@/utils';
-import styles from '@/components/atoms/logo/Logo.module.scss';
+import styles from '@/components/atoms/Logo/Logo.module.scss';
 
 interface LogoProps {
   src: string;
