@@ -13,7 +13,10 @@ import { convertClassNameList } from '@/utils';
 const MainPage = () => {
   return (
     <div className={styles['main-page']}>
-      <Swiper className={convertClassNameList(styles['main-page__swiper'])}>
+      <Swiper
+        className={convertClassNameList(styles['main-page__swiper'])}
+        autoplay
+      >
         <PieChart />
         <PieChart />
         <PieChart />
