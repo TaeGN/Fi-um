@@ -3,11 +3,11 @@ import { convertClassName, convertClassNameList } from '@/utils';
 import { MouseEvent } from 'react';
 
 interface ButtonProps {
-  label: string;
+  label: string | JSX.Element;
   className?: string;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
   name?: string;
-  value?: string;
+  value?: number | string;
 }
 
 const Button = ({ label, className, ...props }: ButtonProps) => {

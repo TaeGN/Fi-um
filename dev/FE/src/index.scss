@@ -11,6 +11,26 @@ $shinhan-white: #fff;
 $pink: #fde8e7;
 $red: #ed2926;
 
+#app {
+  height: 100%;
+}
+html,
+body {
+  position: relative;
+  height: 100%;
+}
+
+body {
+  // font-family:
+  //   Helvetica Neue,
+  //   Helvetica,
+  //   Arial,
+  //   sans-serif;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
 .blue {
   color: $shinhan-blue;
 }
@@ -155,4 +175,11 @@ $red: #ed2926;
 
 .text-vsm {
   font-size: 10px;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }

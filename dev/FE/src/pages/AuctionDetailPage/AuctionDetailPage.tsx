@@ -1,26 +1,43 @@
-import './AuctionDetailpage.module.scss';
-import { AuctionDetailMain } from '@/components/organisms';
+import { convertClassName, convertClassNameList, loremData } from '@/utils';
+import styles from './AuctionDetailPage.module.scss';
+import { CreaterProfile } from '@/components/organisms';
+import { Image } from '@/components/atoms';
 
-const AuctionDetailPage = () => {
+interface AuctionDetailPageProps {
+  className?: string;
+}
+
+const AuctionDetailPage = ({
+  className,
+}: AuctionDetailPageProps): JSX.Element => {
   return (
-    <>
-      <div>AuctionDetailPage</div>
-      <div>
-        <AuctionDetailMain
-          src=""
-          alt=""
-          title="확인용"
-          auctionClick={() => {
-            console.log('경매하기');
-          }}
-          buyItClick={() => {
-            console.log('즉시구매');
-          }}
-          auctionPrice="124123412"
-          instantPrice="235213341"
-        />
+    <div
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        styles['auction-detail-page'],
+      )}
+    >
+      <Image
+        src="/vite.svg"
+        alt="image"
+        className={convertClassNameList(styles['auction-detail-page__image'])}
+      />
+      <div
+        className={convertClassNameList(styles['auction-detail-page__card'])}
+      >
+        card
       </div>
-    </>
+      <div
+        className={convertClassNameList(
+          styles['auction-detail-page__description'],
+        )}
+      >
+        {loremData}
+      </div>
+      <CreaterProfile
+        className={convertClassNameList(styles['auction-detail-page__profile'])}
+      />
+    </div>
   );
 };
 

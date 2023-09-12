@@ -1,9 +1,14 @@
-import { Doughnut  } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import { ChartData } from 'chart.js';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { getLightColors, getDarkColors } from '@/utils';
-
+import { convertClassName, convertClassNameList } from '@/utils';
+import styles from './PieChart.module.scss';
 ChartJS.register(ArcElement, Tooltip, Legend);
+
+interface PieChartProps {
+  className?: string;
+}
 
 const options: any = {
   responsive: true,
@@ -30,9 +35,14 @@ const data: ChartData<'doughnut', number[], string> = {
   ],
 };
 
-const PieChart = () => {
+const PieChart = ({ className }: PieChartProps): JSX.Element => {
   return (
-    <div>
+    <div
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        styles['pie-chart'],
+      )}
+    >
       <Doughnut data={data} options={options} data-testid="pie"></Doughnut>
     </div>
   );

@@ -5,17 +5,26 @@ import {
   AuctionDetailDescription,
   FundingCard,
   FundingDescription,
+  Swiper,
 } from '@/components/molecules';
-import { MainAuction } from '@/components/organisms';
+import { AuctionDetailMain, MainAuction } from '@/components/organisms';
+import { convertClassNameList } from '@/utils';
 
 const MainPage = () => {
   return (
     <div className={styles['main-page']}>
-      <Image className="bg-blue big aa gg hbig big aa blue" src="" alt="aaa" />
+      <Swiper
+        className={convertClassNameList(styles['main-page__swiper'])}
+        autoplay
+      >
+        <PieChart />
+        <PieChart />
+        <PieChart />
+        <PieChart />
+      </Swiper>
+
       <div className="card-container">
         <FundingCard />
-        <FundingCard />
-        <PieChart />
         <LineChart />
         <LineChart />
       </div>
