@@ -1,1 +1,25 @@
-// StockDetailPage.module.scss
+.stock-detail-page {
+  &__news {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &__line-chart {
+    width: 80%;
+  }
+
+  &__content {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    &--prev-news {
+      flex: 1;
+    }
+
+    &--button {
+      width: 45%;
+      border: 0;
+      border-radius: 5px;
+    }
+  }
+}

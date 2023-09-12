@@ -35,6 +35,7 @@ const Modal = ({
               className={className}
               label={label}
               onClick={onClick}
+              toggle={toggle}
             />
           </div>
         </div>

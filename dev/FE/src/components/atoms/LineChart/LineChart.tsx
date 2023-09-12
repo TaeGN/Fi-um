@@ -1,3 +1,5 @@
+import { convertClassName, convertClassNameList } from '@/utils';
+import styles from './LineChart.module.scss';
 import { ChartData } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import {
@@ -7,8 +9,11 @@ import {
   PointElement,
   LineElement,
 } from 'chart.js';
-
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement);
+
+interface LineChartProps {
+  className?: string;
+}
 
 const data: ChartData<'line', number[], string> = {
   labels: ['7-8', '8-9', '9-10', '10-11', '11-12', '17-18', '18-19', '19-20'],
@@ -24,9 +29,9 @@ const data: ChartData<'line', number[], string> = {
   ],
 };
 
-const LineChart = () => {
+const LineChart = ({ className }: LineChartProps): JSX.Element => {
   return (
-    <div>
+    <div className={convertClassNameList(convertClassName(className, styles))}>
       <Line data={data} />
     </div>
   );

@@ -7,12 +7,14 @@ interface ModalContentProps {
   className?: string;
   label: string;
   onClick: () => void;
+  toggle: () => void;
 }
 
 const ModalContent = ({
   className,
   label,
   onClick,
+  toggle,
 }: ModalContentProps): JSX.Element => {
   const colorStyle = useMemo(() => {
     if (label === '매도') {
@@ -142,9 +144,7 @@ const ModalContent = ({
             colorStyle.textColor,
           )}
           label="취소"
-          onClick={() => {
-            console.log('취소버튼');
-          }}
+          onClick={toggle}
         />
         <Button
           className={convertClassNameList(

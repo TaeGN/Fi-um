@@ -1,15 +1,18 @@
 import styles from '@/components/atoms/button/Button.module.scss';
 import { convertClassName } from '@/utils';
+import { MouseEvent } from 'react';
 
 interface ButtonProps {
   label: string;
   className?: string;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
+  name?: string;
+  value?: string;
 }
 
-const Button = ({ label, className, onClick }: ButtonProps) => {
+const Button = ({ label, className, ...props }: ButtonProps) => {
   return (
-    <button className={convertClassName(className, styles)} onClick={onClick}>
+    <button className={convertClassName(className, styles)} {...props}>
       {label}
     </button>
   );
