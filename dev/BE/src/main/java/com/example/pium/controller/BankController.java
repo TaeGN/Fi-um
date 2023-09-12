@@ -1,7 +1,7 @@
 package com.example.pium.controller;
 
 import com.example.pium.dto.DepositAccountDto;
-import com.example.pium.dto.SavingDepositDto;
+import com.example.pium.dto.MoneyDto;
 import com.example.pium.entity.UserEntity;
 import com.example.pium.service.BankServiceImp;
 import com.example.pium.service.UserServiceImp;
@@ -26,7 +26,7 @@ public class BankController {
     private final UserServiceImp userService;
 
     @PostMapping("saving")
-    public ResponseEntity<Map<String, String>> makeSaving(HttpServletRequest request, @RequestParam String option, @RequestBody SavingDepositDto savingMoney) {
+    public ResponseEntity<Map<String, String>> makeSaving(HttpServletRequest request, @RequestParam String option, @RequestBody MoneyDto savingMoney) {
         Integer postUser = (Integer) request.getAttribute("userNo");
         Boolean checkSavingAccount = bankService.checkSaving(postUser, option);
         Map<String, String> returnMsg = new HashMap<>();
@@ -48,7 +48,7 @@ public class BankController {
     }
 
     @PostMapping("deposit")
-    public ResponseEntity<Map<String, String>> makeDeposit(HttpServletRequest request, @RequestParam String option, @RequestBody SavingDepositDto depositMoney) {
+    public ResponseEntity<Map<String, String>> makeDeposit(HttpServletRequest request, @RequestParam String option, @RequestBody MoneyDto depositMoney) {
         Integer postUser = (Integer) request.getAttribute("userNo");
         Map<String, String> returnMsg = new HashMap<>();
         // 보유 포인트가 예금을 더 넣을 수 있는 금액인지 여부 파악 (인출이여도 상관없음)

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 
 @Repository
-public interface SponserShipRepository extends JpaRepository<ItemListEntity, Integer> {
-    Optional<ItemListEntity> findById(Integer id);
-
+public interface ItemListRepository extends JpaRepository<ItemListEntity, Integer> {
+    List<ItemListEntity> findAllDesc();
+    ItemListEntity findByItemNo(Integer itemNo);
 }

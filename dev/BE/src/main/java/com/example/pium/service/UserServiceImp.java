@@ -42,6 +42,16 @@ public class UserServiceImp {
             return false;
         }
     }
+
+    public boolean checkValidCash(Integer userNo, Integer money) {
+        int userCash = (int) userRepository.findByUserNo(userNo).get().getCash();
+        if (userCash >= money) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public List<UserAuctionDto> getAuctionList(int artistNo){
         List<UserAuctionDto> auctionDtoList  = new ArrayList<>();
         List<ArtAuctionEntity> list = artAuctionRepository.findByUserNo(userRepository.findByUserNo(artistNo).get());
