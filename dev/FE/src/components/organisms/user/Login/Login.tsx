@@ -1,4 +1,4 @@
-import { Button, Image, Text } from '@/components/atoms';
+import { Button, Text } from '@/components/atoms';
 import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './Login.module.scss';
 
