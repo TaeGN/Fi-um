@@ -1,0 +1,21 @@
+.auction-detail-page {
+  display: grid;
+  grid-template:
+    'i i i i i i i i i c c c' 1fr
+    'd d d d d d d p p p p p' 1fr;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+
+  &__image {
+    grid-area: i;
+  }
+  &__card {
+    grid-area: c;
+  }
+  &__description {
+    grid-area: d;
+  }
+  &__profile {
+    grid-area: p;
+  }
+}
