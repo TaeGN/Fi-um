@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,15 +36,15 @@ public class StockController {
     }
 
     @GetMapping("myAccount/{stockNo}")
-    public StockAccountDto getDetailStockAccount(@PathVariable("stockNo") Integer stockNo) {
-        Integer tmpUser = 1;
-        StockAccountDto myAccountDetail = stockService.getDetailAccount(stockNo, tmpUser);
+    public StockAccountDto getDetailStockAccount(HttpServletRequest request, @PathVariable("stockNo") Integer stockNo) {
+        Integer myUser = (Integer) request.getAttribute("userNo");
+        StockAccountDto myAccountDetail = stockService.getDetailAccount(stockNo, myUser);
         return myAccountDetail;
     }
 
     @PostMapping("buying")
-    public ResponseEntity<Map<String, String>> buyStock(@RequestBody StockTradeDto stockTradeDto) {
-        Integer buyUser = 3;
+    public ResponseEntity<Map<String, String>> buyStock(HttpServletRequest request, @RequestBody StockTradeDto stockTradeDto) {
+        Integer buyUser = (Integer) request.getAttribute("userNo");
         Boolean checkPrice = stockService.getStockNow(stockTradeDto.getStockNo(), stockTradeDto.getPrice());
         Map<String, String> returnMsg = new HashMap<>();
         if (checkPrice) {
@@ -57,8 +58,8 @@ public class StockController {
     }
 
     @PostMapping("selling")
-    public ResponseEntity<Map<String, String>> sellStock(@RequestBody StockTradeDto stockTradeDto) {
-        Integer sellUser = 3;
+    public ResponseEntity<Map<String, String>> sellStock(HttpServletRequest request, @RequestBody StockTradeDto stockTradeDto) {
+        Integer sellUser = (Integer) request.getAttribute("userNo");
         Boolean checkPrice = stockService.getStockNow(stockTradeDto.getStockNo(), stockTradeDto.getPrice());
         Map<String, String> returnMsg = new HashMap<>();
         if (checkPrice) {
@@ -72,8 +73,8 @@ public class StockController {
     }
 
     @GetMapping("myStock")
-    public List<StockStatusDto> getMyStatus() {
-        Integer myUser = 3;
+    public List<StockStatusDto> getMyStatus(HttpServletRequest request) {
+        Integer myUser = (Integer) request.getAttribute("userNo");
         return stockService.getMyAccount(myUser);
     }
 

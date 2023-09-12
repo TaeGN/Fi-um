@@ -11,10 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigInteger;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.List;
 
 @CrossOrigin("*")
 @RequiredArgsConstructor
@@ -31,10 +32,10 @@ public class AuctionController {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, String>> postAuction(@RequestBody RGSAuctionDto rgsAuctionDto) {
-        Integer tmpUser = 1;
+    public ResponseEntity<Map<String, String>> postAuction(HttpServletRequest request, @RequestBody RGSAuctionDto rgsAuctionDto) {
+        Integer postUser = (Integer) request.getAttribute("userNo");
         ArtAuctionEntity artAuctionEntity = ArtAuctionEntity.builder()
-                .userNo(userService.getUserInfo(tmpUser))
+                .userNo(userService.getUserInfo(postUser))
                 .title(rgsAuctionDto.getTitle())
                 .content(rgsAuctionDto.getContent())
                 .createdTime(BigInteger.valueOf(System.currentTimeMillis()))
@@ -66,10 +67,10 @@ public class AuctionController {
     }
 
     @PostMapping("bid/{auctionNo}")
-    public ResponseEntity<Map<String, String>> modifyAuctionPrice(@PathVariable("auctionNo") Integer auctionNo, @RequestBody RGSAuctionDto rgsAuctionDto) {
+    public ResponseEntity<Map<String, String>> modifyAuctionPrice(HttpServletRequest request, @PathVariable("auctionNo") Integer auctionNo, @RequestBody RGSAuctionDto rgsAuctionDto) {
         ArtAuctionEntity artAuctionEntity = auctionService.getAuctionInfo(auctionNo);
-        Integer buyer = 2;
-        Integer seller = 3;
+        Integer buyer = (Integer) request.getAttribute("userNo");
+        Integer seller = artAuctionEntity.getUserNo().getUserNo();
         Map<String, String> returnMsg = new HashMap<>();
         // 일단 낙찰자가 있는지 없는지 확인하여 구분 있으면 이미 판매된 상품 메세지
         if (artAuctionEntity.getWinner() == null) {
