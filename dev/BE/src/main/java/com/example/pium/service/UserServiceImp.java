@@ -1,6 +1,9 @@
 package com.example.pium.service;
 
 import com.example.pium.dto.*;
+import com.example.pium.dto.projection.SponsorUserInterface;
+import com.example.pium.dto.projection.UserBalanceSheetInterface;
+import com.example.pium.dto.projection.UserDepositSavingInterface;
 import com.example.pium.entity.ArtAuctionEntity;
 import com.example.pium.entity.RefreshTokenEntity;
 import com.example.pium.entity.UserEntity;
@@ -16,6 +19,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -61,9 +66,37 @@ public class UserServiceImp {
         return childUserDto;
     }
 
+    public boolean registOrDeleteRival(Integer userNo, Integer rivalNo){
+        UserEntity user = userRepository.findByUserNo(userNo).get();
+        if(user.getRival() == null){ // 라이벌 등록
+            user.setRival(rivalNo);
+            userRepository.save(user);
+            return true;
+        }
+        else{                       // 라이벌 해제
+            user.setRival(null);
+            userRepository.save(user);
+            return false;
+        }
+
+    }
+
+    public List<UserDepositSavingInterface> getUserDepositSaving(Integer userNo){
+        List<UserDepositSavingInterface> list1 = userRepository.findByUserDeposit(userNo);
+        System.out.println(list1);
+        List<UserDepositSavingInterface> list2 = userRepository.findByUserSaving(userNo);
+        System.out.println(list2);
+        return Stream.concat(list1.stream(), list2.stream())
+                .collect(Collectors.toList());
+    }
+
     public SponsorUserInterface getSponsorData(Integer userNo){
         SponsorUserInterface sponsorUserDto = userRepository.findByUserNoAndUserType(userNo);
         return sponsorUserDto;
+    }
+
+    public UserBalanceSheetInterface getUserBalanceSheet(Integer userNo){
+        return userRepository.findUserBalanceSheetByUserNo(userNo);
     }
 
     public Integer getUserNo(String userId){
