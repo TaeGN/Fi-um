@@ -1,12 +1,24 @@
 import { Button, Text } from '@/components/atoms';
-import { convertClassName, convertClassNameList } from '@/utils';
+import { convertClassName, convertClassNameList, convertUser } from '@/utils';
 import styles from './Login.module.scss';
+import { useMemo } from 'react';
 
 interface LoginProps {
   className?: string;
+  signUp?: boolean;
 }
 
-const Login = ({ className }: LoginProps): JSX.Element => {
+const Login = ({ className, signUp }: LoginProps): JSX.Element => {
+  const inputList = useMemo(() => {
+    const arr = ['id', 'password'];
+    if (signUp) {
+      arr.push('password');
+      arr.push('phonenumber');
+    }
+    return arr;
+  }, [signUp]);
+  console.log(inputList);
+
   return (
     <div
       className={convertClassNameList(
@@ -20,32 +32,29 @@ const Login = ({ className }: LoginProps): JSX.Element => {
           styles['login__item'],
           styles['login__item--title'],
         )}
-        text="로그인"
+        text={signUp ? '회원가입' : '로그인'}
       />
-      <div className={convertClassNameList(styles['login__item'])}>
-        <label>
-          <Text
-            className={convertClassNameList(styles['login__item--label'])}
-            text="아이디"
-          />
-        </label>
-        <input
-          className={convertClassNameList(styles['login__item--input'])}
-          type="text"
-        />
-      </div>
-      <div className={convertClassNameList(styles['login__item'])}>
-        <label>
-          <Text
-            className={convertClassNameList(styles['login__item--label'])}
-            text="패스워드"
-          />
-        </label>
-        <input
-          className={convertClassNameList(styles['login__item--input'])}
-          type="text"
-        />
-      </div>
+
+      {inputList.map(
+        (key): JSX.Element => (
+          <div
+            key={key}
+            className={convertClassNameList(styles['login__item'])}
+          >
+            <label>
+              <Text
+                className={convertClassNameList(styles['login__item--label'])}
+                text={convertUser(key)}
+              />
+            </label>
+            <input
+              className={convertClassNameList(styles['login__item--input'])}
+              type="text"
+            />
+          </div>
+        ),
+      )}
+
       <Button
         className={convertClassNameList(
           'bg-blue white',

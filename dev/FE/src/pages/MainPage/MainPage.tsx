@@ -1,5 +1,5 @@
 import styles from './MainPage.module.scss';
-import { Image, LineChart, PieChart, Table, Text } from '@/components/atoms';
+import { LineChart, PieChart, Table, Text } from '@/components/atoms';
 import {
   AuctionDescription,
   AuctionDetailDescription,
@@ -7,7 +7,7 @@ import {
   FundingDescription,
   Swiper,
 } from '@/components/molecules';
-import { AuctionDetailMain, MainAuction } from '@/components/organisms';
+import { MainAuction } from '@/components/organisms';
 import { convertClassNameList } from '@/utils';
 
 const MainPage = () => {
@@ -22,8 +22,9 @@ const MainPage = () => {
         <PieChart />
         <PieChart />
       </Swiper>
-
       <div className="card-container">
+        <FundingCard />
+        <FundingCard />
         <FundingCard />
         <LineChart />
         <LineChart />

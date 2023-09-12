@@ -5,9 +5,10 @@ import { Image } from '@/components/atoms';
 
 interface LoginPageProps {
   className?: string;
+  signUp?: boolean;
 }
 
-const LoginPage = ({ className }: LoginPageProps): JSX.Element => {
+const LoginPage = ({ className, signUp }: LoginPageProps): JSX.Element => {
   return (
     <div
       className={convertClassNameList(
@@ -20,7 +21,10 @@ const LoginPage = ({ className }: LoginPageProps): JSX.Element => {
         src="/vite.svg"
         alt="image"
       />
-      <Login className={convertClassNameList(styles['login-page__content'])} />
+      <Login
+        className={convertClassNameList(styles['login-page__content'])}
+        signUp={signUp}
+      />
     </div>
   );
 };

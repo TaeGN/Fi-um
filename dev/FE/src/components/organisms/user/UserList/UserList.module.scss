@@ -1,0 +1,9 @@
+.total-capital {
+  background-color: #ececec;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  &__item {
+    flex: 1;
+  }
+}

@@ -1,6 +1,6 @@
 import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './Swiper.module.scss';
-import { useMemo, useRef, useState } from 'react';
+import { useMemo } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -46,8 +46,11 @@ const CustomSwiper = ({
       navigation={true}
       modules={modules}
     >
-      {children?.map((child) => (
-        <SwiperSlide className={convertClassNameList(styles['swiper-slide'])}>
+      {children?.map((child, index) => (
+        <SwiperSlide
+          key={index}
+          className={convertClassNameList(styles['swiper-slide'])}
+        >
           {child}
         </SwiperSlide>
       ))}

@@ -61,6 +61,12 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
         >
           login
         </Link>
+        <Link
+          className={convertClassNameList(styles['navbar__menu--item'])}
+          to={'/signup'}
+        >
+          signup
+        </Link>
       </div>
     </div>
   );
