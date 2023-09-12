@@ -82,7 +82,17 @@ public class UserController {
         }
         return ResponseEntity.ok(map);
     }
-    
+
+    @PutMapping("rival")
+    public ResponseEntity<Map<String,String>> updateRival(HttpServletRequest request, @RequestBody UserNoDto userNoDto){
+        Integer userNo = (Integer) request.getAttribute("userNo");
+        Integer rivalNo = userNoDto.getUserNo();
+        userService.updateRival(userNo,rivalNo);
+        Map<String,String> map = new HashMap<>();
+        map.put("msg","변경 완료");
+        return ResponseEntity.ok(map);
+
+    }
 
     @GetMapping
     public ResponseEntity<?> getMyData(HttpServletRequest request){

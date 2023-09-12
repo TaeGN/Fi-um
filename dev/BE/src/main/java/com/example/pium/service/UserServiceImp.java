@@ -81,6 +81,12 @@ public class UserServiceImp {
 
     }
 
+    public void updateRival(Integer userNo, Integer rivalNo){
+        UserEntity user = userRepository.findByUserNo(userNo).get();
+        user.setRival(rivalNo);
+        userRepository.save(user);
+    }
+
     public List<UserDepositSavingInterface> getUserDepositSaving(Integer userNo){
         List<UserDepositSavingInterface> list1 = userRepository.findByUserDeposit(userNo);
         System.out.println(list1);
