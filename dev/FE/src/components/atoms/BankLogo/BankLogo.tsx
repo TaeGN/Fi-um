@@ -1,5 +1,5 @@
 import { convertClassName } from '@/utils';
-import styles from '@/components/atoms/banklogo/BankLogo.module.scss';
+import styles from '@/components/atoms/BankLogo/BankLogo.module.scss';
 
 interface BankLogoProps {
   className: string;

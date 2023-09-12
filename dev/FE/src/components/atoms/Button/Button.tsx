@@ -1,4 +1,4 @@
-import styles from '@/components/atoms/button/Button.module.scss';
+import styles from '@/components/atoms/Button/Button.module.scss';
 import { convertClassName, convertClassNameList } from '@/utils';
 import { MouseEvent } from 'react';
 
