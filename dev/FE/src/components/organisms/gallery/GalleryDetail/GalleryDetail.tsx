@@ -15,25 +15,30 @@ const GalleryDetail = ({ className }: GalleryDetailProps): JSX.Element => {
         styles['gallery-detail'],
       )}
     >
-      <Image
-        className={convertClassNameList(styles['gallery-detail__image'])}
-        src="/vite.svg"
-        alt="vite"
-      />
+      <div className={styles.imageWrapper}>
+        <Image
+          className={convertClassNameList(styles['gallery-detail__image'])}
+          src="/img/dummy.jpg"
+          alt="vite"
+        />
+      </div>
       <div className={convertClassNameList(styles['gallery-detail__content'])}>
         <Text
           className={convertClassNameList(
             styles['gallery-detail__content--title'],
+            'text-xxl',
           )}
-          text="title"
+          text="아스날 챔스우승"
         />
         <Text
           className={convertClassNameList(
             styles['gallery-detail__content--description'],
           )}
-          text="description"
+          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, maxime? Vel earum quas perferendis, corrupti accusantium saepe atque architecto, aperiam eligendi culpa commodi labore! Dolorum laudantium porro nam placeat saepe."
         />
-        <Comment />
+        <Comment
+          className={convertClassNameList(styles['gallery-detail__comment'])}
+        />
       </div>
     </div>
   );
