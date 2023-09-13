@@ -1,16 +1,12 @@
 package com.example.pium.service;
 
 import com.example.pium.dto.*;
-import com.example.pium.dto.projection.SponsorUserInterface;
-import com.example.pium.dto.projection.UserBalanceSheetInterface;
-import com.example.pium.dto.projection.UserDepositSavingInterface;
+import com.example.pium.dto.projection.*;
 import com.example.pium.entity.ArtAuctionEntity;
+import com.example.pium.entity.BalanceSheetEntity;
 import com.example.pium.entity.RefreshTokenEntity;
 import com.example.pium.entity.UserEntity;
-import com.example.pium.repository.ArtAuctionRepository;
-import com.example.pium.repository.RefreshTokenRedisRepository;
-import com.example.pium.repository.UserRepository;
-
+import com.example.pium.repository.*;
 
 
 import com.example.pium.util.JwtTokenProvider;
@@ -18,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -29,6 +26,10 @@ public class UserServiceImp {
     private final UserRepository userRepository;
     private final RefreshTokenRedisRepository refreshTokenRedisRepository;
     private final ArtAuctionRepository artAuctionRepository;
+    private final StockDataRepository stockDataRepository;
+    private final PointRecordRepository pointRecordRepository;
+    private final BalanceSheetRepository balanceSheetRepository;
+    private final SponsorFundingHistoryRepository sponsorFundingHistoryRepository;
 
     public void save(UserEntity userEntity){
         userRepository.save(userEntity);
@@ -142,6 +143,38 @@ public class UserServiceImp {
         if(refreshTokenRedisRepository.findByRefreshToken(token) == null) return false; // 리프레시 토큰이 유효하다면 true 아니라면 false 반환
         else return true;
     }
+
+    public List<ChildCapitalDto> getTotalCapital(Long startTime){
+        List<UserEntity>  userList = userRepository.findByUserType(2);
+        List<ChildCapitalDto> capitalDtoList = new ArrayList<>();
+        for(UserEntity user: userList){
+            Integer userNo = user.getUserNo();
+            UserEntity userEntity = userRepository.findByUserNo(userNo).get();
+            ChildCapitalDto childCapitalDto = new ChildCapitalDto();
+            Optional<BalanceSheetEntity> balanceSheetOptional = balanceSheetRepository.findByUserNo(userEntity);
+            if (balanceSheetOptional.isPresent()) {
+                BalanceSheetEntity balanceSheetEntity = balanceSheetOptional.get();
+                childCapitalDto.setPoint(balanceSheetEntity.getPoint());
+                childCapitalDto.setDepositMoney(balanceSheetEntity.getDeposit());
+                childCapitalDto.setStockMoney(balanceSheetEntity.getStock());
+            } else {
+                childCapitalDto.setPoint(0);
+                childCapitalDto.setDepositMoney(0);
+                childCapitalDto.setStockMoney(0);
+            }
+
+            childCapitalDto.setUserName(userEntity.getUserName());
+            childCapitalDto.setFundingMoney(sponsorFundingHistoryRepository.findFundingHistory(userNo).orElse(0));
+            List<UserStockInterface> userStockInterface = stockDataRepository.findByUserStock(userNo,(System.currentTimeMillis()-startTime) / (1000*60*60));
+            List<ChildPointInterface> childPointInterfaces = pointRecordRepository.findByUserNo(userNo);
+            childCapitalDto.setStockList(userStockInterface);
+            childCapitalDto.setPointRecord(childPointInterfaces);
+            capitalDtoList.add(childCapitalDto);
+        }
+
+        return capitalDtoList;
+    }
+
 
     public UserInfoDto setUserInfo(UserEntity user){
 

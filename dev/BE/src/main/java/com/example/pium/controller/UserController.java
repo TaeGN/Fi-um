@@ -4,6 +4,7 @@ import com.example.pium.dto.*;
 import com.example.pium.dto.projection.SponsorUserInterface;
 import com.example.pium.dto.projection.UserBalanceSheetInterface;
 import com.example.pium.dto.projection.UserDepositSavingInterface;
+import com.example.pium.dto.projection.UserStockInterface;
 import com.example.pium.entity.UserEntity;
 import com.example.pium.service.UserServiceImp;
 import com.example.pium.util.JwtTokenProvider;
@@ -83,6 +84,7 @@ public class UserController {
         return ResponseEntity.ok(map);
     }
 
+    // 라이벌 변경
     @PutMapping("rival")
     public ResponseEntity<Map<String,String>> updateRival(HttpServletRequest request, @RequestBody UserNoDto userNoDto){
         Integer userNo = (Integer) request.getAttribute("userNo");
@@ -92,6 +94,16 @@ public class UserController {
         map.put("msg","변경 완료");
         return ResponseEntity.ok(map);
 
+    }
+
+
+    // 전체 아이들의 자산 현황
+    @GetMapping("total-capital")
+    public List<ChildCapitalDto> getChildCapital(HttpServletRequest request){
+        Integer userNo = (Integer) request.getAttribute("userNo");
+        Long startTime =  System.currentTimeMillis()-(1000*60*60*2) ;
+
+        return userService.getTotalCapital(startTime);
     }
 
     @GetMapping

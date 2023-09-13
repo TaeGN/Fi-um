@@ -16,7 +16,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     Optional<UserEntity> findByUserId(String userId);
     Optional<UserEntity> findByUserNo(Integer userNo);
-
+    List<UserEntity> findByUserType(Integer type);
 
     @Query(value = "select a.user_no as userNo,user_name as userName,a.point,a.cash,b.sponsoredAmount from user a ,(select user_no,sum(point_change) as sponsoredAmount from point_record where point_type_no = 1 and user_no = 1 group by user_no) b  where a.user_no = b.user_no", nativeQuery = true)
     SponsorUserInterface findByUserNoAndUserType(int userNo);
@@ -50,6 +50,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
             "from bank_product_data as ss, product_type as pt where ss.product_no = pt.product_no) as n where bl.bank_no = n.bank_no) as b\n" +
             "where a.bank_product_data_no = b.bank_product_data_no and user_no = :userNo",nativeQuery = true)
     List<UserDepositSavingInterface> findByUserSaving(Integer userNo);
+
 
 
 }
