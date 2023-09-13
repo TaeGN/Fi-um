@@ -8,11 +8,7 @@ interface TextProps {
 
 const Text = ({ text, className }: TextProps) => {
   return (
-    <div
-      style={{ display: 'block' }}
-      className={convertClassName(className, styles)}
-      data-testid="text"
-    >
+    <div className={convertClassName(className, styles)} data-testid="text">
       {text}
     </div>
   );
