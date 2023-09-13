@@ -1,6 +1,7 @@
 export {
   default as convertClassName,
   convertClassNameList,
+  checkConditionClassName,
 } from './convertClassName';
 export { default as snakeToTitle } from './snakeToTitle';
 export { getColors, getLightColors, getDarkColors } from './randomColor';
