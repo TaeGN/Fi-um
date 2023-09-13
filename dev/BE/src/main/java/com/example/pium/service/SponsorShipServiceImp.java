@@ -1,6 +1,8 @@
 package com.example.pium.service;
 
 import com.example.pium.dto.ItemListDto;
+import com.example.pium.dto.ItemRecordDto;
+import com.example.pium.dto.NewItemDto;
 import com.example.pium.entity.ItemListEntity;
 import com.example.pium.entity.PointTypeEntity;
 import com.example.pium.entity.SponsorFundingHistoryEntity;
@@ -18,21 +20,21 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class SponserShipServiceImp {
+public class SponsorShipServiceImp {
     private final ItemListRepository itemListRepository;
     private final SponsorFundingHistoryRepository sponsorFundingHistoryRepository;
     private final UserServiceImp userService;
     private final PointServiceImp pointService;
     private final PointTypeRepository pointTypeRepository;
 
-    public SponsorFundingHistoryEntity findTopFunderForItem(ItemListEntity item) {
-        List<SponsorFundingHistoryEntity> funders = sponsorFundingHistoryRepository.findTopFunderByItem(item, PageRequest.of(0, 1));
+    public UserEntity findTopFunderForItem(ItemListEntity item) {
+        List<UserEntity> funders = sponsorFundingHistoryRepository.findTopFunderByItem(item, PageRequest.of(0, 1));
         return funders.isEmpty() ? null : funders.get(0);
     }
 
     public List<ItemListDto> getAllList() {
         List<ItemListDto> allItemDto = new ArrayList<>();
-        List<ItemListEntity> allItemEntity = itemListRepository.findAllDesc();
+        List<ItemListEntity> allItemEntity = itemListRepository.findAll();
         for (ItemListEntity eachEntity : allItemEntity) {
             ItemListDto tmpDto = new ItemListDto();
             tmpDto.setItemNo(eachEntity.getItemNo());
@@ -44,7 +46,12 @@ public class SponserShipServiceImp {
             tmpDto.setSponsorshipAmount(eachEntity.getSponsorshipAmount());
             tmpDto.setFundingAmount(eachEntity.getFundingAmount());
             tmpDto.setIsCompleted(eachEntity.getIsCompleted());
-            tmpDto.setBestFunding(findTopFunderForItem(eachEntity).getUserNo().getUserName());
+            UserEntity bestFunding = findTopFunderForItem(eachEntity);
+            if (bestFunding != null) {
+                tmpDto.setBestFunding(bestFunding.getUserName());
+            } else {
+                tmpDto.setBestFunding("");
+            }
             allItemDto.add(tmpDto);
         }
         return allItemDto;
@@ -82,4 +89,50 @@ public class SponserShipServiceImp {
         pointService.makePointRecord(userData, pointTypePoint, money);
     }
 
+    public void makeNewItem(NewItemDto postInformation) {
+        ItemListEntity newItem = ItemListEntity.builder()
+                .itemName(postInformation.getName())
+                .itemUnitPrice(postInformation.getUnitPrice())
+                .itemCount(postInformation.getCount())
+                .itemDescription(postInformation.getDescription())
+                .itemImagePath(postInformation.getImagePath())
+                .build();
+        itemListRepository.save(newItem);
+    }
+
+    public void changeItem(NewItemDto postInformation, Integer itemNo) {
+        ItemListEntity targetItem = itemListRepository.findByItemNo(itemNo);
+        targetItem.setItemName(postInformation.getName());
+        targetItem.setItemUnitPrice(postInformation.getUnitPrice());
+        targetItem.setItemCount(postInformation.getCount());
+        targetItem.setItemDescription(postInformation.getDescription());
+        targetItem.setItemImagePath(postInformation.getImagePath());
+        itemListRepository.save(targetItem);
+    }
+
+    public ItemRecordDto changeDtoToRecord(SponsorFundingHistoryEntity historyEntities) {
+        ItemRecordDto recordDto = new ItemRecordDto();
+        recordDto.setSponsorName(historyEntities.getUserNo().getUserName());
+        recordDto.setItemName(historyEntities.getItemNo().getItemName());
+        recordDto.setPrice(-historyEntities.getPrice());
+        return recordDto;
+    }
+
+    public List<ItemRecordDto> getAllRecord() {
+        List<SponsorFundingHistoryEntity> allRecordList = sponsorFundingHistoryRepository.findAllByPriceLessThanZero();
+        List<ItemRecordDto> recordData = new ArrayList<>();
+        for (SponsorFundingHistoryEntity eachData : allRecordList) {
+            recordData.add(changeDtoToRecord(eachData));
+        }
+        return recordData;
+    }
+
+    public  List<ItemRecordDto> getRecordDetail(Integer user) {
+        List<SponsorFundingHistoryEntity> detailList = sponsorFundingHistoryRepository.findAllByUserNo(userService.getUserInfo(user));
+        List<ItemRecordDto> recordData = new ArrayList<>();
+        for (SponsorFundingHistoryEntity eachData : detailList) {
+            recordData.add(changeDtoToRecord(eachData));
+        }
+        return recordData;
+    }
 }

@@ -78,11 +78,11 @@ public class StockServiceImp {
 
 
     public StockAccountDto getDetailAccount(Integer stockNo, Integer userNo) {
-        UserEntity user = userRepository.findByUserNo(userNo).get();
+        UserEntity user = userRepository.findByUserNo(userNo);
         StockEventEntity stockData = getStockType(stockNo);
         Optional<StockAccountEntity> stockAccountOpt = stockAccountRepository.findByUserNoAndStockNo(user, stockData);
         StockAccountDto stockAccountDto = new StockAccountDto();
-        stockAccountDto.setPoint(userRepository.findByUserNo(userNo).get().getPoint());
+        stockAccountDto.setPoint(userRepository.findByUserNo(userNo).getPoint());
         if (!stockAccountOpt.isPresent()) {
             stockAccountDto.setStockCount(0);
             stockAccountDto.setStockAverage(0);
@@ -122,7 +122,7 @@ public class StockServiceImp {
     }
 
     public void buyStock(StockTradeDto stockTradeDto, Integer userNo) {
-        UserEntity user = userRepository.findByUserNo(userNo).get();
+        UserEntity user = userRepository.findByUserNo(userNo);
         Integer price = stockTradeDto.getCount() * stockTradeDto.getPrice();
         StockEventEntity stockData = getStockType(stockTradeDto.getStockNo());
         Optional<StockAccountEntity> stockAccountOpt = stockAccountRepository.findByUserNoAndStockNo(user, stockData);
@@ -153,7 +153,7 @@ public class StockServiceImp {
     }
 
     public void sellStock(StockTradeDto stockTradeDto, Integer userNo) {
-        UserEntity user = userRepository.findByUserNo(userNo).get();
+        UserEntity user = userRepository.findByUserNo(userNo);
         StockEventEntity stockData = getStockType(stockTradeDto.getStockNo());
         StockAccountEntity stockAccount = stockAccountRepository.findByUserNoAndStockNo(user, stockData).get();
         Integer price = stockTradeDto.getCount() * stockTradeDto.getPrice();
@@ -175,7 +175,7 @@ public class StockServiceImp {
     }
 
     public List<StockStatusDto> getMyAccount(Integer userNo) {
-        Optional<List<StockAccountEntity>> stockAccountEntityListOpt = stockAccountRepository.findByUserNo(userRepository.findByUserNo(userNo).get());
+        Optional<List<StockAccountEntity>> stockAccountEntityListOpt = stockAccountRepository.findByUserNo(userRepository.findByUserNo(userNo));
         List<StockStatusDto> stockStatusDto = new ArrayList<>();
         if (stockAccountEntityListOpt.isPresent()){
             List<StockAccountEntity> stockAccountEntityList = stockAccountEntityListOpt.get();

@@ -26,7 +26,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/item/funding")
                 .excludePathPatterns("/news")
                 .excludePathPatterns("/edu")
-                .excludePathPatterns("/sponsorship")
+               // .excludePathPatterns("/sponsorship")
                 .excludePathPatterns("/image/**")
                 .excludePathPatterns("/stock")
                 .excludePathPatterns("/stock/king");
