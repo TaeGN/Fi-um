@@ -26,7 +26,7 @@ const depositList: Deposit[] = [
     productType: '적금',
     interestRate: 2000,
     primeInterestRate: 1,
-    savingBalance: 0,
+    savingBalance: 1,
   },
   {
     bankName: '국민',

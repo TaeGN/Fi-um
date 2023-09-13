@@ -182,6 +182,9 @@ input[type='number']::-webkit-inner-spin-button {
 }
 
 // swiper
-.swiper-slide.swiper-slide-thumb-active {
-  opacity: 1;
+.swiper-slide {
+  position: relative;
+  &.swiper-slide-thumb-active {
+    opacity: 1;
+  }
 }

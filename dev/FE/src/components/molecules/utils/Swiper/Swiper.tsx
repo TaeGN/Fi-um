@@ -8,6 +8,7 @@ import styles from './Swiper.module.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as Swipertype } from 'swiper';
 import {
+  Mousewheel,
   Autoplay,
   Keyboard,
   FreeMode,
@@ -44,11 +45,14 @@ const CustomSwiper = ({
             delay: 2500,
             disableOnInteraction: false,
           },
+          keyboard: {
+            enabled: true,
+          },
           pagination: {
             clickable: true,
           },
           navigation: true,
-          modules: [Autoplay, Pagination, Navigation],
+          modules: [Autoplay, Keyboard, Pagination, Navigation],
         };
       case 'thumbsLoop':
         return {
@@ -66,11 +70,12 @@ const CustomSwiper = ({
           keyboard: {
             enabled: true,
           },
+          mousewheel: false,
           pagination: {
             clickable: true,
           },
           navigation: true,
-          modules: [Keyboard, Pagination, Navigation],
+          modules: [Mousewheel, Keyboard, Pagination, Navigation],
         };
     }
   }, [type]);
