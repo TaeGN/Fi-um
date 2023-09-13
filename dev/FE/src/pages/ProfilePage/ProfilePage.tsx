@@ -3,6 +3,8 @@ import styles from './ProfilePage.module.scss';
 import { ProfileHeader, UserList } from '@/components/organisms';
 import { convertClassName, convertClassNameList } from '@/utils';
 import { Image } from '@/components/atoms';
+// import { useQuery } from '@tanstack/react-query';
+// import { getTotalCapital } from '@/api/user';
 
 interface ProfilePageProps {
   className?: string;
@@ -47,6 +49,12 @@ for (let index = 1; index <= 5; index++) {
 }
 
 const ProfilePage = ({ className }: ProfilePageProps): JSX.Element => {
+  // const query = useQuery({
+  //   queryKey: ['getTotalCapital'],
+  //   queryFn: getTotalCapital,
+  // });
+  // console.log(query);
+
   return (
     <div
       className={convertClassNameList(
