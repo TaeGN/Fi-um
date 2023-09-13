@@ -150,12 +150,20 @@ body {
   justify-content: space-between;
 }
 
+.jc-space-around {
+  justify-content: space-around;
+}
+
 .jc-center {
   justify-content: center;
 }
 
 .text-align-center {
   text-align: center;
+}
+
+.align-center {
+  align-items: center;
 }
 
 .flex-wrap {
