@@ -1,5 +1,6 @@
 package com.example.pium.repository;
 
+import com.example.pium.dto.MyFundingDto;
 import com.example.pium.entity.ItemListEntity;
 import com.example.pium.entity.SponsorFundingHistoryEntity;
 import com.example.pium.entity.UserEntity;
@@ -22,5 +23,17 @@ public interface SponsorFundingHistoryRepository extends JpaRepository<SponsorFu
     @Query("SELECT s.userNo FROM SponsorFundingHistoryEntity s WHERE s.itemNo = :item GROUP BY s.userNo ORDER BY SUM(s.price) DESC")
     List<UserEntity> findTopFunderByItem(@Param("item") ItemListEntity item, Pageable pageable);
 
+    @Query("SELECT new com.example.pium.dto.MyFundingDto(i.itemName , i.itemImagePath , i.itemUnitPrice , i.itemCount , SUM(s.price)) " +
+            "FROM SponsorFundingHistoryEntity s " +
+            "JOIN s.itemNo i " +
+            "WHERE s.userNo.userNo = :userNo " +
+            "GROUP BY i.itemNo, i.itemName, i.itemImagePath, i.itemUnitPrice, i.itemCount")
+    List<MyFundingDto> findMyFundingByUserNo(@Param("userNo") Integer userNo);
+
+    @Query("SELECT new com.example.pium.dto.MyFundingDto(i.itemName , i.itemImagePath , i.itemUnitPrice , i.itemCount , SUM(s.price)) " +
+            "FROM SponsorFundingHistoryEntity s " +
+            "JOIN s.itemNo i " +
+            "GROUP BY i.itemNo, i.itemName, i.itemImagePath, i.itemUnitPrice, i.itemCount")
+    List<MyFundingDto> findFunding();
 }
 

@@ -14,4 +14,11 @@ import java.util.Optional;
 public interface ItemListRepository extends JpaRepository<ItemListEntity, Integer> {
     List<ItemListEntity> findAll();
     ItemListEntity findByItemNo(Integer itemNo);
+    List<ItemListEntity> findAllByIsCompleted(Boolean bool);
+
+    @Query("SELECT SUM(i.fundingAmount) FROM ItemListEntity i WHERE i.isCompleted = true")
+    Integer findTotalFundingAmountForCompletedItems();
+
+    @Query("SELECT SUM(i.sponsorshipAmount) FROM ItemListEntity i WHERE i.isCompleted = true")
+    Integer findTotalSponsorshipAmountForCompletedItems();
 }

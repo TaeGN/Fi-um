@@ -32,8 +32,8 @@ public class PointServiceImp {
     }
 
     public void changeCashTable(UserEntity user, Integer money) {
-        user.setPoint(user.getCash() - money);
-        user.setPoint(user.getPoint() + money);
+        user.setCash(user.getCash() - money);
+        user.setPoint(user.getPoint() + (money/10));
         userRepository.save(user);
     }
 }

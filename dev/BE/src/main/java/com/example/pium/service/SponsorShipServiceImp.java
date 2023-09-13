@@ -77,6 +77,15 @@ public class SponsorShipServiceImp {
                 .build();
         sponsorFundingHistoryRepository.save(newSponsor);
 
+        //물품 정보 수정
+        ItemListEntity itemDetail = itemListRepository.findByItemNo(itemNo);
+        itemDetail.setSponsorshipAmount(itemDetail.getSponsorshipAmount()+money);
+        Integer price = itemDetail.getItemCount() * itemDetail.getItemUnitPrice();
+        if (itemDetail.getSponsorshipAmount().equals(price)) {
+            itemDetail.setIsCompleted(true);
+        }
+        itemListRepository.save(itemDetail);
+
         // 포인트 추가 및 캐시 감소
         pointService.changeCashTable(userData, money);
 
@@ -86,7 +95,7 @@ public class SponsorShipServiceImp {
 
         // 포인트 내역(포인트 획득)
         PointTypeEntity pointTypePoint = pointTypeRepository.findByPointType("후원").get();
-        pointService.makePointRecord(userData, pointTypePoint, money);
+        pointService.makePointRecord(userData, pointTypePoint, (money/10));
     }
 
     public void makeNewItem(NewItemDto postInformation) {

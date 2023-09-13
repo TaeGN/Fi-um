@@ -2,6 +2,7 @@ package com.example.pium.service;
 
 import com.example.pium.dto.AuctionDto;
 import com.example.pium.dto.RGSAuctionDto;
+import com.example.pium.dto.UserAuctionDto;
 import com.example.pium.entity.*;
 import com.example.pium.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class AuctionServiceImp {
     private final PointTypeRepository pointTypeRepository;
     private final BalanceSheetRepository balanceSheetRepository;
     private final PointServiceImp pointService;
+    private final UserServiceImp userService;
 
     public void post(ArtAuctionEntity artAuctionEntity){
         artAuctionRepository.save(artAuctionEntity);
@@ -86,5 +88,19 @@ public class AuctionServiceImp {
         BalanceSheetEntity sellerBalance = balanceSheetRepository.findByUserNo(seller).get();
         sellerBalance.setAuctionIncome(sellerBalance.getAuctionIncome()+price);
         balanceSheetRepository.save(sellerBalance);
+    }
+
+    public List<UserAuctionDto> getPurchaseArt(Integer user){
+        List<UserAuctionDto> artData = new ArrayList<>();
+        List<ArtAuctionEntity> getArtData = artAuctionRepository.findAllByWinner(userService.getUserInfo(user));
+        for (ArtAuctionEntity eachData : getArtData) {
+            UserAuctionDto tmpDto = new UserAuctionDto();
+            tmpDto.setAuctionNo(eachData.getAuctionNo());
+            tmpDto.setImagePath(eachData.getImagePath());
+            tmpDto.setTitle(eachData.getTitle());
+            tmpDto.setWinner(eachData.getWinner().getUserNo());
+            artData.add(tmpDto);
+        }
+        return artData;
     }
 }

@@ -61,8 +61,8 @@ public class SponsorshipController {
         }
     }
 
-    @PostMapping("support")
-    public ResponseEntity<Map<String, String>> postSupport(HttpServletRequest request, @RequestParam Integer itemNo, @RequestBody MoneyDto supportPrice) {
+    @PostMapping("support/{itemNo}")
+    public ResponseEntity<Map<String, String>> postSupport(HttpServletRequest request, @PathVariable("itemNo") Integer itemNo, @RequestBody MoneyDto supportPrice) {
         Integer postUser = (Integer) request.getAttribute("userNo");
         Boolean checkPrice = sponsorShipService.checkPrice(itemNo, supportPrice.getMoney());
         Map<String, String> returnMsg = new HashMap<>();
@@ -95,12 +95,8 @@ public class SponsorshipController {
     @GetMapping("record/detail")
     public  ResponseEntity<List<ItemRecordDto>> getRecordDetail(HttpServletRequest request) {
         Integer supportUser = (Integer) request.getAttribute("userNo");
-        if (userService.getUserInfo(supportUser).getUserType().equals(3)) {
             List<ItemRecordDto> allRecord =  sponsorShipService.getRecordDetail(supportUser);
             return new ResponseEntity<>(allRecord, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
-        }
     }
 
 

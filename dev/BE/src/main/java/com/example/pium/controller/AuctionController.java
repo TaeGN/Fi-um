@@ -2,6 +2,7 @@ package com.example.pium.controller;
 
 import com.example.pium.dto.AuctionDto;
 import com.example.pium.dto.RGSAuctionDto;
+import com.example.pium.dto.UserAuctionDto;
 import com.example.pium.entity.ArtAuctionEntity;
 import com.example.pium.service.AuctionServiceImp;
 import com.example.pium.service.UserServiceImp;
@@ -99,5 +100,13 @@ public class AuctionController {
             returnMsg.put("msg","이미 판매 완료된 상품입니다.");
             return new ResponseEntity<>(returnMsg, HttpStatus.PRECONDITION_FAILED);
         }
+    }
+
+    @GetMapping("purchase")
+    public ResponseEntity<List<UserAuctionDto>> getPurchaseArt(HttpServletRequest request) {
+        Integer buyer = (Integer) request.getAttribute("userNo");
+        List<UserAuctionDto> purchaseData = auctionService.getPurchaseArt(buyer);
+        return new ResponseEntity<>(purchaseData, HttpStatus.OK);
+
     }
 }
