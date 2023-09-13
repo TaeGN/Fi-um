@@ -1,12 +1,15 @@
 // MainAuction.module.scss
 .main-auction {
+  box-sizing: border-box;
   display: flex;
-  flex-wrap: wrap-reverse;
+  // flex-wrap: wrap;
   justify-content: center;
   padding: 2rem;
+  width: 90%;
+  margin: 0 auto 0 auto;
 
   &__description {
-    width: 30%;
+    width: 40%;
     text-align: center;
 
     @media screen and (max-width: 500px) {

@@ -13,10 +13,10 @@ const MainAuctionDescription = ({
 }: MainAuctionDescriptionProps): JSX.Element => {
   return (
     <div
-      className={
-        (convertClassNameList(convertClassName(className, styles)),
-        styles['main-auction-description'])
-      }
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        styles['main-auction-description'],
+      )}
     >
       <Text className="text-xl" text={data.title} />
 
