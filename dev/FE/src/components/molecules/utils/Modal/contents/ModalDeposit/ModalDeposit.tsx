@@ -1,5 +1,6 @@
-import { convertClassName, convertClassNameList } from '@/utils';
+import { bankIconUrl, convertClassName, convertClassNameList } from '@/utils';
 import styles from './ModalDeposit.module.scss';
+import { Image, Text } from '@/components/atoms';
 
 interface ModalDepositProps {
   className?: string;
@@ -21,7 +22,10 @@ const ModalDeposit = ({
         styles['modal-deposit'],
       )}
     >
-      {label} 모달
+      <Text className="text-lg" text={label} />
+      <div>
+        <Image src={bankIconUrl('shinhan.svg')} alt="신한" />
+      </div>
     </div>
   );
 };

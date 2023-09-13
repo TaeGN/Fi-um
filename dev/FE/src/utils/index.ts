@@ -9,3 +9,4 @@ export { loremData } from './testData';
 export { formatCurrency } from './formatCurrency';
 export { default as priceFilter } from './priceFilter';
 export { default as convertUser } from './convertUser';
+export { imgUrl, bankIconUrl } from './imgUrl';

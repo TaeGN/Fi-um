@@ -7,6 +7,8 @@ interface DepositPageProps {
 }
 
 const DepositPage = ({ className }: DepositPageProps): JSX.Element => {
+  console.log(import.meta.env.BASE_URL + 'vite.svg');
+  console.log('meta', import.meta);
   return (
     <div className={convertClassNameList(convertClassName(className, styles))}>
       <DepositProduct
