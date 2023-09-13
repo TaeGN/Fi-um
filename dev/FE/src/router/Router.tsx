@@ -11,7 +11,6 @@ import {
   LoginPage,
   MainPage,
   ProfilePage,
-  SignUpPage,
   StockDetailPage,
   StockPage,
 } from '@/pages';

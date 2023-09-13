@@ -1,21 +1,18 @@
 import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './Modal.module.scss';
-import ModalContent from './ModalContent';
 
 interface ModalProps {
   className?: string;
   isOpen: boolean;
   toggle: () => void;
-  label: string;
-  onClick: () => void;
+  children: JSX.Element;
 }
 
 const Modal = ({
   className,
   toggle,
   isOpen,
-  label,
-  onClick,
+  children,
 }: ModalProps): JSX.Element => {
   return (
     <>
@@ -31,12 +28,7 @@ const Modal = ({
             className={convertClassNameList(styles['modal-box'])}
             onClick={(e) => e.stopPropagation()}
           >
-            <ModalContent
-              className={className}
-              label={label}
-              onClick={onClick}
-              toggle={toggle}
-            />
+            {children}
           </div>
         </div>
       )}

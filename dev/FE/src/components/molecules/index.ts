@@ -25,8 +25,11 @@ export { default as StockRanking } from '@/components/molecules/stock/StockRanki
 // utils folder
 export { default as Carousel } from '@/components/molecules/utils/Carousel/Carousel';
 export { default as Comment } from '@/components/molecules/utils/Comment/Comment';
-export { default as ModalContent } from '@/components/molecules/utils/Modal/ModalContent';
 export { default as Modal } from '@/components/molecules/utils/Modal/Modal';
 export { default as Swiper } from '@/components/molecules/utils/Swiper/Swiper';
 export { default as Navbar } from '@/components/molecules/utils/Navbar/Navbar';
 export { default as Footer } from '@/components/molecules/utils/Footer/Footer';
+
+// modal content folder
+export { default as ModalStock } from '@/components/molecules/utils/Modal/contents/ModalStock/ModalStock';
+export { default as ModalDeposit } from '@/components/molecules/utils/Modal/contents/ModalDeposit/ModalDeposit';

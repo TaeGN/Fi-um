@@ -15,7 +15,7 @@ const MainPage = () => {
     <div className={styles['main-page']}>
       <Swiper
         className={convertClassNameList(styles['main-page__swiper'])}
-        autoplay
+        type="autoplay"
       >
         <PieChart />
         <PieChart />

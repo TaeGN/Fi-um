@@ -1,11 +1,11 @@
 import { ChangeEvent, MouseEvent, useCallback, useMemo, useState } from 'react';
 import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
-import styles from './Modal.module.scss';
+import styles from './ModalStock.module.scss';
 import { Button, Text } from '@/components/atoms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@/utils/fontAwesomeIcon';
 
-interface ModalContentProps {
+interface ModalStockProps {
   className?: string;
   label: string;
   onClick: () => void;
@@ -17,12 +17,12 @@ const ratioList = [10, 25, 50, 100];
 const totalCount = 12;
 const price = 10000;
 
-const ModalContent = ({
+const ModalStock = ({
   className,
   label,
   onClick,
   toggle,
-}: ModalContentProps): JSX.Element => {
+}: ModalStockProps): JSX.Element => {
   const [count, setCount] = useState<number>(0);
 
   const colorStyle = useMemo(() => {
@@ -57,12 +57,12 @@ const ModalContent = ({
     <div
       className={
         (convertClassNameList(convertClassName(className, styles)),
-        styles['modal'])
+        styles['modal-stock'])
       }
     >
       <div
         className={convertClassNameList(
-          styles['modal__title'],
+          styles['modal-stock__title'],
           'flex-container',
         )}
       >
@@ -84,9 +84,11 @@ const ModalContent = ({
         </div>
       </div>
 
-      <div className={convertClassNameList(styles['modal__input-container'])}>
+      <div
+        className={convertClassNameList(styles['modal-stock__input-container'])}
+      >
         <input
-          className={convertClassNameList(styles['modal__input'])}
+          className={convertClassNameList(styles['modal-stock__input'])}
           type="number"
           name="count"
           value={count}
@@ -95,23 +97,27 @@ const ModalContent = ({
         <Text
           className={convertClassNameList(
             'text-sm',
-            styles['modal__input--text'],
+            styles['modal-stock__input--text'],
           )}
           text="&nbsp;주"
         />
         <div
           className={convertClassNameList(
-            styles['modal__input--button-container'],
+            styles['modal-stock__input--button-container'],
           )}
         >
           <Button
-            className={convertClassNameList(styles['modal__input--button'])}
+            className={convertClassNameList(
+              styles['modal-stock__input--button'],
+            )}
             label={<FontAwesomeIcon icon={faChevronUp} size="xs" />}
             value={count + 1}
             onClick={handleChangeCount}
           />
           <Button
-            className={convertClassNameList(styles['modal__input--button'])}
+            className={convertClassNameList(
+              styles['modal-stock__input--button'],
+            )}
             label={<FontAwesomeIcon icon={faChevronDown} size="xs" />}
             value={count - 1}
             onClick={handleChangeCount}
@@ -125,7 +131,7 @@ const ModalContent = ({
           (ratio: number): JSX.Element => (
             <Button
               className={convertClassNameList(
-                styles['modal__button'],
+                styles['modal-stock__button'],
                 'bg-gray-light',
               )}
               label={ratio + '%'}
@@ -139,7 +145,7 @@ const ModalContent = ({
       <div
         className={convertClassNameList(
           'flex-container jc-space-between',
-          styles['modal__price'],
+          styles['modal-stock__price'],
         )}
       >
         <Text className="text-md" text="주문단가" />
@@ -149,7 +155,7 @@ const ModalContent = ({
       <div
         className={convertClassNameList(
           'flex-container jc-space-between',
-          styles['modal__price'],
+          styles['modal-stock__price'],
         )}
       >
         <Text className="text-md" text="총 주문금액" />
@@ -159,12 +165,12 @@ const ModalContent = ({
       <div
         className={convertClassNameList(
           'flex-container jc-center',
-          styles['modal__button-container'],
+          styles['modal-stock__button-container'],
         )}
       >
         <Button
           className={convertClassNameList(
-            styles['modal__button'],
+            styles['modal-stock__button'],
             colorStyle.bgColorLight,
             colorStyle.textColor,
           )}
@@ -173,7 +179,7 @@ const ModalContent = ({
         />
         <Button
           className={convertClassNameList(
-            styles['modal__button'],
+            styles['modal-stock__button'],
             'white',
             colorStyle.bgColor,
           )}
@@ -185,4 +191,4 @@ const ModalContent = ({
   );
 };
 
-export default ModalContent;
+export default ModalStock;
