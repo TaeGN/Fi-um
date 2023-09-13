@@ -1,32 +1,38 @@
 import { BankLogo, Button, Text } from '@/components/atoms';
 import styles from './DepositProduct.module.scss';
 import { convertClassName, formatCurrency } from '@/utils';
-import { Modal, ModalDeposit } from '@/components/molecules';
-import useModal from '@/hooks/useModal';
-import { useState, useCallback, MouseEvent } from 'react';
+import { useMemo, MouseEvent } from 'react';
+import { Deposit } from '@/types';
 
 interface DepositProductProps {
-  status: number;
-  bankLogoClassName: string;
   className?: string;
-  title: string;
+  deposit: Deposit;
+  onModal: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
-export type LabelType = '입금' | '출금' | '가입';
-
 const DepositProduct = ({
-  status,
-  bankLogoClassName,
   className,
-  title,
+  deposit,
+  onModal,
 }: DepositProductProps) => {
-  const { isOpen, toggle } = useModal();
-  const [label, setLabel] = useState<LabelType>('입금');
-
-  const onModal = useCallback((e: MouseEvent<HTMLButtonElement>) => {
-    setLabel(e.currentTarget.value as LabelType);
-    toggle();
-  }, []);
+  const { bankLogoClassName, title } = useMemo(() => {
+    let bankLogoClassName = null;
+    switch (deposit.bankName) {
+      case '신한':
+        bankLogoClassName = 'shinhan normal';
+        break;
+      case '국민':
+        bankLogoClassName = 'kb normal';
+        break;
+      case '하나':
+        bankLogoClassName = 'hana normal';
+        break;
+    }
+    return {
+      bankLogoClassName,
+      title: `${deposit.bankName} ${deposit.productType}`,
+    };
+  }, [deposit.bankName, deposit.productType]);
 
   return (
     <div
@@ -43,7 +49,7 @@ const DepositProduct = ({
         <Text text={formatCurrency('123123')} />
       </div>
       <div className={styles.buttons}>
-        {status === 1 && (
+        {deposit.productType === '입출금' && (
           <>
             <Button
               onClick={onModal}
@@ -59,35 +65,26 @@ const DepositProduct = ({
             />
           </>
         )}
-        {status === 2 && (
-          <>
-            <Text text="만기일 : 2023. 09. 15" />
-          </>
-        )}
-        {status === 3 && (
-          <>
-            <div>
-              <Text text="거치기간: 7일" />
-              <Text text="이자율: 7%" />
-            </div>
-            <Button
-              onClick={onModal}
-              label="가입"
-              value="가입"
-              className="primary xsmall"
-            />
-          </>
-        )}
+        {deposit.productType === '적금' &&
+          (deposit.savingBalance > 0 ? (
+            <>
+              <Text text="만기일 : 2023. 09. 15" />
+            </>
+          ) : (
+            <>
+              <div>
+                <Text text="거치기간: 7일" />
+                <Text text="이자율: 7%" />
+              </div>
+              <Button
+                onClick={onModal}
+                label="가입"
+                value="가입"
+                className="primary xsmall"
+              />
+            </>
+          ))}
       </div>
-
-      <Modal isOpen={isOpen} toggle={toggle}>
-        <ModalDeposit
-          className={className}
-          label={label}
-          onClick={() => console.log('구매!!!!')}
-          toggle={toggle}
-        />
-      </Modal>
     </div>
   );
 };
