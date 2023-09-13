@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SponsorFundingHistoryRepository extends JpaRepository<SponsorFundingHistoryEntity, Integer> {
@@ -35,5 +36,9 @@ public interface SponsorFundingHistoryRepository extends JpaRepository<SponsorFu
             "JOIN s.itemNo i " +
             "GROUP BY i.itemNo, i.itemName, i.itemImagePath, i.itemUnitPrice, i.itemCount")
     List<MyFundingDto> findFunding();
+
+    @Query(value = "select sum(price) as fundingMoney from sponsor_funding_history group by user_no having user_no = :userNo",nativeQuery = true)
+    Optional<Integer> findFundingHistory(Integer userNo);
 }
+
 
