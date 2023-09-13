@@ -46,9 +46,6 @@ tasks.named('test') {
 }
 
 
-
 bootJar {
-    baseName = 'my-spring-boot-app'
-    version = ''
-    archiveFileName = "${baseName}.jar"  // Note: For newer Gradle versions, use `archiveFileName` instead of `archiveName`
+    archiveFileName = "my-spring-boot-app.jar"
 }
