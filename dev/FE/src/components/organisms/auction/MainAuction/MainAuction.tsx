@@ -1,4 +1,4 @@
-import { MainAuctionDescription } from '@/components/molecules';
+import { MainAuctionDescription, Swiper } from '@/components/molecules';
 import styles from './MainAuction.module.scss';
 import { Image } from '@/components/atoms';
 
@@ -9,13 +9,59 @@ const MainAuction = ({ data }: any) => {
     content: '개쩌는 내용',
   };
   return (
-    <div className={styles['main-auction']}>
-      <MainAuctionDescription
-        className={styles['main-auction__description']}
-        data={ddd}
-      />
-      <Image className={styles['main-auction__image']} src="" alt="aa" />
-    </div>
+    <>
+      <Swiper autoplay={false}>
+        <div className={styles['main-auction']}>
+          <MainAuctionDescription
+            className={styles['main-auction__description']}
+            data={ddd}
+          />
+          <Image className={styles['main-auction__image']} src="" alt="aa" />
+        </div>
+        <div className={styles['main-auction']}>
+          <MainAuctionDescription
+            className={styles['main-auction__description']}
+            data={ddd}
+          />
+          <Image className={styles['main-auction__image']} src="" alt="aa" />
+        </div>
+        <div className={styles['main-auction']}>
+          <MainAuctionDescription
+            className={styles['main-auction__description']}
+            data={ddd}
+          />
+          <Image className={styles['main-auction__image']} src="" alt="aa" />
+        </div>
+        <div className={styles['main-auction']}>
+          <MainAuctionDescription
+            className={styles['main-auction__description']}
+            data={ddd}
+          />
+          <Image className={styles['main-auction__image']} src="" alt="aa" />
+        </div>
+        <div className={styles['main-auction']}>
+          <MainAuctionDescription
+            className={styles['main-auction__description']}
+            data={ddd}
+          />
+          <Image className={styles['main-auction__image']} src="" alt="aa" />
+        </div>
+        <div className={styles['main-auction']}>
+          <MainAuctionDescription
+            className={styles['main-auction__description']}
+            data={ddd}
+          />
+          <Image className={styles['main-auction__image']} src="" alt="aa" />
+        </div>
+        <div className={styles['main-auction']}>
+          <MainAuctionDescription
+            className={styles['main-auction__description']}
+            data={ddd}
+          />
+          <Image className={styles['main-auction__image']} src="" alt="aa" />
+        </div>
+      </Swiper>
+    </>
   );
 };
 

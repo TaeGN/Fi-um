@@ -1,5 +1,8 @@
 .main-auction-description {
-  margin-right: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .main-auction-description > * {
