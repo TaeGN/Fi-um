@@ -71,7 +71,7 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
         </div>
       </div>
 
-      <Modal className="" isOpen={isOpen} toggle={toggle}>
+      <Modal isOpen={isOpen} toggle={toggle}>
         <ModalStock
           className={className}
           label={label}

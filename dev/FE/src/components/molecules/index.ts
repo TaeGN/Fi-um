@@ -31,4 +31,5 @@ export { default as Navbar } from '@/components/molecules/utils/Navbar/Navbar';
 export { default as Footer } from '@/components/molecules/utils/Footer/Footer';
 
 // modal content folder
-export { default as ModalStock } from '@/components/molecules/utils/Modal/contents/ModalStock';
+export { default as ModalStock } from '@/components/molecules/utils/Modal/contents/ModalStock/ModalStock';
+export { default as ModalDeposit } from '@/components/molecules/utils/Modal/contents/ModalDeposit/ModalDeposit';
