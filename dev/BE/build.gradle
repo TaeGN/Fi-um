@@ -4,11 +4,6 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
-jar {
-    baseName = 'my-spring-boot-app'
-    version = ''
-    archiveName = "${baseName}.jar"
-}
 
 
 
@@ -48,4 +43,12 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+
+
+bootJar {
+    baseName = 'my-spring-boot-app'
+    version = ''
+    archiveFileName = "${baseName}.jar"  // Note: For newer Gradle versions, use `archiveFileName` instead of `archiveName`
 }
