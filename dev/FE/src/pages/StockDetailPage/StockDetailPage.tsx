@@ -3,7 +3,7 @@ import { convertClassName, convertClassNameList, loremData } from '@/utils';
 import styles from './StockDetailPage.module.scss';
 import useModal from '@/hooks/useModal';
 import { Button, LineChart } from '@/components/atoms';
-import { Modal } from '@/components/molecules';
+import { Modal, ModalStock } from '@/components/molecules';
 
 interface StockDetailPageProps {
   className?: string;
@@ -71,13 +71,14 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
         </div>
       </div>
 
-      <Modal
-        className=""
-        label={label}
-        isOpen={isOpen}
-        toggle={toggle}
-        onClick={() => console.log('구매!!!!')}
-      />
+      <Modal className="" isOpen={isOpen} toggle={toggle}>
+        <ModalStock
+          className={className}
+          label={label}
+          onClick={() => console.log('구매!!!!')}
+          toggle={toggle}
+        />
+      </Modal>
     </div>
   );
 };
