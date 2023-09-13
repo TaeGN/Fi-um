@@ -21,6 +21,9 @@ const ProfileCard = ({
 }: ProfileCardProps) => {
   return (
     <div
+      style={{
+        width: '25%',
+      }}
       className={`${styles.profileCard} ${convertClassName(className, styles)}`}
     >
       <div className={styles.image}>
