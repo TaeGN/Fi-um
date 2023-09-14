@@ -1,7 +1,6 @@
-import { convertClassName, convertClassNameList, loremData } from '@/utils';
+import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './AuctionDetailPage.module.scss';
 import { AuctionDetailMain, CreaterProfile } from '@/components/organisms';
-import { Image } from '@/components/atoms';
 import { AuctionDetailDescription } from '@/components/molecules';
 
 interface AuctionDetailPageProps {
