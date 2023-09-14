@@ -4,7 +4,7 @@ import { DepositProduct } from '@/components/organisms';
 import { Deposit } from '@/types';
 import useModal from '@/hooks/useModal';
 import { useState, useCallback, MouseEvent } from 'react';
-import { Modal, ModalDeposit } from '@/components/molecules';
+import { Modal, ModalDeposit, Swiper } from '@/components/molecules';
 
 interface DepositPageProps {
   className?: string;
@@ -47,10 +47,24 @@ const DepositPage = ({ className }: DepositPageProps): JSX.Element => {
   }, []);
 
   return (
-    <div className={convertClassNameList(convertClassName(className, styles))}>
-      {depositList.map((deposit) => (
-        <DepositProduct deposit={deposit} onModal={onModal} />
-      ))}
+    <div
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        styles['deposit-page'],
+      )}
+    >
+      <div className={styles['deposit-page__main']}>
+        {depositList.map((deposit) => (
+          <DepositProduct deposit={deposit} onModal={onModal} />
+        ))}
+      </div>
+
+      <Swiper>
+        <div className={styles['deposit-page__swiper--item']}>aa</div>
+        <div className={styles['deposit-page__swiper--item']}>aa</div>
+        <div className={styles['deposit-page__swiper--item']}>aa</div>
+        <div className={styles['deposit-page__swiper--item']}>aa</div>
+      </Swiper>
 
       <Modal isOpen={isOpen} toggle={toggle}>
         <ModalDeposit

@@ -5,7 +5,7 @@ export default interface User {
 
 export interface UserDetail extends User {
   id: string;
-  password: string;
+  password2: string;
   name: string;
   phonenumber: string;
 }

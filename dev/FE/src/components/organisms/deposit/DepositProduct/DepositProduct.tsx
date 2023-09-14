@@ -1,6 +1,10 @@
 import { BankLogo, Button, Text } from '@/components/atoms';
 import styles from './DepositProduct.module.scss';
-import { convertClassName, formatCurrency } from '@/utils';
+import {
+  convertClassName,
+  convertClassNameList,
+  formatCurrency,
+} from '@/utils';
 import { useMemo, MouseEvent } from 'react';
 import { Deposit } from '@/types';
 
@@ -36,7 +40,7 @@ const DepositProduct = ({
 
   return (
     <div
-      className={`${styles.depositProduct} ${convertClassName(
+      className={`${styles['deposit-product']} ${convertClassName(
         className,
         styles,
       )}`}
@@ -55,24 +59,32 @@ const DepositProduct = ({
               onClick={onModal}
               label="입금"
               value="입금"
-              className="primary xsmall"
+              className={convertClassNameList(
+                'primary xsmall',
+                styles['deposit-product__item'],
+              )}
             />
             <Button
               onClick={onModal}
               label="출금"
               value="출금"
-              className="gray xsmall"
+              className={convertClassNameList(
+                'gray xsmall',
+                styles['deposit-product__item'],
+              )}
             />
           </>
         )}
         {deposit.productType === '적금' &&
           (deposit.savingBalance > 0 ? (
-            <>
-              <Text text="만기일 : 2023. 09. 15" />
-            </>
+            <Text text="만기일 : 2023. 09. 15" />
           ) : (
             <>
-              <div>
+              <div
+                className={convertClassNameList(
+                  styles['deposit-product__item'],
+                )}
+              >
                 <Text text="거치기간: 7일" />
                 <Text text="이자율: 7%" />
               </div>
@@ -80,7 +92,10 @@ const DepositProduct = ({
                 onClick={onModal}
                 label="가입"
                 value="가입"
-                className="primary xsmall"
+                className={convertClassNameList(
+                  'primary xsmall',
+                  styles['deposit-product__item'],
+                )}
               />
             </>
           ))}
