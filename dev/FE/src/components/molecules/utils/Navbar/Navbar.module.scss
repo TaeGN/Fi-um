@@ -2,10 +2,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
+  height: 60px;
   position: sticky;
-  z-index: 1;
-  // background-color: #ececec;
+  top: 0;
+  z-index: 9999;
+  background-color: white;
+  // box-shadow: 0 1px #ececec;
+
+  margin-bottom: 10px;
 
   &__logo {
     padding: 0.3rem;
