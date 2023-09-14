@@ -1,7 +1,8 @@
 import { convertClassName, convertClassNameList, loremData } from '@/utils';
 import styles from './AuctionDetailPage.module.scss';
-import { CreaterProfile } from '@/components/organisms';
+import { AuctionDetailMain, CreaterProfile } from '@/components/organisms';
 import { Image } from '@/components/atoms';
+import { AuctionDetailDescription } from '@/components/molecules';
 
 interface AuctionDetailPageProps {
   className?: string;
@@ -11,32 +12,31 @@ const AuctionDetailPage = ({
   className,
 }: AuctionDetailPageProps): JSX.Element => {
   return (
-    <div
-      className={convertClassNameList(
-        convertClassName(className, styles),
-        styles['auction-detail-page'],
-      )}
-    >
-      <Image
-        src="/vite.svg"
-        alt="image"
-        className={convertClassNameList(styles['auction-detail-page__image'])}
+    <div className={convertClassNameList(convertClassName(className, styles))}>
+      <AuctionDetailMain
+        title="개쩌는 그림"
+        src=""
+        alt="a"
+        className=""
+        imageClassName=""
+        descriptionClassName=""
+        auctionClick={() => {
+          console.log('개쩔어');
+        }}
+        buyItClick={() => {
+          console.log('와우 개쩔어');
+        }}
+        auctionPrice="1000"
+        instantPrice="1000"
       />
-      <div
-        className={convertClassNameList(styles['auction-detail-page__card'])}
-      >
-        card
+      <div className="flex-container">
+        <AuctionDetailDescription />
+        <CreaterProfile
+          className={convertClassNameList(
+            styles['auction-detail-page__profile'],
+          )}
+        />
       </div>
-      <div
-        className={convertClassNameList(
-          styles['auction-detail-page__description'],
-        )}
-      >
-        {loremData}
-      </div>
-      <CreaterProfile
-        className={convertClassNameList(styles['auction-detail-page__profile'])}
-      />
     </div>
   );
 };

@@ -1,67 +1,45 @@
 import { MainAuctionDescription, Swiper } from '@/components/molecules';
-import styles from './MainAuction.module.scss';
 import { Image } from '@/components/atoms';
+import { convertClassName, convertClassNameList } from '@/utils';
+import styles from './MainAuction.module.scss';
 
-const MainAuction = ({ data }: any) => {
-  const ddd = {
-    title: '개쩌는 그림',
-    user: '개쩌는 유저',
-    content: '개쩌는 내용',
-  };
+interface MainAuctionProps {
+  className?: string;
+}
+
+const MainAuction = ({ className }: MainAuctionProps): JSX.Element => {
+  const data = [];
+  for (let i = 1; i <= 5; i++) {
+    const title = `그림 ${i}`;
+    const user = `예술가 ${i}`;
+    const content = `내용 ${i}`;
+    data.push({
+      title: title,
+      user: user,
+      content: content,
+    });
+  }
+  console.log(data);
   return (
-    <>
-      <Swiper autoplay={false}>
-        <div className={styles['main-auction']}>
-          <MainAuctionDescription
-            className={styles['main-auction__description']}
-            data={ddd}
-          />
-          <Image className={styles['main-auction__image']} src="" alt="aa" />
-        </div>
-        <div className={styles['main-auction']}>
-          <MainAuctionDescription
-            className={styles['main-auction__description']}
-            data={ddd}
-          />
-          <Image className={styles['main-auction__image']} src="" alt="aa" />
-        </div>
-        <div className={styles['main-auction']}>
-          <MainAuctionDescription
-            className={styles['main-auction__description']}
-            data={ddd}
-          />
-          <Image className={styles['main-auction__image']} src="" alt="aa" />
-        </div>
-        <div className={styles['main-auction']}>
-          <MainAuctionDescription
-            className={styles['main-auction__description']}
-            data={ddd}
-          />
-          <Image className={styles['main-auction__image']} src="" alt="aa" />
-        </div>
-        <div className={styles['main-auction']}>
-          <MainAuctionDescription
-            className={styles['main-auction__description']}
-            data={ddd}
-          />
-          <Image className={styles['main-auction__image']} src="" alt="aa" />
-        </div>
-        <div className={styles['main-auction']}>
-          <MainAuctionDescription
-            className={styles['main-auction__description']}
-            data={ddd}
-          />
-          <Image className={styles['main-auction__image']} src="" alt="aa" />
-        </div>
-        <div className={styles['main-auction']}>
-          <MainAuctionDescription
-            className={styles['main-auction__description']}
-            data={ddd}
-          />
-          <Image className={styles['main-auction__image']} src="" alt="aa" />
-        </div>
+    <div className={convertClassNameList(convertClassName(className, styles))}>
+      <Swiper>
+        {data.map((dt) => {
+          return (
+            <div className={styles['main-auction']}>
+              <MainAuctionDescription
+                className={styles['main-auction__description']}
+                data={dt}
+              />
+              <Image
+                className={styles['main-auction__image']}
+                src=""
+                alt="aa"
+              />
+            </div>
+          );
+        })}
       </Swiper>
-    </>
+    </div>
   );
 };
 
