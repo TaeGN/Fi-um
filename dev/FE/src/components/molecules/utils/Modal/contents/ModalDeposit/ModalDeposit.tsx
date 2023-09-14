@@ -9,12 +9,7 @@ interface ModalDepositProps {
   toggle: () => void;
 }
 
-const ModalDeposit = ({
-  className,
-  label,
-  onClick,
-  toggle,
-}: ModalDepositProps): JSX.Element => {
+const ModalDeposit = ({ className, label }: ModalDepositProps): JSX.Element => {
   return (
     <div
       className={convertClassNameList(
