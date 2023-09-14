@@ -21,7 +21,7 @@ const Ranking = ({ className }: RankingProps): JSX.Element => {
     >
       {dummy.map((item) => {
         return (
-          <div className={styles[`profileCard${item.id}`]}>
+          <div key={item.id} className={styles[`profileCard${item.id}`]}>
             {item.id === 2 ? (
               <Image src="/img/crown.svg" alt="" className={styles.crown} />
             ) : (
