@@ -9,7 +9,6 @@ const apiInstance = () => {
       'Content-Type': 'application/json;charset=UTF-8',
       Accept: 'application/json,',
     },
-    withCredentials: true,
   });
   return instance;
 };
@@ -47,4 +46,7 @@ const authApiInstance = () => {
   return authInterceptor(apiInstance());
 };
 
-export { apiInstance, authApiInstance };
+const api = apiInstance();
+const authApi = authApiInstance();
+
+export { apiInstance, authApiInstance, api, authApi };
