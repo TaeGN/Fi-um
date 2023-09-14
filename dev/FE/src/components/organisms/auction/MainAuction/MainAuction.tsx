@@ -25,16 +25,18 @@ const MainAuction = ({ className }: MainAuctionProps): JSX.Element => {
       <Swiper type="autoplay">
         {data.map((dt) => {
           return (
-            <div className={styles['main-auction']}>
+            <div className={styles['main-auction']} key={dt.title}>
               <MainAuctionDescription
                 className={styles['main-auction__description']}
                 data={dt}
               />
-              <Image
-                className={styles['main-auction__image']}
-                src="/img/dummy.jpg"
-                alt="aa"
-              />
+              <div className={styles.imageWrapper}>
+                <Image
+                  className={styles['main-auction__image']}
+                  src="/img/dummy.jpg"
+                  alt="aa"
+                />
+              </div>
             </div>
           );
         })}

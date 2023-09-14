@@ -7,6 +7,10 @@
   padding: 2rem;
   width: 90%;
   margin: 0 auto 0 auto;
+  .imageWrapper {
+    width: 60%;
+    display: flex;
+  }
 
   &__description {
     width: 40%;
@@ -18,8 +22,7 @@
   }
 
   &__image {
-    max-height: 10rem;
-    width: 50%;
+    width: 95%;
 
     @media screen and (max-width: 500px) {
       width: 100%;
