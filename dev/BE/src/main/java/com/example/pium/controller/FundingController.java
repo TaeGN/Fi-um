@@ -54,7 +54,6 @@ public class FundingController {
             returnMsg.put("msg","남은 펀딩금액보다 펀딩금액이 큽니다.");
             return new ResponseEntity<>(returnMsg, HttpStatus.NOT_ACCEPTABLE);
         }
-
     }
 
     @GetMapping("progress")
