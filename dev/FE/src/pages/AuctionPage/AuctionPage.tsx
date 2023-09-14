@@ -18,7 +18,7 @@ const AuctionPage = ({ className }: AuctionPageProps): JSX.Element => {
     <div
       className={convertClassNameList(
         convertClassName(className, styles),
-        'card-container',
+        styles['auction-page'],
       )}
     >
       <AuctionCard

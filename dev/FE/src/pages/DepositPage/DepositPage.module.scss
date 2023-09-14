@@ -1,0 +1,19 @@
+.deposit-page {
+  padding-left: 10rem;
+  padding-right: 10rem;
+
+  background-color: #ececec;
+
+  &__main {
+    margin-left: 10vw;
+    margin-right: 10vw;
+  }
+
+  &__swiper--item {
+    background-color: #3579d4;
+    width: 50vw;
+    height: 300px;
+    text-align: center;
+    margin: auto;
+  }
+}

@@ -3,7 +3,7 @@
   }
 
   & > div {
-    height: 50vh;
+    min-height: 50vh;
     padding: 3rem 10rem;
 
     @media screen and (max-width: 829px) {
