@@ -11,6 +11,8 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
     <div className={convertClassNameList(convertClassName(className, styles))}>
       <Ranking />
       <FundingItem />
+      <FundingItem />
+      <FundingItem />
     </div>
   );
 };

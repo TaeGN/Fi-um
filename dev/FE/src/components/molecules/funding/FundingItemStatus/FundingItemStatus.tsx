@@ -16,21 +16,22 @@ const FundingItemStatus = ({
         styles['funding-item-status'],
       )}
     >
-      <Text className="text-md" text={loremData} />
+      <Text className="text-lg" text="상품명" />
+      <Text text={loremData} />
       <Text
         className={convertClassNameList(
-          'text-lg',
+          'blue bold',
           styles['funding-item-status__price'],
         )}
-        text="title1211111111111111111111111"
+        text="많은 돈"
       />
       <div className="flex-container jc-space-between flex-wrap">
         <Text
           className={convertClassNameList(
-            'text-lg',
+            'blue bold',
             styles['funding-item-status__price'],
           )}
-          text="title1211111111111111111111111"
+          text="적은 돈"
         />
         <Button
           label="펀딩하기"
