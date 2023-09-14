@@ -3,6 +3,8 @@ import styles from './MainAuction.module.scss';
 import { Image } from '@/components/atoms';
 
 const MainAuction = ({ data }: any) => {
+  console.log(data);
+
   const ddd = {
     title: '개쩌는 그림',
     user: '개쩌는 유저',
@@ -10,7 +12,7 @@ const MainAuction = ({ data }: any) => {
   };
   return (
     <>
-      <Swiper autoplay={false}>
+      <Swiper>
         <div className={styles['main-auction']}>
           <MainAuctionDescription
             className={styles['main-auction__description']}

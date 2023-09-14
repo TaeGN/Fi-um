@@ -5,8 +5,8 @@ import { Image, Text } from '@/components/atoms';
 interface ModalDepositProps {
   className?: string;
   label: string;
-  onClick: () => void;
-  toggle: () => void;
+  onClick?: () => void;
+  toggle?: () => void;
 }
 
 const ModalDeposit = ({ className, label }: ModalDepositProps): JSX.Element => {

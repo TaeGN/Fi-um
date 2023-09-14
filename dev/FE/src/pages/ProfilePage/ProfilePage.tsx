@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import {
   getArtist,
   getArtistQuery,
-  getTotalCapital,
+  // getTotalCapital,
   getTotalCapitalQuery,
 } from '@/api/user';
 

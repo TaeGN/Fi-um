@@ -1,7 +1,7 @@
 import styles from './MainPage.module.scss';
 import { LineChart, PieChart, Table, Text } from '@/components/atoms';
 import {
-  AuctionDescription,
+  // AuctionDescription,
   AuctionDetailDescription,
   FundingCard,
   FundingDescription,
@@ -33,7 +33,7 @@ const MainPage = () => {
       <Text className="text-lg blue" text="개쩌는 테이블" />
       <Table />
       <MainAuction />
-      <AuctionDescription />
+      {/* <AuctionDescription  /> */}
       <AuctionDetailDescription />
       <FundingDescription />
     </div>

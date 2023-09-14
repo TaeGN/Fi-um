@@ -2,6 +2,7 @@ import { Button, Text } from '@/components/atoms';
 import { convertClassName, convertClassNameList, convertUser } from '@/utils';
 import styles from './Login.module.scss';
 import { useMemo } from 'react';
+import { UserDetail } from '@/types';
 
 interface LoginProps {
   className?: string;
@@ -44,7 +45,7 @@ const Login = ({ className, signUp }: LoginProps): JSX.Element => {
             <label>
               <Text
                 className={convertClassNameList(styles['login__item--label'])}
-                text={convertUser(key)}
+                text={convertUser(key as keyof UserDetail)}
               />
             </label>
             <input
@@ -62,7 +63,7 @@ const Login = ({ className, signUp }: LoginProps): JSX.Element => {
           styles['login__item--button'],
         )}
         label="로그인"
-        onClick={null}
+        onClick={() => {}}
       />
     </div>
   );
