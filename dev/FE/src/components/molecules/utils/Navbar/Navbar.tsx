@@ -16,7 +16,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
       )}
     >
       <Link className={convertClassNameList(styles['navbar__logo'])} to={'/'}>
-        <Image src="/vite.svg" alt="logo" />
+        <Image src="/lotus.png" alt="logo" />
       </Link>
       <div className={convertClassNameList(styles['navbar__menu'])}>
         <Link
@@ -29,43 +29,49 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/stock'}
         >
-          stock
+          주식
         </Link>
         <Link
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/auction'}
         >
-          auction
+          경매
         </Link>
         <Link
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/deposit'}
         >
-          deposit
+          자산
         </Link>
         <Link
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/funding'}
         >
-          funding
+          펀딩
         </Link>
         <Link
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/gallery'}
         >
-          gallery
+          사진첩
         </Link>
         <Link
-          className={convertClassNameList(styles['navbar__menu--item'])}
+          className={convertClassNameList(
+            styles['navbar__menu--item'],
+            styles.login,
+          )}
           to={'/login'}
         >
-          login
+          로그인
         </Link>
         <Link
-          className={convertClassNameList(styles['navbar__menu--item'])}
+          className={convertClassNameList(
+            styles['navbar__menu--item'],
+            styles.signup,
+          )}
           to={'/signup'}
         >
-          signup
+          회원가입
         </Link>
       </div>
     </div>

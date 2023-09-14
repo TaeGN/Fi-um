@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 
 describe('ModalDeposit 컴포넌트', () => {
   test.skip('컴포넌트 렌더링 테스트', () => {
-    render(<ModalDeposit />);
+    render(<ModalDeposit label="" onClick={() => {}} toggle={() => {}} />);
     userEvent.setup();
     screen.debug();
   });

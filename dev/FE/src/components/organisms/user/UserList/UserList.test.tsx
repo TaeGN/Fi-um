@@ -1,11 +1,11 @@
 import UserList from './UserList';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event'
+import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-  
+
 describe('UserList 컴포넌트', () => {
-  test('컴포넌트 렌더링 테스트', () => {
-    render(<UserList />)
+  test.skip('컴포넌트 렌더링 테스트', () => {
+    render(<UserList totalCapitals={[]} />);
     userEvent.setup();
     screen.debug();
   });

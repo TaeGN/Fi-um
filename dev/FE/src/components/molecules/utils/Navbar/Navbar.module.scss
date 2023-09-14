@@ -2,16 +2,38 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 80px;
   position: sticky;
   z-index: 1;
-  background-color: #ececec;
+  // background-color: #ececec;
 
   &__logo {
+    padding: 0.3rem;
+    width: 64px;
+    height: 64px;
   }
   &__menu {
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     &--item {
       text-decoration: none;
       margin: 0.2rem;
+      font-size: 1rem;
+      color: #666;
     }
+  }
+  .login {
+    border: 1px solid #3579d4;
+    color: #3579d4;
+    border-radius: 4px;
+    padding: 0.3rem 0.5rem;
+  }
+  .signup {
+    border: 1px solid #d48100;
+    color: #d48100;
+    border-radius: 4px;
+    padding: 0.3rem 0.5rem;
   }
 }
