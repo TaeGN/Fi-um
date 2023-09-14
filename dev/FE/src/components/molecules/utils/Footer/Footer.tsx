@@ -7,7 +7,13 @@ interface FooterProps {
 
 const Footer = ({ className }: FooterProps): JSX.Element => {
   return (
-    <div className={convertClassNameList(convertClassName(className, styles))}>
+    <div
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        styles.footer,
+        'container',
+      )}
+    >
       Footer
     </div>
   );

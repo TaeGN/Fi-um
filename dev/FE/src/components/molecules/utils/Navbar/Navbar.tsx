@@ -13,6 +13,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
       className={convertClassNameList(
         convertClassName(className, styles),
         styles['navbar'],
+        'container',
       )}
     >
       <Link className={convertClassNameList(styles['navbar__logo'])} to={'/'}>

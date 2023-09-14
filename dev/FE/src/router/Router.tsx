@@ -1,4 +1,3 @@
-import { Footer, Navbar } from '@/components/molecules';
 import {
   AuctionDetailPage,
   AuctionPage,
@@ -14,12 +13,11 @@ import {
   StockDetailPage,
   StockPage,
 } from '@/pages';
-import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom';
+import { Route, Routes, Outlet } from 'react-router-dom';
 
-const Router = () => {
+const Router = ({ className }: { className?: string }) => {
   return (
-    <BrowserRouter>
-      <Navbar />
+    <div className={className}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="" element={<MainPage />} />
@@ -38,8 +36,7 @@ const Router = () => {
           <Route path="gallery/:detail" element={<GalleryDetailPage />} />
         </Route>
       </Routes>
-      <Footer />
-    </BrowserRouter>
+    </div>
   );
 };
 

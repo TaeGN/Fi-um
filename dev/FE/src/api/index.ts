@@ -17,6 +17,8 @@ const apiInstance = () => {
 const authInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     (config) => {
+      config.headers['X-ACCESS-TOKEN'] =
+        sessionStorage.getItem('X-ACCESS-TOKEN');
       return config;
     },
     (error) => {
@@ -30,6 +32,9 @@ const authInterceptor = (instance: AxiosInstance) => {
       return response;
     },
     (error) => {
+      if (error.response && error.response.status === 400) {
+        // refresh token 관련 코드
+      }
       console.error('response error : ', error);
       return Promise.reject(error);
     },
