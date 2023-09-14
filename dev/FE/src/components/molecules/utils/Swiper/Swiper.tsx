@@ -52,7 +52,7 @@ const CustomSwiper = ({
             clickable: true,
           },
           navigation: true,
-          loop: true,
+
           modules: [Autoplay, Keyboard, Pagination, Navigation],
         };
       case 'thumbsLoop':
