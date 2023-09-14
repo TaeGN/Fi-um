@@ -32,7 +32,7 @@ const MainAuction = ({ className }: MainAuctionProps): JSX.Element => {
               />
               <Image
                 className={styles['main-auction__image']}
-                src=""
+                src="/img/dummy.jpg"
                 alt="aa"
               />
             </div>
