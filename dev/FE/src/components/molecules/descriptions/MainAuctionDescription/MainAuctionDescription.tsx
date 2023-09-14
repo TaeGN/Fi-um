@@ -1,15 +1,16 @@
 import { Button, Text } from '@/components/atoms';
-import { convertClassName, convertClassNameList } from '@/utils';
+import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
 import styles from './MainAuctionDescription.module.scss';
+import { Auction } from '@/types';
 
 interface MainAuctionDescriptionProps {
   className?: string;
-  data?: any;
+  auction: Auction;
 }
 
 const MainAuctionDescription = ({
   className,
-  data,
+  auction,
 }: MainAuctionDescriptionProps): JSX.Element => {
   return (
     <div
@@ -18,11 +19,14 @@ const MainAuctionDescription = ({
         styles['main-auction-description'],
       )}
     >
-      <Text className="text-xl" text={data.title} />
-
-      <Text className="text-sm" text={data.user} />
-
-      <Text text={data.content} />
+      <Text className="text-xl" text={auction.title} />
+      <Text className="text-sm" text={auction.name} />
+      <Text text={auction.content} />
+      <div className="flex-container">
+        <Text className="text-sm" text={priceFilter(auction.auctionPrice)} />
+        &nbsp;
+        <Text className="text-sm" text={priceFilter(auction.instantPrice)} />
+      </div>
 
       <Button className="primary" label="사러가기" />
     </div>

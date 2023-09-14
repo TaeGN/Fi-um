@@ -3,7 +3,7 @@ import { convertClassName } from '@/utils';
 
 interface TextProps {
   className?: string;
-  text: string;
+  text: string | number;
 }
 
 const Text = ({ text, className }: TextProps) => {

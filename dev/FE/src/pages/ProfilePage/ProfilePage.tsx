@@ -4,12 +4,7 @@ import { ProfileHeader, UserList } from '@/components/organisms';
 import { convertClassName, convertClassNameList } from '@/utils';
 import { Image } from '@/components/atoms';
 import { useQuery } from '@tanstack/react-query';
-import {
-  getArtist,
-  getArtistQuery,
-  // getTotalCapital,
-  getTotalCapitalQuery,
-} from '@/api/user';
+import { getTotalCapitalQuery } from '@/api/user';
 
 interface ProfilePageProps {
   className?: string;
@@ -56,16 +51,6 @@ for (let index = 1; index <= 5; index++) {
 const ProfilePage = ({ className }: ProfilePageProps): JSX.Element => {
   const query1 = useQuery(getTotalCapitalQuery);
   console.log(query1);
-
-  const userNo = '2';
-  const query2 = useQuery({
-    queryKey: ['getArtist', userNo],
-    queryFn: getArtist,
-  });
-  console.log(query2);
-
-  const query3 = useQuery(getArtistQuery('3'));
-  console.log(query3);
 
   return (
     <div

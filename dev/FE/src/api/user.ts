@@ -1,36 +1,54 @@
-import { apiInstance, authApiInstance } from '.';
+import { UserDetail } from '@/types';
+import { api, authApi } from '.';
 
-const api = apiInstance();
-const authApi = authApiInstance();
-
-const getCheckId = async (userId: string) => {
+// 아이디 중복 확인
+const getUserCheckId = async ({
+  queryKey: [_, userId],
+}: {
+  queryKey: [string, string];
+}): Promise<string> => {
   return await api.get(`user/check-id?${userId}`);
 };
 
-const getTotalCapital = async () => {
+// 예술가 작품 전체 조회
+const getUserArtist = async ({
+  queryKey: [_, userNo],
+}: {
+  queryKey: [string, string];
+}) => {
+  return await authApi.get(`user/artist/${userNo}`);
+};
+
+// 개인정보 조회
+const getUser = async () => {
+  return await authApi.get(`user`);
+};
+
+const getUserTotalCapital = async () => {
   return await authApi.get(`user/total-capital`);
 };
 
-const getTotalCapitalQuery = {
-  queryKey: ['getTotalCapital'],
-  queryFn: getTotalCapital,
-};
-
-const getArtist = async ({ queryKey: [_, userNo] }: any) => {
-  return await authApi.get(`user/artist/${userNo}`);
+const userSignup = async (userDetail: UserDetail) => {
+  return await api.post(`user/signup`, userDetail);
 };
 
 const getArtistQuery = (userNo: string) => {
   return {
     queryKey: ['getArtist', userNo],
-    queryFn: getArtist,
+    queryFn: getUserArtist,
   };
 };
 
-export {
-  getCheckId,
-  getArtist,
-  getTotalCapital,
-  getTotalCapitalQuery,
-  getArtistQuery,
+const getTotalCapitalQuery = {
+  queryKey: ['getTotalCapital'],
+  queryFn: getUserTotalCapital,
 };
+
+export {
+  getUserCheckId,
+  getUserArtist,
+  getUser,
+  getUserTotalCapital,
+  userSignup,
+};
+export { getTotalCapitalQuery, getArtistQuery };

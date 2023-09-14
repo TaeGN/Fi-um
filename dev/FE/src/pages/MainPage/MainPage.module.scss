@@ -1,5 +1,26 @@
 .main-page {
   &__swiper {
-    height: 50%;
+  }
+
+  & > div {
+    height: 50vh;
+    padding: 3rem 10rem;
+
+    @media screen and (max-width: 829px) {
+      padding: 0 5rem;
+    }
+
+    @media screen and (max-width: 449px) {
+      padding: 0 1rem;
+    }
+
+    @media screen and (max-width: 299px) {
+      padding: 0;
+      font-size: 10px;
+    }
+  }
+
+  & > div:nth-child(2n) {
+    background-color: #ececec;
   }
 }
