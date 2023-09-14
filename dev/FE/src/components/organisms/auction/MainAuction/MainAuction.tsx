@@ -22,7 +22,7 @@ const MainAuction = ({ className }: MainAuctionProps): JSX.Element => {
   console.log(data);
   return (
     <div className={convertClassNameList(convertClassName(className, styles))}>
-      <Swiper>
+      <Swiper type="autoplay">
         {data.map((dt) => {
           return (
             <div className={styles['main-auction']}>

@@ -1,7 +1,16 @@
-import './FundingInfo.module.scss';
+import { convertClassName, convertClassNameList } from '@/utils';
+import styles from './FundingInfo.module.scss';
 
-const FundingInfo = () => {
-  return <div>FundingInfo</div>;
+interface FundingInfoProps {
+  className?: string;
+}
+
+const FundingInfo = ({ className }: FundingInfoProps): JSX.Element => {
+  return (
+    <div className={convertClassNameList(convertClassName(className, styles))}>
+      FundingInfo
+    </div>
+  );
 };
 
 export default FundingInfo;
