@@ -1,6 +1,6 @@
 import { MainAuctionDescription, Swiper } from '@/components/molecules';
 import { Image } from '@/components/atoms';
-import { convertClassName, convertClassNameList } from '@/utils';
+import { convertClassName, convertClassNameList, imgUrl } from '@/utils';
 import styles from './MainAuction.module.scss';
 
 interface MainAuctionProps {
@@ -32,7 +32,7 @@ const MainAuction = ({ className }: MainAuctionProps): JSX.Element => {
               />
               <Image
                 className={styles['main-auction__image']}
-                src=""
+                src={imgUrl('dummy.jpg')}
                 alt="aa"
               />
             </div>
