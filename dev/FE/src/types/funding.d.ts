@@ -1,4 +1,5 @@
 interface Funding {
+  itemNo: string;
   itemName: string;
   imagePath: string;
   itemUnitPrice: number;

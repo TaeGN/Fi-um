@@ -2,12 +2,14 @@ import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './FundingItem.module.scss';
 import { FundingItemStatus } from '@/components/molecules';
 import { Image } from '@/components/atoms';
+import { Funding } from '@/types';
 
 interface FundingItemProps {
   className?: string;
+  funding: Funding;
 }
 
-const FundingItem = ({ className }: FundingItemProps): JSX.Element => {
+const FundingItem = ({ className, funding }: FundingItemProps): JSX.Element => {
   return (
     <div
       className={convertClassNameList(
@@ -18,10 +20,10 @@ const FundingItem = ({ className }: FundingItemProps): JSX.Element => {
     >
       <Image
         className={convertClassNameList(styles['funding-item__image'])}
-        src=""
-        alt="a"
+        src={funding?.imagePath || '/vite.svg'}
+        alt={funding?.itemName}
       />
-      <FundingItemStatus />
+      <FundingItemStatus funding={funding} />
     </div>
   );
 };

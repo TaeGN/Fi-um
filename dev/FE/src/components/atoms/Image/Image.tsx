@@ -4,7 +4,7 @@ import styles from './Image.module.scss';
 interface ImageProps {
   className?: string;
   src: string;
-  alt: string;
+  alt?: string;
 }
 
 const initImageUrl: string = '/vite.svg';

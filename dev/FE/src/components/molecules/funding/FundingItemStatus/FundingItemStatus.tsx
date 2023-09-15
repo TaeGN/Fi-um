@@ -1,13 +1,21 @@
-import { convertClassName, convertClassNameList, loremData } from '@/utils';
+import {
+  convertClassName,
+  convertClassNameList,
+  loremData,
+  priceFilter,
+} from '@/utils';
 import styles from './FundingItemStatus.module.scss';
 import { Button, Text } from '@/components/atoms';
+import { Funding } from '@/types';
 
 interface FundingItemStatusProps {
   className?: string;
+  funding: Funding;
 }
 
 const FundingItemStatus = ({
   className,
+  funding,
 }: FundingItemStatusProps): JSX.Element => {
   return (
     <div
@@ -16,14 +24,14 @@ const FundingItemStatus = ({
         styles['funding-item-status'],
       )}
     >
-      <Text className="text-lg" text="상품명" />
+      <Text className="text-lg" text={funding.itemName} />
       <Text text={loremData} />
       <Text
         className={convertClassNameList(
           'blue bold',
           styles['funding-item-status__price'],
         )}
-        text="많은 돈"
+        text={priceFilter(funding.itemUnitPrice)}
       />
       <div className="flex-container jc-space-between flex-wrap">
         <Text
@@ -31,7 +39,7 @@ const FundingItemStatus = ({
             'blue bold',
             styles['funding-item-status__price'],
           )}
-          text="적은 돈"
+          text={priceFilter(funding.fundingAmount)}
         />
         <Button
           label="펀딩하기"

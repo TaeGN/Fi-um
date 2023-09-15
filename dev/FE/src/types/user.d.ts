@@ -7,11 +7,11 @@ interface User {
 
 interface UserDetail extends User {
   userId: string;
-
   password2: string;
   userName: string;
   phoneNumber: string;
 }
+
 export type UserKeyType = keyof UserDetail;
 
 interface TotalCapital {
