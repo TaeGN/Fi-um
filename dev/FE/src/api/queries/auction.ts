@@ -31,8 +31,7 @@ const getAuctionPurchaseQuery = () => {
 
 const postAuctionQuery = (auction: Auction) => {
   return {
-    queryKey: ['postAuction', auction],
-    queryFn: postAuction,
+    mutationFn: () => postAuction(auction),
   };
 };
 
@@ -45,8 +44,11 @@ const postAuctionBidQuery = ({
   auctionPrice: string;
 }) => {
   return {
-    queryKey: ['postAuctionBid', { auctionNo, auctionPrice }],
-    queryFn: postAuctionBid,
+    mutationFn: () =>
+      postAuctionBid({
+        auctionNo,
+        auctionPrice,
+      }),
   };
 };
 
@@ -61,8 +63,12 @@ const putAuctionQuery = ({
   content: string;
 }) => {
   return {
-    queryKey: ['putAuction', { auctionNo, title, content }],
-    queryFn: putAuction,
+    mutationFn: () =>
+      putAuction({
+        auctionNo,
+        title,
+        content,
+      }),
   };
 };
 

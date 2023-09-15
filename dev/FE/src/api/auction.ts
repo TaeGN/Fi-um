@@ -22,28 +22,30 @@ const getAuctionPurchase = async (): Promise<Purchase[]> => {
 };
 
 // 경매 물품 등록
-const postAuction = async ({
-  queryKey: [_, auction],
-}: {
-  queryKey: QueryKey;
-}): Promise<string> => {
+const postAuction = async (auction: Auction): Promise<string> => {
   return await authApi.post(`auction`, auction);
 };
 
 // 경매 입찰 / 즉시구매
 const postAuctionBid = async ({
-  queryKey: [_, { auctionNo, auctionPrice }],
+  auctionNo,
+  auctionPrice,
 }: {
-  queryKey: any;
+  auctionNo: string;
+  auctionPrice: string;
 }): Promise<string> => {
   return await authApi.post(`auction/${auctionNo}`, auctionPrice);
 };
 
 // 경매 물품 내용 수정
 const putAuction = async ({
-  queryKey: [_, { auctionNo, title, content }],
+  auctionNo,
+  title,
+  content,
 }: {
-  queryKey: any;
+  auctionNo: string;
+  title: string;
+  content: string;
 }): Promise<string> => {
   return await authApi.put(`auction/${auctionNo}`, { title, content });
 };
