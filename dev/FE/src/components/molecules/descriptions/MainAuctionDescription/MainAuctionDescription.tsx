@@ -2,6 +2,8 @@ import { Button, Text } from '@/components/atoms';
 import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
 import styles from './MainAuctionDescription.module.scss';
 import { Auction } from '@/types';
+import { useNavigate } from 'react-router-dom';
+import { MouseEvent, useCallback } from 'react';
 
 interface MainAuctionDescriptionProps {
   className?: string;
@@ -12,6 +14,15 @@ const MainAuctionDescription = ({
   className,
   auction,
 }: MainAuctionDescriptionProps): JSX.Element => {
+  const navigate = useNavigate();
+
+  const onMove = useCallback(
+    (e: MouseEvent<HTMLButtonElement>) => {
+      navigate(`/auction/${e.currentTarget.value}`);
+    },
+    [auction.auctionNo],
+  );
+
   return (
     <div
       className={convertClassNameList(
@@ -28,7 +39,12 @@ const MainAuctionDescription = ({
         <Text className="text-sm" text={priceFilter(auction.instantPrice)} />
       </div>
 
-      <Button className="primary" label="사러가기" />
+      <Button
+        className="primary"
+        label="사러가기"
+        value={auction.auctionNo}
+        onClick={onMove}
+      />
     </div>
   );
 };

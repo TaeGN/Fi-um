@@ -6,24 +6,29 @@ import { Auction } from '@/types';
 
 interface MainAuctionProps {
   className?: string;
-  auctionList?: Auction[];
+  auctions?: Auction[];
 }
 
 const MainAuction = ({
   className,
-  auctionList,
+  auctions,
 }: MainAuctionProps): JSX.Element => {
+  // 나중에 지울 부분
   const data = [];
   for (let i = 1; i <= 5; i++) {
-    if (auctionList) data.push(...auctionList);
+    if (auctions) data.push(...auctions);
   }
   console.log(data);
+  // 지울 부분 끝
   return (
     <div className={convertClassNameList(convertClassName(className, styles))}>
       <Swiper type="autoplay">
         {data.map((auction) => {
           return (
-            <div className={styles['main-auction']} key={auction.title}>
+            <div
+              className={styles['main-auction']}
+              key={auction.auctionNo + auction.title}
+            >
               <MainAuctionDescription
                 className={styles['main-auction__description']}
                 auction={auction}

@@ -1,5 +1,7 @@
 import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './FundingAdmin.module.scss';
+import { FundingItem } from '../..';
+import { Table } from '@/components/atoms';
 
 interface FundingAdminProps {
   className?: string;
@@ -7,8 +9,20 @@ interface FundingAdminProps {
 
 const FundingAdmin = ({ className }: FundingAdminProps): JSX.Element => {
   return (
-    <div className={convertClassNameList(convertClassName(className, styles))}>
-      FundingAdmin
+    <div
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        'flex-container jc-center',
+      )}
+    >
+      <div>
+        <FundingItem />
+        <FundingItem />
+        <FundingItem />
+      </div>
+      <div>
+        <Table />
+      </div>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 interface Auction {
+  auctionNo: number;
   auctionPrice: number;
   content: string;
   createdTime: number;
@@ -13,4 +14,10 @@ interface Auction {
   winner: number | null;
 }
 
-export type { Auction };
+interface Purchase {
+  actionNo: number;
+  imagePath: string;
+  title: string;
+}
+
+export type { Auction, Purchase };

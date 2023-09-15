@@ -3,14 +3,14 @@ import styles from './MainPage.module.scss';
 import { Funding, MainAuction, Ranking } from '@/components/organisms';
 import { Swiper } from '@/components/molecules';
 import { getAuctionsQuery } from '@/api/queries/auction';
+import { Auction } from '@/types';
 
 const MainPage = () => {
-  const { data: auctions } = useQuery(getAuctionsQuery());
-  console.log(auctions);
+  const { data: auctions } = useQuery<Auction[], Error>(getAuctionsQuery());
 
   return (
     <div className={styles['main-page']}>
-      <MainAuction auctionList={auctions} />
+      <MainAuction auctions={auctions} />
       <div className={styles['main-page__swiper']}>
         <Swiper>
           <Ranking />

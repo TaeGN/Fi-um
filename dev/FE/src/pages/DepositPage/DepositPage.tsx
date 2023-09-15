@@ -55,7 +55,11 @@ const DepositPage = ({ className }: DepositPageProps): JSX.Element => {
     >
       <div className={styles['deposit-page__main']}>
         {depositList.map((deposit) => (
-          <DepositProduct deposit={deposit} onModal={onModal} />
+          <DepositProduct
+            key={deposit.bankName + deposit.productType}
+            deposit={deposit}
+            onModal={onModal}
+          />
         ))}
       </div>
 
