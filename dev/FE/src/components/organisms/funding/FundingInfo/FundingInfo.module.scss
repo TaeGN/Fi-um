@@ -1,14 +1,9 @@
-.funding-info__left {
+.funding-info {
   display: flex;
   width: 70%;
   align-items: center;
   margin-right: 10px;
   > div {
     width: 50%;
-    height: 50%;
   }
-}
-.funding-info__right {
-  padding: 10px;
-  width: 30%;
 }
