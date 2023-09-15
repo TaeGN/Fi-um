@@ -1,7 +1,7 @@
 import { PointRecord, Stock } from '.';
 
 interface User {
-  id: string;
+  userId: string;
   password: string;
 }
 
