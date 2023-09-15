@@ -14,6 +14,8 @@ const AuctionPage = ({ className }: AuctionPageProps): JSX.Element => {
   const { data: auctions } = useQuery<Auction[], Error>(getAuctionsQuery());
   const navigate = useNavigate();
 
+  console.log(auctions);
+
   const handleMoveAuctionDetail = (auctionNo: number) => {
     navigate(`/auction/${auctionNo}`);
   };

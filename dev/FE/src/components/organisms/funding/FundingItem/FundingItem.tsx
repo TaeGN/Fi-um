@@ -1,8 +1,8 @@
-import { convertClassName, convertClassNameList } from '@/utils';
+import { convertClassName, convertClassNameList, loremData } from '@/utils';
 import styles from './FundingItem.module.scss';
-import { FundingItemStatus } from '@/components/molecules';
-import { Image } from '@/components/atoms';
+import { Image, Text } from '@/components/atoms';
 import { Funding } from '@/types';
+import { FundingBar } from '@/components/molecules';
 
 interface FundingItemProps {
   className?: string;
@@ -16,6 +16,7 @@ const FundingItem = ({ className, funding }: FundingItemProps): JSX.Element => {
         convertClassName(className, styles),
         styles['funding-item'],
         'flex-container',
+        'container',
       )}
     >
       <Image
@@ -23,7 +24,23 @@ const FundingItem = ({ className, funding }: FundingItemProps): JSX.Element => {
         src={funding?.imagePath || '/vite.svg'}
         alt={funding?.itemName}
       />
-      <FundingItemStatus funding={funding} />
+      <div className={convertClassNameList(styles['funding-item__main'])}>
+        <Text
+          className={convertClassNameList(
+            styles['funding-item__main'],
+            'text-xl',
+          )}
+          text={funding.itemName}
+        />
+        <Text
+          className={convertClassNameList(
+            styles['funding-item__main'],
+            'text-xl',
+          )}
+          text={loremData}
+        />
+        <FundingBar ratio={80} />
+      </div>
     </div>
   );
 };

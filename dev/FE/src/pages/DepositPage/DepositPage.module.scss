@@ -1,12 +1,25 @@
 .deposit-page {
-  padding-left: 10rem;
-  padding-right: 10rem;
+  // padding-left: 10rem;
+  // padding-right: 10rem;
 
   background-color: #ececec;
 
   &__main {
-    margin-left: 10vw;
-    margin-right: 10vw;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    @media screen and (max-width: 829px) {
+      margin-left: 15vw;
+      margin-right: 15vw;
+    }
+
+    @media screen and (max-width: 449px) {
+      margin-left: 5vw;
+      margin-right: 5vw;
+    }
+
+    @media screen and (max-width: 299px) {
+      margin: 0;
+    }
   }
 
   &__swiper--item {
