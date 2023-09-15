@@ -1,4 +1,5 @@
 interface Auction {
+  auctionNo: number;
   auctionPrice: number;
   content: string;
   createdTime: number;

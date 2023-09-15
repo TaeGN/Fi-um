@@ -6,7 +6,7 @@ interface AuctionCardProps {
   src: string;
   alt: string;
   title: string;
-  startValue: string;
+  startValue?: string;
   currentValue: string;
   buyItNow: string;
   className?: string;
@@ -34,7 +34,7 @@ const AuctionCard = ({
         <Text text={title} className="text-lg" />
       </div>
       <div className={styles.content}>
-        <Text text={`시작가 : ${formatCurrency(startValue)}`} />
+        {startValue && <Text text={`시작가 : ${formatCurrency(startValue)}`} />}
         <Text text={`현재가 : ${formatCurrency(currentValue)}`} />
         <Text text={`즉시구매가 : ${formatCurrency(buyItNow)}`} />
       </div>
