@@ -1,6 +1,6 @@
 import { Swiper } from '@/components/molecules';
 import styles from './ProfilePage.module.scss';
-import { ProfileHeader, UserList } from '@/components/organisms';
+import { FundingAdmin, ProfileHeader, UserList } from '@/components/organisms';
 import { convertClassName, convertClassNameList } from '@/utils';
 import { Image } from '@/components/atoms';
 
@@ -59,6 +59,7 @@ const ProfilePage = ({ className }: ProfilePageProps): JSX.Element => {
       <Swiper className={convertClassNameList(styles['profile-page__swiper'])}>
         {imageData}
       </Swiper>
+      <FundingAdmin />
     </div>
   );
 };
