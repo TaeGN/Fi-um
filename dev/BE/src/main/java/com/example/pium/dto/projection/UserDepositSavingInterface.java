@@ -2,6 +2,8 @@ package com.example.pium.dto.projection;
 
 public interface UserDepositSavingInterface {
 
+    Integer getUserNo();
+
     String getBankName();
 
     String getProductType();
@@ -11,4 +13,6 @@ public interface UserDepositSavingInterface {
     Integer getPrimeInterestRate();
 
     Integer getSavingBalance();
+
+
 }

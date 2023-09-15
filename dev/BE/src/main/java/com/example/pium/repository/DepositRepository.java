@@ -17,7 +17,7 @@ public interface DepositRepository extends JpaRepository<DepositEntity, Integer>
 
     List<DepositEntity> findAllByUserNo(UserEntity user);
 
-    @Query(value = "SELECT d.user_no as userNo,SUM(d.deposit_money) as depositMoney FROM deposit as d where d.create_deposit > :nowTime group by user_no ",nativeQuery = true)
+    @Query(value = "select a.interest_rate as interestRate, a. prime_interest_rate as primeInterestRate, b.userNo as userNo, b.depositMoney as depositMoney from bank_product_data as a, (SELECT d.user_no as userNo, SUM(d.deposit_money) as depositMoney, MAX(d.bank_product_data_no) as bankProductDataNo FROM deposit as d where d.create_deposit > :nowTime group by user_no) as b where a.bank_product_data_no = b.bankProductDataNo ",nativeQuery = true)
     List<DepositInterest> findChildDeposit(Long nowTime);
 
 }

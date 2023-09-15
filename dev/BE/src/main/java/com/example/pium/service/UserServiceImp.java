@@ -106,14 +106,54 @@ public class UserServiceImp {
         userRepository.save(user);
     }
 
-    public List<UserDepositSavingInterface> getUserDepositSaving(Integer userNo){
+    public List<UserDepositSavingDto> getUserDepositSaving(Integer userNo){
+
         List<UserDepositSavingInterface> list1 = userRepository.findByUserDeposit(userNo);
-        System.out.println(list1);
         List<UserDepositSavingInterface> list2 = userRepository.findByUserSaving(userNo);
-        System.out.println(list2);
-        return Stream.concat(list1.stream(), list2.stream())
+        List<UserDepositSavingInterface> nlist = Stream.concat(list1.stream(), list2.stream())
                 .collect(Collectors.toList());
+
+        List<UserDepositSavingDto> userDepositSavingDtoList = new ArrayList<>();
+        System.out.println(nlist.size());
+        for(UserDepositSavingInterface u : nlist){
+            UserDepositSavingDto userDepositSavingDto = new UserDepositSavingDto();
+            userDepositSavingDto.setSavingBalance(u.getSavingBalance());
+            userDepositSavingDto.setBankName(u.getBankName());
+            userDepositSavingDto.setProductType(u.getProductType());
+            userDepositSavingDto.setInterestRate(u.getInterestRate());
+            if(!checkPrime(userNo,u.getBankName())){
+                userDepositSavingDto.setPrimeInterestRate(0);
+            }
+            else{
+                userDepositSavingDto.setPrimeInterestRate(u.getPrimeInterestRate());
+            }
+            userDepositSavingDtoList.add(userDepositSavingDto);
+        }
+        return userDepositSavingDtoList;
     }
+
+    public boolean checkPrime(Integer userNo, String bankName){
+        UserEntity user = userRepository.findByUserNo(userNo).get();
+        if(bankName.equals("신한은행")){
+            if(user.getIsPrimed1()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else if(bankName.equals("국민은행")){
+            if(user.getIsPrimed2()){
+                return true;
+            }
+            else{
+                return false;
+            }
+
+        }
+        return false;
+    }
+
 
     public SponsorUserInterface getSponsorData(Integer userNo){
         SponsorUserInterface sponsorUserDto = userRepository.findByUserNoAndUserType(userNo);
@@ -200,7 +240,7 @@ public class UserServiceImp {
         userInfoDto.setUserId(user.getUserId());
         userInfoDto.setUserNo(user.getUserNo());
         userInfoDto.setUserType(user.getUserType());
-        userInfoDto.setName(user.getUserName());
+        userInfoDto.setUserNme(user.getUserName());
         userInfoDto.setJoinDate(user.getJoinDate());
         userInfoDto.setPhoneNumber(user.getPhoneNumber());
         userInfoDto.setPoint(user.getPoint());

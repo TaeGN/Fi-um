@@ -10,7 +10,7 @@ public class UserInfoDto {
 
     private Integer userNo;
 
-    private String name;
+    private String userNme;
 
     private String userId;
 

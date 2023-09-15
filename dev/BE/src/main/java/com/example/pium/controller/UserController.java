@@ -2,6 +2,7 @@ package com.example.pium.controller;
 
 import com.example.pium.dto.*;
 import com.example.pium.dto.projection.*;
+import com.example.pium.entity.BalanceSheetEntity;
 import com.example.pium.entity.UserEntity;
 import com.example.pium.repository.BalanceSheetRepository;
 import com.example.pium.repository.DepositRepository;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,11 +69,10 @@ public class UserController {
 
     //특정 아이의 예/적금 조회
     @GetMapping("deposit-saving")
-    public ResponseEntity<List<UserDepositSavingInterface>> getUserDepositSaving(HttpServletRequest request){
+    public ResponseEntity<List<UserDepositSavingDto>> getUserDepositSaving(HttpServletRequest request){
         Integer userNo = (Integer) request.getAttribute("userNo");
         System.out.println(userNo);
-        List<UserDepositSavingInterface> userDepositSavingInterface = userService.getUserDepositSaving(userNo);
-        System.out.println(userDepositSavingInterface);
+        List<UserDepositSavingDto> userDepositSavingInterface = userService.getUserDepositSaving(userNo);
         return ResponseEntity.ok(userDepositSavingInterface);
     }
 
@@ -130,7 +131,6 @@ public class UserController {
            return ResponseEntity.ok(sponsorUserDto);
         }
 
-
     }
 
     // 특정 아이의 재무상태표 조회
@@ -178,7 +178,15 @@ public class UserController {
     // 유저 회원가입
     @PostMapping("signup")
     public ResponseEntity<ReturnMessageDto> signUp(@RequestBody SignUpDto signUpDto){
-
+        ReturnMessageDto returnMessageDto = new ReturnMessageDto();
+        if(signUpDto.getUserId().length() < 4 || signUpDto.getPassword().length() < 8  || signUpDto.getUserName().length() < 2){
+           returnMessageDto.setMsg("입력 정보를 확인하세요.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(returnMessageDto);
+        }
+        if(userService.isUserIdExist(signUpDto.getUserId())){
+            returnMessageDto.setMsg("아이디 중복.");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(returnMessageDto);
+        }
         UserEntity userEntity = UserEntity.builder()
                 .userId(signUpDto.getUserId())
                 .userName(signUpDto.getUserName())
@@ -189,7 +197,7 @@ public class UserController {
                 .build();
 
         userService.save(userEntity);
-        ReturnMessageDto returnMessageDto = new ReturnMessageDto();
+
         returnMessageDto.setMsg("회원 가입이 성공적으로 완료되었습니다.");
         return ResponseEntity.ok(returnMessageDto);
 
