@@ -32,18 +32,6 @@ const userSignup = async (userDetail: UserDetail) => {
   return await api.post(`user/signup`, userDetail);
 };
 
-const getArtistQuery = (userNo: string) => {
-  return {
-    queryKey: ['getArtist', userNo],
-    queryFn: getUserArtist,
-  };
-};
-
-const getTotalCapitalQuery = {
-  queryKey: ['getTotalCapital'],
-  queryFn: getUserTotalCapital,
-};
-
 export {
   getUserCheckId,
   getUserArtist,
@@ -51,4 +39,3 @@ export {
   getUserTotalCapital,
   userSignup,
 };
-export { getTotalCapitalQuery, getArtistQuery };
