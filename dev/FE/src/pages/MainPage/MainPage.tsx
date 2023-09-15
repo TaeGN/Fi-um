@@ -7,11 +7,10 @@ import { Auction } from '@/types';
 
 const MainPage = () => {
   const { data: auctions } = useQuery<Auction[], Error>(getAuctionsQuery());
-  console.log(auctions);
 
   return (
     <div className={styles['main-page']}>
-      <MainAuction auctionList={auctions} />
+      <MainAuction auctions={auctions} />
       <div className={styles['main-page__swiper']}>
         <Swiper>
           <Ranking />
