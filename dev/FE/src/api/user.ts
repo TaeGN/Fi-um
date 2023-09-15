@@ -1,11 +1,12 @@
 import { UserDetail } from '@/types';
+import { QueryKey } from '@tanstack/react-query';
 import { api, authApi } from '.';
 
 // 아이디 중복 확인
 const getUserCheckId = async ({
   queryKey: [_, userId],
 }: {
-  queryKey: [string, string];
+  queryKey: QueryKey;
 }): Promise<string> => {
   return await api.get(`user/check-id?${userId}`);
 };
@@ -14,7 +15,7 @@ const getUserCheckId = async ({
 const getUserArtist = async ({
   queryKey: [_, userNo],
 }: {
-  queryKey: [string, string];
+  queryKey: QueryKey;
 }) => {
   return await authApi.get(`user/artist/${userNo}`);
 };

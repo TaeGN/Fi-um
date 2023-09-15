@@ -3,9 +3,10 @@ import styles from './MainPage.module.scss';
 import { Funding, MainAuction, Ranking } from '@/components/organisms';
 import { Swiper } from '@/components/molecules';
 import { getAuctionsQuery } from '@/api/queries/auction';
+import { Auction } from '@/types';
 
 const MainPage = () => {
-  const { data: auctions } = useQuery(getAuctionsQuery());
+  const { data: auctions } = useQuery<Auction[], Error>(getAuctionsQuery());
   console.log(auctions);
 
   return (

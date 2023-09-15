@@ -13,4 +13,10 @@ interface Auction {
   winner: number | null;
 }
 
-export type { Auction };
+interface Purchase {
+  actionNo: number;
+  imagePath: string;
+  title: string;
+}
+
+export type { Auction, Purchase };
