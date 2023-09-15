@@ -1,13 +1,13 @@
 export default interface User {
-  id: string;
+  userId: string;
   password: string;
 }
 
 export interface UserDetail extends User {
-  id: string;
+  userId: string;
   password2: string;
-  name: string;
-  phonenumber: string;
+  userName: string;
+  phoneNumber: string;
 }
 
 export type UserKeyType = keyof UserDetail;
