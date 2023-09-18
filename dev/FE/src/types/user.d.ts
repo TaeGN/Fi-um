@@ -59,6 +59,20 @@ interface UserInfo {
   tokenResponse: { accessToken: string; refreshToken: string };
 }
 
+interface SponsorProfile {
+  userNo: number;
+  userName: string;
+  sponsoredAmount: number;
+  point: number;
+  cash: number;
+}
+
+interface ChildProfile {
+  userNo: number;
+  userName: string;
+  imagaPath: string;
+}
+
 type UserType = 1 | 2 | 3;
 
 export type {
@@ -69,4 +83,6 @@ export type {
   UserInfo,
   UserType,
   Capital,
+  SponsorProfile,
+  ChildProfile,
 };

@@ -1,4 +1,10 @@
-import { Capital, TotalCapital, UserDetail } from '@/types';
+import {
+  Capital,
+  ChildProfile,
+  SponsorProfile,
+  TotalCapital,
+  UserDetail,
+} from '@/types';
 import { QueryKey } from '@tanstack/react-query';
 import { api, authApi } from '.';
 
@@ -21,8 +27,8 @@ const getUserArtist = async ({
 };
 
 // 개인정보 조회
-const getUser = async () => {
-  return await authApi.get(`user`);
+const getUser = async (): Promise<SponsorProfile | ChildProfile> => {
+  return await authApi.get(`user`).then(({ data }) => data);
 };
 
 // refresh token
