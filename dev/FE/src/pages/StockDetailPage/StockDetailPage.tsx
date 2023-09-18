@@ -7,6 +7,7 @@ import { Modal, ModalStock } from '@/components/molecules';
 import { getStockChart } from '@/api/stock';
 import { useQuery } from '@tanstack/react-query';
 import { Stock } from '@/types';
+import { useLocation } from 'react-router-dom';
 
 interface StockDetailPageProps {
   className?: string;
@@ -16,6 +17,7 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
   const { isOpen, toggle } = useModal();
   const [label, setLabel] = useState('매도');
   const [chartData, setChartData] = useState<any | undefined>();
+  const location = useLocation();
 
   const onModal = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     setLabel(e.currentTarget.value);
@@ -24,7 +26,10 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
 
   const { data: stockChart, status: isStockChartLoading } = useQuery<Stock[]>(
     ['getStockChart'],
-    () => getStockChart({ queryKey: ['', 1] }),
+    () =>
+      getStockChart({
+        queryKey: ['', Number(location.pathname[location.pathname.length - 1])],
+      }),
   );
   console.log(stockChart);
 
