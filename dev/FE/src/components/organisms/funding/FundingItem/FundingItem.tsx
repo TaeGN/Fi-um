@@ -50,6 +50,8 @@ const FundingItem = ({ className, funding }: FundingItemProps): JSX.Element => {
             text={loremData}
           />
           <FundingBar
+            itemUnitPrice={funding.itemUnitPrice}
+            fundingAmount={funding.fundingAmount}
             ratio={
               funding.fundingAmount !== 0
                 ? (funding.fundingAmount / funding.itemUnitPrice) * 100
