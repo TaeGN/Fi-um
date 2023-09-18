@@ -1,19 +1,18 @@
 import { useMemo } from 'react';
-import dummy from './dummy.json';
+// import dummy from './dummy.json';
 import { usePagination, useTable } from 'react-table';
 import './Table.module.scss';
 import { snakeToTitle } from '@/utils';
 
-const cols = Object.keys(dummy[0]).map((snake) => {
-  return {
-    Header: snakeToTitle(snake),
-    accessor: snake,
-  };
-});
-
-const Table = () => {
+const Table = ({ propsData }: { propsData: any }) => {
+  const cols = Object.keys(propsData[0]).map((snake) => {
+    return {
+      Header: snakeToTitle(snake),
+      accessor: snake,
+    };
+  });
   const columns = useMemo(() => cols, []);
-  const data = useMemo(() => dummy, []);
+  const data: any = useMemo(() => propsData, []);
   const {
     getTableProps,
     getTableBodyProps,
