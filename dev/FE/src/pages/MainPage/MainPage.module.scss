@@ -23,4 +23,13 @@
   & > div:nth-child(2n) {
     background-color: #ececec;
   }
+
+  &__education {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @media screen and (max-width: 1200px) {
+      grid-template-columns: 1fr;
+    }
+  }
 }

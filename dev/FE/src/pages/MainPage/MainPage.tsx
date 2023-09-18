@@ -4,10 +4,10 @@ import { Funding, MainAuction, Ranking } from '@/components/organisms';
 import { Swiper } from '@/components/molecules';
 import { getAuctionsQuery } from '@/api/queries/auction';
 import { Auction } from '@/types';
+import { eduBook } from '@/utils';
 
 const MainPage = () => {
   const { data: auctions } = useQuery<Auction[], Error>(getAuctionsQuery());
-
   return (
     <div className={styles['main-page']}>
       <MainAuction auctions={auctions} />
@@ -19,6 +19,8 @@ const MainPage = () => {
         </Swiper>
       </div>
       <Funding />
+
+      <div className={styles['main-page__education']}>{eduBook()}</div>
     </div>
   );
 };

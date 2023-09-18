@@ -7,15 +7,18 @@ import {
 import styles from './FundingItemStatus.module.scss';
 import { Button, Text } from '@/components/atoms';
 import { Funding } from '@/types';
+import { MouseEvent } from 'react';
 
 interface FundingItemStatusProps {
   className?: string;
   funding: Funding;
+  onModal: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const FundingItemStatus = ({
   className,
   funding,
+  onModal,
 }: FundingItemStatusProps): JSX.Element => {
   return (
     <div
@@ -42,6 +45,7 @@ const FundingItemStatus = ({
           text={priceFilter(funding.fundingAmount)}
         />
         <Button
+          onClick={onModal}
           label="펀딩하기"
           className={convertClassNameList(
             'bg-blue white',

@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
+  height: 80px;
   position: sticky;
   top: 0;
   z-index: 9999;
@@ -13,18 +13,16 @@
 
   &__logo {
     padding: 0.3rem;
-    width: 64px;
-    height: 64px;
+    width: 80px;
+    height: 80px;
   }
   &__menu {
-    width: 500px;
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
     &--item {
       text-decoration: none;
-      margin: 0.2rem;
-      font-size: 1rem;
+      margin: 0.7rem;
       color: #666;
     }
   }
@@ -37,6 +35,12 @@
   .signup {
     border: 1px solid #d48100;
     color: #d48100;
+    border-radius: 4px;
+    padding: 0.3rem 0.5rem;
+  }
+  .logout {
+    border: 1px solid #ed2926;
+    color: #ed2926;
     border-radius: 4px;
     padding: 0.3rem 0.5rem;
   }

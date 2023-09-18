@@ -25,9 +25,64 @@ interface TotalCapital {
   stockList: Stock[];
 }
 
+interface Capital {
+  userNo: number;
+  userName: string;
+  point: number;
+  stock: number;
+  stockIncome: number;
+  deposit: number;
+  depositIncome: number;
+  saving: number;
+  savingIncome: number;
+  auctionIncome: number;
+  quizIncome: number;
+  donation: number;
+}
+
 interface PointRecord {
   useType: '주식' | '예금';
   pointChange: number;
 }
 
-export type { User, UserDetail, TotalCapital, PointRecord };
+interface UserInfo {
+  userNo: number;
+  userName: string;
+  userId: string;
+  userType: UserType;
+  joinDate: number;
+  imagePath: string;
+  phoneNumber: string;
+  point: number;
+  isPrimed1: boolean;
+  isPrimed2: boolean;
+  tokenResponse: { accessToken: string; refreshToken: string };
+}
+
+interface SponsorProfile {
+  userNo: number;
+  userName: string;
+  sponsoredAmount: number;
+  point: number;
+  cash: number;
+}
+
+interface ChildProfile {
+  userNo: number;
+  userName: string;
+  imagaPath: string;
+}
+
+type UserType = 1 | 2 | 3;
+
+export type {
+  User,
+  UserDetail,
+  TotalCapital,
+  PointRecord,
+  UserInfo,
+  UserType,
+  Capital,
+  SponsorProfile,
+  ChildProfile,
+};

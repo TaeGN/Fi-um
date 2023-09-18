@@ -2,6 +2,8 @@ import {
   getUserArtist,
   getUser,
   getUserTotalCapital,
+  getUserCapital,
+  userLogout,
   // getUserCheckId,
   // userSignup,
   // userLogin,
@@ -28,10 +30,29 @@ const getUserQuery = () => {
   };
 };
 
+// 특정 아이의 재무 상태표
+const getUserCapitalQuery = (userNo: number) => {
+  return {
+    queryKey: ['getUserCapital', userNo],
+    queryFn: getUserCapital,
+  };
+};
+
+const userLogoutQuery = () => {
+  return {
+    mutationFn: userLogout,
+    onSuccess: () => {
+      window.location.href = '/';
+    },
+  };
+};
+
 export {
   getUserArtistQuery,
   getUserQuery,
   getUserTotalCapitalQuery,
+  getUserCapitalQuery,
+  userLogoutQuery,
   // getUserCheckIdQuery,
   // userSignupQuery,
   // userLoginQuery,
