@@ -1,5 +1,6 @@
 export type * from './stock';
 export type * from './user';
-export type { Deposit } from './deposit';
-export type { Auction, Purchase } from './auction';
+export type * from './deposit';
+export type * from './auction';
 export type * from './funding';
+export type * from './sponsor';

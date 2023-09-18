@@ -44,7 +44,12 @@ const authInterceptor = (instance: AxiosInstance) => {
     (error) => {
       if (error.response && error.response.status === 400) {
         const user = sessionStorage.getItem('user');
-        if (!user) throw new Error('비 로그인 상태');
+        if (!user) {
+          alert('로그인이 필요합니다.!!');
+
+          window.location.href = '/login';
+          return Promise.reject(error);
+        }
 
         const {
           data: {
@@ -56,14 +61,15 @@ const authInterceptor = (instance: AxiosInstance) => {
         if (!isRefresh) {
           // refresh 요청 한 번만
           isRefresh = true;
-          getreissue(refreshToken).finally(() => (isRefresh = false));
+          getreissue(refreshToken)
+            .catch(() => {
+              alert('로그인 만료!!');
+              window.location.href = '/login';
+            })
+            .finally(() => (isRefresh = false));
         }
       }
       console.error('response error : ', error);
-
-      // 로그인 페이지 이동
-      alert('로그인 만료!!');
-      window.location.href = '/login';
       return Promise.reject(error);
     },
   );
