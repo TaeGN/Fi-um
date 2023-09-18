@@ -5,6 +5,8 @@ import { Image } from '@/components/atoms';
 import useAuth from '@/hooks/useAuth';
 import { USER_TYPE } from '@/constants';
 import { useMemo } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { userLogoutQuery } from '@/api/queries/user';
 
 interface NavbarProps {
   className?: string;
@@ -12,6 +14,7 @@ interface NavbarProps {
 
 const Navbar = ({ className }: NavbarProps): JSX.Element => {
   const { userInfo } = useAuth();
+  const mutation = useMutation(userLogoutQuery());
 
   const links = useMemo(() => {
     if (!userInfo)
@@ -27,6 +30,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
             로그인
           </Link>
           <Link
+            key="signup"
             className={convertClassNameList(
               styles['navbar__menu--item'],
               styles.signup,
@@ -41,12 +45,14 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
     let links = [
       <>
         <Link
+          key="stock"
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/stock'}
         >
           주식
         </Link>
         <Link
+          key="auction"
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/auction'}
         >
@@ -58,6 +64,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
       case USER_TYPE.아이들:
         links.push(
           <Link
+            key="deposit"
             className={convertClassNameList(styles['navbar__menu--item'])}
             to={'/deposit'}
           >
@@ -67,15 +74,43 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
         break;
     }
     links.push(
-      <Link
-        className={convertClassNameList(
-          styles['navbar__menu--item'],
-          styles.signup,
-        )}
-        to={`/profile/${userInfo.userId}`}
-      >
-        프로필
-      </Link>,
+      <>
+        <Link
+          key="funding"
+          className={convertClassNameList(styles['navbar__menu--item'])}
+          to={'/funding'}
+        >
+          펀딩
+        </Link>
+        <Link
+          key="gallery"
+          className={convertClassNameList(styles['navbar__menu--item'])}
+          to={'/gallery'}
+        >
+          사진첩
+        </Link>
+        <Link
+          key="profile"
+          className={convertClassNameList(
+            styles['navbar__menu--item'],
+            styles.login,
+          )}
+          to={`/profile/${userInfo.userNo}`}
+        >
+          프로필
+        </Link>
+        <Link
+          key="logout"
+          className={convertClassNameList(
+            styles['navbar__menu--item'],
+            styles.logout,
+          )}
+          to={false}
+          onClick={() => mutation.mutate()}
+        >
+          로그아웃
+        </Link>
+      </>,
     );
     return links;
   }, [userInfo]);
@@ -98,54 +133,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
           Home
         </Link>
 
-        <Link
-          className={convertClassNameList(styles['navbar__menu--item'])}
-          to={'/stock'}
-        >
-          주식
-        </Link>
-        <Link
-          className={convertClassNameList(styles['navbar__menu--item'])}
-          to={'/auction'}
-        >
-          경매
-        </Link>
-        <Link
-          className={convertClassNameList(styles['navbar__menu--item'])}
-          to={'/deposit'}
-        >
-          자산
-        </Link>
-        <Link
-          className={convertClassNameList(styles['navbar__menu--item'])}
-          to={'/funding'}
-        >
-          펀딩
-        </Link>
-        <Link
-          className={convertClassNameList(styles['navbar__menu--item'])}
-          to={'/gallery'}
-        >
-          사진첩
-        </Link>
-        <Link
-          className={convertClassNameList(
-            styles['navbar__menu--item'],
-            styles.login,
-          )}
-          to={'/login'}
-        >
-          로그인
-        </Link>
-        <Link
-          className={convertClassNameList(
-            styles['navbar__menu--item'],
-            styles.signup,
-          )}
-          to={'/signup'}
-        >
-          회원가입
-        </Link>
+        {links}
       </div>
     </div>
   );

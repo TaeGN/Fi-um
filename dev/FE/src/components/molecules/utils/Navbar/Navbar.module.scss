@@ -19,7 +19,7 @@
   &__menu {
     width: 500px;
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
     &--item {
       text-decoration: none;
@@ -37,6 +37,12 @@
   .signup {
     border: 1px solid #d48100;
     color: #d48100;
+    border-radius: 4px;
+    padding: 0.3rem 0.5rem;
+  }
+  .logout {
+    border: 1px solid #ed2926;
+    color: #ed2926;
     border-radius: 4px;
     padding: 0.3rem 0.5rem;
   }

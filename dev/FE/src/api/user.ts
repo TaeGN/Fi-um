@@ -77,6 +77,15 @@ const userLogin = async (userDetail: UserDetail) => {
   return await api.post('user/login', userDetail);
 };
 
+// 로그인
+const userLogout = async (): Promise<string> => {
+  return await authApi.post('user/logout').then(({ data }) => {
+    sessionStorage.setItem('user', '');
+    alert('로그아웃 성공!!');
+    return data;
+  });
+};
+
 export {
   getUserCheckId,
   getUserArtist,
@@ -86,4 +95,5 @@ export {
   userLogin,
   getreissue,
   getUserCapital,
+  userLogout,
 };

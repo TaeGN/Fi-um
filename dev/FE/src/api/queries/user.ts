@@ -3,6 +3,7 @@ import {
   getUser,
   getUserTotalCapital,
   getUserCapital,
+  userLogout,
   // getUserCheckId,
   // userSignup,
   // userLogin,
@@ -37,11 +38,21 @@ const getUserCapitalQuery = (userNo: number) => {
   };
 };
 
+const userLogoutQuery = () => {
+  return {
+    mutationFn: userLogout,
+    onSuccess: () => {
+      window.location.href = '/';
+    },
+  };
+};
+
 export {
   getUserArtistQuery,
   getUserQuery,
   getUserTotalCapitalQuery,
   getUserCapitalQuery,
+  userLogoutQuery,
   // getUserCheckIdQuery,
   // userSignupQuery,
   // userLoginQuery,
