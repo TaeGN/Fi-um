@@ -30,6 +30,8 @@ const FundingPayment = ({ className }: FundingPaymentProps): JSX.Element => {
       <FundingBar
         className={convertClassNameList(styles['bar-chart'])}
         ratio={70}
+        itemUnitPrice={0}
+        fundingAmount={0}
       />
       <div className="flex-container jc-space-between align-end">
         <Button className="gray small" label="취소" />

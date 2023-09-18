@@ -17,6 +17,8 @@ const FundingCard = () => {
           styles['funding-card-funding-bar'],
         )}
         ratio={70}
+        itemUnitPrice={0}
+        fundingAmount={0}
       />
     </div>
   );
