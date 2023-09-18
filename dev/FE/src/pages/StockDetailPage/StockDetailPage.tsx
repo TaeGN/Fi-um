@@ -1,9 +1,12 @@
-import { useState, useCallback, MouseEvent } from 'react';
+import { useState, useCallback, MouseEvent, useEffect } from 'react';
 import { convertClassName, convertClassNameList, loremData } from '@/utils';
 import styles from './StockDetailPage.module.scss';
 import useModal from '@/hooks/useModal';
 import { Button, LineChart } from '@/components/atoms';
 import { Modal, ModalStock } from '@/components/molecules';
+import { getStockChart } from '@/api/stock';
+import { useQuery } from '@tanstack/react-query';
+import { Stock } from '@/types';
 
 interface StockDetailPageProps {
   className?: string;
@@ -12,11 +15,41 @@ interface StockDetailPageProps {
 const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
   const { isOpen, toggle } = useModal();
   const [label, setLabel] = useState('매도');
+  const [chartData, setChartData] = useState<any | undefined>();
 
   const onModal = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     setLabel(e.currentTarget.value);
     toggle();
   }, []);
+
+  const { data: stockChart, status: isStockChartLoading } = useQuery<Stock[]>(
+    ['getStockChart'],
+    () => getStockChart({ queryKey: ['', 1] }),
+  );
+  console.log(stockChart);
+
+  useEffect(() => {
+    if (isStockChartLoading === 'success' && stockChart) {
+      const newChartData = {
+        labels: stockChart.map((_, idx) => String(idx)),
+        datasets: [
+          {
+            type: 'line',
+            label: stockChart[0].stockName,
+            backgroundColor: 'rgb(255, 255, 255)',
+            data: stockChart.map((item) => item.nowPrice),
+            borderColor: stockChart.map((item, idx) => {
+              if (idx === 0) return 'rgb(0,0,0)';
+              return item.fluctuationPrice < 0 ? 'blue' : 'red';
+            }),
+            borderWidth: 2,
+          },
+        ],
+      };
+
+      setChartData(newChartData);
+    }
+  }, [stockChart, isStockChartLoading]);
 
   return (
     <div
@@ -29,11 +62,16 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
         {loremData}
       </div>
       <div className="flex-container">
-        <LineChart
-          className={convertClassNameList(
-            styles['stock-detail-page__line-chart'],
-          )}
-        />
+        {isStockChartLoading === 'success' ? (
+          <LineChart
+            data={chartData}
+            className={convertClassNameList(
+              styles['stock-detail-page__line-chart'],
+            )}
+          />
+        ) : (
+          ''
+        )}
 
         <div
           className={convertClassNameList(styles['stock-detail-page__content'])}
