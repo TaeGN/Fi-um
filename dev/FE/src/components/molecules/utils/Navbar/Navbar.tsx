@@ -1,7 +1,7 @@
-import { convertClassName, convertClassNameList } from '@/utils';
+import { convertClassName, convertClassNameList, imgUrl } from '@/utils';
 import styles from './Navbar.module.scss';
 import { Link } from 'react-router-dom';
-import { Image } from '@/components/atoms';
+import { Image, Text } from '@/components/atoms';
 
 interface NavbarProps {
   className?: string;
@@ -13,7 +13,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
       className={convertClassNameList(
         convertClassName(className, styles),
         styles['navbar'],
-        'container',
+        'container jc-space-between',
       )}
     >
       <Link className={convertClassNameList(styles['navbar__logo'])} to={'/'}>
@@ -24,37 +24,80 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/'}
         >
-          Home
-        </Link>
-        <Link
-          className={convertClassNameList(styles['navbar__menu--item'])}
-          to={'/stock'}
-        >
-          주식
-        </Link>
-        <Link
-          className={convertClassNameList(styles['navbar__menu--item'])}
-          to={'/auction'}
-        >
-          경매
+          <div className="flex-container-col align-center m-1">
+            <img
+              style={{ width: '40px', height: '40px' }}
+              src={imgUrl('navbaricon/home.png')}
+              alt=""
+            />
+            <Text className="text-lg" text="Home" />
+          </div>
         </Link>
         <Link
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/deposit'}
         >
-          자산
+          <div className="flex-container-col align-center m-1">
+            <img
+              style={{ width: '40px', height: '40px' }}
+              src={imgUrl('navbaricon/deposit.png')}
+              alt=""
+            />
+            <Text className="text-lg" text="자산" />
+          </div>
+        </Link>
+        <Link
+          className={convertClassNameList(styles['navbar__menu--item'])}
+          to={'/stock'}
+        >
+          <div className="flex-container-col align-center m-1">
+            <img
+              style={{ width: '40px', height: '40px' }}
+              src={imgUrl('navbaricon/stock.png')}
+              alt=""
+            />
+            <Text className="text-lg" text="주식" />
+          </div>
         </Link>
         <Link
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/funding'}
         >
-          펀딩
+          <div className="flex-container-col align-center m-1">
+            <img
+              style={{ width: '40px', height: '40px' }}
+              src={imgUrl('navbaricon/funding.png')}
+              alt=""
+            />
+            <Text className="text-lg" text="펀딩" />
+          </div>
         </Link>
+        <Link
+          className={convertClassNameList(styles['navbar__menu--item'])}
+          to={'/auction'}
+        >
+          <div className="flex-container-col align-center m-1">
+            <img
+              style={{ width: '40px', height: '40px' }}
+              src={imgUrl('navbaricon/auction.png')}
+              alt=""
+            />
+            <Text className="text-lg" text="경매" />
+          </div>
+        </Link>
+
         <Link
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/gallery'}
         >
-          사진첩
+          <div className="flex-container-col align-center m-1">
+            <img
+              style={{ width: '40px', height: '40px' }}
+              src={imgUrl('navbaricon/gallery.png')}
+              alt=""
+            />
+            <Text className="text-lg" text="갤러리" />
+          </div>
         </Link>
         <Link
           className={convertClassNameList(
@@ -63,7 +106,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
           )}
           to={'/login'}
         >
-          로그인
+          <Text className="text-lg" text="로그인" />
         </Link>
         <Link
           className={convertClassNameList(
@@ -72,7 +115,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
           )}
           to={'/signup'}
         >
-          회원가입
+          <Text className="text-lg" text="회원가입" />
         </Link>
       </div>
     </div>

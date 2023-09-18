@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
+  height: 80px;
   position: sticky;
   top: 0;
   z-index: 9999;
@@ -13,18 +13,16 @@
 
   &__logo {
     padding: 0.3rem;
-    width: 64px;
-    height: 64px;
+    width: 80px;
+    height: 80px;
   }
   &__menu {
-    width: 500px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     &--item {
       text-decoration: none;
-      margin: 0.2rem;
-      font-size: 1rem;
+      margin: 0.7rem;
       color: #666;
     }
   }
