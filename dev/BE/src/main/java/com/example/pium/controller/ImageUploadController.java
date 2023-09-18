@@ -21,7 +21,7 @@ public class ImageUploadController {
 
     private static final String UPLOAD_DIR = "/app/images";
 
-    @PostMapping("/upload")
+    @PostMapping("/image")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
             // 원래 파일의 확장자 가져오기
