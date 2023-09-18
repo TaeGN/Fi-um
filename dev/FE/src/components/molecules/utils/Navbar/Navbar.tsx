@@ -21,6 +21,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
       return (
         <>
           <Link
+            key="login"
             className={convertClassNameList(
               styles['navbar__menu--item'],
               styles.login,
@@ -43,33 +44,35 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
       );
 
     let links = [
-      <>
-        <Link
-          key="stock"
-          className={convertClassNameList(styles['navbar__menu--item'])}
-          to={'/stock'}
-        >
+      <Link
+        key="stock"
+        className={convertClassNameList(styles['navbar__menu--item'])}
+        to={'/stock'}
+      >
+        <div className="flex-container-col align-center">
           <img
             style={{ width: '30px', height: '30px' }}
             src={imgUrl('navbaricon/stock.png')}
             alt=""
           />
           <Text className="text-lg" text="주식" />
-        </Link>
+        </div>
+      </Link>,
 
-        <Link
-          key="auction"
-          className={convertClassNameList(styles['navbar__menu--item'])}
-          to={'/auction'}
-        >
+      <Link
+        key="auction"
+        className={convertClassNameList(styles['navbar__menu--item'])}
+        to={'/auction'}
+      >
+        <div className="flex-container-col align-center">
           <img
             style={{ width: '30px', height: '30px' }}
             src={imgUrl('navbaricon/auction.png')}
             alt=""
           />
           <Text className="text-lg" text="경매" />
-        </Link>
-      </>,
+        </div>
+      </Link>,
     ];
     switch (userInfo.userType) {
       case USER_TYPE.아이들:
@@ -79,42 +82,48 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
             className={convertClassNameList(styles['navbar__menu--item'])}
             to={'/deposit'}
           >
-            <img
-              style={{ width: '30px', height: '30px' }}
-              src={imgUrl('navbaricon/deposit.png')}
-              alt=""
-            />
-            <Text className="text-lg" text="자산" />
+            <div className="flex-container-col align-center">
+              <img
+                style={{ width: '30px', height: '30px' }}
+                src={imgUrl('navbaricon/deposit.png')}
+                alt=""
+              />
+              <Text className="text-lg" text="자산" />
+            </div>
           </Link>,
         );
         break;
     }
     links.push(
-      <>
+      ...[
         <Link
           key="funding"
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/funding'}
         >
-          <img
-            style={{ width: '30px', height: '30px' }}
-            src={imgUrl('navbaricon/funding.png')}
-            alt=""
-          />
-          <Text className="text-lg" text="펀딩" />
-        </Link>
+          <div className="flex-container-col align-center">
+            <img
+              style={{ width: '30px', height: '30px' }}
+              src={imgUrl('navbaricon/funding.png')}
+              alt=""
+            />
+            <Text className="text-lg" text="펀딩" />
+          </div>
+        </Link>,
         <Link
           key="gallery"
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/gallery'}
         >
-          <img
-            style={{ width: '30px', height: '30px' }}
-            src={imgUrl('navbaricon/gallery.png')}
-            alt=""
-          />
-          <Text className="text-lg" text="갤러리" />
-        </Link>
+          <div className="flex-container-col align-center">
+            <img
+              style={{ width: '30px', height: '30px' }}
+              src={imgUrl('navbaricon/gallery.png')}
+              alt=""
+            />
+            <Text className="text-lg" text="갤러리" />
+          </div>
+        </Link>,
         <Link
           key="profile"
           className={convertClassNameList(
@@ -124,7 +133,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
           to={`/profile/${userInfo.userNo}`}
         >
           프로필
-        </Link>
+        </Link>,
         <Link
           key="logout"
           className={convertClassNameList(
@@ -138,8 +147,8 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
           }}
         >
           로그아웃
-        </Link>
-      </>,
+        </Link>,
+      ],
     );
     return links;
   }, [userInfo]);
@@ -159,12 +168,14 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/'}
         >
-          <img
-            style={{ width: '30px', height: '30px' }}
-            src={imgUrl('navbaricon/home.png')}
-            alt=""
-          />
-          <Text className="text-lg" text="Home" />
+          <div className="flex-container-col align-center">
+            <img
+              style={{ width: '30px', height: '30px' }}
+              src={imgUrl('navbaricon/home.png')}
+              alt=""
+            />
+            <Text className="text-lg" text="Home" />
+          </div>
         </Link>
 
         {links}

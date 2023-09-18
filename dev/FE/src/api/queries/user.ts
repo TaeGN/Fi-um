@@ -38,6 +38,7 @@ const getUserCapitalQuery = (userNo: number) => {
   };
 };
 
+// logout
 const userLogoutQuery = () => {
   return {
     mutationFn: userLogout,
