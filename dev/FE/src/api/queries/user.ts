@@ -1,4 +1,11 @@
-import { getUserArtist, getUserTotalCapital } from '../user';
+import {
+  getUserArtist,
+  getUser,
+  getUserTotalCapital,
+  // getUserCheckId,
+  // userSignup,
+  // userLogin,
+} from '../user';
 
 const getUserArtistQuery = (userNo: string) => {
   return {
@@ -14,4 +21,18 @@ const getUserTotalCapitalQuery = () => {
   };
 };
 
-export { getUserArtistQuery, getUserTotalCapitalQuery };
+const getUserQuery = () => {
+  return {
+    queryKey: ['getUser'],
+    queryFn: getUser,
+  };
+};
+
+export {
+  getUserArtistQuery,
+  getUserQuery,
+  getUserTotalCapitalQuery,
+  // getUserCheckIdQuery,
+  // userSignupQuery,
+  // userLoginQuery,
+};

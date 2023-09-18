@@ -1,6 +1,8 @@
 import axios, { AxiosInstance } from 'axios';
+import { getreissue } from './user';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+let isRefresh = false;
 
 const apiInstance = () => {
   const instance = axios.create({
@@ -26,8 +28,6 @@ const authInterceptor = (instance: AxiosInstance) => {
         },
       } = JSON.parse(user);
 
-      console.log('accessToken : ', accessToken);
-
       config.headers['X-ACCESS-TOKEN'] = accessToken;
       return config;
     },
@@ -43,9 +43,27 @@ const authInterceptor = (instance: AxiosInstance) => {
     },
     (error) => {
       if (error.response && error.response.status === 400) {
-        // refresh token 관련 코드
+        const user = sessionStorage.getItem('user');
+        if (!user) throw new Error('비 로그인 상태');
+
+        const {
+          data: {
+            tokenResponse: { refreshToken },
+          },
+        } = JSON.parse(user);
+
+        // access token 재 발급
+        if (!isRefresh) {
+          // refresh 요청 한 번만
+          isRefresh = true;
+          getreissue(refreshToken).finally(() => (isRefresh = false));
+        }
       }
       console.error('response error : ', error);
+
+      // 로그인 페이지 이동
+      alert('로그인 만료!!');
+      window.location.href = '/login';
       return Promise.reject(error);
     },
   );
