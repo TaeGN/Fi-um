@@ -1,4 +1,4 @@
-export type { Stock } from './stock';
+export type * from './stock';
 export type {
   User,
   UserDetail,
