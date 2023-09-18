@@ -10,18 +10,22 @@ interface ModalStockProps {
   label: string;
   onClick: () => void;
   toggle: () => void;
+  price: number;
+  totalCount: number;
 }
 
 // 나중에 props로 대체 예정
 const ratioList = [10, 25, 50, 100];
-const totalCount = 12;
-const price = 10000;
+// const totalCount = 12;
+// const price = 10000;
 
 const ModalStock = ({
   className,
   label,
   onClick,
   toggle,
+  price,
+  totalCount,
 }: ModalStockProps): JSX.Element => {
   const [count, setCount] = useState<number>(0);
 

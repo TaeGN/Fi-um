@@ -4,10 +4,13 @@ import styles from './StockDetailPage.module.scss';
 import useModal from '@/hooks/useModal';
 import { Button, LineChart } from '@/components/atoms';
 import { Modal, ModalStock } from '@/components/molecules';
-import { getStockChart } from '@/api/stock';
 import { useQuery } from '@tanstack/react-query';
 import { Stock } from '@/types';
 import { useParams } from 'react-router-dom';
+import {
+  getStockChartQuery,
+  getStockMyAccountQuery,
+} from '@/api/queries/stock';
 
 interface StockDetailPageProps {
   className?: string;
@@ -24,12 +27,13 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
     toggle();
   }, []);
 
+  const { data: myStock, status: isMyStockLoading } = useQuery(
+    getStockMyAccountQuery(Number(detail)),
+  );
+  console.log(myStock);
+
   const { data: stockChart, status: isStockChartLoading } = useQuery<Stock[]>(
-    ['getStockChart'],
-    () =>
-      getStockChart({
-        queryKey: ['', Number(detail)],
-      }),
+    getStockChartQuery(Number(detail)),
   );
   console.log(stockChart);
 
@@ -114,14 +118,22 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
         </div>
       </div>
 
-      <Modal isOpen={isOpen} toggle={toggle}>
-        <ModalStock
-          className={className}
-          label={label}
-          onClick={() => console.log('구매!!!!')}
-          toggle={toggle}
-        />
-      </Modal>
+      {isMyStockLoading === 'success' && isStockChartLoading === 'success' && (
+        <Modal isOpen={isOpen} toggle={toggle}>
+          <ModalStock
+            className={className}
+            label={label}
+            onClick={() => console.log('구매!!!!')}
+            toggle={toggle}
+            price={stockChart[stockChart.length - 1].nowPrice}
+            totalCount={
+              label === '매도'
+                ? myStock.stockCount
+                : myStock.point / stockChart[stockChart.length - 1].nowPrice
+            }
+          />
+        </Modal>
+      )}
     </div>
   );
 };
