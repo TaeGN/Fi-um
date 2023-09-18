@@ -131,8 +131,11 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
             styles['navbar__menu--item'],
             styles.logout,
           )}
-          to={false}
-          onClick={() => mutation.mutate()}
+          to={''}
+          onClick={(e) => {
+            e.preventDefault();
+            mutation.mutate();
+          }}
         >
           로그아웃
         </Link>
