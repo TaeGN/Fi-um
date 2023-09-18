@@ -2,12 +2,83 @@ import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './Navbar.module.scss';
 import { Link } from 'react-router-dom';
 import { Image } from '@/components/atoms';
+import useAuth from '@/hooks/useAuth';
+import { USER_TYPE } from '@/constants';
+import { useMemo } from 'react';
 
 interface NavbarProps {
   className?: string;
 }
 
 const Navbar = ({ className }: NavbarProps): JSX.Element => {
+  const { userInfo } = useAuth();
+
+  const links = useMemo(() => {
+    if (!userInfo)
+      return (
+        <>
+          <Link
+            className={convertClassNameList(
+              styles['navbar__menu--item'],
+              styles.login,
+            )}
+            to={'/login'}
+          >
+            로그인
+          </Link>
+          <Link
+            className={convertClassNameList(
+              styles['navbar__menu--item'],
+              styles.signup,
+            )}
+            to={'/signup'}
+          >
+            회원가입
+          </Link>
+        </>
+      );
+
+    let links = [
+      <>
+        <Link
+          className={convertClassNameList(styles['navbar__menu--item'])}
+          to={'/stock'}
+        >
+          주식
+        </Link>
+        <Link
+          className={convertClassNameList(styles['navbar__menu--item'])}
+          to={'/auction'}
+        >
+          경매
+        </Link>
+      </>,
+    ];
+    switch (userInfo.userType) {
+      case USER_TYPE.아이들:
+        links.push(
+          <Link
+            className={convertClassNameList(styles['navbar__menu--item'])}
+            to={'/deposit'}
+          >
+            자산
+          </Link>,
+        );
+        break;
+    }
+    links.push(
+      <Link
+        className={convertClassNameList(
+          styles['navbar__menu--item'],
+          styles.signup,
+        )}
+        to={`/profile/${userInfo.userId}`}
+      >
+        프로필
+      </Link>,
+    );
+    return links;
+  }, [userInfo]);
   return (
     <div
       className={convertClassNameList(
@@ -26,6 +97,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
         >
           Home
         </Link>
+
         <Link
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/stock'}
