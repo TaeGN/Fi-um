@@ -21,6 +21,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
       return (
         <>
           <Link
+            key="login"
             className={convertClassNameList(
               styles['navbar__menu--item'],
               styles.login,
@@ -43,33 +44,31 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
       );
 
     let links = [
-      <>
-        <Link
-          key="stock"
-          className={convertClassNameList(styles['navbar__menu--item'])}
-          to={'/stock'}
-        >
-          <img
-            style={{ width: '30px', height: '30px' }}
-            src={imgUrl('navbaricon/stock.png')}
-            alt=""
-          />
-          <Text className="text-lg" text="주식" />
-        </Link>
+      <Link
+        key="stock"
+        className={convertClassNameList(styles['navbar__menu--item'])}
+        to={'/stock'}
+      >
+        <img
+          style={{ width: '30px', height: '30px' }}
+          src={imgUrl('navbaricon/stock.png')}
+          alt=""
+        />
+        <Text className="text-lg" text="주식" />
+      </Link>,
 
-        <Link
-          key="auction"
-          className={convertClassNameList(styles['navbar__menu--item'])}
-          to={'/auction'}
-        >
-          <img
-            style={{ width: '30px', height: '30px' }}
-            src={imgUrl('navbaricon/auction.png')}
-            alt=""
-          />
-          <Text className="text-lg" text="경매" />
-        </Link>
-      </>,
+      <Link
+        key="auction"
+        className={convertClassNameList(styles['navbar__menu--item'])}
+        to={'/auction'}
+      >
+        <img
+          style={{ width: '30px', height: '30px' }}
+          src={imgUrl('navbaricon/auction.png')}
+          alt=""
+        />
+        <Text className="text-lg" text="경매" />
+      </Link>,
     ];
     switch (userInfo.userType) {
       case USER_TYPE.아이들:
@@ -90,7 +89,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
         break;
     }
     links.push(
-      <>
+      ...[
         <Link
           key="funding"
           className={convertClassNameList(styles['navbar__menu--item'])}
@@ -102,7 +101,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
             alt=""
           />
           <Text className="text-lg" text="펀딩" />
-        </Link>
+        </Link>,
         <Link
           key="gallery"
           className={convertClassNameList(styles['navbar__menu--item'])}
@@ -114,7 +113,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
             alt=""
           />
           <Text className="text-lg" text="갤러리" />
-        </Link>
+        </Link>,
         <Link
           key="profile"
           className={convertClassNameList(
@@ -124,7 +123,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
           to={`/profile/${userInfo.userNo}`}
         >
           프로필
-        </Link>
+        </Link>,
         <Link
           key="logout"
           className={convertClassNameList(
@@ -138,8 +137,8 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
           }}
         >
           로그아웃
-        </Link>
-      </>,
+        </Link>,
+      ],
     );
     return links;
   }, [userInfo]);
