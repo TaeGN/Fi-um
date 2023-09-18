@@ -1,4 +1,4 @@
-import { UserDetail } from '@/types';
+import { Capital, TotalCapital, UserDetail } from '@/types';
 import { QueryKey } from '@tanstack/react-query';
 import { api, authApi } from '.';
 
@@ -49,8 +49,16 @@ const getreissue = async (refreshToken: string): Promise<string> => {
     });
 };
 
-const getUserTotalCapital = async () => {
+// 전체 아이들의 자산 현황
+const getUserTotalCapital = async (): Promise<TotalCapital[]> => {
   return await authApi.get(`user/total-capital`);
+};
+
+// 특정 아이의 재무 상태표
+const getUserCapital = async ({
+  queryKey: [_, userNo],
+}: any): Promise<Capital> => {
+  return await authApi.get(`user/capital/${userNo}`).then(({ data }) => data);
 };
 
 // 회원가입
@@ -71,4 +79,5 @@ export {
   userSignup,
   userLogin,
   getreissue,
+  getUserCapital,
 };

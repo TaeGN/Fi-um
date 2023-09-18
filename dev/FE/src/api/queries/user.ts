@@ -2,6 +2,7 @@ import {
   getUserArtist,
   getUser,
   getUserTotalCapital,
+  getUserCapital,
   // getUserCheckId,
   // userSignup,
   // userLogin,
@@ -28,10 +29,19 @@ const getUserQuery = () => {
   };
 };
 
+// 특정 아이의 재무 상태표
+const getUserCapitalQuery = (userNo: number) => {
+  return {
+    queryKey: ['getUserCapital', userNo],
+    queryFn: getUserCapital,
+  };
+};
+
 export {
   getUserArtistQuery,
   getUserQuery,
   getUserTotalCapitalQuery,
+  getUserCapitalQuery,
   // getUserCheckIdQuery,
   // userSignupQuery,
   // userLoginQuery,

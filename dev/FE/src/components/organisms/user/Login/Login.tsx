@@ -5,6 +5,7 @@ import { useMemo, useState, ChangeEvent, useEffect } from 'react';
 import { UserDetail } from '@/types';
 import { getUserCheckId, userLogin, userSignup } from '@/api/user';
 import { useMutation } from '@tanstack/react-query';
+import useAuth from '@/hooks/useAuth';
 
 interface LoginProps {
   className?: string;
@@ -12,6 +13,7 @@ interface LoginProps {
 }
 
 const Login = ({ className, signUp }: LoginProps): JSX.Element => {
+  const { setUserInfo } = useAuth();
   const [userInformation, setUserInformation] = useState<UserDetail>({
     userId: '',
     password: '',
@@ -128,6 +130,9 @@ const Login = ({ className, signUp }: LoginProps): JSX.Element => {
     onSuccess: (data) => {
       console.log(data);
       sessionStorage.setItem('user', JSON.stringify(data));
+      console.log(data.data);
+
+      setUserInfo(data.data);
     },
     onError: (err) => {
       console.log(err);

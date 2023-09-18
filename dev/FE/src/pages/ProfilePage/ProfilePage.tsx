@@ -3,6 +3,7 @@ import styles from './ProfilePage.module.scss';
 import { FundingAdmin, ProfileHeader, UserList } from '@/components/organisms';
 import { convertClassName, convertClassNameList } from '@/utils';
 import { Image } from '@/components/atoms';
+import useAuth from '@/hooks/useAuth';
 
 interface ProfilePageProps {
   className?: string;
@@ -28,16 +29,19 @@ for (let index = 1; index <= 5; index++) {
   imageData.push(
     ...[
       <Image
+        key={index * 3 + 0}
         className={convertClassNameList(styles['profile-page__swiper--image'])}
         src="/img/bankicon/hana.svg"
         alt="하나"
       />,
       <Image
+        key={index * 3 + 1}
         className={convertClassNameList(styles['profile-page__swiper--image'])}
         src="/img/bankicon/kb.svg"
         alt="국민"
       />,
       <Image
+        key={index * 3 + 2}
         className={convertClassNameList(styles['profile-page__swiper--image'])}
         src="/img/bankicon/shinhan.svg"
         alt="신한"
@@ -47,6 +51,8 @@ for (let index = 1; index <= 5; index++) {
 }
 
 const ProfilePage = ({ className }: ProfilePageProps): JSX.Element => {
+  const { userInfo } = useAuth();
+
   return (
     <div
       className={convertClassNameList(
@@ -54,7 +60,7 @@ const ProfilePage = ({ className }: ProfilePageProps): JSX.Element => {
         styles['profile-page'],
       )}
     >
-      <ProfileHeader />
+      <ProfileHeader userInfo={userInfo} />
       <UserList totalCapitals={data} />
       <Swiper className={convertClassNameList(styles['profile-page__swiper'])}>
         {imageData}

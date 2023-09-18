@@ -4,10 +4,12 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { getLightColors, getDarkColors } from '@/utils';
 import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './PieChart.module.scss';
+import { useMemo } from 'react';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface PieChartProps {
   className?: string;
+  chartData?: { labels: string[]; data: number[]; length: number };
 }
 
 const options: any = {
@@ -22,7 +24,7 @@ const options: any = {
   },
 };
 
-const data: ChartData<'doughnut', number[], string> = {
+const initialData: ChartData<'doughnut', number[], string> = {
   labels: ['aa'],
   datasets: [
     {
@@ -35,7 +37,24 @@ const data: ChartData<'doughnut', number[], string> = {
   ],
 };
 
-const PieChart = ({ className }: PieChartProps): JSX.Element => {
+const PieChart = ({ className, chartData }: PieChartProps): JSX.Element => {
+  const data: ChartData<'doughnut', number[], string> | undefined =
+    useMemo(() => {
+      if (!chartData) return undefined;
+      return {
+        labels: chartData.labels,
+        datasets: [
+          {
+            // label: '# of Votes',
+            data: chartData.data,
+            backgroundColor: getLightColors(chartData.length),
+            borderColor: getDarkColors(chartData.length),
+            borderWidth: 1,
+          },
+        ],
+      };
+    }, [chartData]);
+
   return (
     <div
       className={convertClassNameList(
@@ -43,7 +62,11 @@ const PieChart = ({ className }: PieChartProps): JSX.Element => {
         styles['pie-chart'],
       )}
     >
-      <Doughnut data={data} options={options} data-testid="pie"></Doughnut>
+      <Doughnut
+        data={data ?? initialData}
+        options={options}
+        data-testid="pie"
+      ></Doughnut>
     </div>
   );
 };

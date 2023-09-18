@@ -6,25 +6,35 @@ import {
   ProfileCard,
   ProfileDonator,
 } from '@/components/molecules';
+import { UserInfo } from '@/types';
+import { USER_TYPE } from '@/constants';
 
 interface ProfileHeaderProps {
   className?: string;
+  userInfo?: UserInfo;
 }
 
-const ProfileHeader = ({ className }: ProfileHeaderProps): JSX.Element => {
+const ProfileHeader = ({
+  className,
+  userInfo,
+}: ProfileHeaderProps): JSX.Element => {
   return (
     <div className={convertClassNameList(convertClassName(className, styles))}>
       <div className="flex-container">
-        <ProfileCard src="" alt="a" text="승우짱123" />
-        <ProfileAsset />
-      </div>
-      <div className="flex-container">
-        <ProfileCard src="" alt="a" text="승우짱123" />
-        <ProfileAdmin />
-      </div>
-      <div className="flex-container">
-        <ProfileCard src="" alt="a" text="승우짱123" />
-        <ProfileDonator />
+        <ProfileCard
+          src={userInfo?.imagePath ?? '/vite.svg'}
+          alt={userInfo?.userName ?? '기본 이미지'}
+          text={userInfo?.userName ?? '기본 이미지'}
+        />
+        {userInfo?.userType === USER_TYPE.아이들 ? (
+          <ProfileAsset userNo={userInfo.userNo} />
+        ) : userInfo?.userType === USER_TYPE.원장쌤 ? (
+          <ProfileAdmin />
+        ) : userInfo?.userType === USER_TYPE.후원자 ? (
+          <ProfileDonator />
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );
