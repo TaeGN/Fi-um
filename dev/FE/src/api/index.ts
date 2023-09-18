@@ -6,6 +6,7 @@ const apiInstance = () => {
   const instance = axios.create({
     baseURL: API_BASE_URL,
     headers: {
+      'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json;charset=UTF-8',
       Accept: 'application/json,',
     },
@@ -16,8 +17,18 @@ const apiInstance = () => {
 const authInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     (config) => {
-      config.headers['X-ACCESS-TOKEN'] =
-        sessionStorage.getItem('X-ACCESS-TOKEN');
+      const user = sessionStorage.getItem('user');
+      if (!user) throw new Error('비 로그인 상태');
+
+      const {
+        data: {
+          tokenResponse: { accessToken },
+        },
+      } = JSON.parse(user);
+
+      console.log('accessToken : ', accessToken);
+
+      config.headers['X-ACCESS-TOKEN'] = accessToken;
       return config;
     },
     (error) => {
