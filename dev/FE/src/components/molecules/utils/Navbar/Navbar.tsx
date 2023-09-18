@@ -1,12 +1,12 @@
-import { convertClassName, convertClassNameList } from '@/utils';
+import { convertClassName, convertClassNameList, imgUrl } from '@/utils';
 import styles from './Navbar.module.scss';
 import { Link } from 'react-router-dom';
-import { Image } from '@/components/atoms';
 import useAuth from '@/hooks/useAuth';
 import { USER_TYPE } from '@/constants';
 import { useMemo } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { userLogoutQuery } from '@/api/queries/user';
+import { Image, Text } from '@/components/atoms';
 
 interface NavbarProps {
   className?: string;
@@ -49,14 +49,25 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/stock'}
         >
-          주식
+          <img
+            style={{ width: '30px', height: '30px' }}
+            src={imgUrl('navbaricon/stock.png')}
+            alt=""
+          />
+          <Text className="text-lg" text="주식" />
         </Link>
+
         <Link
           key="auction"
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/auction'}
         >
-          경매
+          <img
+            style={{ width: '30px', height: '30px' }}
+            src={imgUrl('navbaricon/auction.png')}
+            alt=""
+          />
+          <Text className="text-lg" text="경매" />
         </Link>
       </>,
     ];
@@ -68,7 +79,12 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
             className={convertClassNameList(styles['navbar__menu--item'])}
             to={'/deposit'}
           >
-            자산
+            <img
+              style={{ width: '30px', height: '30px' }}
+              src={imgUrl('navbaricon/deposit.png')}
+              alt=""
+            />
+            <Text className="text-lg" text="자산" />
           </Link>,
         );
         break;
@@ -80,14 +96,24 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/funding'}
         >
-          펀딩
+          <img
+            style={{ width: '30px', height: '30px' }}
+            src={imgUrl('navbaricon/funding.png')}
+            alt=""
+          />
+          <Text className="text-lg" text="펀딩" />
         </Link>
         <Link
           key="gallery"
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/gallery'}
         >
-          사진첩
+          <img
+            style={{ width: '30px', height: '30px' }}
+            src={imgUrl('navbaricon/gallery.png')}
+            alt=""
+          />
+          <Text className="text-lg" text="갤러리" />
         </Link>
         <Link
           key="profile"
@@ -119,7 +145,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
       className={convertClassNameList(
         convertClassName(className, styles),
         styles['navbar'],
-        'container',
+        'container jc-space-between',
       )}
     >
       <Link className={convertClassNameList(styles['navbar__logo'])} to={'/'}>
@@ -130,7 +156,12 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/'}
         >
-          Home
+          <img
+            style={{ width: '30px', height: '30px' }}
+            src={imgUrl('navbaricon/home.png')}
+            alt=""
+          />
+          <Text className="text-lg" text="Home" />
         </Link>
 
         {links}
