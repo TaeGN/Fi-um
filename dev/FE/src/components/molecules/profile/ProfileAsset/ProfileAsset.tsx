@@ -1,12 +1,18 @@
 import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './ProfileAsset.module.scss';
 import { PieChart, Text } from '@/components/atoms';
+import { useQuery } from '@tanstack/react-query';
+import { MyStock } from '@/types';
+import { getMyStocksQuery } from '@/api/queries/stock';
 
 interface ProfileAssetProps {
   className?: string;
 }
 
 const ProfileAsset = ({ className }: ProfileAssetProps): JSX.Element => {
+  const { data: myStocks } = useQuery<MyStock[], Error>(getMyStocksQuery());
+  console.log(myStocks);
+
   return (
     <div
       style={{

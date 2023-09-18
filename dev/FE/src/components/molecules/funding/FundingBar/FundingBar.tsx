@@ -5,9 +5,16 @@ import { convertClassName, convertClassNameList } from '@/utils';
 interface FundingBar {
   className?: string;
   ratio: number;
+  itemUnitPrice: number;
+  fundingAmount: number;
 }
 
-const FundingBar = ({ className, ratio }: FundingBar): JSX.Element => {
+const FundingBar = ({
+  className,
+  ratio,
+  itemUnitPrice,
+  fundingAmount,
+}: FundingBar): JSX.Element => {
   return (
     <div
       className={convertClassNameList(
@@ -33,16 +40,16 @@ const FundingBar = ({ className, ratio }: FundingBar): JSX.Element => {
         )}
       >
         <div className="flex-container-col flex-item">
-          <Text className="text-sm gray" text="당첨금액"></Text>
-          <Text className="text-sm" text="1000원"></Text>
+          <Text className="text-sm gray" text="내 펀딩액"></Text>
+          <Text className="text-sm" text="???원"></Text>
         </div>
         <div className="flex-container-col flex-item">
-          <Text className="text-sm gray" text="당첨금액"></Text>
-          <Text className="text-sm" text="1000원"></Text>
+          <Text className="text-sm gray" text="현재 금액"></Text>
+          <Text className="text-sm orange" text={`${fundingAmount}원`}></Text>
         </div>
         <div className="flex-container-col flex-item">
-          <Text className="text-sm gray" text="당첨금액"></Text>
-          <Text className="text-sm orange" text="1000원"></Text>
+          <Text className="text-sm gray" text="목표 금액"></Text>
+          <Text className="text-sm" text={`${itemUnitPrice}원`}></Text>
         </div>
       </div>
     </div>

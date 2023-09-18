@@ -25,6 +25,30 @@ const getUser = async () => {
   return await authApi.get(`user`);
 };
 
+// refresh token
+const getreissue = async (refreshToken: string): Promise<string> => {
+  return await api
+    .get(`user/reissue`, {
+      headers: {
+        'X-REFRESH-TOKEN': refreshToken,
+      },
+    })
+    .then(({ data }) => data)
+    .then(({ token }) => {
+      const user = sessionStorage.getItem('user');
+      if (!user) throw new Error('비 로그인 상태');
+
+      const newUser = JSON.parse(user);
+      newUser.data.tokenResponse.accessToken = token;
+      sessionStorage.setItem('user', JSON.stringify(newUser));
+      return token;
+    })
+    .catch(({ error }) => {
+      console.error('refresh token error : ', error);
+      return Promise.reject(error);
+    });
+};
+
 const getUserTotalCapital = async () => {
   return await authApi.get(`user/total-capital`);
 };
@@ -46,4 +70,5 @@ export {
   getUserTotalCapital,
   userSignup,
   userLogin,
+  getreissue,
 };

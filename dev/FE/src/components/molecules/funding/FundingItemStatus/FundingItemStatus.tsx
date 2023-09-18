@@ -28,7 +28,7 @@ const FundingItemStatus = ({
       <Text text={loremData} />
       <Text
         className={convertClassNameList(
-          'blue bold',
+          'blue bold text-xl',
           styles['funding-item-status__price'],
         )}
         text={priceFilter(funding.itemUnitPrice)}
@@ -36,7 +36,7 @@ const FundingItemStatus = ({
       <div className="flex-container jc-space-between flex-wrap">
         <Text
           className={convertClassNameList(
-            'blue bold',
+            'blue bold text-xl',
             styles['funding-item-status__price'],
           )}
           text={priceFilter(funding.fundingAmount)}
@@ -45,6 +45,8 @@ const FundingItemStatus = ({
           label="펀딩하기"
           className={convertClassNameList(
             'bg-blue white',
+            'xsmall',
+            'primary',
             styles['funding-item-status__button'],
           )}
         />
