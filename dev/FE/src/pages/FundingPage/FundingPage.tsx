@@ -4,7 +4,6 @@ import { FundingItem, Ranking } from '@/components/organisms';
 import { getFundingsQuery } from '@/api/queries/funding';
 import { useQuery } from '@tanstack/react-query';
 import { Funding } from '@/types';
-import { FundingDescription } from '@/components/molecules';
 
 interface FundingPageProps {
   className?: string;
@@ -20,7 +19,6 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
       {fundings?.map((funding) => (
         <div key={funding.itemNo + funding.itemName}>
           <FundingItem funding={funding} />
-          <FundingDescription funding={funding} />
         </div>
       ))}
     </div>
