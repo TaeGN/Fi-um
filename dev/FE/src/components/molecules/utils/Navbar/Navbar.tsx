@@ -26,7 +26,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
         >
           <div className="flex-container-col align-center m-1">
             <img
-              style={{ width: '40px', height: '40px' }}
+              style={{ width: '30px', height: '30px' }}
               src={imgUrl('navbaricon/home.png')}
               alt=""
             />
@@ -39,7 +39,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
         >
           <div className="flex-container-col align-center m-1">
             <img
-              style={{ width: '40px', height: '40px' }}
+              style={{ width: '30px', height: '30px' }}
               src={imgUrl('navbaricon/deposit.png')}
               alt=""
             />
@@ -52,7 +52,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
         >
           <div className="flex-container-col align-center m-1">
             <img
-              style={{ width: '40px', height: '40px' }}
+              style={{ width: '30px', height: '30px' }}
               src={imgUrl('navbaricon/stock.png')}
               alt=""
             />
@@ -65,7 +65,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
         >
           <div className="flex-container-col align-center m-1">
             <img
-              style={{ width: '40px', height: '40px' }}
+              style={{ width: '30px', height: '30px' }}
               src={imgUrl('navbaricon/funding.png')}
               alt=""
             />
@@ -78,7 +78,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
         >
           <div className="flex-container-col align-center m-1">
             <img
-              style={{ width: '40px', height: '40px' }}
+              style={{ width: '30px', height: '30px' }}
               src={imgUrl('navbaricon/auction.png')}
               alt=""
             />
@@ -92,7 +92,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
         >
           <div className="flex-container-col align-center m-1">
             <img
-              style={{ width: '40px', height: '40px' }}
+              style={{ width: '30px', height: '30px' }}
               src={imgUrl('navbaricon/gallery.png')}
               alt=""
             />
