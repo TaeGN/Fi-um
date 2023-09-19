@@ -4,7 +4,13 @@ import { usePagination, useTable } from 'react-table';
 import './Table.module.scss';
 import { snakeToTitle } from '@/utils';
 
-const Table = ({ propsData }: { propsData: any }) => {
+const Table = ({
+  propsData,
+  onClick,
+}: {
+  propsData: any;
+  onClick?: (e: any) => void;
+}) => {
   const cols = Object.keys(propsData[0]).map((snake) => {
     return {
       Header: snakeToTitle(snake),
@@ -60,7 +66,10 @@ const Table = ({ propsData }: { propsData: any }) => {
           {page.map((row: any) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
+              <tr
+                {...row.getRowProps()}
+                onClick={() => onClick && onClick(String(Number(row.id) + 1))}
+              >
                 {row.cells.map((cell: any) => {
                   return (
                     <td

@@ -4,12 +4,14 @@ import styles from './StockDetailPage.module.scss';
 import useModal from '@/hooks/useModal';
 import { Button, LineChart } from '@/components/atoms';
 import { Modal, ModalStock } from '@/components/molecules';
-import { useQuery } from '@tanstack/react-query';
-import { Stock } from '@/types';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { Stock, StockAccount } from '@/types';
 import { useParams } from 'react-router-dom';
 import {
   getStockChartQuery,
   getStockMyAccountQuery,
+  postStockBuyingQuery,
+  postStockSellingQuery,
 } from '@/api/queries/stock';
 
 interface StockDetailPageProps {
@@ -30,12 +32,10 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
   const { data: myStock, status: isMyStockLoading } = useQuery(
     getStockMyAccountQuery(Number(detail)),
   );
-  console.log(myStock);
 
   const { data: stockChart, status: isStockChartLoading } = useQuery<Stock[]>(
     getStockChartQuery(Number(detail)),
   );
-  console.log(stockChart);
 
   useEffect(() => {
     if (isStockChartLoading === 'success' && stockChart) {
@@ -59,6 +59,54 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
       setChartData(newChartData);
     }
   }, [stockChart, isStockChartLoading]);
+
+  const [stockAccount, setStockAccount] = useState<StockAccount>({
+    stockNo: 0,
+    price: 0,
+    count: 0,
+  });
+  const queryClient = useQueryClient();
+
+  // 주식 구매 함수
+  const stockBuyingMutaion = useMutation(
+    postStockBuyingQuery(stockAccount).mutationFn,
+    {
+      onSuccess: (res) => {
+        console.log(res);
+        console.log('매수 성공');
+        queryClient.invalidateQueries(['getStockMyAccount']);
+        toggle();
+      },
+      onError: (err) => {
+        console.log(err);
+        console.log('매수 실패');
+      },
+    },
+  );
+  const handleStockBuying = () => {
+    console.log(stockAccount);
+    stockBuyingMutaion.mutate();
+  };
+
+  // 주식 판매 함수
+  const stockSellingMutation = useMutation(
+    postStockSellingQuery(stockAccount).mutationFn,
+    {
+      onSuccess: (res) => {
+        console.log(res);
+        console.log('매도 성공');
+        queryClient.invalidateQueries(['getStockMyAccount']);
+        toggle();
+      },
+      onError: (err) => {
+        console.log(err);
+        console.log('매도 실패');
+      },
+    },
+  );
+  const handleStockSelling = () => {
+    stockSellingMutation.mutate();
+  };
 
   return (
     <div
@@ -121,15 +169,19 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
       {isMyStockLoading === 'success' && isStockChartLoading === 'success' && (
         <Modal isOpen={isOpen} toggle={toggle}>
           <ModalStock
+            setStockAccount={setStockAccount}
             className={className}
             label={label}
-            onClick={() => console.log('구매!!!!')}
+            onClick={label === '매도' ? handleStockSelling : handleStockBuying}
             toggle={toggle}
             price={stockChart[stockChart.length - 1].nowPrice}
+            stockNo={Number(detail)}
             totalCount={
               label === '매도'
                 ? myStock.stockCount
-                : myStock.point / stockChart[stockChart.length - 1].nowPrice
+                : Math.floor(
+                    myStock.point / stockChart[stockChart.length - 1].nowPrice,
+                  )
             }
           />
         </Modal>
