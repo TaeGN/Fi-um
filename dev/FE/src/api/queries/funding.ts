@@ -3,6 +3,7 @@ import {
   getFundings,
   getMyFundings,
   postFunding,
+  getFundingRecords,
 } from '../funding';
 
 // 진행 중인 펀딩 리스트 전체 조회
@@ -29,6 +30,14 @@ const getMyFundingsQuery = () => {
   };
 };
 
+// 전체 펀딩 현황 조회
+const getFundingRecordsQuery = () => {
+  return {
+    queryKey: ['getFundingRecords'],
+    queryFn: getFundingRecords,
+  };
+};
+
 // 펀딩하기 버튼
 const postFundingQuery = (money: number) => {
   return {
@@ -41,4 +50,5 @@ export {
   getFundingProgressQuery,
   getMyFundingsQuery,
   postFundingQuery,
+  getFundingRecordsQuery,
 };
