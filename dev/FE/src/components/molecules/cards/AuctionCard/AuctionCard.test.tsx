@@ -7,16 +7,7 @@ import '@testing-library/jest-dom';
 
 describe('AuctionCard 컴포넌트', () => {
   test('컴포넌트 렌더링 테스트', () => {
-    render(
-      <AuctionCard
-        src=""
-        alt=""
-        title="와"
-        startValue="10000"
-        currentValue="123123"
-        buyItNow="1523445234"
-      />,
-    );
+    render(<AuctionCard itemImagePath="" title="" />);
     userEvent.setup();
     screen.debug();
   });

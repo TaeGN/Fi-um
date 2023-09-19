@@ -4,7 +4,6 @@ import {
   CreatePage,
   DepositPage,
   FundingPage,
-  FundingPaymentPage,
   GalleryDetailPage,
   GalleryPage,
   LoginPage,
@@ -30,7 +29,6 @@ const Router = ({ className }: { className?: string }) => {
           <Route path="create" element={<CreatePage />} />
           <Route path="deposit" element={<DepositPage />} />
           <Route path="funding" element={<FundingPage />} />
-          <Route path="fundingpayment" element={<FundingPaymentPage />} />
           <Route path="profile/:userNo" element={<ProfilePage />} />
           <Route path="gallery" element={<GalleryPage />} />
           <Route path="gallery/:detail" element={<GalleryDetailPage />} />

@@ -12,4 +12,10 @@ interface FundingProgress {
   fundingPrice: number;
 }
 
-export type { Funding, FundingProgress };
+interface FundingRecord {
+  userName: string;
+  itemName: string;
+  price: number;
+}
+
+export type { Funding, FundingProgress, FundingRecord };

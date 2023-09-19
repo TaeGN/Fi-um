@@ -14,6 +14,7 @@ import {
   ArtistAuction,
   ChildProfile,
   Deposit,
+  FundingRecord,
   Funding as FundingType,
   Item,
   MyStock,
@@ -27,6 +28,7 @@ import { AuctionCard, ProfileCard, Swiper } from '@/components/molecules';
 import {
   getAuctionPurchaseQuery,
   getFollowingQuery,
+  getFundingRecordsQuery,
   getFundingsQuery,
   getMyFundingsQuery,
   getMyStocksQuery,
@@ -130,12 +132,10 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
           <div className="card-container">
             {myAuctions
               .slice(index * 4, Math.min((index + 1) * 4, len))
-              .map(({ actionNo, imagePath, title }) => (
+              .map(({ auctionNo, imagePath, title }) => (
                 <AuctionCard
-                  key={actionNo}
-                  src={imagePath}
-                  alt={title}
-                  title={title}
+                  key={auctionNo}
+                  {...{ auctionNo, itemImagePath: imagePath, title }}
                 />
               ))}
           </div>,
@@ -189,6 +189,11 @@ const AdminProfilePage = () => {
   // 전체 펀딩
   const { data: fundings } = useQuery<FundingType[]>(getFundingsQuery());
 
+  // 펀딩 히스토리
+  const { data: fundingRecords } = useQuery<FundingRecord[]>(
+    getFundingRecordsQuery(),
+  );
+
   return (
     <>
       <ProfileSection label="아이들 자산 현황">
@@ -206,7 +211,9 @@ const AdminProfilePage = () => {
         <ProfileSection label="펀딩 목록">
           <Funding fundings={fundings} />
         </ProfileSection>
-        <ProfileSection label="펀딩 히스토리"></ProfileSection>
+        <ProfileSection label="펀딩 히스토리">
+          <Table data={fundingRecords} />
+        </ProfileSection>
       </div>
     </>
   );
