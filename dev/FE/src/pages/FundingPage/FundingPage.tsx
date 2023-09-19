@@ -7,20 +7,22 @@ import { Funding } from '@/types';
 import { Modal } from '@/components/molecules';
 import ModalFunding from '@/components/molecules/utils/Modal/contents/ModalFunding/ModalFunding';
 import useModal from '@/hooks/useModal';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 interface FundingPageProps {
   className?: string;
 }
 
 const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
-  const { data: fundings } = useQuery<Funding[], Error>(getFundingsQuery());
-  console.log(fundings);
+  const [scrollTop, setScrollTop] = useState<number>(0);
 
-  const { isOpen, toggle } = useModal();
+  const { data: fundings } = useQuery<Funding[], Error>(getFundingsQuery());
+
+  const { isOpen, openToggle, closeToggle } = useModal();
 
   const onModal = useCallback(() => {
-    toggle();
+    setScrollTop(document.documentElement.scrollTop);
+    openToggle();
   }, []);
 
   return (
@@ -31,12 +33,14 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
           <FundingItem {...funding} onModal={onModal} />
         </div>
       ))}
-
-      <Modal isOpen={isOpen} toggle={toggle}>
+      <Modal scrollTop={scrollTop} isOpen={isOpen} toggle={closeToggle}>
         <ModalFunding
           className={className}
-          onClick={() => console.log('펀딩!!!!')}
-          toggle={toggle}
+          onClick={() => {
+            console.log('펀딩!!!!');
+            closeToggle();
+          }}
+          closeToggle={closeToggle}
         />
       </Modal>
     </div>

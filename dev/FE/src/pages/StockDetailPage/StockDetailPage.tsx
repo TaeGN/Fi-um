@@ -19,14 +19,14 @@ interface StockDetailPageProps {
 }
 
 const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
-  const { isOpen, toggle } = useModal();
+  const { isOpen, openToggle, closeToggle } = useModal();
   const [label, setLabel] = useState('매도');
   const [chartData, setChartData] = useState<any | undefined>();
   const { detail } = useParams<{ detail: string }>();
 
   const onModal = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     setLabel(e.currentTarget.value);
-    toggle();
+    openToggle();
   }, []);
 
   const { data: myStock, status: isMyStockLoading } = useQuery(
@@ -75,7 +75,7 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
         console.log(res);
         console.log('매수 성공');
         queryClient.invalidateQueries(['getStockMyAccount']);
-        toggle();
+        closeToggle();
       },
       onError: (err) => {
         console.log(err);
@@ -96,7 +96,7 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
         console.log(res);
         console.log('매도 성공');
         queryClient.invalidateQueries(['getStockMyAccount']);
-        toggle();
+        closeToggle();
       },
       onError: (err) => {
         console.log(err);
@@ -167,13 +167,13 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
       </div>
 
       {isMyStockLoading === 'success' && isStockChartLoading === 'success' && (
-        <Modal isOpen={isOpen} toggle={toggle}>
+        <Modal isOpen={isOpen} toggle={closeToggle}>
           <ModalStock
             setStockAccount={setStockAccount}
             className={className}
             label={label}
             onClick={label === '매도' ? handleStockSelling : handleStockBuying}
-            toggle={toggle}
+            toggle={closeToggle}
             price={stockChart[stockChart.length - 1].nowPrice}
             stockNo={Number(detail)}
             totalCount={

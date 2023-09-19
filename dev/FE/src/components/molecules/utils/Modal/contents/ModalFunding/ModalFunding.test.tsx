@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 
 describe('ModalFunding 컴포넌트', () => {
   test('컴포넌트 렌더링 테스트', () => {
-    render(<ModalFunding onClick={() => {}} toggle={() => {}} />);
+    render(<ModalFunding onClick={() => {}} closeToggle={() => {}} />);
     userEvent.setup();
     screen.debug();
   });

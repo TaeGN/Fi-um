@@ -9,7 +9,7 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 interface ModalFundingProps {
   className?: string;
   onClick?: () => void;
-  toggle?: () => void;
+  closeToggle?: () => void;
 }
 
 // 나중에 props로 대체 예정
@@ -20,7 +20,7 @@ const price = 10000;
 const ModalFunding = ({
   className,
   onClick,
-  toggle,
+  closeToggle,
 }: ModalFundingProps): JSX.Element => {
   const [count, setCount] = useState<number>(0);
 
@@ -154,7 +154,7 @@ const ModalFunding = ({
             colorStyle.textColor,
           )}
           label="취소"
-          onClick={toggle}
+          onClick={closeToggle}
         />
         <Button
           className={convertClassNameList(

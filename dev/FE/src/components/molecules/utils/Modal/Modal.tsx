@@ -5,6 +5,7 @@ interface ModalProps {
   className?: string;
   isOpen: boolean;
   toggle: () => void;
+  scrollTop?: number;
   children: JSX.Element;
 }
 
@@ -12,17 +13,22 @@ const Modal = ({
   className,
   toggle,
   isOpen,
+  scrollTop,
   children,
 }: ModalProps): JSX.Element => {
   return (
     <>
       {isOpen && (
         <div
+          style={{ top: scrollTop }}
           className={convertClassNameList(
             convertClassName(className, styles),
             styles['modal-overlay'],
           )}
-          onClick={toggle}
+          onClick={(e) => {
+            e.stopPropagation();
+            toggle();
+          }}
         >
           <div
             className={convertClassNameList(styles['modal-box'])}

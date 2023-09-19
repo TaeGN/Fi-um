@@ -1,14 +1,19 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 export default function useModal() {
   const [isOpen, setisOpen] = useState(false);
 
-  const toggle = () => {
-    setisOpen(!isOpen);
-  };
+  const openToggle = useCallback(() => {
+    setisOpen(true);
+  }, []);
+
+  const closeToggle = useCallback(() => {
+    setisOpen(false);
+  }, []);
 
   return {
     isOpen,
-    toggle,
+    openToggle,
+    closeToggle,
   };
 }

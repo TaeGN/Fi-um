@@ -38,12 +38,12 @@ const depositList: Deposit[] = [
 ];
 
 const DepositPage = ({ className }: DepositPageProps): JSX.Element => {
-  const { isOpen, toggle } = useModal();
+  const { isOpen, openToggle, closeToggle } = useModal();
   const [label, setLabel] = useState<LabelType>('입금');
 
   const onModal = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     setLabel(e.currentTarget.value as LabelType);
-    toggle();
+    openToggle();
   }, []);
 
   return (
@@ -70,12 +70,12 @@ const DepositPage = ({ className }: DepositPageProps): JSX.Element => {
         <div className={styles['deposit-page__swiper--item']}>aa</div>
       </Swiper>
 
-      <Modal isOpen={isOpen} toggle={toggle}>
+      <Modal isOpen={isOpen} toggle={closeToggle}>
         <ModalDeposit
           className={className}
           label={label}
           onClick={() => console.log('구매!!!!')}
-          toggle={toggle}
+          toggle={closeToggle}
         />
       </Modal>
     </div>
