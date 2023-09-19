@@ -22,11 +22,7 @@ const FundingAdmin = ({ className }: FundingAdminProps): JSX.Element => {
     >
       <div>
         {fundings?.map((funding) => (
-          <FundingItem
-            key={funding.itemNo}
-            funding={funding}
-            onModal={() => {}}
-          />
+          <FundingItem key={funding.itemNo} {...funding} onModal={() => {}} />
         ))}
       </div>
       <div>

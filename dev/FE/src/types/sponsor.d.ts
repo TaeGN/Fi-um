@@ -26,4 +26,4 @@ interface NewItem {
   imagePath: string;
 }
 
-export { Item, SponsorshipDetail, NewItem };
+export type { Item, SponsorshipDetail, NewItem };

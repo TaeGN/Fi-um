@@ -31,7 +31,7 @@ const Router = ({ className }: { className?: string }) => {
           <Route path="deposit" element={<DepositPage />} />
           <Route path="funding" element={<FundingPage />} />
           <Route path="fundingpayment" element={<FundingPaymentPage />} />
-          <Route path="profile/:user" element={<ProfilePage />} />
+          <Route path="profile/:userNo" element={<ProfilePage />} />
           <Route path="gallery" element={<GalleryPage />} />
           <Route path="gallery/:detail" element={<GalleryDetailPage />} />
         </Route>

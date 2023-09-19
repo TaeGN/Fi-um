@@ -2,20 +2,25 @@ import { useState } from 'react';
 import { convertClassName, convertClassNameList, loremData } from '@/utils';
 import styles from './FundingItem.module.scss';
 import { Image, Text } from '@/components/atoms';
-import { Funding } from '@/types';
 import { FundingBar, FundingDescription } from '@/components/molecules';
 import { MouseEvent } from 'react';
 
 interface FundingItemProps {
   className?: string;
-  funding: Funding;
-  onModal: (e: MouseEvent<HTMLButtonElement>) => void;
+  // funding: Funding;
+  itemNo: string;
+  itemName: string;
+  imagePath: string;
+  itemUnitPrice: number;
+  itemCount: number;
+  fundingAmount: number;
+  onModal?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const FundingItem = ({
   className,
-  funding,
   onModal,
+  ...funding
 }: FundingItemProps): JSX.Element => {
   const [showDescription, setShowDescription] = useState<boolean>(false);
 

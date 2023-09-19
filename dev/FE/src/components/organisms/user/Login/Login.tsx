@@ -6,6 +6,7 @@ import { UserDetail } from '@/types';
 import { getUserCheckId, userLogin, userSignup } from '@/api/user';
 import { useMutation } from '@tanstack/react-query';
 import useAuth from '@/hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginProps {
   className?: string;
@@ -14,6 +15,7 @@ interface LoginProps {
 
 const Login = ({ className, signUp }: LoginProps): JSX.Element => {
   const { setUserInfo } = useAuth();
+  const navigate = useNavigate();
   const [userInformation, setUserInformation] = useState<UserDetail>({
     userId: '',
     password: '',
@@ -134,7 +136,7 @@ const Login = ({ className, signUp }: LoginProps): JSX.Element => {
 
       setUserInfo(data.data);
       alert('로그인 성공!!');
-      window.location.href = '/';
+      navigate('/');
     },
     onError: (err) => {
       console.log(err);

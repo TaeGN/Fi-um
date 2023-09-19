@@ -1,25 +1,49 @@
 import { Image, Text } from '@/components/atoms';
 import styles from './FundingCard.module.scss';
-import { convertClassNameList, loremData } from '@/utils';
+import { convertClassName, convertClassNameList } from '@/utils';
 import { FundingBar } from '../..';
+import { Funding } from '@/types';
 
-const FundingCard = () => {
+interface FundingCardProps {
+  className?: string;
+  funding: Funding;
+  ratio?: number;
+}
+
+const FundingCard = ({
+  className,
+  ratio,
+  funding: { imagePath, itemName, itemUnitPrice, itemCount, fundingAmount },
+}: FundingCardProps): JSX.Element => {
   return (
-    <div className={styles['funding-card']} data-testid="funding-card">
-      <Image className={styles['funding-card-image']} src="" alt="aa" />
+    <div
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        styles['funding-card'],
+      )}
+      data-testid="funding-card"
+    >
+      <Image
+        className={styles['funding-card-image']}
+        src={imagePath}
+        alt={itemName}
+      />
       <Text
         className={convertClassNameList('test-sm', styles['funding-card-text'])}
-        text={loremData}
+        text={itemName}
       />
-      <FundingBar
-        className={convertClassNameList(
-          styles['bar-chart'],
-          styles['funding-card-funding-bar'],
-        )}
-        ratio={70}
-        itemUnitPrice={0}
-        fundingAmount={0}
-      />
+      {ratio && (
+        <FundingBar
+          className={convertClassNameList(
+            styles['bar-chart'],
+            styles['funding-card-funding-bar'],
+          )}
+          ratio={70}
+          itemCount={itemCount}
+          itemUnitPrice={itemUnitPrice}
+          fundingAmount={fundingAmount}
+        />
+      )}
     </div>
   );
 };

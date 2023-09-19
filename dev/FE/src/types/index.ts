@@ -4,3 +4,4 @@ export type * from './deposit';
 export type * from './auction';
 export type * from './funding';
 export type * from './sponsor';
+export type * from './point';

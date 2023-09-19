@@ -20,7 +20,11 @@ const authInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     (config) => {
       const user = sessionStorage.getItem('user');
-      if (!user) throw new Error('비 로그인 상태');
+      if (!user) {
+        alert('로그인이 필요합니다.!!');
+        window.location.href = '/login';
+        return Promise.reject(new Error('비 로그인'));
+      }
 
       const {
         data: {
@@ -42,35 +46,37 @@ const authInterceptor = (instance: AxiosInstance) => {
       return response;
     },
     (error) => {
-      if (error.response && error.response.status === 400) {
-        const user = sessionStorage.getItem('user');
-        if (!user) {
-          alert('로그인이 필요합니다.!!');
-
-          window.location.href = '/login';
-          return Promise.reject(error);
-        }
-
-        const {
-          data: {
-            tokenResponse: { refreshToken },
-          },
-        } = JSON.parse(user);
-
-        // access token 재 발급
-        if (!isRefresh) {
-          // refresh 요청 한 번만
-          isRefresh = true;
-          getreissue(refreshToken)
-            .catch(() => {
-              alert('로그인 만료!!');
+      if (error.response) {
+        switch (error.response.status) {
+          // 토큰 만료
+          case 400:
+          // 권한 없음
+          case 401:
+            const user = sessionStorage.getItem('user');
+            if (!user) {
+              alert('로그인이 필요합니다.!!');
               window.location.href = '/login';
-            })
-            .finally(() => (isRefresh = false));
+              return Promise.reject(error);
+            }
+
+            const {
+              data: {
+                tokenResponse: { refreshToken },
+              },
+            } = JSON.parse(user);
+
+            // access token 재 발급
+            if (!isRefresh) {
+              // refresh 요청 한 번만
+              isRefresh = true;
+              getreissue(refreshToken).finally(() => (isRefresh = false));
+            }
+            break;
         }
+
+        console.error('response error : ', error);
+        return Promise.reject(error);
       }
-      console.error('response error : ', error);
-      return Promise.reject(error);
     },
   );
 

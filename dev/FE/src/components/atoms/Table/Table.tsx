@@ -1,19 +1,24 @@
 import { useMemo } from 'react';
-import dummy from './dummy.json';
 import { usePagination, useTable } from 'react-table';
-import './Table.module.scss';
-import { snakeToTitle } from '@/utils';
+import { convertClassName, convertClassNameList, snakeToTitle } from '@/utils';
+import styles from './Table.module.scss';
 
-const cols = Object.keys(dummy[0]).map((snake) => {
-  return {
-    Header: snakeToTitle(snake),
-    accessor: snake,
-  };
-});
+interface TableProps {
+  className?: string;
+  data?: any;
+  onClick?: any;
+}
 
-const Table = () => {
-  const columns = useMemo(() => cols, []);
-  const data = useMemo(() => dummy, []);
+const Table = ({ className, data, onClick }: TableProps): JSX.Element => {
+  const columns = useMemo(() => {
+    return Object.keys(data[0] || {}).map((snake) => {
+      return {
+        Header: snakeToTitle(snake),
+        accessor: snake,
+      };
+    });
+  }, [data]);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -38,9 +43,13 @@ const Table = () => {
     usePagination,
   );
   const { pageIndex, pageSize } = state;
-
   return (
-    <div className="table">
+    <div
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        'table',
+      )}
+    >
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -61,7 +70,10 @@ const Table = () => {
           {page.map((row: any) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
+              <tr
+                {...row.getRowProps()}
+                onClick={() => onClick && onClick(String(Number(row.id) + 1))}
+              >
                 {row.cells.map((cell: any) => {
                   return (
                     <td

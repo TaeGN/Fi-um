@@ -1,6 +1,7 @@
 import {
   Capital,
   ChildProfile,
+  Deposit,
   SponsorProfile,
   TotalCapital,
   UserDetail,
@@ -49,7 +50,12 @@ const getreissue = async (refreshToken: string): Promise<string> => {
       sessionStorage.setItem('user', JSON.stringify(newUser));
       return token;
     })
-    .catch(({ error }) => {
+    .catch((error) => {
+      // 재 로그인 필요
+      if (error.response.status === 403) {
+        alert('로그인 만료!!');
+        window.location.href = '/login';
+      }
       console.error('refresh token error : ', error);
       return Promise.reject(error);
     });
@@ -65,6 +71,11 @@ const getUserCapital = async ({
   queryKey: [_, userNo],
 }: any): Promise<Capital> => {
   return await authApi.get(`user/capital/${userNo}`).then(({ data }) => data);
+};
+
+// 자신의 현재 예적금 조회
+const getUserDepositSaving = async (): Promise<Deposit[]> => {
+  return await authApi.get(`user/deposit-saving`).then(({ data }) => data);
 };
 
 // 회원가입
@@ -96,4 +107,5 @@ export {
   getreissue,
   getUserCapital,
   userLogout,
+  getUserDepositSaving,
 };
