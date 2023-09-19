@@ -40,10 +40,12 @@ public class StockServiceImp {
     }
 
     public Boolean getStockNow(Integer stockNo, Integer stockPrice) {
-        StockEventEntity stockEventEntity = getStockType(stockNo);
         Long nowTime = System.currentTimeMillis() / 1000;
-        int searchTime = (int) Math.floor( (nowTime - startTime) / 60);
-        StockDataEntity stockDataEntity = stockDataRepository.findByStockNoAndSearchNo(stockEventEntity, searchTime);
+        int searchTime = (int) Math.floor( (nowTime - startTime) / 60 );
+        if (searchTime % 2 != 0) {
+            searchTime = searchTime - 1;
+        }
+        StockDataEntity stockDataEntity = stockDataRepository.findByStockNoAndSearchNo(getStockType(stockNo), searchTime);
         if (stockPrice.equals(stockDataEntity.getNowPrice())) {
             return true;
         } else {
@@ -53,7 +55,7 @@ public class StockServiceImp {
 
     public List<StockDataDto> getAllData() {
         Long nowTime = System.currentTimeMillis() / 1000;
-        int searchTime = (int) Math.floor( (nowTime - startTime) / 60);
+        int searchTime = (int) Math.floor( (nowTime - startTime) / 60 );
         List<StockDataEntity> stockList = stockDataRepository.findBySearchNo(searchTime);
         List<StockDataDto> stockDto = new ArrayList<>();
         for (StockDataEntity stockDetail : stockList) {
@@ -66,7 +68,10 @@ public class StockServiceImp {
     public List<StockDataDto> getDetailData(Integer stockNo) {
         StockEventEntity stockEventEntity = getStockType(stockNo); // StockNo가 1인 엔터티를 가져옵니다.
         Long nowTime = System.currentTimeMillis() / 1000;
-        int searchTime = (int) Math.floor( (nowTime - startTime) / 60);
+        int searchTime = (int) Math.floor( (nowTime - startTime) / 60 );
+        if (searchTime % 2 != 0) {
+            searchTime = searchTime - 1;
+        }
         List<StockDataEntity> stockList = stockDataRepository.findByStockNoAndSearchNoLessThanEqualOrderBySearchNoDesc(stockEventEntity, searchTime, PageRequest.of(0, 20));
         List<StockDataDto> stockDto = new ArrayList<>();
         for (StockDataEntity stockDetail : stockList) {
@@ -176,7 +181,6 @@ public class StockServiceImp {
     }
 
     public List<StockStatusDto> getMyAccount(Integer userNo) {
-        if(userNo == null) return null;
         Optional<List<StockAccountEntity>> stockAccountEntityListOpt = stockAccountRepository.findByUserNo(userRepository.findByUserNo(userNo).get());
         List<StockStatusDto> stockStatusDto = new ArrayList<>();
         if (stockAccountEntityListOpt.isPresent()){
@@ -188,6 +192,9 @@ public class StockServiceImp {
                 tmpDto.setStockUnitPrice(tmpAccount.getStockAverage());
                 Long nowTime = System.currentTimeMillis() / 1000;
                 int searchTime = (int) Math.floor( (nowTime - startTime) / 60);
+                if (searchTime % 2 != 0) {
+                    searchTime = searchTime - 1;
+                }
                 tmpDto.setStockNowPrice(stockDataRepository.findByStockNoAndSearchNo(tmpAccount.getStockNo(), searchTime).getNowPrice());
                 tmpDto.setStockCount(tmpAccount.getStockCount());
                 stockStatusDto.add(tmpDto);
