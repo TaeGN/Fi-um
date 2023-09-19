@@ -59,12 +59,14 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
         className={convertClassNameList(styles['navbar__menu--item'])}
         to={'/stock'}
       >
-        <img
-          style={{ width: '30px', height: '30px' }}
-          src={imgUrl('navbaricon/stock.png')}
-          alt=""
-        />
-        <Text className="text-lg" text="주식" />
+        <div className="flex-container-col align-center">
+          <img
+            style={{ width: '30px', height: '30px' }}
+            src={imgUrl('navbaricon/stock.png')}
+            alt=""
+          />
+          <Text className="text-lg" text="주식" />
+        </div>
       </Link>,
 
       <Link
@@ -72,12 +74,14 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
         className={convertClassNameList(styles['navbar__menu--item'])}
         to={'/auction'}
       >
-        <img
-          style={{ width: '30px', height: '30px' }}
-          src={imgUrl('navbaricon/auction.png')}
-          alt=""
-        />
-        <Text className="text-lg" text="경매" />
+        <div className="flex-container-col align-center">
+          <img
+            style={{ width: '30px', height: '30px' }}
+            src={imgUrl('navbaricon/auction.png')}
+            alt=""
+          />
+          <Text className="text-lg" text="경매" />
+        </div>
       </Link>,
     ];
     switch (userInfo.userType) {
@@ -88,12 +92,14 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
             className={convertClassNameList(styles['navbar__menu--item'])}
             to={'/deposit'}
           >
-            <img
-              style={{ width: '30px', height: '30px' }}
-              src={imgUrl('navbaricon/deposit.png')}
-              alt=""
-            />
-            <Text className="text-lg" text="자산" />
+            <div className="flex-container-col align-center">
+              <img
+                style={{ width: '30px', height: '30px' }}
+                src={imgUrl('navbaricon/deposit.png')}
+                alt=""
+              />
+              <Text className="text-lg" text="자산" />
+            </div>
           </Link>,
         );
         break;
@@ -105,24 +111,28 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/funding'}
         >
-          <img
-            style={{ width: '30px', height: '30px' }}
-            src={imgUrl('navbaricon/funding.png')}
-            alt=""
-          />
-          <Text className="text-lg" text="펀딩" />
+          <div className="flex-container-col align-center">
+            <img
+              style={{ width: '30px', height: '30px' }}
+              src={imgUrl('navbaricon/funding.png')}
+              alt=""
+            />
+            <Text className="text-lg" text="펀딩" />
+          </div>
         </Link>,
         <Link
           key="gallery"
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/gallery'}
         >
-          <img
-            style={{ width: '30px', height: '30px' }}
-            src={imgUrl('navbaricon/gallery.png')}
-            alt=""
-          />
-          <Text className="text-lg" text="갤러리" />
+          <div className="flex-container-col align-center">
+            <img
+              style={{ width: '30px', height: '30px' }}
+              src={imgUrl('navbaricon/gallery.png')}
+              alt=""
+            />
+            <Text className="text-lg" text="갤러리" />
+          </div>
         </Link>,
         <Link
           key="profile"
@@ -165,12 +175,14 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
           className={convertClassNameList(styles['navbar__menu--item'])}
           to={'/'}
         >
-          <img
-            style={{ width: '30px', height: '30px' }}
-            src={imgUrl('navbaricon/home.png')}
-            alt=""
-          />
-          <Text className="text-lg" text="Home" />
+          <div className="flex-container-col align-center">
+            <img
+              style={{ width: '30px', height: '30px' }}
+              src={imgUrl('navbaricon/home.png')}
+              alt=""
+            />
+            <Text className="text-lg" text="Home" />
+          </div>
         </Link>
 
         {links}
