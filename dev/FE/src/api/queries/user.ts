@@ -42,9 +42,6 @@ const getUserCapitalQuery = (userNo: number) => {
 const userLogoutQuery = () => {
   return {
     mutationFn: userLogout,
-    onSuccess: () => {
-      window.location.href = '/';
-    },
   };
 };
 
