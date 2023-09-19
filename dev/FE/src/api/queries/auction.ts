@@ -6,7 +6,7 @@ import {
   postAuctionBid,
   putAuction,
 } from '@/api/auction';
-import { Auction, NewAuction } from '@/types';
+import { NewAuction } from '@/types';
 
 const getAuctionsQuery = () => {
   return {
