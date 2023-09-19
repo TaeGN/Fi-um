@@ -230,7 +230,7 @@ public class StockServiceImp {
         StockNewsDto newsDto = new StockNewsDto();
         newsDto.setNewsNo(stockNews.getNewsNo());
         newsDto.setNewsTitle(stockNews.getNewsTitle());
-        newsDto.setNewContent(stockNews.getNewsContent());
+        newsDto.setNewsContent(stockNews.getNewsContent());
         newsDto.setSearchNo(stockNews.getSearchNo());
         newsDto.setStockNo(stockNews.getStockNo().getStockNo());
         newsDto.setStockName(stockNews.getStockNo().getStockName());

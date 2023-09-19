@@ -6,7 +6,7 @@ import lombok.Data;
 public class StockNewsDto {
     private Integer newsNo;
     private String newsTitle;
-    private String newContent;
+    private String newsContent;
     private Integer searchNo;
     private Integer stockNo;
     private String stockName;
