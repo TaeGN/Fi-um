@@ -1,12 +1,12 @@
 import { convertClassName, convertClassNameList, imgUrl } from '@/utils';
 import styles from './Navbar.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '@/hooks/useAuth';
 import { USER_TYPE } from '@/constants';
-import { useMemo } from 'react';
+import { useMemo, useCallback, MouseEvent } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { userLogoutQuery } from '@/api/queries/user';
 import { Image, Text } from '@/components/atoms';
+import { userLogout } from '@/api/user';
 
 interface NavbarProps {
   className?: string;
@@ -14,7 +14,17 @@ interface NavbarProps {
 
 const Navbar = ({ className }: NavbarProps): JSX.Element => {
   const { userInfo } = useAuth();
-  const mutation = useMutation(userLogoutQuery());
+  const navigate = useNavigate();
+  const mutation = useMutation(userLogout, {
+    onSuccess() {
+      navigate('/login');
+    },
+  });
+
+  const handleLogout = useCallback((e: MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    mutation.mutate();
+  }, []);
 
   const links = useMemo(() => {
     if (!userInfo)
@@ -131,10 +141,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
             styles.logout,
           )}
           to={''}
-          onClick={(e) => {
-            e.preventDefault();
-            mutation.mutate();
-          }}
+          onClick={handleLogout}
         >
           로그아웃
         </Link>,

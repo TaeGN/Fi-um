@@ -49,7 +49,12 @@ const getreissue = async (refreshToken: string): Promise<string> => {
       sessionStorage.setItem('user', JSON.stringify(newUser));
       return token;
     })
-    .catch(({ error }) => {
+    .catch((error) => {
+      // 재 로그인 필요
+      if (error.response.status === 403) {
+        alert('로그인 만료!!');
+        window.location.href = '/login';
+      }
       console.error('refresh token error : ', error);
       return Promise.reject(error);
     });

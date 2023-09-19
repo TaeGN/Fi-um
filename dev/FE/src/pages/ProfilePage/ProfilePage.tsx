@@ -1,9 +1,15 @@
-import { Swiper } from '@/components/molecules';
 import styles from './ProfilePage.module.scss';
-import { FundingAdmin, ProfileHeader, UserList } from '@/components/organisms';
+import { ProfileHeader } from '@/components/organisms';
 import { convertClassName, convertClassNameList } from '@/utils';
 import { Image } from '@/components/atoms';
 import useAuth from '@/hooks/useAuth';
+import { useMemo } from 'react';
+import { USER_TYPE } from '@/constants';
+import { getSponsorShipRecordDetailQuery } from '@/api/queries/sponsor';
+import { ChildProfile, Purchase, SponsorshipDetail } from '@/types';
+import { useQuery } from '@tanstack/react-query';
+import { getAuctionPurchaseQuery } from '@/api/queries/auction';
+import { getFollowingQuery } from '@/api/queries/follow';
 
 interface ProfilePageProps {
   className?: string;
@@ -50,8 +56,55 @@ for (let index = 1; index <= 5; index++) {
   );
 }
 
+const SponsorProfilePage = () => {
+  const { data: sponsorshipDetails } = useQuery<SponsorshipDetail[]>(
+    getSponsorShipRecordDetailQuery(),
+  );
+
+  const { data: auctionPurchases } = useQuery<Purchase[]>(
+    getAuctionPurchaseQuery(),
+  );
+
+  const { data: childProfiles } = useQuery<ChildProfile[]>(getFollowingQuery());
+
+  console.log(sponsorshipDetails);
+  console.log(auctionPurchases);
+  console.log(childProfiles);
+
+  return (
+    <>
+      {/* <Table data={sponsorshipDetails} /> */}
+      {auctionPurchases?.map(({ actionNo, imagePath, title }) => (
+        <Image key={title + actionNo} src={imagePath} alt={title} />
+      ))}
+    </>
+  );
+};
+
+const ChildProfilePage = () => {
+  return <></>;
+};
+
+const AdminProfilePage = () => {
+  return <></>;
+};
+
 const ProfilePage = ({ className }: ProfilePageProps): JSX.Element => {
   const { userInfo } = useAuth();
+
+  const profile = useMemo(() => {
+    if (!userInfo) return undefined;
+    switch (userInfo?.userType) {
+      case USER_TYPE.아이들:
+        return <ChildProfilePage />;
+      case USER_TYPE.원장쌤:
+        return <AdminProfilePage />;
+      case USER_TYPE.후원자:
+        return <SponsorProfilePage />;
+      default:
+        return undefined;
+    }
+  }, [userInfo]);
 
   return (
     <div
@@ -61,11 +114,12 @@ const ProfilePage = ({ className }: ProfilePageProps): JSX.Element => {
       )}
     >
       <ProfileHeader userInfo={userInfo} />
-      <UserList totalCapitals={data} />
+      {/* <UserList totalCapitals={data} />
       <Swiper className={convertClassNameList(styles['profile-page__swiper'])}>
         {imageData}
       </Swiper>
-      <FundingAdmin />
+      <FundingAdmin /> */}
+      {profile}
     </div>
   );
 };

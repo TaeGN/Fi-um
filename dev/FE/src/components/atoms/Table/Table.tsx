@@ -1,19 +1,34 @@
 import { useMemo } from 'react';
-import dummy from './dummy.json';
+// import dummy from './dummy.json';
 import { usePagination, useTable } from 'react-table';
 import './Table.module.scss';
 import { snakeToTitle } from '@/utils';
 
-const cols = Object.keys(dummy[0]).map((snake) => {
-  return {
-    Header: snakeToTitle(snake),
-    accessor: snake,
-  };
-});
+// const cols = Object.keys(dummy[0]).map((snake) => {
+//   return {
+//     Header: snakeToTitle(snake),
+//     accessor: snake,
+//   };
+// });
 
-const Table = () => {
-  const columns = useMemo(() => cols, []);
-  const data = useMemo(() => dummy, []);
+import { convertClassName, convertClassNameList } from '@/utils';
+import styles from './Table.module.scss';
+
+interface TableProps {
+  className?: string;
+  data?: any;
+}
+
+const Table = ({ className, data }: TableProps): JSX.Element => {
+  const columns = useMemo(() => {
+    Object.keys(data?.[0]).map((snake) => {
+      return {
+        Header: snakeToTitle(snake),
+        accessor: snake,
+      };
+    });
+  }, []);
+  // const data = useMemo(() => dummy, []);
   const {
     getTableProps,
     getTableBodyProps,
@@ -38,9 +53,13 @@ const Table = () => {
     usePagination,
   );
   const { pageIndex, pageSize } = state;
-
   return (
-    <div className="table">
+    <div
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        'table',
+      )}
+    >
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (

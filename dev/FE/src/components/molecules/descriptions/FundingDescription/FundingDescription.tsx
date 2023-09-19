@@ -7,7 +7,7 @@ import { MouseEvent } from 'react';
 interface FundingDescriptionProps {
   className?: string;
   funding: Funding;
-  onModal: (e: MouseEvent<HTMLButtonElement>) => void;
+  onModal?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const FundingDescription = ({
