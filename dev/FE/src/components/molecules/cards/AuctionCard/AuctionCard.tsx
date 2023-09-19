@@ -7,8 +7,8 @@ interface AuctionCardProps {
   alt: string;
   title: string;
   startValue?: string;
-  currentValue: string;
-  buyItNow: string;
+  currentValue?: string;
+  buyItNow?: string;
   className?: string;
   onClick?: () => void;
 }
@@ -35,8 +35,10 @@ const AuctionCard = ({
       </div>
       <div className={styles.content}>
         {startValue && <Text text={`시작가 : ${formatCurrency(startValue)}`} />}
-        <Text text={`현재가 : ${formatCurrency(currentValue)}`} />
-        <Text text={`즉시구매가 : ${formatCurrency(buyItNow)}`} />
+        {currentValue && (
+          <Text text={`현재가 : ${formatCurrency(currentValue)}`} />
+        )}
+        {buyItNow && <Text text={`즉시구매가 : ${formatCurrency(buyItNow)}`} />}
       </div>
       <div className={styles.button}>
         <Button

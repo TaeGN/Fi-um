@@ -1,4 +1,4 @@
-import { PointRecord, Stock } from '.';
+import { PointRecord, Stock, StockDetail } from '.';
 
 interface User {
   userId: string;
@@ -22,7 +22,7 @@ interface TotalCapital {
   fundingMoney: number;
   solvingRate: string;
   pointRecord: PointRecord[];
-  stockList: Stock[];
+  stockList: StockDetail[];
 }
 
 interface Capital {

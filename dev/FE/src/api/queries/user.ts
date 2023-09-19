@@ -10,7 +10,7 @@ import {
   // userLogin,
 } from '../user';
 
-const getUserArtistQuery = (userNo: string) => {
+const getUserArtistQuery = (userNo: number) => {
   return {
     queryKey: ['getArtist', userNo],
     queryFn: getUserArtist,

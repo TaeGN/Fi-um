@@ -20,4 +20,11 @@ interface Purchase {
   title: string;
 }
 
-export type { Auction, Purchase };
+interface ArtistAuction {
+  title: string;
+  imagePath: string;
+  actionNo: number;
+  winner: number | null;
+}
+
+export type { Auction, Purchase, ArtistAuction };

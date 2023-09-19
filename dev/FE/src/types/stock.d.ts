@@ -14,6 +14,13 @@ interface MyStock {
   stockNowPrice: number;
 }
 
+interface StockDetail {
+  stockName: string;
+  stockCount: number;
+  stockAverage: number;
+  nowPrice: number;
+}
+
 interface StockRanking {
   userName: string;
   imagePath: string;
@@ -32,4 +39,11 @@ interface StockAccount {
   count: number;
 }
 
-export type { Stock, StockRanking, MyStock, StockMyAccount, StockAccount };
+export type {
+  Stock,
+  StockRanking,
+  MyStock,
+  StockMyAccount,
+  StockDetail,
+  StockAccount,
+};
