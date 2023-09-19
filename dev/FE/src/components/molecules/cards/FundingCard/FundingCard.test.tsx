@@ -2,8 +2,17 @@ import FundingCard from './FundingCard';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
+const funding = {
+  itemNo: 'string',
+  imagePath: '0',
+  itemName: '0',
+  itemUnitPrice: 0,
+  itemCount: 0,
+  fundingAmount: 0,
+};
+
 const renderFundingCard = () => {
-  render(<FundingCard />);
+  render(<FundingCard funding={funding} />);
 
   const fundingCard = screen.getByTestId('funding-card');
   return { fundingCard };

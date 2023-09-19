@@ -1,7 +1,7 @@
 import styles from './ProfilePage.module.scss';
 import { ProfileHeader, ProfileSection } from '@/components/organisms';
 import { convertClassName, convertClassNameList } from '@/utils';
-import { Image, Table, Text } from '@/components/atoms';
+import { Image, Table } from '@/components/atoms';
 import useAuth from '@/hooks/useAuth';
 import { useMemo } from 'react';
 import { USER_TYPE } from '@/constants';
