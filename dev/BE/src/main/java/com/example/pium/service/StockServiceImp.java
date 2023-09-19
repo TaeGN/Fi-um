@@ -56,6 +56,9 @@ public class StockServiceImp {
     public List<StockDataDto> getAllData() {
         Long nowTime = System.currentTimeMillis() / 1000;
         int searchTime = (int) Math.floor( (nowTime - startTime) / 60 );
+        if (searchTime % 2 != 0) {
+            searchTime = searchTime - 1;
+        }
         List<StockDataEntity> stockList = stockDataRepository.findBySearchNo(searchTime);
         List<StockDataDto> stockDto = new ArrayList<>();
         for (StockDataEntity stockDetail : stockList) {
