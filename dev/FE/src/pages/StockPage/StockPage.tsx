@@ -11,6 +11,7 @@ const StockPage = () => {
     Stock[],
     string
   >(['getStockInformation'], getStocks);
+  console.log(allStocks);
   const { data: stockKing, status: isStockKingLoading } = useQuery<
     StockRank[],
     string
@@ -20,7 +21,7 @@ const StockPage = () => {
     <div className={styles.stockPage}>
       <div className={styles.allStocks}>
         {isAllStocksLoading === 'success' ? (
-          <Table propsData={allStocks} onClick={navigate} />
+          <Table data={allStocks} onClick={navigate} />
         ) : (
           ''
         )}
