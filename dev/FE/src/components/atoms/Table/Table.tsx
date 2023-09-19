@@ -1,27 +1,22 @@
 import { useMemo } from 'react';
 import { usePagination, useTable } from 'react-table';
-import './Table.module.scss';
-import { snakeToTitle } from '@/utils';
-
-import { convertClassName, convertClassNameList } from '@/utils';
+import { convertClassName, convertClassNameList, snakeToTitle } from '@/utils';
 import styles from './Table.module.scss';
 
 interface TableProps {
   className?: string;
-  data?: Array<any>;
+  data?: any;
+  onClick?: any;
 }
 
-const Table = ({ className, data = [] }: TableProps): JSX.Element => {
-  if (!data || data.length == 0) return <div></div>;
-
+const Table = ({ className, data, onClick }: TableProps): JSX.Element => {
   const columns = useMemo(() => {
-    Object.keys(data?.[0])?.map((snake) => {
+    return Object.keys(data[0] || {}).map((snake) => {
       return {
         Header: snakeToTitle(snake),
         accessor: snake,
       };
     });
-    return [];
   }, [data]);
 
   const {
@@ -75,7 +70,10 @@ const Table = ({ className, data = [] }: TableProps): JSX.Element => {
           {page.map((row: any) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
+              <tr
+                {...row.getRowProps()}
+                onClick={() => onClick && onClick(String(Number(row.id) + 1))}
+              >
                 {row.cells.map((cell: any) => {
                   return (
                     <td
