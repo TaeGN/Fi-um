@@ -4,6 +4,7 @@ import {
   getUserTotalCapital,
   getUserCapital,
   userLogout,
+  getUserDepositSaving,
   // getUserCheckId,
   // userSignup,
   // userLogin,
@@ -38,6 +39,14 @@ const getUserCapitalQuery = (userNo: number) => {
   };
 };
 
+// 자신의 현재 예적금 조회
+const getUserDepositSavingQuery = () => {
+  return {
+    queryKey: ['getUserDepositSaving'],
+    queryFn: getUserDepositSaving,
+  };
+};
+
 // logout
 const userLogoutQuery = () => {
   return {
@@ -51,6 +60,7 @@ export {
   getUserTotalCapitalQuery,
   getUserCapitalQuery,
   userLogoutQuery,
+  getUserDepositSavingQuery,
   // getUserCheckIdQuery,
   // userSignupQuery,
   // userLoginQuery,

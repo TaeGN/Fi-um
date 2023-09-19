@@ -40,11 +40,6 @@ interface Capital {
   donation: number;
 }
 
-interface PointRecord {
-  useType: '주식' | '예금';
-  pointChange: number;
-}
-
 interface UserInfo {
   userNo: number;
   userName: string;
@@ -70,7 +65,7 @@ interface SponsorProfile {
 interface ChildProfile {
   userNo: number;
   userName: string;
-  imagaPath: string;
+  imagePath: string;
 }
 
 type UserType = 1 | 2 | 3;
@@ -79,7 +74,6 @@ export type {
   User,
   UserDetail,
   TotalCapital,
-  PointRecord,
   UserInfo,
   UserType,
   Capital,

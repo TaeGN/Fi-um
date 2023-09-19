@@ -2,9 +2,10 @@ import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './ProfileDonator.module.scss';
 import { Text } from '@/components/atoms';
 import { useQuery } from '@tanstack/react-query';
-import { ChildProfile, SponsorProfile } from '@/types';
+import { ChildProfile, Purchase, SponsorProfile } from '@/types';
 import { getUserQuery } from '@/api/queries/user';
 import { useMemo } from 'react';
+import { getAuctionPurchaseQuery, getFollowingQuery } from '@/api/queries';
 
 interface ProfileDonatorProps {
   className?: string;
@@ -15,6 +16,12 @@ const ProfileDonator = ({ className }: ProfileDonatorProps): JSX.Element => {
     SponsorProfile | ChildProfile,
     Error
   >(getUserQuery());
+
+  const { data: auctionPurchases } = useQuery<Purchase[]>(
+    getAuctionPurchaseQuery(),
+  );
+
+  const { data: childProfiles } = useQuery<ChildProfile[]>(getFollowingQuery());
 
   const { sponsoredAmount, cash, point } = useMemo(() => {
     return sponsorProfile
@@ -47,8 +54,14 @@ const ProfileDonator = ({ className }: ProfileDonatorProps): JSX.Element => {
         </div>
       </div>
       <div>
-        <Text className="text-lg" text={`구매한 그림 : ${12} 개`} />
-        <Text className="text-lg" text={`팔로우한 아이들 : ${1} 명`} />
+        <Text
+          className="text-lg"
+          text={`구매한 그림 : ${auctionPurchases?.length} 개`}
+        />
+        <Text
+          className="text-lg"
+          text={`팔로우한 아이들 : ${childProfiles?.length} 명`}
+        />
       </div>
     </div>
   );

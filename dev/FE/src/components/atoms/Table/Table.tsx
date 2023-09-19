@@ -1,34 +1,29 @@
 import { useMemo } from 'react';
-// import dummy from './dummy.json';
 import { usePagination, useTable } from 'react-table';
 import './Table.module.scss';
 import { snakeToTitle } from '@/utils';
-
-// const cols = Object.keys(dummy[0]).map((snake) => {
-//   return {
-//     Header: snakeToTitle(snake),
-//     accessor: snake,
-//   };
-// });
 
 import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './Table.module.scss';
 
 interface TableProps {
   className?: string;
-  data?: any;
+  data?: Array<any>;
 }
 
-const Table = ({ className, data }: TableProps): JSX.Element => {
+const Table = ({ className, data = [] }: TableProps): JSX.Element => {
+  if (!data || data.length == 0) return <div></div>;
+
   const columns = useMemo(() => {
-    Object.keys(data?.[0]).map((snake) => {
+    Object.keys(data?.[0])?.map((snake) => {
       return {
         Header: snakeToTitle(snake),
         accessor: snake,
       };
     });
-  }, []);
-  // const data = useMemo(() => dummy, []);
+    return [];
+  }, [data]);
+
   const {
     getTableProps,
     getTableBodyProps,

@@ -1,6 +1,7 @@
 import {
   Capital,
   ChildProfile,
+  Deposit,
   SponsorProfile,
   TotalCapital,
   UserDetail,
@@ -72,6 +73,11 @@ const getUserCapital = async ({
   return await authApi.get(`user/capital/${userNo}`).then(({ data }) => data);
 };
 
+// 자신의 현재 예적금 조회
+const getUserDepositSaving = async (): Promise<Deposit[]> => {
+  return await authApi.get(`user/deposit-saving`).then(({ data }) => data);
+};
+
 // 회원가입
 const userSignup = async (userDetail: UserDetail) => {
   return await api.post(`user/signup`, userDetail);
@@ -101,4 +107,5 @@ export {
   getreissue,
   getUserCapital,
   userLogout,
+  getUserDepositSaving,
 };

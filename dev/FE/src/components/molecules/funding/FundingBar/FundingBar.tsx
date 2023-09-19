@@ -1,10 +1,11 @@
 import { BarChart, Text } from '@/components/atoms';
 import styles from './FundingBar.module.scss';
-import { convertClassName, convertClassNameList } from '@/utils';
+import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
 
 interface FundingBar {
   className?: string;
   ratio: number;
+  itemCount?: number;
   itemUnitPrice: number;
   fundingAmount: number;
 }
@@ -12,6 +13,7 @@ interface FundingBar {
 const FundingBar = ({
   className,
   ratio,
+  itemCount,
   itemUnitPrice,
   fundingAmount,
 }: FundingBar): JSX.Element => {
@@ -44,12 +46,19 @@ const FundingBar = ({
           <Text className="text-sm" text="???원"></Text>
         </div>
         <div className="flex-container-col flex-item">
+          <Text className="text-sm gray" text="개수"></Text>
+          <Text className="text-sm orange" text={itemCount}></Text>
+        </div>
+        <div className="flex-container-col flex-item">
           <Text className="text-sm gray" text="현재 금액"></Text>
-          <Text className="text-sm orange" text={`${fundingAmount}원`}></Text>
+          <Text
+            className="text-sm orange"
+            text={priceFilter(fundingAmount)}
+          ></Text>
         </div>
         <div className="flex-container-col flex-item">
           <Text className="text-sm gray" text="목표 금액"></Text>
-          <Text className="text-sm" text={`${itemUnitPrice}원`}></Text>
+          <Text className="text-sm" text={priceFilter(itemUnitPrice)}></Text>
         </div>
       </div>
     </div>

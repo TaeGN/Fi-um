@@ -1,12 +1,34 @@
 import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './Funding.module.scss';
-import { FundingCard } from '@/components/molecules';
+import { FundingCard, Swiper } from '@/components/molecules';
+import { Funding as FundingType } from '@/types';
+import { useMemo } from 'react';
 
 interface FundingProps {
   className?: string;
+  fundings?: FundingType[];
 }
 
-const Funding = ({ className }: FundingProps): JSX.Element => {
+const Funding = ({ className, fundings }: FundingProps): JSX.Element => {
+  const funding = useMemo(() => {
+    const funding: JSX.Element[] = [];
+    if (fundings) {
+      const len = funding.length;
+      for (let index = 0; index < len / 4; index++) {
+        funding.push(
+          <div className="card-container">
+            {fundings
+              .slice(index * 4, Math.min((index + 1) * 4, len))
+              .map((funding) => (
+                <FundingCard key={funding.itemNo} funding={funding} />
+              ))}
+          </div>,
+        );
+      }
+    }
+    return funding;
+  }, [fundings]);
+
   return (
     <div
       className={
@@ -14,10 +36,7 @@ const Funding = ({ className }: FundingProps): JSX.Element => {
         'card-container')
       }
     >
-      <FundingCard />
-      <FundingCard />
-      <FundingCard />
-      <FundingCard />
+      <Swiper>{funding}</Swiper>
     </div>
   );
 };
