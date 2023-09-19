@@ -35,6 +35,10 @@ public class UserServiceImp {
         userRepository.save(userEntity);
     }
 
+
+    public UserEntity findByUserNo(Integer userNo) {
+        return userRepository.findById(userNo).orElse(null);
+    }
     public boolean isUserIdExist(String userId) {
         return userRepository.findByUserId(userId).isPresent();
 

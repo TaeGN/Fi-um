@@ -16,6 +16,8 @@ import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
+
+
 @RestController
 public class ImageUploadController {
 
@@ -46,7 +48,7 @@ public class ImageUploadController {
         }
     }
 
-    @GetMapping("/images/{filename:.+}")
+    @GetMapping("/image/{filename:.+}")
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
         Path file = Paths.get(UPLOAD_DIR).resolve(filename);
         try {
@@ -60,4 +62,10 @@ public class ImageUploadController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+
+
+
+
+
+
 }
