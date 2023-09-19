@@ -194,6 +194,9 @@ body {
 .align-end {
   align-items: end;
 }
+.self-end {
+  align-self: flex-end;
+}
 
 .flex-wrap {
   flex-wrap: wrap;
