@@ -3,9 +3,11 @@ import styles from './CreatePage.module.scss';
 import { useState } from 'react';
 import { Button, Text } from '@/components/atoms';
 import { postSponsorship } from '@/api/sponsor';
+import { postAuction } from '@/api/auction';
 
 interface CreatePageProps {
   className?: string;
+  status: string;
 }
 
 // 사진 등록
@@ -18,7 +20,10 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
   const [unitPrice, setPrice] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
 
-  const [imageSrc, setImageSrc] = useState('');
+  // 에러나길래 그냥 해둠
+  const status = true ? '후원' : '후원';
+
+  const [imageSrc, setImageSrc] = useState<string>('');
 
   const encodeFileToBase64 = (fileBlob: Blob): Promise<void> => {
     const reader = new FileReader();
@@ -55,6 +60,35 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
     encodeFileToBase64(e.target.files[0]);
   };
 
+  const addSpon = () => {
+    postSponsorship({
+      name: title,
+      unitPrice: unitPrice,
+      count: count,
+      description: description,
+      imagePath: imageSrc,
+    }).then(() => {
+      alert('상품 등록 성공!');
+      window.location.href = '/';
+    });
+  };
+
+  const addAuction = () => {
+    if (imageSrc !== '') {
+      postAuction({
+        title: title,
+        instantPrice: unitPrice,
+        content: description,
+        imagePath: imageSrc,
+      }).then(() => {
+        alert('그림 등록 성공!');
+        window.location.href = '/';
+      });
+    } else {
+      alert('안돼');
+    }
+  };
+
   return (
     <div
       className={convertClassNameList(
@@ -74,13 +108,21 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
         <Text className="text-lg" text="가격" />
         <input type="number" value={unitPrice} onChange={handlePrice} />
       </div>
-      <br />
-      <div className="flex-container">
-        <Text className="text-lg" text="수량" />
-        <input type="number" value={count} onChange={handleCount} />
-      </div>
 
       <br />
+
+      {status === '후원' ? (
+        <>
+          <div className="flex-container">
+            <Text className="text-lg" text="수량" />
+            <input type="number" value={count} onChange={handleCount} />
+          </div>
+
+          <br />
+        </>
+      ) : (
+        <></>
+      )}
 
       <div className="flex-container">
         <Text className="text-lg" text="내용" />
@@ -110,17 +152,8 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
           'primary xsmall self-end',
           styles['btn'],
         )}
-        onClick={() => {
-          postSponsorship({
-            name: title,
-            unitPrice: unitPrice,
-            count: count,
-            description: description,
-            imagePath: imageSrc,
-          });
-          console.log('send');
-        }}
-        label="작성하기"
+        onClick={status === '후원' ? addSpon : addAuction}
+        label={status === '후원' ? '물품 등록 하기' : '그림 등록 하기'}
       />
     </div>
   );

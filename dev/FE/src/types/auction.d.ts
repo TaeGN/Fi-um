@@ -20,4 +20,11 @@ interface Purchase {
   title: string;
 }
 
-export type { Auction, Purchase };
+interface NewAuction {
+  title: string;
+  instantPrice: number;
+  content: string;
+  imagePath: string;
+}
+
+export type { Auction, Purchase, NewAuction };
