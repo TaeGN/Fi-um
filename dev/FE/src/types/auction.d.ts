@@ -27,4 +27,11 @@ interface NewAuction {
   imagePath: string;
 }
 
-export type { Auction, Purchase, NewAuction };
+interface ArtistAuction {
+  title: string;
+  imagePath: string;
+  actionNo: number;
+  winner: number | null;
+}
+
+export type { Auction, Purchase, NewAuction, ArtistAuction };

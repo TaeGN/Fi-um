@@ -11,7 +11,7 @@ interface TableProps {
 
 const Table = ({ className, data, onClick }: TableProps): JSX.Element => {
   const columns = useMemo(() => {
-    return Object.keys(data[0] || {}).map((snake) => {
+    return Object.keys(data?.[0] || {}).map((snake) => {
       return {
         Header: snakeToTitle(snake),
         accessor: snake,

@@ -1,12 +1,14 @@
-interface Item {
-  itemNo: number;
-  itemName: string;
+import { Funding } from '.';
+
+interface Item extends Funding {
+  // itemNo: number;
+  // itemName: string;
+  // imagePath: string;
+  // itemCount: number;
+  // fundingAmount: number;
   unitPrice: number;
-  itemCount: number;
   description: string;
-  imagePath: string;
   sponsorshipAmount: number;
-  fundingAmount: number;
   isCompleted: boolean;
   bestFunding: string;
 }

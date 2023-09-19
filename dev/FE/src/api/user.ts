@@ -1,4 +1,5 @@
 import {
+  ArtistAuction,
   Capital,
   ChildProfile,
   Deposit,
@@ -23,7 +24,7 @@ const getUserArtist = async ({
   queryKey: [_, userNo],
 }: {
   queryKey: QueryKey;
-}) => {
+}): Promise<ArtistAuction[]> => {
   return await authApi.get(`user/artist/${userNo}`);
 };
 

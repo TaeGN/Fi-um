@@ -4,7 +4,7 @@ import { Funding, MainAuction, Ranking } from '@/components/organisms';
 import { Swiper } from '@/components/molecules';
 import { getAuctionsQuery } from '@/api/queries/auction';
 import { Auction, Funding as FundingType } from '@/types';
-import { eduBook } from '@/utils';
+// import { eduBook } from '@/utils';
 import { getFundingsQuery } from '@/api/queries';
 
 const MainPage = () => {
@@ -23,7 +23,7 @@ const MainPage = () => {
       </div>
       <Funding fundings={fundings} />
 
-      <div className={styles['main-page__education']}>{eduBook()}</div>
+      {/* <div className={styles['main-page__education']}>{eduBook()}</div> */}
     </div>
   );
 };
