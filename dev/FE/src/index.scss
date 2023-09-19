@@ -195,6 +195,9 @@ body {
 .align-end {
   align-items: end;
 }
+.self-end {
+  align-self: flex-end;
+}
 
 .flex-wrap {
   flex-wrap: wrap;
@@ -229,4 +232,8 @@ input[type='number']::-webkit-inner-spin-button {
 
 .block {
   display: block;
+}
+
+.m-1 {
+  margin: 10px;
 }

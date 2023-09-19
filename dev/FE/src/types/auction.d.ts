@@ -20,6 +20,13 @@ interface Purchase {
   title: string;
 }
 
+interface NewAuction {
+  title: string;
+  instantPrice: number;
+  content: string;
+  imagePath: string;
+}
+
 interface ArtistAuction {
   title: string;
   imagePath: string;
@@ -27,4 +34,4 @@ interface ArtistAuction {
   winner: number | null;
 }
 
-export type { Auction, Purchase, ArtistAuction };
+export type { Auction, Purchase, NewAuction, ArtistAuction };

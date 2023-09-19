@@ -1,4 +1,4 @@
-import { Auction, Purchase } from '@/types';
+import { Auction, NewAuction, Purchase } from '@/types';
 import { api, authApi } from '.';
 import { QueryKey } from '@tanstack/react-query';
 
@@ -22,7 +22,7 @@ const getAuctionPurchase = async (): Promise<Purchase[]> => {
 };
 
 // 경매 물품 등록
-const postAuction = async (auction: Auction): Promise<string> => {
+const postAuction = async (auction: NewAuction): Promise<string> => {
   return await authApi.post(`auction`, auction);
 };
 

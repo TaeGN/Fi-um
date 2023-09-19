@@ -6,7 +6,7 @@ import {
   postAuctionBid,
   putAuction,
 } from '@/api/auction';
-import { Auction } from '@/types';
+import { Auction, NewAuction } from '@/types';
 
 const getAuctionsQuery = () => {
   return {
@@ -29,7 +29,7 @@ const getAuctionPurchaseQuery = () => {
   };
 };
 
-const postAuctionQuery = (auction: Auction) => {
+const postAuctionQuery = (auction: NewAuction) => {
   return {
     mutationFn: () => postAuction(auction),
   };

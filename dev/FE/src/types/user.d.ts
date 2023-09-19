@@ -68,7 +68,7 @@ interface ChildProfile {
   imagePath: string;
 }
 
-type UserType = 1 | 2 | 3;
+type UserType = 0 | 1 | 2 | 3;
 
 export type {
   User,

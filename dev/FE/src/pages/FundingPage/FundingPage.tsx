@@ -8,6 +8,9 @@ import { Modal } from '@/components/molecules';
 import ModalFunding from '@/components/molecules/utils/Modal/contents/ModalFunding/ModalFunding';
 import useModal from '@/hooks/useModal';
 import { useCallback, useState } from 'react';
+import { Button } from '@/components/atoms';
+import { useNavigate } from 'react-router-dom';
+import useAuth from '@/hooks/useAuth';
 
 interface FundingPageProps {
   className?: string;
@@ -15,10 +18,11 @@ interface FundingPageProps {
 
 const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
   const [scrollTop, setScrollTop] = useState<number>(0);
-
-  const { data: fundings } = useQuery<Funding[], Error>(getFundingsQuery());
-
   const { isOpen, openToggle, closeToggle } = useModal();
+  const { userInfo } = useAuth();
+  const navigate = useNavigate();
+  const userType = userInfo?.userType ?? 3;
+  const { data: fundings } = useQuery<Funding[], Error>(getFundingsQuery());
 
   const onModal = useCallback(() => {
     setScrollTop(document.documentElement.scrollTop);
@@ -26,8 +30,25 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
   }, []);
 
   return (
-    <div className={convertClassNameList(convertClassName(className, styles))}>
+    <div
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        'flex-container-col',
+      )}
+    >
+      {userType === 0 && (
+        <Button
+          className={convertClassNameList(
+            convertClassName(className, styles),
+            'self-end m-1',
+            'primary xsmall',
+          )}
+          label="등록하기"
+          onClick={() => navigate(`/create`, { state: 'funding' })}
+        />
+      )}
       <Ranking />
+
       {fundings?.map((funding) => (
         <div key={funding.itemNo + funding.itemName}>
           <FundingItem {...funding} onModal={onModal} />
