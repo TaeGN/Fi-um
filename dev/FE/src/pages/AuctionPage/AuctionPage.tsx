@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Auction } from '@/types';
 import { getAuctionsQuery } from '@/api/queries/auction';
+import useAuth from '@/hooks/useAuth';
+import { Button } from '@/components/atoms';
 
 interface AuctionPageProps {
   className?: string;
@@ -13,7 +15,8 @@ interface AuctionPageProps {
 const AuctionPage = ({ className }: AuctionPageProps): JSX.Element => {
   const { data: auctions } = useQuery<Auction[], Error>(getAuctionsQuery());
   const navigate = useNavigate();
-
+  const { userInfo } = useAuth();
+  const userType = userInfo?.userType ?? 3;
   console.log(auctions);
 
   const handleMoveAuctionDetail = (auctionNo: number) => {
@@ -24,20 +27,33 @@ const AuctionPage = ({ className }: AuctionPageProps): JSX.Element => {
     <div
       className={convertClassNameList(
         convertClassName(className, styles),
-        styles['auction-page'],
+        'flex-container-col',
       )}
     >
-      {auctions?.map((auction) => (
-        <AuctionCard
-          key={auction.auctionNo + auction.title}
-          src={auction?.itemImagePath || '/vite.svg'}
-          alt={auction.title}
-          title={auction.title}
-          currentValue={priceFilter(auction.auctionPrice)}
-          buyItNow={priceFilter(auction.instantPrice)}
-          onClick={() => handleMoveAuctionDetail(auction.auctionNo)}
+      {userType === 0 && (
+        <Button
+          className={convertClassNameList(
+            convertClassName(className, styles),
+            'self-end m-1',
+            'primary xsmall',
+          )}
+          label="등록하기"
+          onClick={() => navigate(`/create`, { state: 'auction' })}
         />
-      ))}
+      )}
+      <div className={styles['auction-page']}>
+        {auctions?.map((auction) => (
+          <AuctionCard
+            key={auction.auctionNo + auction.title}
+            src={auction?.itemImagePath || '/vite.svg'}
+            alt={auction.title}
+            title={auction.title}
+            currentValue={priceFilter(auction.auctionPrice)}
+            buyItNow={priceFilter(auction.instantPrice)}
+            onClick={() => handleMoveAuctionDetail(auction.auctionNo)}
+          />
+        ))}
+      </div>
     </div>
   );
 };

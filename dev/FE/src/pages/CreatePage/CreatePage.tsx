@@ -4,10 +4,11 @@ import { useState } from 'react';
 import { Button, Text } from '@/components/atoms';
 import { postSponsorship } from '@/api/sponsor';
 import { postAuction } from '@/api/auction';
+import { postImage } from '@/api/image';
+import { useLocation } from 'react-router-dom';
 
 interface CreatePageProps {
   className?: string;
-  status: string;
 }
 
 // 사진 등록
@@ -21,9 +22,11 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
   const [count, setCount] = useState<number>(0);
 
   // 에러나길래 그냥 해둠
-  const status = true ? '후원' : '후원';
+
+  const { state } = useLocation();
 
   const [imageSrc, setImageSrc] = useState<string>('');
+  const [imageSrc2, setImageSrc2] = useState<string>('');
 
   const encodeFileToBase64 = (fileBlob: Blob): Promise<void> => {
     const reader = new FileReader();
@@ -40,6 +43,7 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
       };
     });
   };
+  console.log(imageSrc2);
 
   const handleTitle = (e: any) => {
     setTitle(e.target.value);
@@ -57,19 +61,22 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
   };
 
   const handleFile = (e: any) => {
+    setImageSrc2(e.target.files[0]);
     encodeFileToBase64(e.target.files[0]);
   };
 
   const addSpon = () => {
-    postSponsorship({
-      name: title,
-      unitPrice: unitPrice,
-      count: count,
-      description: description,
-      imagePath: imageSrc,
-    }).then(() => {
-      alert('상품 등록 성공!');
-      window.location.href = '/';
+    postImage(imageSrc2).then(() => {
+      postSponsorship({
+        name: title,
+        unitPrice: unitPrice,
+        count: count,
+        description: description,
+        imagePath: imageSrc,
+      }).then(() => {
+        alert('상품 등록 성공!');
+        window.location.href = '/';
+      });
     });
   };
 
@@ -111,7 +118,7 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
 
       <br />
 
-      {status === '후원' ? (
+      {state === 'funding' ? (
         <>
           <div className="flex-container">
             <Text className="text-lg" text="수량" />
@@ -152,8 +159,8 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
           'primary xsmall self-end',
           styles['btn'],
         )}
-        onClick={status === '후원' ? addSpon : addAuction}
-        label={status === '후원' ? '물품 등록 하기' : '그림 등록 하기'}
+        onClick={state === 'funding' ? addSpon : addAuction}
+        label={state === 'funding' ? '물품 등록 하기' : '그림 등록 하기'}
       />
     </div>
   );
