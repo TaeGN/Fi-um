@@ -232,7 +232,7 @@ const ProfilePage = ({ className }: ProfilePageProps): JSX.Element => {
       default:
         return undefined;
     }
-  }, [userInfo]);
+  }, [userInfo, userNo]);
 
   return (
     <div
@@ -242,11 +242,6 @@ const ProfilePage = ({ className }: ProfilePageProps): JSX.Element => {
       )}
     >
       <ProfileHeader userInfo={userInfo} />
-      {/* <UserList totalCapitals={data} />
-      <Swiper className={convertClassNameList(styles['profile-page__swiper'])}>
-        {imageData}
-      </Swiper>
-      <FundingAdmin /> */}
       {profile}
     </div>
   );
