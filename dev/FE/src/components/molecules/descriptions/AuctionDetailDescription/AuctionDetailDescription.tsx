@@ -12,10 +12,10 @@ const AuctionDetailDescription = ({
 }: AuctionDetailDescriptionProps): JSX.Element => {
   return (
     <div
-      className={
-        (convertClassNameList(convertClassName(className, styles)),
-        styles['auction-detail-description'])
-      }
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        styles['auction-detail-description'],
+      )}
     >
       <Text className="text-lg" text="작품 소개" />
       <Text text={loremData} />
