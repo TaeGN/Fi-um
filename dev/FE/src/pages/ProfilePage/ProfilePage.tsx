@@ -130,12 +130,10 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
           <div className="card-container">
             {myAuctions
               .slice(index * 4, Math.min((index + 1) * 4, len))
-              .map(({ actionNo, imagePath, title }) => (
+              .map(({ auctionNo, imagePath, title }) => (
                 <AuctionCard
-                  key={actionNo}
-                  src={imagePath}
-                  alt={title}
-                  title={title}
+                  key={auctionNo}
+                  {...{ auctionNo, itemImagePath: imagePath, title }}
                 />
               ))}
           </div>,

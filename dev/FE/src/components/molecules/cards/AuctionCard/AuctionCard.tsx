@@ -1,44 +1,44 @@
 import { Button, Image, Text } from '@/components/atoms';
 import styles from './AuctionCard.module.scss';
-import { convertClassName, formatCurrency } from '@/utils';
+import { convertClassName, priceFilter } from '@/utils';
 
 interface AuctionCardProps {
-  src: string;
-  alt: string;
-  title: string;
-  startValue?: string;
-  currentValue?: string;
-  buyItNow?: string;
   className?: string;
   onClick?: () => void;
+  itemImagePath: string;
+  title: string;
+  auctionPrice?: number;
+  instantPrice?: number;
+  content?: string;
 }
 
 const AuctionCard = ({
-  src,
-  alt,
-  title,
-  startValue,
-  currentValue,
-  buyItNow,
   className,
   onClick,
+  itemImagePath,
+  title,
+  auctionPrice,
+  instantPrice,
+  content,
 }: AuctionCardProps) => {
   return (
     <div
       className={`${styles.auctionCard} ${convertClassName(className, styles)}`}
     >
       <div className={styles.image}>
-        <Image src={src} alt={alt} />
+        <Image src={itemImagePath} alt={title} />
       </div>
       <div className={styles.title}>
         <Text text={title} className="text-lg" />
       </div>
       <div className={styles.content}>
-        {startValue && <Text text={`시작가 : ${formatCurrency(startValue)}`} />}
-        {currentValue && (
-          <Text text={`현재가 : ${formatCurrency(currentValue)}`} />
+        {auctionPrice && (
+          <Text text={`현재가 : ${priceFilter(auctionPrice)}`} />
         )}
-        {buyItNow && <Text text={`즉시구매가 : ${formatCurrency(buyItNow)}`} />}
+        {instantPrice && (
+          <Text text={`즉시구매가 : ${priceFilter(instantPrice)}`} />
+        )}
+        {content && <Text text={content} />}
       </div>
       <div className={styles.button}>
         <Button

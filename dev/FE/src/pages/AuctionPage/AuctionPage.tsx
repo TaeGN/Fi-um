@@ -1,4 +1,4 @@
-import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
+import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './AuctionPage.module.scss';
 import { AuctionCard } from '@/components/molecules';
 import { useNavigate } from 'react-router-dom';
@@ -44,12 +44,8 @@ const AuctionPage = ({ className }: AuctionPageProps): JSX.Element => {
       <div className={styles['auction-page']}>
         {auctions?.map((auction) => (
           <AuctionCard
-            key={auction.auctionNo + auction.title}
-            src={auction?.itemImagePath || '/vite.svg'}
-            alt={auction.title}
-            title={auction.title}
-            currentValue={priceFilter(auction.auctionPrice)}
-            buyItNow={priceFilter(auction.instantPrice)}
+            key={auction.auctionNo}
+            {...auction}
             onClick={() => handleMoveAuctionDetail(auction.auctionNo)}
           />
         ))}

@@ -1,17 +1,17 @@
-interface Auction {
-  auctionNo: number;
+interface Auction extends ArtistAuction {
+  // auctionNo: number;
+  // title: string;
+  // winner: number | null;
+  itemImagePath: string;
   auctionPrice: number;
   content: string;
   createdTime: number;
   instantPrice: number;
-  itemImagePath: string;
   likeCount: number;
   name: string;
-  title: string;
   userImagePath: string | null;
   userNo: number;
   viewCount: number;
-  winner: number | null;
 }
 
 interface Purchase {
@@ -30,7 +30,7 @@ interface NewAuction {
 interface ArtistAuction {
   title: string;
   imagePath: string;
-  actionNo: number;
+  auctionNo: number;
   winner: number | null;
 }
 
