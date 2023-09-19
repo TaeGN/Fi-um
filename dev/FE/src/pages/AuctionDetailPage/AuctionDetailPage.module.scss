@@ -1,20 +1,20 @@
 .auction-detail-page {
   display: grid;
   grid-template-areas:
-    'm m m m m m m m m m m m'
-    'd d d d d d d p p p p p';
-  grid-template-columns: repeat(12, 1fr);
+    'main main'
+    'description profile';
+  grid-template-columns: 7fr 5fr;
   grid-template-rows: repeat(2, 60vh);
   gap: 1rem;
 
   &__main {
-    grid-area: m;
+    grid-area: main;
   }
 
   &__description {
-    grid-area: d;
+    grid-area: description;
   }
   &__profile {
-    grid-area: p;
+    grid-area: profile;
   }
 }
