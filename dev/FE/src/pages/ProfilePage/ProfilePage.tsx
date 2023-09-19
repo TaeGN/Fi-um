@@ -27,7 +27,6 @@ import { AuctionCard, ProfileCard, Swiper } from '@/components/molecules';
 import {
   getAuctionPurchaseQuery,
   getFollowingQuery,
-  getFundingProgressQuery,
   getFundingsQuery,
   getMyFundingsQuery,
   getMyStocksQuery,

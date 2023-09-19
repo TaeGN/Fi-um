@@ -21,7 +21,6 @@ const UserList = ({
           stockMoney,
           depositMoney,
           fundingMoney,
-          solvingRate,
           pointRecord,
           stockList,
         }) => (
