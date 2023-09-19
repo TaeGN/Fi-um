@@ -109,6 +109,7 @@ const ModalFunding = ({
         {ratioList.map(
           (ratio: number): JSX.Element => (
             <Button
+              key={ratio}
               className={convertClassNameList(
                 styles['modal-stock__button'],
                 'bg-gray-light',
