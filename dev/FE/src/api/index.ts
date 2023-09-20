@@ -99,13 +99,13 @@ const authApiInstance = () => {
   return authInterceptor(apiInstance());
 };
 
-const authFormApiInstance = () => {
+const authFormInstance = () => {
   return authInterceptor(formApiInstance());
 };
 
 const api = apiInstance();
-const authApi = authApiInstance();
 const formApi = formApiInstance();
-const authFormApi = authFormApiInstance();
+const authApi = authApiInstance();
+const authFormApi = authFormInstance();
 
-export { api, authApi, formApi, authFormApi };
+export { formApi, authFormApi, api, authApi };
