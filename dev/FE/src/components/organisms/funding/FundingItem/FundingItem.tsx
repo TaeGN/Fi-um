@@ -4,11 +4,10 @@ import styles from './FundingItem.module.scss';
 import { Image, Text } from '@/components/atoms';
 import { FundingBar, FundingDescription } from '@/components/molecules';
 import { MouseEvent } from 'react';
-import { getImage } from '@/api/image';
+import { apiImgUrl } from '@/utils/imgUrl';
 
 interface FundingItemProps {
   className?: string;
-  // funding: Funding;
   itemNo: string;
   itemName: string;
   imagePath: string;
@@ -24,17 +23,6 @@ const FundingItem = ({
   ...funding
 }: FundingItemProps): JSX.Element => {
   const [showDescription, setShowDescription] = useState<boolean>(false);
-
-  const [url, setUrl] = useState('');
-  const imageUrl = () => {
-    return getImage(funding.imagePath).then((res) =>
-      setUrl(URL.createObjectURL(res)),
-    );
-  };
-
-  imageUrl();
-  console.log('data:image/png;base64,' + url);
-
   const toggleDescription = () => {
     setShowDescription(!showDescription);
   };
@@ -52,7 +40,7 @@ const FundingItem = ({
       >
         <Image
           className={convertClassNameList(styles['funding-item__image'])}
-          src={'data:image/png;base64,' + url}
+          src={apiImgUrl(funding?.imagePath) || '/vite.svg'}
           alt={funding?.itemName}
         />
         <div className={convertClassNameList(styles['funding-item__main'])}>

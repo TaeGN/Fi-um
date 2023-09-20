@@ -8,6 +8,10 @@ const bankIconUrl = (url: string): string => {
   return url ? import.meta.env.BASE_URL + 'img/bankicon/' + url : '';
 };
 
+const apiImgUrl = (url?: string): string => {
+  return url ? import.meta.env.VITE_API_BASE_URL + url : '';
+};
+
 const imageUrl: string = import.meta.env.VITE_EDUCATION_IMAGE_URL;
 
 const eduBook = (): JSX.Element[] => {
@@ -24,4 +28,4 @@ const eduBook = (): JSX.Element[] => {
   return data;
 };
 
-export { imgUrl, bankIconUrl, eduBook };
+export { imgUrl, bankIconUrl, eduBook, apiImgUrl };
