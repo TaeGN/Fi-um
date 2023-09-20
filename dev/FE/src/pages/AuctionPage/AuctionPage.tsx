@@ -30,7 +30,7 @@ const AuctionPage = ({ className }: AuctionPageProps): JSX.Element => {
         'flex-container-col',
       )}
     >
-      {userType === 0 && (
+      {userType === 1 && (
         <Button
           className={convertClassNameList(
             convertClassName(className, styles),

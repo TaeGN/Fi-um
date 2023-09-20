@@ -66,7 +66,7 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
   };
 
   const addSpon = () => {
-    postImage(imageSrc2).then(() => {
+    postImage({ file: imageSrc2 }).then(() => {
       postSponsorship({
         name: title,
         unitPrice: unitPrice,
