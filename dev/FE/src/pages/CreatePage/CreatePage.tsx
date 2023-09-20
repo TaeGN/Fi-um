@@ -61,16 +61,21 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
         alert('등록 성공!');
         navigate('/');
       });
-    } else {
+    } else if (state === 'auction') {
       postAuction({
         title: item.name,
         instantPrice: item.unitPrice,
         content: item.description,
         imagePath,
-      }).then(() => {
-        alert('등록 성공!');
-        navigate('/');
-      });
+      })
+        .then(() => {
+          alert('등록 성공!');
+          navigate('/');
+        })
+        .catch((err) => {
+          console.log(err.data);
+        });
+    } else {
     }
   };
 
@@ -93,35 +98,40 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
       </div>
 
       <br />
-
-      <div className="flex-container">
-        <Text className="text-lg" text="가격" />
-        <input
-          type="number"
-          name="unitPrice"
-          value={item.unitPrice}
-          onChange={handleItem}
-        />
-      </div>
-
-      <br />
-
-      {state === 'funding' ? (
+      {state === 'gallery' ? (
+        <></>
+      ) : (
         <>
           <div className="flex-container">
-            <Text className="text-lg" text="수량" />
+            <Text className="text-lg" text="가격" />
             <input
               type="number"
-              name="count"
-              value={item.count}
+              name="unitPrice"
+              value={item.unitPrice}
               onChange={handleItem}
             />
           </div>
 
           <br />
+
+          {state === 'funding' ? (
+            <>
+              <div className="flex-container">
+                <Text className="text-lg" text="수량" />
+                <input
+                  type="number"
+                  name="count"
+                  value={item.count}
+                  onChange={handleItem}
+                />
+              </div>
+
+              <br />
+            </>
+          ) : (
+            <></>
+          )}
         </>
-      ) : (
-        <></>
       )}
 
       <div className="flex-container">
@@ -157,7 +167,13 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
           styles['btn'],
         )}
         onClick={handleAddItem}
-        label={state === 'funding' ? '물품 등록 하기' : '그림 등록 하기'}
+        label={
+          state === 'gallery'
+            ? '게시글 등록'
+            : state === 'funding'
+            ? '물품 등록 하기'
+            : '그림 등록 하기'
+        }
       />
     </div>
   );

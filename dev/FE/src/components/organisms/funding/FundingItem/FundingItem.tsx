@@ -4,7 +4,6 @@ import styles from './FundingItem.module.scss';
 import { Image, Text } from '@/components/atoms';
 import { FundingBar, FundingDescription } from '@/components/molecules';
 import { MouseEvent } from 'react';
-import { apiImgUrl } from '@/utils/imgUrl';
 
 interface FundingItemProps {
   className?: string;
@@ -40,7 +39,7 @@ const FundingItem = ({
       >
         <Image
           className={convertClassNameList(styles['funding-item__image'])}
-          src={apiImgUrl(funding?.imagePath) || '/vite.svg'}
+          src={funding?.imagePath || '/vite.svg'}
           alt={funding?.itemName}
         />
         <div className={convertClassNameList(styles['funding-item__main'])}>

@@ -5,7 +5,7 @@ import useAuth from '@/hooks/useAuth';
 import { USER_TYPE } from '@/constants';
 import { useMemo, useCallback, MouseEvent } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { Image, Text } from '@/components/atoms';
+import { Text } from '@/components/atoms';
 import { userLogout } from '@/api/user';
 
 interface NavbarProps {
@@ -169,7 +169,11 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
       )}
     >
       <Link className={convertClassNameList(styles['navbar__logo'])} to={'/'}>
-        <Image src="/lotus.png" alt="logo" />
+        <img
+          style={{ width: '100%', height: '100%' }}
+          src="/lotus.png"
+          alt="logo"
+        />
       </Link>
       <div className={convertClassNameList(styles['navbar__menu'])}>
         <Link
