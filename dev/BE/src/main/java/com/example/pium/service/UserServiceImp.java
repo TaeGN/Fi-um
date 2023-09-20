@@ -271,6 +271,11 @@ public class UserServiceImp {
         return false;
     }
 
+    public void changeImage(Integer userNo, String imagePath) {
+        UserEntity findUser = userRepository.findByUserNo(userNo).get();
+        findUser.setImagePath(imagePath);
+        userRepository.save(findUser);
+    }
 
 }
 
