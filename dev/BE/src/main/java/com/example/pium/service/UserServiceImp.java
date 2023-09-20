@@ -231,7 +231,7 @@ public class UserServiceImp {
                 childCapitalDto.setDepositMoney(0);
                 childCapitalDto.setStockMoney(0);
             }
-
+            childCapitalDto.setUserNo(userEntity.getUserNo());
             childCapitalDto.setUserName(userEntity.getUserName());
             childCapitalDto.setFundingMoney(sponsorFundingHistoryRepository.findFundingHistory(userNo).orElse(0));
             List<UserStockInterface> userStockInterface = stockDataRepository.findByUserStock(userNo,(System.currentTimeMillis()-startTime) / (1000*60*60));
