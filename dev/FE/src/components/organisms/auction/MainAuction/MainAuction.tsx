@@ -35,8 +35,11 @@ const MainAuction = ({
               />
               <div className={styles.imageWrapper}>
                 <Image
-                  className={styles['main-auction__image']}
-                  src="/img/dummy.jpg"
+                  className={convertClassNameList(
+                    convertClassName(className, styles),
+                    styles['main-auction__image'],
+                  )}
+                  src={auction?.itemImagePath}
                   alt="aa"
                 />
               </div>

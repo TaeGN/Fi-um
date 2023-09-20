@@ -19,8 +19,8 @@ const AuctionPage = ({ className }: AuctionPageProps): JSX.Element => {
   const userType = userInfo?.userType ?? 3;
   console.log(auctions);
 
-  const handleMoveAuctionDetail = (auctionNo: number) => {
-    navigate(`/auction/${auctionNo}`);
+  const handleMoveAuctionDetail = (auctionNo: number, auction: Auction) => {
+    navigate(`/auction/${auctionNo}`, { state: auction });
   };
 
   return (
@@ -46,7 +46,7 @@ const AuctionPage = ({ className }: AuctionPageProps): JSX.Element => {
           <AuctionCard
             key={auction.auctionNo}
             {...auction}
-            onClick={() => handleMoveAuctionDetail(auction.auctionNo)}
+            onClick={() => handleMoveAuctionDetail(auction.auctionNo, auction)}
           />
         ))}
       </div>

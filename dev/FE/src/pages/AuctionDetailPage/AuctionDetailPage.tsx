@@ -2,6 +2,7 @@ import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './AuctionDetailPage.module.scss';
 import { AuctionDetailMain, CreaterProfile } from '@/components/organisms';
 import { AuctionDetailDescription } from '@/components/molecules';
+import { useLocation } from 'react-router-dom';
 
 interface AuctionDetailPageProps {
   className?: string;
@@ -10,6 +11,9 @@ interface AuctionDetailPageProps {
 const AuctionDetailPage = ({
   className,
 }: AuctionDetailPageProps): JSX.Element => {
+  const { state } = useLocation();
+  console.log(state);
+
   return (
     <div
       className={convertClassNameList(
@@ -19,24 +23,25 @@ const AuctionDetailPage = ({
     >
       <AuctionDetailMain
         className={convertClassNameList(styles['auction-detail-page__main'])}
-        title="개쩌는 그림"
-        src=""
-        alt="a"
+        title={state.title}
+        src={state.itemImagePath}
+        alt={state.title}
         imageClassName=""
-        descriptionClassName=""
+        descriptionClassName={state.content}
         auctionClick={() => {
           console.log('개쩔어');
         }}
         buyItClick={() => {
           console.log('와우 개쩔어');
         }}
-        auctionPrice="1000"
-        instantPrice="1000"
+        auctionPrice={state.auctionPrice}
+        instantPrice={state.instantPrice}
       />
       <AuctionDetailDescription
         className={convertClassNameList(
           styles['auction-detail-page__description'],
         )}
+        description={state.content}
       />
       <CreaterProfile
         className={convertClassNameList(styles['auction-detail-page__profile'])}
