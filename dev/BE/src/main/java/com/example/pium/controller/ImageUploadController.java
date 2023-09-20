@@ -39,7 +39,7 @@ public class ImageUploadController {
             // 파일 저장
             file.transferTo(new File(path.toString()));
 
-            String imageUrl = "/images/" + uniqueFilename;
+            String imageUrl = "/image/" + uniqueFilename;
             return new ResponseEntity<>(imageUrl, HttpStatus.OK);
 
         } catch (IOException e) {
