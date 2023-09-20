@@ -64,7 +64,7 @@ const getreissue = async (refreshToken: string): Promise<string> => {
 
 // 전체 아이들의 자산 현황
 const getUserTotalCapital = async (): Promise<TotalCapital[]> => {
-  return await authApi.get(`user/total-capital`);
+  return await authApi.get(`user/total-capital`).then(({ data }) => data);
 };
 
 // 특정 아이의 재무 상태표
