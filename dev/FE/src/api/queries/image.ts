@@ -1,18 +1,17 @@
 import { getImage, postImage } from '../image';
 
 // 그림 조회
-const getImageQuery = () => {
+const getImageQuery = (imageUrl: string) => {
   return {
-    queryKey: ['getImage'],
-    queryFn: getImage,
+    queryKey: ['getImage', imageUrl],
+    queryFn: () => getImage(imageUrl),
   };
 };
 
 // 그림 등록
-const postImageQuery = () => {
+const postImageQuery = (image: FormData) => {
   return {
-    queryKey: ['postImage'],
-    queryFn: postImage,
+    mutationFn: () => postImage(image),
   };
 };
 

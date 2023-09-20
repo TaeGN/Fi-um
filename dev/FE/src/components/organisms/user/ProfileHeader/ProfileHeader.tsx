@@ -19,7 +19,12 @@ const ProfileHeader = ({
   userInfo,
 }: ProfileHeaderProps): JSX.Element => {
   return (
-    <div className={convertClassNameList(convertClassName(className, styles))}>
+    <div
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        styles['profile-header'],
+      )}
+    >
       <div className="flex-container">
         <ProfileCard
           src={userInfo?.imagePath ?? '/vite.svg'}

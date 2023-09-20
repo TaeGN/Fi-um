@@ -1,21 +1,26 @@
-import { convertClassName, convertClassNameList } from '@/utils';
+import {
+  checkConditionClassName,
+  convertClassName,
+  convertClassNameList,
+} from '@/utils';
 import styles from './UserList.module.scss';
 import { TotalCapital } from '@/types';
 import { PieChart, Table } from '@/components/atoms';
+import { useState } from 'react';
 
 interface UserListProps {
   className?: string;
   totalCapitals?: TotalCapital[];
 }
 
-const UserList = ({
-  className,
-  totalCapitals = [],
-}: UserListProps): JSX.Element => {
+const UserList = ({ className, totalCapitals }: UserListProps): JSX.Element => {
+  const [chartState, setChartState] = useState<number>(0);
+
   return (
     <div className={convertClassNameList(convertClassName(className, styles))}>
-      {totalCapitals.map(
+      {totalCapitals?.map(
         ({
+          userNo,
           userName,
           point,
           stockMoney,
@@ -26,7 +31,7 @@ const UserList = ({
         }) => (
           <>
             <div
-              key={userName}
+              key={userNo}
               className={convertClassNameList(styles['total-capital'])}
             >
               <span
@@ -50,7 +55,16 @@ const UserList = ({
                 {depositMoney}
               </span>
             </div>
-            <div className="flex-container">
+            <div
+              className={convertClassNameList(
+                'flex-container',
+                checkConditionClassName(
+                  chartState !== userNo,
+                  styles['disabled'],
+                ),
+              )}
+              onClick={() => setChartState(userNo)}
+            >
               <PieChart
                 chartData={{
                   labels: ['주식', '예적금', '펀딩', '포인트'],
