@@ -27,7 +27,9 @@ const FundingItem = ({
 
   const [url, setUrl] = useState('');
   const imageUrl = () => {
-    return getImage(funding.imagePath).then((res) => setUrl(res));
+    return getImage(funding.imagePath).then((res) =>
+      setUrl(URL.createObjectURL(res)),
+    );
   };
 
   imageUrl();
