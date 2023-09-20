@@ -30,18 +30,18 @@ const AuctionDetailMain = ({
 }: AuctionDetailMainProps) => {
   return (
     <div
-      className={`${styles.auctionDetailMain} ${convertClassName(
+      className={`${styles['auction-detail-main']} ${convertClassName(
         className,
         styles,
       )}`}
     >
-      <div className={styles.title}>
+      <div className={styles['auction-detail-main__title']}>
         <Text text={title} />
       </div>
-      <div className={styles.image}>
+      <div className={styles['auction-detail-main__image']}>
         <Image src={src} alt={alt} className={imageClassName} />
       </div>
-      <div className={styles.description}>
+      <div className={styles['auction-detail-main__description']}>
         <AuctionDescription
           className={descriptionClassName}
           auctionPrice={auctionPrice}

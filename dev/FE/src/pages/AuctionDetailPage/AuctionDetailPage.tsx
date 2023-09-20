@@ -11,12 +11,17 @@ const AuctionDetailPage = ({
   className,
 }: AuctionDetailPageProps): JSX.Element => {
   return (
-    <div className={convertClassNameList(convertClassName(className, styles))}>
+    <div
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        styles['auction-detail-page'],
+      )}
+    >
       <AuctionDetailMain
+        className={convertClassNameList(styles['auction-detail-page__main'])}
         title="개쩌는 그림"
         src=""
         alt="a"
-        className=""
         imageClassName=""
         descriptionClassName=""
         auctionClick={() => {
@@ -28,14 +33,14 @@ const AuctionDetailPage = ({
         auctionPrice="1000"
         instantPrice="1000"
       />
-      <div className="flex-container">
-        <AuctionDetailDescription />
-        <CreaterProfile
-          className={convertClassNameList(
-            styles['auction-detail-page__profile'],
-          )}
-        />
-      </div>
+      <AuctionDetailDescription
+        className={convertClassNameList(
+          styles['auction-detail-page__description'],
+        )}
+      />
+      <CreaterProfile
+        className={convertClassNameList(styles['auction-detail-page__profile'])}
+      />
     </div>
   );
 };
