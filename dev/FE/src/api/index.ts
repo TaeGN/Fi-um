@@ -16,6 +16,18 @@ const apiInstance = () => {
   return instance;
 };
 
+const formApiInstance = () => {
+  const instance = axios.create({
+    baseURL: API_BASE_URL,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'multipart/form-data;charset=UTF-8',
+      Accept: 'application/json,',
+    },
+  });
+  return instance;
+};
+
 const authInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     (config) => {
@@ -87,7 +99,13 @@ const authApiInstance = () => {
   return authInterceptor(apiInstance());
 };
 
+const authFormApiInstance = () => {
+  return authInterceptor(formApiInstance());
+};
+
 const api = apiInstance();
 const authApi = authApiInstance();
+const formApi = formApiInstance();
+const authFormApi = authFormApiInstance();
 
-export { apiInstance, authApiInstance, api, authApi };
+export { api, authApi, formApi, authFormApi };
