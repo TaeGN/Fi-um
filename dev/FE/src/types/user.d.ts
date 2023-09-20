@@ -15,6 +15,7 @@ interface UserDetail extends User {
 export type UserKeyType = keyof UserDetail;
 
 interface TotalCapital {
+  userNo: number;
   userName: string;
   point: number;
   stockMoney: number;
