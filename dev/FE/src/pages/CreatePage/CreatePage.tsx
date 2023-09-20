@@ -43,7 +43,6 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
       };
     });
   };
-  console.log(imageSrc2);
 
   const handleTitle = (e: any) => {
     setTitle(e.target.value);
@@ -66,13 +65,15 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
   };
 
   const addSpon = () => {
-    postImage({ file: imageSrc2 }).then(() => {
+    const imageForm = new FormData();
+    imageForm.append('file', imageSrc2);
+    postImage(imageForm).then((res) => {
       postSponsorship({
         name: title,
         unitPrice: unitPrice,
         count: count,
         description: description,
-        imagePath: imageSrc,
+        imagePath: res,
       }).then(() => {
         alert('상품 등록 성공!');
         window.location.href = '/';
