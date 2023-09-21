@@ -14,6 +14,7 @@ import useAuth from '@/hooks/useAuth';
 import { getRankingsQuery, getSponsorShipQuery } from '@/api/queries';
 import { USER_TYPE } from '@/constants';
 import { useMemo } from 'react';
+import { postSponsorshipSupport } from '@/api/sponsor';
 
 interface FundingPageProps {
   className?: string;
@@ -38,6 +39,11 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
     setScrollTop(document.documentElement.scrollTop);
     openToggle();
   }, []);
+
+  const sponBtn = () => {
+    postSponsorshipSupport(17, 1000);
+  };
+  console.log(fundings);
 
   return (
     <div
@@ -70,7 +76,7 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
         <ModalFunding
           className={className}
           onClick={() => {
-            console.log('펀딩!!!!');
+            sponBtn();
             closeToggle();
           }}
           closeToggle={closeToggle}

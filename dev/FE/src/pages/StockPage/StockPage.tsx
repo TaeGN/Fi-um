@@ -56,7 +56,14 @@ const StockPage = () => {
       <div className={styles.rankingWrapper}>
         {isStockKingLoading === 'success'
           ? stockKing.map((item) => {
-              return <StockRanking key={item.userName} title={item.userName} />;
+              console.log(item);
+              return (
+                <StockRanking
+                  key={item.userName}
+                  title={item.userName}
+                  stockList={item.stockList}
+                />
+              );
             })
           : ''}
       </div>

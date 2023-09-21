@@ -5,7 +5,7 @@ import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
 interface FundingBar {
   className?: string;
   ratio: number;
-  itemCount?: number;
+  itemCount: number;
   itemUnitPrice: number;
   fundingAmount: number;
 }

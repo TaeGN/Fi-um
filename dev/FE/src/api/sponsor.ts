@@ -19,9 +19,12 @@ const getSponsorShipRecords = async (): Promise<SponsorshipDetail[]> => {
 };
 
 // 후원하기
-const postSponsorshipSupport = async (itemNo: number): Promise<number> => {
+const postSponsorshipSupport = async (
+  itemNo: number,
+  money: number,
+): Promise<number> => {
   return await authApi
-    .post(`sponsorship/support`, itemNo)
+    .post(`sponsorship/support/${itemNo}`, { money: money })
     .then(({ data }) => data);
 };
 
