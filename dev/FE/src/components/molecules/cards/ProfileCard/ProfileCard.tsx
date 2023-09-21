@@ -11,6 +11,35 @@ interface ProfileCardProps {
   userCheck?: boolean;
 }
 
+// const ProfileCard = ({ alt, text, className, myPage }: ProfileCardProps) => {
+//   const { isOpen, openToggle, closeToggle } = useModal();
+//   const [file, setFile] = useState<File | undefined>(undefined);
+//   const { userInfo, setUserInfo } = useAuth();
+
+//   const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
+//     setFile((e.currentTarget.files as FileList)[0]);
+//     if (file) console.log(URL.createObjectURL(file));
+//   };
+
+//   const handleChangeImage = async () => {
+//     if (!file) {
+//       alert('파일을 선택해주세요');
+//       return;
+//     }
+
+//     const formData = new FormData();
+//     formData.append('file', file);
+//     const imagePath = await postImage(formData);
+
+//     await putUserProfileImage(imagePath);
+//     setUserInfo((userInfo) => {
+//       return userInfo && { ...userInfo, imagePath };
+//     });
+
+//     sessionStorage.setItem('user', userInfo ? JSON.stringify(userInfo) : '');
+//     // closeToggle();
+//   };
+
 const ProfileCard = ({
   src,
   alt,
@@ -21,9 +50,6 @@ const ProfileCard = ({
 }: ProfileCardProps) => {
   return (
     <div
-      // style={{
-      //   width: '25%',
-      // }}
       className={`${styles.profileCard} ${convertClassName(className, styles)}`}
     >
       <div className={styles.image}>
