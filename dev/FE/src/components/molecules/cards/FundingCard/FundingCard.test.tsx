@@ -9,6 +9,9 @@ const funding = {
   itemUnitPrice: 0,
   itemCount: 0,
   fundingAmount: 0,
+  description: 'string',
+  unitPrice: 0,
+  sponsorshipAmount: 0,
 };
 
 const renderFundingCard = () => {
