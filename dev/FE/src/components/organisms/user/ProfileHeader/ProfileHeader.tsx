@@ -8,15 +8,18 @@ import {
 } from '@/components/molecules';
 import { UserInfo } from '@/types';
 import { USER_TYPE } from '@/constants';
+import { apiImgUrl } from '@/utils/imgUrl';
 
 interface ProfileHeaderProps {
   className?: string;
   userInfo?: UserInfo;
+  myPage?: boolean;
 }
 
 const ProfileHeader = ({
   className,
   userInfo,
+  myPage,
 }: ProfileHeaderProps): JSX.Element => {
   return (
     <div
@@ -25,12 +28,14 @@ const ProfileHeader = ({
         styles['profile-header'],
       )}
     >
-      <div className="flex-container">
-        <ProfileCard
-          src={userInfo?.imagePath ?? '/vite.svg'}
-          alt={userInfo?.userName ?? '기본 이미지'}
-          text={userInfo?.userName ?? '기본 이미지'}
-        />
+      <ProfileCard
+        className={styles['profile-header__card']}
+        src={userInfo?.imagePath}
+        alt={userInfo?.userName ?? '기본 이미지'}
+        text={userInfo?.userName ?? '기본 이미지'}
+        myPage={myPage}
+      />
+      <div>
         {userInfo?.userType === USER_TYPE.아이들 ? (
           <ProfileAsset userNo={userInfo.userNo} />
         ) : userInfo?.userType === USER_TYPE.원장쌤 ? (

@@ -8,6 +8,20 @@
   align-items: center;
   border-radius: 8px;
   background-color: #f2f2f2;
+
+  img {
+    max-height: 50%;
+    max-width: 50%;
+    object-fit: fill;
+  }
+}
+
+.image {
+  height: 70%;
+}
+
+.text {
+  flex: 1;
 }
 
 .medium {

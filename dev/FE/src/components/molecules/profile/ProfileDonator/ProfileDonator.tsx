@@ -31,9 +31,6 @@ const ProfileDonator = ({ className }: ProfileDonatorProps): JSX.Element => {
 
   return (
     <div
-      style={{
-        width: '75%',
-      }}
       className={
         (convertClassNameList(convertClassName(className, styles)),
         'flex-container jc-space-around align-center')
@@ -56,11 +53,11 @@ const ProfileDonator = ({ className }: ProfileDonatorProps): JSX.Element => {
       <div>
         <Text
           className="text-lg"
-          text={`구매한 그림 : ${auctionPurchases?.length} 개`}
+          text={`구매한 그림 : ${auctionPurchases?.length ?? 0} 개`}
         />
         <Text
           className="text-lg"
-          text={`팔로우한 아이들 : ${childProfiles?.length} 명`}
+          text={`팔로우한 아이들 : ${childProfiles?.length ?? 0} 명`}
         />
       </div>
     </div>

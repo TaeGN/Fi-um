@@ -132,9 +132,8 @@ const Login = ({ className, signUp }: LoginProps): JSX.Element => {
     onSuccess: (data) => {
       console.log(data);
       sessionStorage.setItem('user', JSON.stringify(data));
-      console.log(data.data);
 
-      setUserInfo(data.data);
+      setUserInfo(data);
       alert('로그인 성공!!');
       navigate('/');
     },

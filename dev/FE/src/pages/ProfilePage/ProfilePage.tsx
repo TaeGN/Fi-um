@@ -222,12 +222,16 @@ const AdminProfilePage = () => {
 const ProfilePage = ({ className }: ProfilePageProps): JSX.Element => {
   const { userInfo } = useAuth();
   const { userNo } = useParams<string>();
+  const isMyPage = useMemo(() => {
+    if (!userInfo || !userNo) return false;
+    return userInfo.userNo === Number(userNo);
+  }, [userInfo?.userNo, userNo]);
 
   const profile = useMemo(() => {
     if (!userInfo) return undefined;
     switch (userInfo?.userType) {
       case USER_TYPE.아이들:
-        if (userNo && userInfo.userNo === Number(userNo)) {
+        if (isMyPage) {
           return <ChildProfilePage myPage />;
         } else {
           return <ChildProfilePage />;
@@ -248,7 +252,7 @@ const ProfilePage = ({ className }: ProfilePageProps): JSX.Element => {
         styles['profile-page'],
       )}
     >
-      <ProfileHeader userInfo={userInfo} />
+      <ProfileHeader userInfo={userInfo} myPage={isMyPage} />
       {profile}
     </div>
   );

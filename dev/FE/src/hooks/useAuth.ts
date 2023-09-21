@@ -5,7 +5,7 @@ const useAuth = () => {
   const [userInfo, setUserInfo] = useState<UserInfo | undefined>(undefined);
   const resetUserInfo = useCallback(() => {
     const data = sessionStorage.getItem('user');
-    setUserInfo(data ? JSON.parse(data).data : '');
+    setUserInfo(data ? JSON.parse(data) : '');
   }, []);
 
   useEffect(() => {

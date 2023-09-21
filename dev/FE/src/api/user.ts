@@ -6,6 +6,7 @@ import {
   SponsorProfile,
   TotalCapital,
   UserDetail,
+  UserInfo,
 } from '@/types';
 import { QueryKey } from '@tanstack/react-query';
 import { api, authApi } from '.';
@@ -85,17 +86,24 @@ const userSignup = async (userDetail: UserDetail) => {
 };
 
 // 로그인
-const userLogin = async (userDetail: UserDetail) => {
-  return await api.post('user/login', userDetail);
+const userLogin = async (userDetail: UserDetail): Promise<UserInfo> => {
+  return await api.post('user/login', userDetail).then(({ data }) => data);
 };
 
-// 로그인
+// 로그아웃
 const userLogout = async (): Promise<string> => {
   return await authApi.post('user/logout').then(({ data }) => {
     sessionStorage.setItem('user', '');
     alert('로그아웃 성공!!');
     return data;
   });
+};
+
+// 프로필 사진 수정
+const putUserProfileImage = async (imagePath: string) => {
+  return await authApi
+    .put('user/profile-image', { imagePath })
+    .then(({ data }) => data);
 };
 
 export {
@@ -109,4 +117,5 @@ export {
   getUserCapital,
   userLogout,
   getUserDepositSaving,
+  putUserProfileImage,
 };
