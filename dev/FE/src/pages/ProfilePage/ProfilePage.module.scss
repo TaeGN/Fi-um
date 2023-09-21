@@ -10,6 +10,18 @@
     }
   }
 
+  &__profile-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: minmax(1fr, 50vh);
+    gap: 5vw;
+  }
+
+  & > div {
+    padding-left: 10rem;
+    padding-right: 10rem;
+  }
+
   & > div:nth-child(2n + 1) {
     background-color: #ececec;
   }

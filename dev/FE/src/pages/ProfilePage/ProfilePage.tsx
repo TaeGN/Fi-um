@@ -199,20 +199,76 @@ const AdminProfilePage = () => {
       <ProfileSection label="아이들 자산 현황">
         <UserList totalCapitals={totalCapitals} />
       </ProfileSection>
-      <div className="flex-container">
+      <div className={styles['profile-page__profile-section']}>
         <ProfileSection label="후원품 목록">
-          <Funding fundings={sponsorships} />
+          <Table
+            data={
+              sponsorships &&
+              sponsorships.map(
+                ({ imagePath, itemName, itemCount, fundingAmount }) => {
+                  return {
+                    사진: <Image src={imagePath} />,
+                    이름: itemName,
+                    개수: itemCount,
+                    펀딩수: fundingAmount,
+                    펀딩완료여부: itemCount === fundingAmount ? 'ok' : 'no',
+                  };
+                },
+              )
+            }
+            size={5}
+          />
         </ProfileSection>
         <ProfileSection label="후원 히스토리">
-          <Table data={sponsorshipRecords} />
+          <Table
+            data={
+              sponsorshipRecords &&
+              sponsorshipRecords.map(({ itemName, price, sponsorName }) => {
+                return {
+                  '아이템 이름': itemName,
+                  '후원한 사람': sponsorName,
+                  개수: price,
+                };
+              })
+            }
+            size={5}
+          />
         </ProfileSection>
       </div>
-      <div className="flex-container">
+      <div className={styles['profile-page__profile-section']}>
         <ProfileSection label="펀딩 목록">
-          <Funding fundings={fundings} />
+          <Table
+            data={
+              fundings &&
+              fundings.map(
+                ({ imagePath, itemName, itemCount, fundingAmount }) => {
+                  return {
+                    사진: <Image src={imagePath} />,
+                    이름: itemName,
+                    개수: itemCount,
+                    후원수: fundingAmount,
+                    후원완료여부: itemCount === fundingAmount ? 'ok' : 'no',
+                  };
+                },
+              )
+            }
+            size={5}
+          />
         </ProfileSection>
         <ProfileSection label="펀딩 히스토리">
-          <Table data={fundingRecords} />
+          <Table
+            data={
+              fundingRecords &&
+              fundingRecords.map(({ itemName, userName, price }) => {
+                return {
+                  '아이템 이름': itemName,
+                  '펀딩한 사람': userName,
+                  개수: price,
+                };
+              })
+            }
+            size={5}
+          />
         </ProfileSection>
       </div>
     </>

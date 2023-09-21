@@ -2,10 +2,12 @@ import {
   checkConditionClassName,
   convertClassName,
   convertClassNameList,
+  convertDate,
+  priceFilter,
 } from '@/utils';
 import styles from './UserList.module.scss';
 import { TotalCapital } from '@/types';
-import { PieChart, Table } from '@/components/atoms';
+import { PieChart, Table, Text } from '@/components/atoms';
 import { useState } from 'react';
 
 interface UserListProps {
@@ -15,6 +17,17 @@ interface UserListProps {
 
 const UserList = ({ className, totalCapitals }: UserListProps): JSX.Element => {
   const [chartState, setChartState] = useState<number>(0);
+
+  const handleChangeChartState = (userNo: number) => () => {
+    if (userNo === chartState) setChartState(0);
+    else setChartState(userNo);
+  };
+
+  console.log(totalCapitals?.[0].pointRecord[0].changedTime);
+  console.log(
+    totalCapitals?.[0].pointRecord[0].changedTime &&
+      new Date(totalCapitals?.[0].pointRecord[0].changedTime),
+  );
 
   return (
     <div className={convertClassNameList(convertClassName(className, styles))}>
@@ -31,6 +44,7 @@ const UserList = ({ className, totalCapitals }: UserListProps): JSX.Element => {
         }) => (
           <>
             <div
+              onClick={handleChangeChartState(userNo)}
               key={userNo}
               className={convertClassNameList(styles['total-capital'])}
             >
@@ -42,17 +56,17 @@ const UserList = ({ className, totalCapitals }: UserListProps): JSX.Element => {
               <span
                 className={convertClassNameList(styles['total-capital__item'])}
               >
-                {point}
+                {priceFilter(point)}
               </span>
               <span
                 className={convertClassNameList(styles['total-capital__item'])}
               >
-                {stockMoney}
+                {priceFilter(stockMoney)}
               </span>
               <span
                 className={convertClassNameList(styles['total-capital__item'])}
               >
-                {depositMoney}
+                {priceFilter(depositMoney)}
               </span>
             </div>
             <div
@@ -63,7 +77,6 @@ const UserList = ({ className, totalCapitals }: UserListProps): JSX.Element => {
                   styles['disabled'],
                 ),
               )}
-              onClick={() => setChartState(userNo)}
             >
               <PieChart
                 chartData={{
@@ -79,7 +92,32 @@ const UserList = ({ className, totalCapitals }: UserListProps): JSX.Element => {
                   length: stockList.length,
                 }}
               />
-              <Table data={pointRecord} />
+
+              <Table
+                className={styles['user-list__table']}
+                data={
+                  pointRecord &&
+                  pointRecord.map(({ useType, pointChange, changedTime }) => {
+                    return {
+                      타입: useType,
+                      변화량: (
+                        <Text
+                          className={
+                            pointChange > 0
+                              ? 'blue'
+                              : pointChange !== 0
+                              ? 'red'
+                              : ''
+                          }
+                          text={priceFilter(pointChange)}
+                        />
+                      ),
+                      시간: convertDate(changedTime),
+                    };
+                  })
+                }
+                size={2}
+              />
             </div>
           </>
         ),

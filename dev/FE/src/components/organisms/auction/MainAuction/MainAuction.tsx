@@ -13,17 +13,10 @@ const MainAuction = ({
   className,
   auctions,
 }: MainAuctionProps): JSX.Element => {
-  // 나중에 지울 부분
-  const data = [];
-  for (let i = 1; i <= 5; i++) {
-    if (auctions) data.push(...auctions);
-  }
-  console.log(data);
-  // 지울 부분 끝
   return (
     <div className={convertClassNameList(convertClassName(className, styles))}>
       <Swiper type="autoplay">
-        {data.map((auction) => {
+        {auctions?.map((auction) => {
           return (
             <div
               className={styles['main-auction']}

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import { usePagination, useTable } from 'react-table';
 import { convertClassName, convertClassNameList, snakeToTitle } from '@/utils';
 import styles from './Table.module.scss';
@@ -7,9 +7,10 @@ interface TableProps {
   className?: string;
   data?: any;
   onClick?: any;
+  size?: number;
 }
 
-const Table = ({ className, data, onClick }: TableProps): JSX.Element => {
+const Table = ({ className, data, onClick, size }: TableProps): JSX.Element => {
   const columns = useMemo(() => {
     return Object.keys(data?.[0] || {}).map((snake) => {
       return {
@@ -18,6 +19,10 @@ const Table = ({ className, data, onClick }: TableProps): JSX.Element => {
       };
     });
   }, [data]);
+
+  useEffect(() => {
+    if (size) setPageSize(size);
+  }, [size]);
 
   const {
     getTableProps,
@@ -48,6 +53,7 @@ const Table = ({ className, data, onClick }: TableProps): JSX.Element => {
       className={convertClassNameList(
         convertClassName(className, styles),
         'table',
+        styles['table'],
       )}
     >
       <table {...getTableProps()}>
@@ -142,16 +148,20 @@ const Table = ({ className, data, onClick }: TableProps): JSX.Element => {
           alignItems: 'center',
         }}
       >
-        <select
-          value={pageSize}
-          onChange={(e) => setPageSize(Number(e.target.value))}
-        >
-          {[10, 25, 50].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              {pageSize}개 씩 보기
-            </option>
-          ))}
-        </select>
+        {!size ? (
+          <select
+            value={pageSize}
+            onChange={(e) => setPageSize(Number(e.target.value))}
+          >
+            {[10, 25, 50].map((pageSize) => (
+              <option key={pageSize} value={pageSize}>
+                {pageSize}개 씩 보기
+              </option>
+            ))}
+          </select>
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );

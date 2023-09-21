@@ -15,9 +15,9 @@ const Funding = ({ className, fundings }: FundingProps): JSX.Element => {
     if (fundings) {
       const len = fundings.length;
 
-      for (let index = 0; index < len / 4; index++) {
+      for (let index = 0; index <= (len - 1) / 4; index++) {
         funding.push(
-          <div className="card-container">
+          <div key={index} className="card-container">
             {fundings
               .slice(index * 4, Math.min((index + 1) * 4, len))
               .map((funding) => (

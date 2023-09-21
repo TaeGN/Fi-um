@@ -4,7 +4,6 @@ import { Funding, MainAuction, Ranking } from '@/components/organisms';
 import { Swiper } from '@/components/molecules';
 import { getAuctionsQuery } from '@/api/queries/auction';
 import { Auction, Funding as FundingType } from '@/types';
-// import { eduBook } from '@/utils';
 import { getFundingsQuery } from '@/api/queries';
 
 const MainPage = () => {
