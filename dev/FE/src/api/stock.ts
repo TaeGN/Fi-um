@@ -37,7 +37,13 @@ const getStockMyAccount = async ({
 }: any): Promise<StockMyAccount> => {
   return await authApi
     .get(`stock/my-account/${stockNo}`)
-    .then(({ data }) => data);
+    .then((res) => {
+      console.log(res, '여기임?');
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err, '에러임?');
+    });
 };
 
 // 주식 구매
