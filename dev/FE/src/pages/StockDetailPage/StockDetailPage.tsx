@@ -1,5 +1,5 @@
 import { useState, useCallback, MouseEvent, useEffect } from 'react';
-import { convertClassName, convertClassNameList, loremData } from '@/utils';
+import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './StockDetailPage.module.scss';
 import useModal from '@/hooks/useModal';
 import { Button, LineChart } from '@/components/atoms';
@@ -15,13 +15,6 @@ import {
   postStockBuyingQuery,
   postStockSellingQuery,
 } from '@/api/queries/stock';
-// import {
-//   Accordion,
-//   AccordionItem,
-//   AccordionItemHeading,
-//   AccordionItemButton,
-//   AccordionItemPanel,
-// } from 'react-accessible-accordion';
 
 interface StockDetailPageProps {
   className?: string;
@@ -61,12 +54,6 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
     TradeHistory[],
     string
   >(getTradeHistoryQuery(Number(detail)));
-
-  console.log(detail);
-  console.log(myStock);
-  console.log(stockChart);
-  console.log(news, '뉴스');
-  console.log(tradeHistory, '거래내역');
 
   useEffect(() => {
     if (isStockChartLoading === 'success' && stockChart) {
@@ -165,40 +152,28 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
         <div
           className={convertClassNameList(styles['stock-detail-page__content'])}
         >
-          <div>
-            <span>최근 거래 내역</span>
-            <div></div>
-          </div>
-          {/* <div
-            className={convertClassNameList(
-              styles['stock-detail-page__content--prev-news'],
-            )}
-          >
-            <div className={styles.newsTitle}>최신 뉴스</div>
-            <Accordion preExpanded={['a', 'c']}>
-              {news &&
-                news.slice(0, 5).map((item) => {
+          <div className={styles.tradeHistory}>
+            <div className={styles.tradeHistoryTitle}>최근 거래 내역</div>
+            <div>
+              {tradeHistory &&
+                tradeHistory.map((item, idx) => {
+                  const date = new Date(item.tradeTime);
                   return (
-                    <AccordionItem key={item.newsNo}>
-                      <AccordionItemHeading className={styles.accordionHeader}>
-                        <AccordionItemButton>
-                          {item.newsTitle}
-                        </AccordionItemButton>
-                      </AccordionItemHeading>
-                      <AccordionItemPanel className={styles.accordionItem}>
-                        <p>{item.newsContent}</p>
-                      </AccordionItemPanel>
-                    </AccordionItem>
+                    <div key={idx} className={styles.tradeHistoryWrapper}>
+                      <div>{item.stockCount < 0 ? '매도' : '매수'}</div>
+                      <div>{item.stockCount}</div>
+                      <div>{`${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분`}</div>
+                    </div>
                   );
                 })}
-            </Accordion>
-          </div> */}
+            </div>
+          </div>
           {isStockChartLoading === 'success' &&
             isMyStockLoading === 'success' && (
               <div className={styles.myStock}>
-                <p>내가 갖고있는 수량: {myStock?.stockCount}</p>
-                <p>평균 단가: {myStock?.stockAverage}</p>
-                <p>현재 가격: {stockChart[0].nowPrice}</p>
+                <p>내가 갖고있는 수량: {myStock.stockCount}</p>
+                <p>평균 단가: {myStock.stockAverage}</p>
+                <p>현재 가격: {stockChart[stockChart.length - 1].nowPrice}</p>
               </div>
             )}
           <div
