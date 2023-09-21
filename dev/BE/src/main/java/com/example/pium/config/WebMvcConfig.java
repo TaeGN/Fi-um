@@ -18,6 +18,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(new TokenCheckInterceptor(jwtTokenProvider))
                 .excludePathPatterns("/user/login")
+                .excludePathPatterns("/image/**")
+
                 .excludePathPatterns("/user/signup")
                 .excludePathPatterns("/user/check-id")
                 .excludePathPatterns("/user/reissue")
@@ -32,6 +34,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/stock/news")
                 .excludePathPatterns("/stock/news/**")
                 .excludePathPatterns("/stock/king")
+                .excludePathPatterns("/stock/trade/**")
                 .excludePathPatterns("/stock/chart/**")
                 .excludePathPatterns("/swagger-ui/**")
                 .excludePathPatterns("/v2/api-docs")

@@ -231,7 +231,7 @@ public class UserServiceImp {
                 childCapitalDto.setDepositMoney(0);
                 childCapitalDto.setStockMoney(0);
             }
-
+            childCapitalDto.setUserNo(userEntity.getUserNo());
             childCapitalDto.setUserName(userEntity.getUserName());
             childCapitalDto.setFundingMoney(sponsorFundingHistoryRepository.findFundingHistory(userNo).orElse(0));
             List<UserStockInterface> userStockInterface = stockDataRepository.findByUserStock(userNo,(System.currentTimeMillis()-startTime) / (1000*60*60));
@@ -253,6 +253,7 @@ public class UserServiceImp {
         userInfoDto.setUserType(user.getUserType());
         userInfoDto.setUserNme(user.getUserName());
         userInfoDto.setJoinDate(user.getJoinDate());
+        userInfoDto.setImagePath(user.getImagePath());
         userInfoDto.setPhoneNumber(user.getPhoneNumber());
         userInfoDto.setPoint(user.getPoint());
         userInfoDto.setPrimed1(user.getIsPrimed1());
@@ -271,6 +272,11 @@ public class UserServiceImp {
         return false;
     }
 
+    public void changeImage(Integer userNo, String imagePath) {
+        UserEntity findUser = userRepository.findByUserNo(userNo).get();
+        findUser.setImagePath(imagePath);
+        userRepository.save(findUser);
+    }
 
 }
 

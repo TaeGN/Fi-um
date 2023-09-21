@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.MediaType;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,8 +17,9 @@ import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
-
+@CrossOrigin(origins = "*")
 @RestController
 public class ImageUploadController {
 
@@ -39,7 +41,7 @@ public class ImageUploadController {
             // 파일 저장
             file.transferTo(new File(path.toString()));
 
-            String imageUrl = "/image/" + uniqueFilename;
+            String imageUrl = "image/" + uniqueFilename;
             return new ResponseEntity<>(imageUrl, HttpStatus.OK);
 
         } catch (IOException e) {
@@ -54,7 +56,8 @@ public class ImageUploadController {
         try {
             Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {
-                return ResponseEntity.ok(resource);
+                String contentType = determineContentType(filename);
+                return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType)).body(resource);
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
@@ -62,6 +65,22 @@ public class ImageUploadController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+    private String determineContentType(String filename) {
+        String extension = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
+        switch (extension) {
+            case "png":
+                return "image/png";
+            case "jpg":
+            case "jpeg":
+                return "image/jpeg";
+            case "gif":
+                return "image/gif";
+            // 추가적으로 필요한 다른 이미지 형식에 대한 케이스를 추가할 수 있습니다.
+            default:
+                return "application/octet-stream";
+        }
+    }
+
 
 
 
