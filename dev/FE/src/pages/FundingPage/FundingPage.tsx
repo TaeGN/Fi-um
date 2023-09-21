@@ -3,7 +3,7 @@ import styles from './FundingPage.module.scss';
 import { FundingItem, Ranking } from '@/components/organisms';
 import { getFundingsQuery } from '@/api/queries/funding';
 import { useQuery } from '@tanstack/react-query';
-import { Funding, Item } from '@/types';
+import { Funding, Item, Ranking as RankingType } from '@/types';
 import { Modal } from '@/components/molecules';
 import ModalFunding from '@/components/molecules/utils/Modal/contents/ModalFunding/ModalFunding';
 import useModal from '@/hooks/useModal';
@@ -11,8 +11,9 @@ import { useCallback, useState } from 'react';
 import { Button } from '@/components/atoms';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '@/hooks/useAuth';
-import { getSponsorShipQuery } from '@/api/queries';
+import { getRankingsQuery, getSponsorShipQuery } from '@/api/queries';
 import { USER_TYPE } from '@/constants';
+import { useMemo } from 'react';
 
 interface FundingPageProps {
   className?: string;
@@ -28,6 +29,10 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
     userType === USER_TYPE.아이들
       ? useQuery<Funding[], Error>(getFundingsQuery())
       : useQuery<Item[], Error>(getSponsorShipQuery());
+  const { data: rankings } = useQuery<RankingType[]>(getRankingsQuery());
+  const ranking = useMemo<RankingType | undefined>(() => {
+    return rankings?.find((ranking) => ranking.type === '펀딩');
+  }, [rankings]);
 
   const onModal = useCallback(() => {
     setScrollTop(document.documentElement.scrollTop);
@@ -52,8 +57,7 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
           onClick={() => navigate(`/create`, { state: 'funding' })}
         />
       )}
-      <Ranking />
-
+      {ranking && <Ranking ranking={ranking} />}
       {fundings?.map((funding) => {
         return (
           <div key={funding.itemNo + funding.itemName}>
