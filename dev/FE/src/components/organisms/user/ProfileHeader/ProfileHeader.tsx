@@ -8,7 +8,6 @@ import {
 } from '@/components/molecules';
 import { UserInfo } from '@/types';
 import { USER_TYPE } from '@/constants';
-import { apiImgUrl } from '@/utils/imgUrl';
 
 interface ProfileHeaderProps {
   className?: string;

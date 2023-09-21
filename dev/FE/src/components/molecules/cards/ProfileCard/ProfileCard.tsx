@@ -7,7 +7,6 @@ import { useState, ChangeEvent, useCallback } from 'react';
 import { postImage } from '@/api/image';
 import { putUserProfileImage } from '@/api/user';
 import useAuth from '@/hooks/useAuth';
-import { apiImgUrl } from '@/utils/imgUrl';
 
 interface ProfileCardProps {
   src?: string;
