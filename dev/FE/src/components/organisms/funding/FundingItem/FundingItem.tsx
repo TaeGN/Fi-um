@@ -7,7 +7,6 @@ import { MouseEvent } from 'react';
 
 interface FundingItemProps {
   className?: string;
-  // funding: Funding;
   itemNo: string;
   itemName: string;
   imagePath: string;
@@ -23,7 +22,6 @@ const FundingItem = ({
   ...funding
 }: FundingItemProps): JSX.Element => {
   const [showDescription, setShowDescription] = useState<boolean>(false);
-
   const toggleDescription = () => {
     setShowDescription(!showDescription);
   };

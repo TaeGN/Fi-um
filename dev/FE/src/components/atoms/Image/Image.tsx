@@ -1,5 +1,6 @@
 import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './Image.module.scss';
+import { apiImgUrl } from '@/utils/imgUrl';
 
 interface ImageProps {
   className?: string;
@@ -17,7 +18,7 @@ const Image = ({ className, src, alt }: ImageProps) => {
           convertClassName(className, styles),
           styles['image'],
         )}
-        src={src || initImageUrl}
+        src={apiImgUrl(src) || initImageUrl}
         alt={alt}
         data-testid="image"
       />

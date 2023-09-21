@@ -1,14 +1,15 @@
 import { Text } from '@/components/atoms';
-import { loremData } from '@/utils';
 import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './AuctionDetailDescription.module.scss';
 
 interface AuctionDetailDescriptionProps {
   className?: string;
+  description?: string;
 }
 
 const AuctionDetailDescription = ({
   className,
+  description,
 }: AuctionDetailDescriptionProps): JSX.Element => {
   return (
     <div
@@ -18,7 +19,7 @@ const AuctionDetailDescription = ({
       )}
     >
       <Text className="text-lg" text="작품 소개" />
-      <Text text={loremData} />
+      <Text text={description} />
     </div>
   );
 };

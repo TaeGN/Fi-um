@@ -1,6 +1,5 @@
 import { ProfileCard } from '@/components/molecules';
 import styles from './Ranking.module.scss';
-import { Image } from '@/components/atoms';
 import { convertClassName, convertClassNameList } from '@/utils';
 
 interface RankingProps {
@@ -23,7 +22,7 @@ const Ranking = ({ className }: RankingProps): JSX.Element => {
         return (
           <div key={item.id} className={styles[`profileCard${item.id}`]}>
             {item.id === 2 ? (
-              <Image src="/img/crown.svg" alt="" className={styles.crown} />
+              <img src="/img/crown.svg" alt="" className={styles.crown} />
             ) : (
               ''
             )}
