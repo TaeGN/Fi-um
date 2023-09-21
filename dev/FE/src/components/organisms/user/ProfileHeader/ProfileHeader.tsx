@@ -12,11 +12,13 @@ import { USER_TYPE } from '@/constants';
 interface ProfileHeaderProps {
   className?: string;
   userInfo?: UserInfo;
+  myPage: boolean;
 }
 
 const ProfileHeader = ({
   className,
   userInfo,
+  myPage,
 }: ProfileHeaderProps): JSX.Element => {
   return (
     <div
@@ -26,11 +28,7 @@ const ProfileHeader = ({
       )}
     >
       <div className="flex-container">
-        <ProfileCard
-          src={userInfo?.imagePath ?? '/vite.svg'}
-          alt={userInfo?.userName ?? '기본 이미지'}
-          text={userInfo?.userName ?? '기본 이미지'}
-        />
+        <ProfileCard myPage={myPage} />
         {userInfo?.userType === USER_TYPE.아이들 ? (
           <ProfileAsset userNo={userInfo.userNo} />
         ) : userInfo?.userType === USER_TYPE.원장쌤 ? (

@@ -9,7 +9,7 @@ interface CreatorProfileProps {
 const CreatorProfile = ({ className }: CreatorProfileProps): JSX.Element => {
   return (
     <div className={convertClassNameList(convertClassName(className, styles))}>
-      <ProfileCard src="/vite.svg" alt="profile" text="프로필입니다." />
+      <ProfileCard />
     </div>
   );
 };

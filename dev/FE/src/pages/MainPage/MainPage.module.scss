@@ -1,10 +1,13 @@
 .main-page {
-  &__swiper {
+  &__ranking {
+    height: 50vh;
   }
 
   & > div {
     min-height: 50vh;
-    padding: 3rem 10rem;
+    padding-top: 3rem;
+    padding-left: 10vw;
+    padding-right: 10vw;
 
     @media screen and (max-width: 829px) {
       padding: 0 5rem;

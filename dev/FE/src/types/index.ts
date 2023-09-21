@@ -6,3 +6,4 @@ export type * from './funding';
 export type * from './sponsor';
 export type * from './point';
 export type * from './review';
+export type * from './ranking';

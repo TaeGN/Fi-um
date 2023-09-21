@@ -4,7 +4,7 @@ import { apiImgUrl } from '@/utils/imgUrl';
 
 interface ImageProps {
   className?: string;
-  src: string;
+  src?: string;
   alt?: string;
 }
 

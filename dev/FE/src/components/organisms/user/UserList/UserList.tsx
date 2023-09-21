@@ -97,24 +97,26 @@ const UserList = ({ className, totalCapitals }: UserListProps): JSX.Element => {
                 className={styles['user-list__table']}
                 data={
                   pointRecord &&
-                  pointRecord.map(({ useType, pointChange, changedTime }) => {
-                    return {
-                      타입: useType,
-                      변화량: (
-                        <Text
-                          className={
-                            pointChange > 0
-                              ? 'blue'
-                              : pointChange !== 0
-                              ? 'red'
-                              : ''
-                          }
-                          text={priceFilter(pointChange)}
-                        />
-                      ),
-                      시간: convertDate(changedTime),
-                    };
-                  })
+                  pointRecord
+                    .sort((a, b) => b.changedTime - a.changedTime)
+                    .map(({ useType, pointChange, changedTime }) => {
+                      return {
+                        타입: useType,
+                        변화량: (
+                          <Text
+                            className={
+                              pointChange > 0
+                                ? 'blue'
+                                : pointChange !== 0
+                                ? 'red'
+                                : ''
+                            }
+                            text={priceFilter(pointChange)}
+                          />
+                        ),
+                        시간: convertDate(changedTime),
+                      };
+                    })
                 }
                 size={2}
               />
