@@ -42,7 +42,6 @@ public class ImageUploadController {
 
             String imageUrl = "/image/" + uniqueFilename;
             return new ResponseEntity<>(imageUrl, HttpStatus.OK);
-
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity<>("Failed to upload the file", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -64,6 +63,7 @@ public class ImageUploadController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+
     private String determineContentType(String filename) {
         String extension = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
         switch (extension) {
