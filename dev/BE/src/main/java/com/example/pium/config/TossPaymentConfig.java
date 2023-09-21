@@ -12,9 +12,9 @@ public class TossPaymentConfig {
 
     private final String TESTSECRETKEY = "test_sk_PBal2vxj81Pv9NAPJgJr5RQgOAND";
 
-    private final String SUCCESSURL = "http://localhost:8000/api/v1/toss/success";
+    private final String SUCCESSURL = "http://j9a308.p.ssafy.io:8000/api/v1/toss/success";
 
-    private final String FAILURL = "http://localhost:8000/api/v1/toss/fail";
+    private final String FAILURL = "http://j9a308.p.ssafy.io:8000/api/v1/toss/fail";
 
     private final String URL = "https://api.tosspayments.com/v1/payments/confirm";
 }
