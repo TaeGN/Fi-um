@@ -12,4 +12,4 @@ interface Point extends PointRecord {
   changedTime: number;
 }
 
-export type { PointRecord, Point };
+export type { PointRecord, Point, UseType };

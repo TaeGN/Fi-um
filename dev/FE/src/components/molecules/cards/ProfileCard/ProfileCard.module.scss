@@ -1,13 +1,18 @@
 // ProfileCard.module.scss
 
-.profileCard {
+.profile-card {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
   align-items: center;
   border-radius: 8px;
   background-color: #f2f2f2;
+
+  &__image {
+    // max-height: inherit;
+    // max-width: 10vw;
+  }
 }
 
 .medium {

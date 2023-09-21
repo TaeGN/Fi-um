@@ -1,5 +1,5 @@
 import { Button, Image, Text } from '@/components/atoms';
-import { convertClassName } from '@/utils';
+import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './ProfileCard.module.scss';
 
 interface ProfileCardProps {
@@ -50,9 +50,17 @@ const ProfileCard = ({
 }: ProfileCardProps) => {
   return (
     <div
-      className={`${styles.profileCard} ${convertClassName(className, styles)}`}
+      className={`${styles['profile-card']} ${convertClassName(
+        className,
+        styles,
+      )}`}
     >
-      <div className={styles.image}>
+      <div
+        className={convertClassNameList(
+          styles.image,
+          styles['profile-card__image'],
+        )}
+      >
         <Image src={src} alt={alt} />
       </div>
       <div className={styles.text}>
