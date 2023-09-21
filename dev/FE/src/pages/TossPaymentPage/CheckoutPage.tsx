@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import {
   PaymentWidgetInstance,
   loadPaymentWidget,
-  ANONYMOUS,
 } from '@tosspayments/payment-widget-sdk';
 import { nanoid } from 'nanoid';
 import styles from './CheckoutPage.module.scss';

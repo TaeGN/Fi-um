@@ -17,7 +17,12 @@ const ProfileAdmin = ({ className }: ProfileAdminProps): JSX.Element => {
         'card-container')
       }
     >
-      <FundingBar ratio={50} itemUnitPrice={0} fundingAmount={0} />
+      <FundingBar
+        ratio={50}
+        itemUnitPrice={0}
+        fundingAmount={0}
+        itemCount={0}
+      />
     </div>
   );
 };

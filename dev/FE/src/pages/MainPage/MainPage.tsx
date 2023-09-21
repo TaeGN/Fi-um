@@ -19,11 +19,13 @@ const MainPage = () => {
     <div className={styles['main-page']}>
       <MainAuction auctions={auctions} />
       <div className={styles['main-page__ranking']}>
-        <Swiper>
-          {rankings?.map((ranking) => (
-            <Ranking key={ranking.type} ranking={ranking} />
-          ))}
-        </Swiper>
+        {rankings && (
+          <Swiper>
+            {rankings.map((ranking) => (
+              <Ranking key={ranking.type} ranking={ranking} />
+            ))}
+          </Swiper>
+        )}
       </div>
       <Funding fundings={fundings} />
 

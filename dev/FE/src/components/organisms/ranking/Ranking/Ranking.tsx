@@ -27,15 +27,15 @@ const Ranking = ({ className, ranking }: RankingProps): JSX.Element => {
     >
       <Text className={styles['ranking__title']} text={ranking.type} />
       <div className={styles['ranking__main']}>
-        {data.map((item, index) => {
+        {data.map(({ id, name, src }, index) => {
           return (
-            <div key={item.id} className={styles[`profileCard${index}`]}>
+            <div key={id} className={styles[`profileCard${index}`]}>
               {index === 1 ? (
                 <img src="/img/crown.svg" alt="" className={styles.crown} />
               ) : (
                 ''
               )}
-              <ProfileCard key={item.id} />
+              <ProfileCard key={id} src={src} alt={name} />
             </div>
           );
         })}
