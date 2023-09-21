@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { convertClassName, convertClassNameList, loremData } from '@/utils';
+import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './FundingItem.module.scss';
 import { Image, Text } from '@/components/atoms';
 import { FundingBar, FundingDescription } from '@/components/molecules';
@@ -13,6 +13,9 @@ interface FundingItemProps {
   itemUnitPrice: number;
   itemCount: number;
   fundingAmount: number;
+  description: string;
+  unitPrice: number;
+  sponsorshipAmount: number;
   onModal?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -51,21 +54,30 @@ const FundingItem = ({
             text={funding.itemName}
           />
           <Text
-            className={convertClassNameList(
-              styles['funding-item__main'],
-              'text-lg',
-            )}
-            text={loremData}
+            className={convertClassNameList(styles['funding-item__main'])}
+            text={funding.description ?? funding.description}
           />
-          <FundingBar
-            itemUnitPrice={funding.itemUnitPrice}
-            fundingAmount={funding.fundingAmount}
-            ratio={
-              funding.fundingAmount !== 0
-                ? (funding.fundingAmount / funding.itemUnitPrice) * 100
-                : 0
-            }
-          />
+          {funding.itemUnitPrice ? (
+            <FundingBar
+              itemUnitPrice={funding.itemUnitPrice}
+              fundingAmount={funding.fundingAmount}
+              ratio={
+                funding.fundingAmount !== 0
+                  ? (funding.fundingAmount / funding.itemUnitPrice) * 100
+                  : 0
+              }
+            />
+          ) : (
+            <FundingBar
+              itemUnitPrice={funding.unitPrice * funding.itemCount}
+              fundingAmount={funding.fundingAmount}
+              ratio={
+                funding.fundingAmount !== 0
+                  ? (funding.fundingAmount / funding.itemUnitPrice) * 100
+                  : 0
+              }
+            />
+          )}
         </div>
       </div>
       {showDescription ? (

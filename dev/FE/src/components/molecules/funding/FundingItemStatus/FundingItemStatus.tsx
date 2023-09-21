@@ -1,9 +1,4 @@
-import {
-  convertClassName,
-  convertClassNameList,
-  loremData,
-  priceFilter,
-} from '@/utils';
+import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
 import styles from './FundingItemStatus.module.scss';
 import { Button, Text } from '@/components/atoms';
 import { Funding } from '@/types';
@@ -27,14 +22,23 @@ const FundingItemStatus = ({
         styles['funding-item-status'],
       )}
     >
-      <Text className="text-lg" text={funding.itemName} />
-      <Text text={loremData} />
+      <Text
+        className="text-lg"
+        text={`${funding.itemName} (${priceFilter(funding.unitPrice)} ${
+          funding.itemCount
+        }개)`}
+      />
+      <Text text={funding.description} />
       <Text
         className={convertClassNameList(
           'blue bold text-xl',
           styles['funding-item-status__price'],
         )}
-        text={priceFilter(funding.itemUnitPrice)}
+        text={priceFilter(
+          funding.itemUnitPrice
+            ? funding.itemUnitPrice
+            : funding.unitPrice * funding.itemCount,
+        )}
       />
       <div className="flex-container jc-space-between flex-wrap">
         <Text

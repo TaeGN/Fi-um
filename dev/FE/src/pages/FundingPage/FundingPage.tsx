@@ -3,7 +3,7 @@ import styles from './FundingPage.module.scss';
 import { FundingItem, Ranking } from '@/components/organisms';
 import { getFundingsQuery } from '@/api/queries/funding';
 import { useQuery } from '@tanstack/react-query';
-import { Funding } from '@/types';
+import { Funding, Item } from '@/types';
 import { Modal } from '@/components/molecules';
 import ModalFunding from '@/components/molecules/utils/Modal/contents/ModalFunding/ModalFunding';
 import useModal from '@/hooks/useModal';
@@ -11,6 +11,8 @@ import { useCallback, useState } from 'react';
 import { Button } from '@/components/atoms';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '@/hooks/useAuth';
+import { getSponsorShipQuery } from '@/api/queries';
+import { USER_TYPE } from '@/constants';
 
 interface FundingPageProps {
   className?: string;
@@ -22,7 +24,10 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
   const { userInfo } = useAuth();
   const navigate = useNavigate();
   const userType = userInfo?.userType ?? 3;
-  const { data: fundings } = useQuery<Funding[], Error>(getFundingsQuery());
+  const { data: fundings } =
+    userType === USER_TYPE.아이들
+      ? useQuery<Funding[], Error>(getFundingsQuery())
+      : useQuery<Item[], Error>(getSponsorShipQuery());
 
   const onModal = useCallback(() => {
     setScrollTop(document.documentElement.scrollTop);
@@ -49,11 +54,13 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
       )}
       <Ranking />
 
-      {fundings?.map((funding) => (
-        <div key={funding.itemNo + funding.itemName}>
-          <FundingItem {...funding} onModal={onModal} />
-        </div>
-      ))}
+      {fundings?.map((funding) => {
+        return (
+          <div key={funding.itemNo + funding.itemName}>
+            <FundingItem {...funding} onModal={onModal} />
+          </div>
+        );
+      })}
       <Modal scrollTop={scrollTop} isOpen={isOpen} toggle={closeToggle}>
         <ModalFunding
           className={className}

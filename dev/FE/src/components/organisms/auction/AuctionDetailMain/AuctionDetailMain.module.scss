@@ -2,22 +2,15 @@
 
 .auction-detail-main {
   display: grid;
-  grid-template-areas:
-    'title title'
-    'image description';
+  grid-template-areas: 'image description';
   grid-template-columns: 7fr 3fr;
-  grid-template-rows: 70px 1fr;
+
   gap: 5vw;
 
-  &__title {
-    text-align: center;
-    margin-top: 1rem;
-    grid-area: title;
-  }
   &__image {
     grid-area: image;
 
-    max-height: 40vh;
+    max-height: 60vh;
     height: inherit;
   }
 
