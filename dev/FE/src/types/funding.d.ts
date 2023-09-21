@@ -5,6 +5,9 @@ interface Funding {
   itemUnitPrice: number;
   itemCount: number;
   fundingAmount: number;
+  description: string;
+  unitPrice: number;
+  sponsorshipAmount: number;
 }
 
 interface FundingProgress {

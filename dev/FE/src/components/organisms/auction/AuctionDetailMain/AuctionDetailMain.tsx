@@ -1,4 +1,4 @@
-import { Image, Text } from '@/components/atoms';
+import { Image } from '@/components/atoms';
 import { AuctionDescription } from '@/components/molecules';
 import styles from './AuctionDetailMain.module.scss';
 import { convertClassName } from '@/utils';
@@ -35,14 +35,15 @@ const AuctionDetailMain = ({
         styles,
       )}`}
     >
-      <div className={styles['auction-detail-main__title']}>
+      {/* <div className={styles['auction-detail-main__title']}>
         <Text text={title} />
-      </div>
+      </div> */}
       <div className={styles['auction-detail-main__image']}>
         <Image src={src} alt={alt} className={imageClassName} />
       </div>
       <div className={styles['auction-detail-main__description']}>
         <AuctionDescription
+          title={title}
           className={descriptionClassName}
           auctionPrice={auctionPrice}
           instantPrice={instantPrice}
