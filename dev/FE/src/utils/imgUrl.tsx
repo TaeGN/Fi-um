@@ -18,7 +18,7 @@ const eduBook = (): JSX.Element[] => {
   const data: JSX.Element[] = [];
   for (let index = 1; index <= 291; index++) {
     data.push(
-      <Image
+      <img
         key={index}
         src={imageUrl + String(index) + `.png`}
         alt={String(index)}

@@ -13,7 +13,8 @@ const Funding = ({ className, fundings }: FundingProps): JSX.Element => {
   const funding = useMemo(() => {
     const funding: JSX.Element[] = [];
     if (fundings) {
-      const len = funding.length;
+      const len = fundings.length;
+
       for (let index = 0; index < len / 4; index++) {
         funding.push(
           <div className="card-container">
@@ -31,10 +32,10 @@ const Funding = ({ className, fundings }: FundingProps): JSX.Element => {
 
   return (
     <div
-      className={
-        (convertClassNameList(convertClassName(className, styles)),
-        'card-container')
-      }
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        styles['funding'],
+      )}
     >
       <Swiper>{funding}</Swiper>
     </div>

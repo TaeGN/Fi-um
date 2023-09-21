@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { getreissue } from './user';
+import { HTTP_STATUS } from '@/constants';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 let isRefresh = false;
@@ -61,9 +62,9 @@ const authInterceptor = (instance: AxiosInstance) => {
       if (error.response) {
         switch (error.response.status) {
           // 토큰 만료
-          case 400:
+          case HTTP_STATUS.BAD_REQUEST:
           // 권한 없음
-          case 401:
+          case HTTP_STATUS.UNAUTHORIZED:
             const user = sessionStorage.getItem('user');
             if (!user) {
               alert('로그인이 필요합니다.!!');

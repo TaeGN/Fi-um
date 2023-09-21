@@ -9,6 +9,7 @@ import {
 } from '@/types';
 import { QueryKey } from '@tanstack/react-query';
 import { api, authApi } from '.';
+import { HTTP_STATUS } from '@/constants';
 
 // 아이디 중복 확인
 const getUserCheckId = async ({
@@ -53,7 +54,7 @@ const getreissue = async (refreshToken: string): Promise<string> => {
     })
     .catch((error) => {
       // 재 로그인 필요
-      if (error.response.status === 403) {
+      if (error.response.status === HTTP_STATUS.FORBIDDEN) {
         alert('로그인 만료!!');
         window.location.href = '/login';
       }
@@ -98,6 +99,11 @@ const userLogout = async (): Promise<string> => {
   });
 };
 
+// 프로필 사진 수정
+const putUserProfileImage = async (imagePath: string) => {
+  return await authApi.put('user/profile-image', { imagePath });
+};
+
 export {
   getUserCheckId,
   getUserArtist,
@@ -109,4 +115,5 @@ export {
   getUserCapital,
   userLogout,
   getUserDepositSaving,
+  putUserProfileImage,
 };

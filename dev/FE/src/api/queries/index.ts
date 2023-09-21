@@ -5,3 +5,5 @@ export * from './sponsor';
 export * from './stock';
 export * from './user';
 export * from './point';
+export * from './review';
+export * from './image';
