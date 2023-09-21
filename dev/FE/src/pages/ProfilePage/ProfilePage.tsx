@@ -77,12 +77,7 @@ const SponsorProfilePage = () => {
       </ProfileSection>
       <ProfileSection label="팔로우 한 아이들">
         {childProfiles?.map(({ userNo, userName, imagePath }) => (
-          <ProfileCard
-            key={userNo}
-            src={imagePath}
-            alt={userName}
-            text={userName}
-          />
+          <ProfileCard key={userNo} src={imagePath} alt={userName} />
         ))}
       </ProfileSection>
       <ProfileSection label="포인트 사용 내역">

@@ -11,9 +11,11 @@ import useAuth from '@/hooks/useAuth';
 interface ProfileCardProps {
   className?: string;
   myPage?: boolean;
+  src?: string;
+  alt?: string;
 }
 
-const ProfileCard = ({ className, myPage }: ProfileCardProps) => {
+const ProfileCard = ({ className, myPage, src, alt }: ProfileCardProps) => {
   const { isOpen, openToggle, closeToggle } = useModal();
   const [file, setFile] = useState<File | undefined>(undefined);
   const { userInfo, resetUserInfo } = useAuth();
@@ -56,10 +58,13 @@ const ProfileCard = ({ className, myPage }: ProfileCardProps) => {
           styles['profile-card__image'],
         )}
       >
-        <Image src={userInfo?.imagePath} alt={userInfo?.userName} />
+        <Image
+          src={myPage ? userInfo?.imagePath : src}
+          alt={myPage ? userInfo?.userName : alt}
+        />
       </div>
       <div className={styles.text}>
-        <Text text={userInfo?.userName} className="text-lg" />
+        <Text text={myPage ? userInfo?.userName : alt} className="text-lg" />
       </div>
       {myPage && (
         <div className={styles.button}>
