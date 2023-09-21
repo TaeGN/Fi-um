@@ -43,6 +43,7 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
     <div
       className={convertClassNameList(
         convertClassName(className, styles),
+        styles['funding-page'],
         'flex-container-col',
       )}
     >
