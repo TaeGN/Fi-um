@@ -22,7 +22,12 @@ const FundingItemStatus = ({
         styles['funding-item-status'],
       )}
     >
-      <Text className="text-lg" text={funding.itemName} />
+      <Text
+        className="text-lg"
+        text={`${funding.itemName} (${priceFilter(funding.unitPrice)} ${
+          funding.itemCount
+        }개)`}
+      />
       <Text text={funding.description} />
       <Text
         className={convertClassNameList(

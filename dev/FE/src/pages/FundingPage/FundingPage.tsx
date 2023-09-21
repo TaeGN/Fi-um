@@ -12,6 +12,7 @@ import { Button } from '@/components/atoms';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '@/hooks/useAuth';
 import { getSponsorShipQuery } from '@/api/queries';
+import { USER_TYPE } from '@/constants';
 
 interface FundingPageProps {
   className?: string;
@@ -24,7 +25,7 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
   const navigate = useNavigate();
   const userType = userInfo?.userType ?? 3;
   const { data: fundings } =
-    userType === 2
+    userType === USER_TYPE.아이들
       ? useQuery<Funding[], Error>(getFundingsQuery())
       : useQuery<Item[], Error>(getSponsorShipQuery());
 
