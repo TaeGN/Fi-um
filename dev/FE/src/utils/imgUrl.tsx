@@ -1,5 +1,3 @@
-import { Image } from '@/components/atoms';
-
 const imgUrl = (url: string): string => {
   return url ? import.meta.env.BASE_URL + 'img/' + url : '';
 };

@@ -8,7 +8,6 @@ import { useQuery } from '@tanstack/react-query';
 import { Review } from '@/types';
 import { getReviewsQuery } from '@/api/queries/review';
 import { AuctionCard } from '@/components/molecules';
-import { getReviews } from '@/api/review';
 
 interface GalleryPageProps {
   className?: string;
