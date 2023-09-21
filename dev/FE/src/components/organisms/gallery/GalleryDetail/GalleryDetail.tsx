@@ -5,9 +5,18 @@ import { Comment } from '@/components/molecules';
 
 interface GalleryDetailProps {
   className?: string;
+  review: ReviewDetail;
+}
+interface ReviewDetail {
+  title: string;
+  content: string;
+  imagePath: string;
 }
 
-const GalleryDetail = ({ className }: GalleryDetailProps): JSX.Element => {
+const GalleryDetail = ({
+  className,
+  review,
+}: GalleryDetailProps): JSX.Element => {
   return (
     <div
       className={convertClassNameList(
@@ -18,7 +27,7 @@ const GalleryDetail = ({ className }: GalleryDetailProps): JSX.Element => {
       <div className={styles.imageWrapper}>
         <Image
           className={convertClassNameList(styles['gallery-detail__image'])}
-          src="/img/dummy.jpg"
+          src={review.imagePath}
           alt="vite"
         />
       </div>
@@ -28,13 +37,13 @@ const GalleryDetail = ({ className }: GalleryDetailProps): JSX.Element => {
             styles['gallery-detail__content--title'],
             'text-xxl',
           )}
-          text="아스날 챔스우승"
+          text={review.title}
         />
         <Text
           className={convertClassNameList(
             styles['gallery-detail__content--description'],
           )}
-          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, maxime? Vel earum quas perferendis, corrupti accusantium saepe atque architecto, aperiam eligendi culpa commodi labore! Dolorum laudantium porro nam placeat saepe."
+          text={review.content}
         />
         <Comment
           className={convertClassNameList(styles['gallery-detail__comment'])}

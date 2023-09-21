@@ -7,6 +7,7 @@ import { postAuction } from '@/api/auction';
 import { postImage } from '@/api/image';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { NewItem } from '@/types';
+import { postReview } from '@/api/review';
 
 interface CreatePageProps {
   className?: string;
@@ -66,7 +67,7 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
         title: item.name,
         instantPrice: item.unitPrice,
         content: item.description,
-        imagePath,
+        imagePath: imagePath,
       })
         .then(() => {
           alert('등록 성공!');
@@ -76,6 +77,18 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
           console.log(err.data);
         });
     } else {
+      postReview({
+        title: item.name,
+        content: item.description,
+        imagePath: imagePath,
+      })
+        .then(() => {
+          alert('등록 성공!');
+          navigate('/');
+        })
+        .catch((err) => {
+          console.log(err.data);
+        });
     }
   };
 

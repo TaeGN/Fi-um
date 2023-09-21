@@ -10,6 +10,7 @@ interface AuctionCardProps {
   auctionPrice?: number;
   instantPrice?: number;
   content?: string;
+  review?: boolean;
 }
 
 const AuctionCard = ({
@@ -20,6 +21,7 @@ const AuctionCard = ({
   auctionPrice,
   instantPrice,
   content,
+  review,
 }: AuctionCardProps) => {
   return (
     <div
@@ -40,9 +42,10 @@ const AuctionCard = ({
         )}
         {content && <Text text={content} />}
       </div>
+
       <div className={styles.button}>
         <Button
-          label="경매하러가기"
+          label={review ? '자세히 보기' : '경매하러가기'}
           className="primary xsmall"
           onClick={onClick}
         />

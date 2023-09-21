@@ -1,7 +1,7 @@
 import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './GalleryDetailPage.module.scss';
 import { GalleryDetail } from '@/components/organisms';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 interface GalleryDetailPageProps {
   className?: string;
@@ -10,12 +10,12 @@ interface GalleryDetailPageProps {
 const GalleryDetailPage = ({
   className,
 }: GalleryDetailPageProps): JSX.Element => {
-  const { detail } = useParams();
-  console.log(detail);
+  const { state } = useLocation();
+  console.log(state);
 
   return (
     <div className={convertClassNameList(convertClassName(className, styles))}>
-      <GalleryDetail />
+      <GalleryDetail review={state} />
     </div>
   );
 };

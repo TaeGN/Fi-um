@@ -8,7 +8,6 @@ interface BarChartProps {
 
 const BarChart = ({ className, ratio }: BarChartProps): JSX.Element => {
   const width = `${ratio}%`;
-  console.log(width);
 
   return (
     <div

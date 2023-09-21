@@ -55,8 +55,6 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
       <Ranking />
 
       {fundings?.map((funding) => {
-        console.log(funding);
-
         return (
           <div key={funding.itemNo + funding.itemName}>
             <FundingItem {...funding} onModal={onModal} />

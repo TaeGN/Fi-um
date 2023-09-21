@@ -18,6 +18,22 @@ const GalleryPage = ({ className }: GalleryPageProps): JSX.Element => {
   const navigate = useNavigate();
   const userType = userInfo?.userType ?? 3;
   const { data: reviews } = useQuery<Review[], Error>(getReviewsQuery());
+  console.log(reviews);
+
+  const handleMoveReviewDetail = (
+    reviewNo: number,
+    title: string,
+    content: string,
+    imagePath: string,
+  ) => {
+    navigate(`/gallery/${reviewNo}`, {
+      state: {
+        title: title,
+        content: content,
+        imagePath: imagePath,
+      },
+    });
+  };
 
   return (
     <div
@@ -51,6 +67,10 @@ const GalleryPage = ({ className }: GalleryPageProps): JSX.Element => {
               itemImagePath={imagePath}
               title={title}
               content={content}
+              review={true}
+              onClick={() =>
+                handleMoveReviewDetail(reviewNo, title, content, imagePath)
+              }
             />
           ))}
       </div>
