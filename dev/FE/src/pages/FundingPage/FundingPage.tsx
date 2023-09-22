@@ -3,7 +3,7 @@ import styles from './FundingPage.module.scss';
 import { FundingItem, Ranking } from '@/components/organisms';
 import { getFundingsQuery } from '@/api/queries/funding';
 import { useQuery } from '@tanstack/react-query';
-import { Funding, Item, Ranking as RankingType } from '@/types';
+import { Funding, Ranking as RankingType } from '@/types';
 import { Modal } from '@/components/molecules';
 import ModalFunding from '@/components/molecules/utils/Modal/contents/ModalFunding/ModalFunding';
 import useModal from '@/hooks/useModal';
@@ -15,6 +15,7 @@ import { getRankingsQuery, getSponsorShipQuery } from '@/api/queries';
 import { USER_TYPE } from '@/constants';
 import { useMemo } from 'react';
 import { postSponsorshipSupport } from '@/api/sponsor';
+import { postFunding } from '@/api/funding';
 
 interface FundingPageProps {
   className?: string;
@@ -29,19 +30,30 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
   const { data: fundings } =
     userType === USER_TYPE.아이들
       ? useQuery<Funding[], Error>(getFundingsQuery())
-      : useQuery<Item[], Error>(getSponsorShipQuery());
+      : useQuery<Funding[], Error>(getSponsorShipQuery());
+  const [item, setItem] = useState<any>();
   const { data: rankings } = useQuery<RankingType[]>(getRankingsQuery());
   const ranking = useMemo<RankingType | undefined>(() => {
     return rankings?.find((ranking) => ranking.type === '펀딩');
   }, [rankings]);
 
-  const onModal = useCallback(() => {
+  const onModal = useCallback((i: Funding) => {
+    setItem(i);
     setScrollTop(document.documentElement.scrollTop);
     openToggle();
   }, []);
 
-  const sponBtn = () => {
-    postSponsorshipSupport(17, 1000);
+  const sponBtn = (id: number, price: number) => {
+    if (userType === USER_TYPE.아이들) {
+      postFunding(id, price)
+        .then(() => alert('펀딩 성공!'))
+        .catch((err) => alert(err.response.data.msg));
+    } else {
+      postSponsorshipSupport(id, price)
+        .then(() => alert('후원 성공!'))
+        .catch((err) => alert(err.response.data.msg));
+    }
+    closeToggle();
   };
   console.log(fundings);
 
@@ -67,18 +79,18 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
       {ranking && <Ranking ranking={ranking} />}
       {fundings?.map((funding) => {
         return (
-          <div key={funding.itemNo + funding.itemName}>
-            <FundingItem {...funding} onModal={onModal} />
-          </div>
+          <>
+            <div key={funding.itemNo + funding.itemName}>
+              <FundingItem {...funding} onModal={onModal} />
+            </div>
+          </>
         );
       })}
       <Modal scrollTop={scrollTop} isOpen={isOpen} toggle={closeToggle}>
         <ModalFunding
           className={className}
-          onClick={() => {
-            sponBtn();
-            closeToggle();
-          }}
+          item={item}
+          onClick={sponBtn}
           closeToggle={closeToggle}
         />
       </Modal>

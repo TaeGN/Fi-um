@@ -2,12 +2,11 @@ import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
 import styles from './FundingItemStatus.module.scss';
 import { Button, Text } from '@/components/atoms';
 import { Funding } from '@/types';
-import { MouseEvent } from 'react';
 
 interface FundingItemStatusProps {
   className?: string;
   funding: Funding;
-  onModal?: (e: MouseEvent<HTMLButtonElement>) => void;
+  onModal: (i: Funding) => void;
 }
 
 const FundingItemStatus = ({
@@ -15,6 +14,11 @@ const FundingItemStatus = ({
   funding,
   onModal,
 }: FundingItemStatusProps): JSX.Element => {
+  const handleModal = () => {
+    onModal(funding);
+  };
+  console.log(funding);
+
   return (
     <div
       className={convertClassNameList(
@@ -24,9 +28,11 @@ const FundingItemStatus = ({
     >
       <Text
         className="text-lg"
-        text={`${funding.itemName} (${priceFilter(funding.unitPrice)} ${
-          funding.itemCount
-        }개)`}
+        text={`${funding.itemName} (${priceFilter(
+          funding.itemUnitPrice
+            ? funding.itemUnitPrice * 0.3
+            : funding.unitPrice,
+        )} ${funding.itemCount}개)`}
       />
       <Text text={funding.description} />
       <Text
@@ -36,7 +42,7 @@ const FundingItemStatus = ({
         )}
         text={priceFilter(
           funding.itemUnitPrice
-            ? funding.itemUnitPrice
+            ? funding.itemUnitPrice * funding.itemCount * 0.3
             : funding.unitPrice * funding.itemCount,
         )}
       />
@@ -46,10 +52,10 @@ const FundingItemStatus = ({
             'blue bold text-xl',
             styles['funding-item-status__price'],
           )}
-          text={priceFilter(funding.fundingAmount)}
+          text={priceFilter(funding.fundingAmount ?? funding.sponsorshipAmount)}
         />
         <Button
-          onClick={onModal}
+          onClick={handleModal}
           label="펀딩하기"
           className={convertClassNameList(
             'bg-blue white',

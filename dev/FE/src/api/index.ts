@@ -62,7 +62,7 @@ const authInterceptor = (instance: AxiosInstance) => {
       if (error.response) {
         switch (error.response.status) {
           // 토큰 만료
-          // case HTTP_STATUS.BAD_REQUEST:
+          case HTTP_STATUS.BAD_REQUEST:
           // 권한 없음
           case HTTP_STATUS.UNAUTHORIZED:
             const user = sessionStorage.getItem('user');

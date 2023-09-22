@@ -3,7 +3,7 @@ import { authApi } from '.';
 
 // 후기 게시글 전체 조회
 const getReviews = async () => {
-  return await authApi.get(`reviews`).then((res) => res?.data ?? []);
+  return await authApi.get(`reviews`).then(({ data }) => data);
 };
 
 // 후기 게시글 상세 조회

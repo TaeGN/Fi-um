@@ -2,12 +2,11 @@ import { FundingItemStatus, RankingCard } from '@/components/molecules';
 import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './FundingDescription.module.scss';
 import { Funding, Item } from '@/types';
-import { MouseEvent } from 'react';
 
 interface FundingDescriptionProps {
   className?: string;
   funding: Funding | Item;
-  onModal?: (e: MouseEvent<HTMLButtonElement>) => void;
+  onModal: (i: Funding) => void;
 }
 
 const FundingDescription = ({

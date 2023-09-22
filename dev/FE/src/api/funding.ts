@@ -22,8 +22,8 @@ const getFundingRecords = async (): Promise<FundingRecord[]> => {
 };
 
 // 펀딩하기
-const postFunding = async (money: number): Promise<string> => {
-  return await authApi.post(`funding`, money);
+const postFunding = async (itemNo: number, money: number): Promise<string> => {
+  return await authApi.post(`funding/${itemNo}`, { money: money });
 };
 
 export {
