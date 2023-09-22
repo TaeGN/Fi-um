@@ -66,7 +66,7 @@ const FundingItem = ({
                 funding.fundingAmount !== 0
                   ? (funding.fundingAmount /
                       (funding.itemUnitPrice * funding.itemCount)) *
-                    100
+                    300
                   : 0
               }
             />

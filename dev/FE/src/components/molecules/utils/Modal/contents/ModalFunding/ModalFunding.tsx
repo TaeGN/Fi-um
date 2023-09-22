@@ -144,7 +144,7 @@ const ModalFunding = ({
           text={priceFilter(
             item.unitPrice
               ? item.unitPrice * item.itemCount
-              : item.itemUnitPrice * item.itemCount,
+              : item.itemUnitPrice * item.itemCount * 0.3,
           )}
         />
       </div>
