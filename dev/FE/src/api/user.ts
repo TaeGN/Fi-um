@@ -55,6 +55,7 @@ const getreissue = async (refreshToken: string): Promise<string> => {
     .catch((error) => {
       // 재 로그인 필요
       if (error.response.status === HTTP_STATUS.FORBIDDEN) {
+        userLogout();
         alert('로그인 만료!!');
         window.location.href = '/login';
       }
@@ -90,7 +91,7 @@ const userLogin = async (userDetail: UserDetail) => {
   return await api.post('user/login', userDetail);
 };
 
-// 로그인
+// 로그아웃
 const userLogout = async (): Promise<string> => {
   return await authApi.post('user/logout').then(({ data }) => {
     sessionStorage.setItem('user', '');

@@ -13,6 +13,7 @@ import {
   StockDetailPage,
   StockPage,
 } from '@/pages';
+import EducationPage from '@/pages/EducationPage/EducationPage';
 import TossSuccessPage from '@/pages/TossPaymentPage/TossSuccessPage';
 import { Route, Routes, Outlet } from 'react-router-dom';
 
@@ -36,6 +37,7 @@ const Router = ({ className }: { className?: string }) => {
           <Route path="gallery/:detail" element={<GalleryDetailPage />} />
           <Route path="tosspay" element={<CheckoutPage />} />
           <Route path="tosspay/success" element={<TossSuccessPage />} />
+          <Route path="education" element={<EducationPage />} />
         </Route>
       </Routes>
     </div>

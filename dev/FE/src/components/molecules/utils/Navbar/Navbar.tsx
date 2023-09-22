@@ -204,6 +204,19 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
             <Text className="text-lg" text="Home" />
           </div>
         </Link>
+        <Link
+          className={convertClassNameList(styles['navbar__menu--item'])}
+          to={'/education'}
+        >
+          <div className="flex-container-col align-center">
+            <img
+              style={{ width: '30px', height: '30px' }}
+              src={imgUrl('navbaricon/home.png')}
+              alt=""
+            />
+            <Text className="text-lg" text="교육" />
+          </div>
+        </Link>
 
         {links}
       </div>

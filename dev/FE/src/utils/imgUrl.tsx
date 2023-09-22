@@ -26,4 +26,12 @@ const eduBook = (): JSX.Element[] => {
   return data;
 };
 
-export { imgUrl, bankIconUrl, eduBook, apiImgUrl };
+const eduBookUrl = (): string[] => {
+  const data = [];
+  for (let index = 1; index <= 291; index++) {
+    data.push(imageUrl + String(index) + `.png`);
+  }
+  return data;
+};
+
+export { imgUrl, bankIconUrl, eduBook, apiImgUrl, eduBookUrl };

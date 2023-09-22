@@ -28,8 +28,6 @@ const MainPage = () => {
         )}
       </div>
       <Funding fundings={fundings} />
-
-      {/* <div className={styles['main-page__education']}>{eduBook()}</div> */}
     </div>
   );
 };

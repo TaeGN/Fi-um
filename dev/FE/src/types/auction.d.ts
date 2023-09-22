@@ -1,7 +1,4 @@
 interface Auction extends ArtistAuction {
-  // auctionNo: number;
-  // title: string;
-  // winner: number | null;
   itemImagePath: string;
   auctionPrice: number;
   content: string;
