@@ -99,12 +99,12 @@ def makeCountValance(searchTime, userNo, money):
         return jsonify({"error": str(e)})
 
 
-@app.route("/<int:searchTime>/<int:userNo>")
+@app.route("/api/v1/<int:searchTime>/<int:userNo>")
 def valance(searchTime, userNo):
     return makeValance(searchTime, userNo)
 
 
-@app.route("/<int:searchTime>/<int:userNo>/<int:money>")
+@app.route("/api/v1/<int:searchTime>/<int:userNo>/<int:money>")
 def makeCount(searchTime, userNo, money):
     return makeCountValance(searchTime, userNo, money)
 
