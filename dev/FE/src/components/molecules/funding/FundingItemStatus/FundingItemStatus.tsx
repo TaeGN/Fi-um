@@ -40,11 +40,11 @@ const FundingItemStatus = ({
           'blue bold text-xl',
           styles['funding-item-status__price'],
         )}
-        text={priceFilter(
+        text={`목표 금액 : ${priceFilter(
           funding.itemUnitPrice
             ? funding.itemUnitPrice * funding.itemCount * 0.3
             : funding.unitPrice * funding.itemCount,
-        )}
+        )}`}
       />
       <div className="flex-container jc-space-between flex-wrap">
         <Text
@@ -52,7 +52,9 @@ const FundingItemStatus = ({
             'blue bold text-xl',
             styles['funding-item-status__price'],
           )}
-          text={priceFilter(funding.fundingAmount ?? funding.sponsorshipAmount)}
+          text={`현재 금액 : ${priceFilter(
+            funding.fundingAmount ?? funding.sponsorshipAmount,
+          )}`}
         />
         <Button
           onClick={handleModal}
