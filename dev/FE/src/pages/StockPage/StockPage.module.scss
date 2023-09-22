@@ -9,20 +9,37 @@
 
 .allStocks {
   width: 50%;
+  height: 500px;
+  &__title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 0.3rem 0.5rem;
+  }
 }
 
 .rankingWrapper {
   display: flex;
+  flex-wrap: wrap;
   width: 80%;
   justify-content: center;
+  &__title {
+    width: 100%;
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 0.3rem 0.5rem;
+  }
+  .rankingItem {
+    width: 33%;
+  }
 }
 
 .newsWrapper {
   width: 30%;
+  height: 500px;
 }
 
 .newsTitle {
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-weight: 600;
   padding: 0.3rem 0.5rem;
 }

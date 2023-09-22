@@ -32,8 +32,9 @@ const StockPage = () => {
   return (
     <div className={styles.stockPage}>
       <div className={styles.allStocks}>
+        <div className={styles.allStocks__title}>주식 리스트</div>
         {isAllStocksLoading === 'success' ? (
-          <Table data={allStocks} onClick={navigate} />
+          <Table data={allStocks} onClick={navigate} checkPagination={true} />
         ) : (
           ''
         )}
@@ -96,11 +97,12 @@ const StockPage = () => {
         </Accordion>
       </div>
       <div className={styles.rankingWrapper}>
+        <div className={styles.rankingWrapper__title}>주식 랭킹왕</div>
         {isStockKingLoading === 'success'
           ? stockKing.map((item) => {
-              console.log(item);
               return (
                 <StockRanking
+                  className={styles.rankingItem}
                   key={item.userName}
                   title={item.userName}
                   stockList={item.stockList}
