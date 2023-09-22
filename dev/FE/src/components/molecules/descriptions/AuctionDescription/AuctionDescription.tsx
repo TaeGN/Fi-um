@@ -1,16 +1,12 @@
 import { Button, Text } from '@/components/atoms';
-import {
-  convertClassName,
-  convertClassNameList,
-  formatCurrency,
-} from '@/utils';
+import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
 import styles from './AuctionDescription.module.scss';
 
 interface AuctionDescriptionProps {
   className?: string;
   title: string;
-  auctionPrice: string;
-  instantPrice: string;
+  auctionPrice: number;
+  instantPrice: number;
   auctionClick: () => void;
   buyItClick: () => void;
 }
@@ -33,11 +29,11 @@ const AuctionDescription = ({
       <Text className="text-xl" text={title} />
       <div>
         <Text className="text-lg" text="현재가" /> :
-        <Text className="blue" text={formatCurrency(auctionPrice)} />
+        <Text className="blue" text={priceFilter(auctionPrice)} />
       </div>
       <div>
         <Text className="text-lg" text="즉시구매가" /> :
-        <Text className="blue" text={formatCurrency(instantPrice)} />
+        <Text className="blue" text={priceFilter(instantPrice)} />
       </div>
       <div>
         <Text className="text-lg" text="남은 시간" /> :

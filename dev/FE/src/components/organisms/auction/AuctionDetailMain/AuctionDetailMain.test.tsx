@@ -16,8 +16,8 @@ describe('AuctionDetailMain 컴포넌트', () => {
         buyItClick={() => {
           console.log('즉시구매');
         }}
-        auctionPrice="123123"
-        instantPrice="2359820"
+        auctionPrice={123123}
+        instantPrice={2359820}
       />,
     );
     userEvent.setup();

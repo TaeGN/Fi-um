@@ -28,7 +28,7 @@ const Router = ({ className }: { className?: string }) => {
           <Route path="stock" element={<StockPage />} />
           <Route path="stock/:detail" element={<StockDetailPage />} />
           <Route path="auction" element={<AuctionPage />} />
-          <Route path="auction/:detail" element={<AuctionDetailPage />} />
+          <Route path="auction/:auctionNo" element={<AuctionDetailPage />} />
           <Route path="create" element={<CreatePage />} />
           <Route path="deposit" element={<DepositPage />} />
           <Route path="funding" element={<FundingPage />} />

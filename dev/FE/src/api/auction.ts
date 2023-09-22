@@ -31,10 +31,12 @@ const postAuctionBid = async ({
   auctionNo,
   auctionPrice,
 }: {
-  auctionNo: string;
-  auctionPrice: string;
+  auctionNo: number;
+  auctionPrice: number;
 }): Promise<string> => {
-  return await authApi.post(`auction/${auctionNo}`, auctionPrice);
+  return await authApi
+    .post(`auction/bid/${auctionNo}`, { auctionPrice })
+    .then(({ data }) => data.msg);
 };
 
 // 경매 물품 내용 수정

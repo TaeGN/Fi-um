@@ -12,8 +12,8 @@ interface AuctionDetailMainProps {
   descriptionClassName?: string;
   auctionClick: () => void;
   buyItClick: () => void;
-  auctionPrice: string;
-  instantPrice: string;
+  auctionPrice: number;
+  instantPrice: number;
 }
 
 const AuctionDetailMain = ({

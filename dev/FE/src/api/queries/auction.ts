@@ -40,8 +40,8 @@ const postAuctionBidQuery = ({
   auctionNo,
   auctionPrice,
 }: {
-  auctionNo: string;
-  auctionPrice: string;
+  auctionNo: number;
+  auctionPrice: number;
 }) => {
   return {
     mutationFn: () =>
