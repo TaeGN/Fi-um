@@ -1,4 +1,5 @@
 package com.example.pium.controller;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
@@ -17,15 +18,18 @@ import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
-
+@CrossOrigin(origins = "*")
 @RestController
+@Slf4j
 public class ImageUploadController {
 
     private static final String UPLOAD_DIR = "/app/images";
 
     @PostMapping("/image")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+        log.info("request to /api/v1//image [Method: POST]");
         try {
             // 원래 파일의 확장자 가져오기
             String originalFilename = file.getOriginalFilename();
@@ -40,16 +44,18 @@ public class ImageUploadController {
             // 파일 저장
             file.transferTo(new File(path.toString()));
 
-            String imageUrl = "/image/" + uniqueFilename;
+            String imageUrl = "image/" + uniqueFilename;
             return new ResponseEntity<>(imageUrl, HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
+            log.error("INTERNAL_SERVER_ERROR");
             return new ResponseEntity<>("Failed to upload the file", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/image/{filename:.+}")
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+        log.info("request to /api/v1//image/{filename} [Method: GET]");
         Path file = Paths.get(UPLOAD_DIR).resolve(filename);
         try {
             Resource resource = new UrlResource(file.toUri());
@@ -57,9 +63,11 @@ public class ImageUploadController {
                 String contentType = determineContentType(filename);
                 return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType)).body(resource);
             } else {
+                log.error("NOT_FOUND ERROR");
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
         } catch (MalformedURLException e) {
+            log.error("NOT_FOUND ERROR");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }

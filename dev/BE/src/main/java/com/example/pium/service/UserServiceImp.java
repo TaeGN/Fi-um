@@ -125,7 +125,6 @@ public class UserServiceImp {
                 .collect(Collectors.toList());
 
         List<UserDepositSavingDto> userDepositSavingDtoList = new ArrayList<>();
-        System.out.println(nlist.size());
         for(UserDepositSavingInterface u : nlist){
             UserDepositSavingDto userDepositSavingDto = new UserDepositSavingDto();
             userDepositSavingDto.setSavingBalance(u.getSavingBalance());
@@ -205,6 +204,12 @@ public class UserServiceImp {
         tokenResponseDto.setRefreshToken(refreshToken);
         return tokenResponseDto;
 
+    }
+
+    public void updateBalanceSheetPoint(Integer userNo, Integer amount){
+        BalanceSheetEntity balanceSheetEntity = balanceSheetRepository.findByUserNo(userRepository.findByUserNo(userNo).get()).get();
+        balanceSheetEntity.setPoint(balanceSheetEntity.getPoint()+amount);
+        balanceSheetRepository.save(balanceSheetEntity);
     }
 
     public boolean checkRefreshToken(String token){

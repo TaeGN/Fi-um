@@ -41,7 +41,7 @@ public class UserController {
     // 유저 로그인
     @PostMapping("login")
     public ResponseEntity<UserInfoDto> login(@RequestBody UserLoginDto userLoginDto){
-        System.out.println(userLoginDto);
+        log.info("request to /api/v1/user/login [Method: POST]");
         if(userService.check(userLoginDto)){
             TokenResponseDto tokenResponseDto = userService.getTokenResponse(userService.getUserNo(userLoginDto.getUserId()));
             UserEntity user = userService.getUserInfoById(userLoginDto.getUserId());
@@ -58,6 +58,7 @@ public class UserController {
     // 유저 로그아웃
     @PostMapping("logout")
     public ResponseEntity<ReturnMessageDto> logout(HttpServletRequest request){
+        log.info("request to /api/v1/user/logout [Method: POST]");
         Integer userNo = (Integer) request.getAttribute("userNo");
         userService.deleteRefreshToken(userNo);
         ReturnMessageDto returnMessageDto = new ReturnMessageDto();
@@ -68,8 +69,8 @@ public class UserController {
     //특정 아이의 예/적금 조회
     @GetMapping("deposit-saving")
     public ResponseEntity<List<UserDepositSavingDto>> getUserDepositSaving(HttpServletRequest request){
+        log.info("request to /api/v1/user/deposit-saving [Method: GET]");
         Integer userNo = (Integer) request.getAttribute("userNo");
-        System.out.println(userNo);
         List<UserDepositSavingDto> userDepositSavingInterface = userService.getUserDepositSaving(userNo);
         return ResponseEntity.ok(userDepositSavingInterface);
     }
@@ -77,6 +78,7 @@ public class UserController {
     //라이벌 등록
     @PostMapping("rival")
     public ResponseEntity<ReturnMessageDto> registRival(HttpServletRequest request, @RequestBody UserNoDto userNoDto){
+        log.info("request to /api/v1/user/rival [Method: POST]");
         Integer userNo = (Integer) request.getAttribute("userNo");
         Integer rivalNo = userNoDto.getUserNo();
         boolean check = userService.existRival(userNo);
@@ -84,10 +86,12 @@ public class UserController {
         if(!check){
             userService.registRival(userNo,rivalNo);
             returnMessageDto.setMsg("등록 성공");
+            log.info("유저번호 : "+userNo+" 님이 "+rivalNo+" 님을 라이벌로 등록하였습니다.");
             return ResponseEntity.ok(returnMessageDto);
         }
         else{
             returnMessageDto.setMsg("이미 등록된 라이벌이 있습니다.");
+            log.error("이미 등록된 라이벌이 있습니다.");
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(returnMessageDto);
         }
 
@@ -96,6 +100,7 @@ public class UserController {
     // 라이벌 변경
     @PutMapping("rival")
     public ResponseEntity<ReturnMessageDto> updateRival(HttpServletRequest request, @RequestBody UserNoDto userNoDto){
+        log.info("request to /api/v1/user/rival [Method: PUT]");
         Integer userNo = (Integer) request.getAttribute("userNo");
         Integer rivalNo = userNoDto.getUserNo();
         userService.updateRival(userNo,rivalNo);
@@ -108,6 +113,7 @@ public class UserController {
     // 라이벌 해제
     @DeleteMapping("rival")
     public ResponseEntity<ReturnMessageDto> deleteRival(HttpServletRequest request){
+        log.info("request to /api/v1/user/rival [Method: DELETE]");
         Integer userNo = (Integer) request.getAttribute("userNo");
         userService.deleteRival(userNo);
         ReturnMessageDto returnMessageDto = new ReturnMessageDto();
@@ -119,7 +125,7 @@ public class UserController {
     // 전체 아이들의 자산 현황
     @GetMapping("total-capital")
     public List<ChildCapitalDto> getChildCapital(HttpServletRequest request){
-        Integer userNo = (Integer) request.getAttribute("userNo");
+        log.info("request to /api/v1/user/total-capital [Method: GET]");
         Long startTime =  System.currentTimeMillis()-(1000*60*60*2) ;
 
         return userService.getTotalCapital(startTime);
@@ -128,9 +134,10 @@ public class UserController {
     // 개인 정보 조회
     @GetMapping
     public ResponseEntity<?> getMyData(HttpServletRequest request){
+        log.info("request to /api/v1/user [Method: GET]");
         Integer userNo = (Integer) request.getAttribute("userNo");
         int type = userService.getType(userNo);
-
+        log.info("조회한 유저 타입 : "+type);
         // 아이들 or 원장쌤
        if(type == 2 || type == 1){
             ChildUserDto childUserDto = userService.getChildData(userNo);
@@ -147,6 +154,7 @@ public class UserController {
     // 특정 아이의 재무상태표 조회
     @GetMapping("capital/{userNo}")
     public ResponseEntity<UserBalanceSheetInterface> getUserBalanceSheet(@PathVariable("userNo") Integer userNo){
+        log.info("request to /api/v1/user/capital/{userNo} [Method: GET]");
         UserBalanceSheetInterface userBalanceSheetInterface = userService.getUserBalanceSheet(userNo);
         return ResponseEntity.ok(userBalanceSheetInterface);
     }
@@ -154,7 +162,7 @@ public class UserController {
     // 특정 아이의 예술품(경매품) 전체 조회
     @GetMapping("artist/{userNo}")
     public List<UserAuctionDto> getAuctionList(@PathVariable("userNo") int artistNo){
-
+        log.info("request to /api/v1/user/artist/{userNo} [Method: GET]");
         List<UserAuctionDto> auctionDtoList = userService.getAuctionList(artistNo);
 
         return auctionDtoList;
@@ -163,7 +171,7 @@ public class UserController {
     // Access token 만료시 헤더에 refresh token 을 담아서  해당 컨트롤러로 요청
     @GetMapping("reissue")
     public ResponseEntity<AccessTokenDto> reissue(@RequestHeader HttpHeaders header){
-
+        log.info("request to /api/v1/user/reissue [Method: GET]");
         AccessTokenDto accessTokenDto = new AccessTokenDto();
         try{
             String refreshToken = header.getFirst("X-REFRESH-TOKEN");
@@ -175,11 +183,13 @@ public class UserController {
             }
             else{
                 accessTokenDto.setToken("다시 로그인 해주세요.");
+                log.error("리프래시 토큰 만료 ==> 다시 로그인 ");
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(accessTokenDto);
             }
         }
         catch (ExpiredJwtException e){
             accessTokenDto.setToken("다시 로그인 해주세요.");
+            log.error("리프래시 토큰 만료 ==> 다시 로그인 ");
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(accessTokenDto);
         }
     }
@@ -187,13 +197,16 @@ public class UserController {
     // 유저 회원가입
     @PostMapping("signup")
     public ResponseEntity<ReturnMessageDto> signUp(@RequestBody SignUpDto signUpDto){
+        log.info("request to /api/v1/user/signup [Method: POST]");
         ReturnMessageDto returnMessageDto = new ReturnMessageDto();
         if(signUpDto.getUserId().length() < 4 || signUpDto.getPassword().length() < 8  || signUpDto.getUserName().length() < 2){
            returnMessageDto.setMsg("입력 정보를 확인하세요.");
+           log.error("입력 정보 에러 ==> 아이디 길이 또는 패스워드 길이 또는 이름 길이를 확인하세요.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(returnMessageDto);
         }
         if(userService.isUserIdExist(signUpDto.getUserId())){
             returnMessageDto.setMsg("아이디 중복.");
+            log.error("아이디 중복");
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(returnMessageDto);
         }
         UserEntity userEntity = UserEntity.builder()
@@ -206,7 +219,7 @@ public class UserController {
                 .build();
 
         userService.save(userEntity);
-
+        log.info("회원가입 완료");
         returnMessageDto.setMsg("회원 가입이 성공적으로 완료되었습니다.");
         return ResponseEntity.ok(returnMessageDto);
 
@@ -215,7 +228,7 @@ public class UserController {
     // 아이디 중복체크
     @GetMapping("check-id")
     public ResponseEntity<ReturnMessageDto> userCheckId(@RequestParam String userId) {
-
+        log.info("request to /api/v1/user/check-id [Method: GET]");
         // 아이디가 있는지 여부 파악
         boolean exists = userService.isUserIdExist(userId);
         ReturnMessageDto returnMessageDto = new ReturnMessageDto();
@@ -229,6 +242,7 @@ public class UserController {
 
     @PutMapping("profile-image")
     public  ResponseEntity<ReturnMessageDto> changeImage(HttpServletRequest request, @RequestBody UserImageDto userImage) {
+        log.info("request to /api/v1/user/profile-image [Method: PUT]");
         Integer userNo = (Integer) request.getAttribute("userNo");
         userService.changeImage(userNo, userImage.getImagePath());
         ReturnMessageDto returnMessageDto = new ReturnMessageDto();
