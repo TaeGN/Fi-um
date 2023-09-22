@@ -12,7 +12,9 @@ import {
   AccordionItemButton,
   AccordionItemHeading,
   AccordionItemPanel,
+  AccordionItemState,
 } from 'react-accessible-accordion';
+import { convertClassNameList } from '@/utils';
 
 const StockPage = () => {
   const { data: allStocks, status: isAllStocksLoading } = useQuery<
@@ -37,16 +39,56 @@ const StockPage = () => {
         )}
       </div>
       <div className={styles.newsWrapper}>
-        <Accordion preExpanded={['a', 'c']}>
+        <div className={styles.newsTitle}>최신 뉴스</div>
+        <Accordion allowZeroExpanded={true}>
           {recentNews &&
             recentNews.map((item) => {
               return (
                 <AccordionItem key={item.newsNo}>
-                  <AccordionItemHeading className={styles.accordionHeader}>
-                    <AccordionItemButton>{item.newsTitle}</AccordionItemButton>
+                  <AccordionItemHeading>
+                    <AccordionItemButton>
+                      <AccordionItemState>
+                        {({ expanded }) =>
+                          expanded ? (
+                            <>
+                              <div
+                                className={convertClassNameList(
+                                  styles.open,
+                                  styles.accordionHeader,
+                                )}
+                              >
+                                <span
+                                  className={convertClassNameList(
+                                    styles.title,
+                                    styles.title__open,
+                                  )}
+                                >
+                                  {item.newsTitle}
+                                </span>
+                                <div className={styles.angle__down}></div>
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              <div
+                                className={convertClassNameList(
+                                  styles.close,
+                                  styles.accordionHeader,
+                                )}
+                              >
+                                <span className={styles.title}>
+                                  {item.newsTitle}
+                                </span>
+                                <div className={styles.angle__up}></div>
+                              </div>
+                            </>
+                          )
+                        }
+                      </AccordionItemState>
+                    </AccordionItemButton>
                   </AccordionItemHeading>
                   <AccordionItemPanel className={styles.accordionItem}>
-                    <p>{item.newsContent}</p>
+                    <span>{item.newsContent}</span>
                   </AccordionItemPanel>
                 </AccordionItem>
               );
