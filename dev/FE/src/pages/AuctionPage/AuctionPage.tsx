@@ -7,6 +7,7 @@ import { Auction } from '@/types';
 import { getAuctionsQuery } from '@/api/queries/auction';
 import useAuth from '@/hooks/useAuth';
 import { Button } from '@/components/atoms';
+import { USER_TYPE } from '@/constants';
 
 interface AuctionPageProps {
   className?: string;
@@ -30,7 +31,7 @@ const AuctionPage = ({ className }: AuctionPageProps): JSX.Element => {
         'flex-container-col',
       )}
     >
-      {userType === 1 && (
+      {userType === USER_TYPE.아이들 && (
         <Button
           className={convertClassNameList(
             convertClassName(className, styles),

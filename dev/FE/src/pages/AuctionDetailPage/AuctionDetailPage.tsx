@@ -9,6 +9,8 @@ import { Auction } from '@/types';
 import { getAuctionDetailByAuctionNoQuery } from '@/api/queries';
 import useModal from '@/hooks/useModal';
 import { Button } from '@/components/atoms';
+import { getUserArtist } from '@/api/user';
+import { useEffect, useState } from 'react';
 
 interface AuctionDetailPageProps {
   className?: string;
@@ -17,10 +19,27 @@ interface AuctionDetailPageProps {
 const AuctionDetailPage = ({
   className,
 }: AuctionDetailPageProps): JSX.Element => {
+  const [auctionPrice, setAuctionPrice] = useState<number>(0);
   const { auctionNo = '' } = useParams();
-  const { data: auction } = useQuery<Auction>(
+  const { data: auction, status: isAuctionLoading } = useQuery<Auction>(
     getAuctionDetailByAuctionNoQuery(auctionNo),
   );
+
+  useEffect(() => {
+    if (isAuctionLoading === 'success') {
+      setAuctionPrice(auction.auctionPrice + 100);
+    }
+  }, [auction]);
+
+  const checkAuctionPrice = (): boolean => {
+    if (auction && auctionPrice < auction.auctionPrice + 100) {
+      alert('최소 100원 이상 상회 입찰해야 합니다.');
+      setAuctionPrice(auction.auctionPrice + 100);
+      return false;
+    }
+    return true;
+  };
+
   const postAuctionBidMutation = useMutation(
     ({
       auctionNo,
@@ -34,6 +53,7 @@ const AuctionDetailPage = ({
         console.log(data);
 
         alert(data);
+        closeToggle();
       },
       onError(error) {
         console.log(error);
@@ -42,7 +62,15 @@ const AuctionDetailPage = ({
       },
     },
   );
-  const { isOpen, closeToggle } = useModal();
+  const { isOpen, closeToggle, openToggle } = useModal();
+
+  const [arts, setArts] = useState();
+
+  useEffect(() => {
+    getUserArtist({
+      queryKey: ['', auction?.userNo],
+    }).then((res: any) => setArts(res.data));
+  }, [auction]);
 
   return (
     <div
@@ -60,14 +88,14 @@ const AuctionDetailPage = ({
           imageClassName=""
           descriptionClassName={auction.content}
           auctionClick={() => {
-            if (window.confirm('경매 하시겠습니까?'))
-              postAuctionBidMutation.mutate({
-                auctionNo: auction.auctionNo,
-                auctionPrice: auction.auctionPrice + 100,
-              });
+            openToggle();
           }}
           buyItClick={() => {
-            if (window.confirm('즉시구매 하시겠습니까?'))
+            if (
+              window.confirm(
+                `${auction.instantPrice}원에 즉시구매 하시겠습니까?`,
+              )
+            )
               postAuctionBidMutation.mutate({
                 auctionNo: auction.auctionNo,
                 auctionPrice: auction.instantPrice,
@@ -75,6 +103,7 @@ const AuctionDetailPage = ({
           }}
           auctionPrice={auction.auctionPrice}
           instantPrice={auction.instantPrice}
+          createdTime={auction.createdTime}
         />
       )}
       <AuctionDetailDescription
@@ -85,17 +114,30 @@ const AuctionDetailPage = ({
       />
       <CreaterProfile
         className={convertClassNameList(styles['auction-detail-page__profile'])}
+        arts={arts}
       />
       {auction && (
         <Modal isOpen={isOpen} toggle={closeToggle}>
           <>
+            <div>현재가: {auction.auctionPrice} 원</div>
+            <div>최소 경매 금액: {auction.auctionPrice + 100} 원</div>
+            <input
+              type="number"
+              value={auctionPrice}
+              onChange={(e) => {
+                setAuctionPrice(Number(e.target.value));
+              }}
+              onBlur={checkAuctionPrice}
+            />
             <Button
               label="경매하기"
               onClick={() => {
-                postAuctionBidMutation.mutate({
-                  auctionNo: auction.auctionNo,
-                  auctionPrice: auction.auctionPrice + 100,
-                });
+                if (checkAuctionPrice()) {
+                  postAuctionBidMutation.mutate({
+                    auctionNo: auction.auctionNo,
+                    auctionPrice: auctionPrice,
+                  });
+                }
               }}
             />
           </>

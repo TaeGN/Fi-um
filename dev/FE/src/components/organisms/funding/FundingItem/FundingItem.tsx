@@ -3,7 +3,7 @@ import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './FundingItem.module.scss';
 import { Image, Text } from '@/components/atoms';
 import { FundingBar, FundingDescription } from '@/components/molecules';
-import { MouseEvent } from 'react';
+import { Funding } from '@/types';
 
 interface FundingItemProps {
   className?: string;
@@ -16,7 +16,7 @@ interface FundingItemProps {
   description: string;
   unitPrice: number;
   sponsorshipAmount: number;
-  onModal?: (e: MouseEvent<HTMLButtonElement>) => void;
+  onModal: (i: Funding) => void;
 }
 
 const FundingItem = ({
@@ -59,12 +59,14 @@ const FundingItem = ({
           />
           {funding.itemUnitPrice ? (
             <FundingBar
-              itemUnitPrice={funding.itemUnitPrice}
+              itemUnitPrice={funding.itemUnitPrice * funding.itemCount * 0.3}
               fundingAmount={funding.fundingAmount}
               itemCount={funding.itemCount}
               ratio={
                 funding.fundingAmount !== 0
-                  ? (funding.fundingAmount / funding.itemUnitPrice) * 100
+                  ? (funding.fundingAmount /
+                      (funding.itemUnitPrice * funding.itemCount)) *
+                    300
                   : 0
               }
             />

@@ -224,7 +224,7 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
           <div className="flex-container-col align-center">
             <img
               style={{ width: '30px', height: '30px' }}
-              src={imgUrl('navbaricon/home.png')}
+              src={imgUrl('navbaricon/education.png')}
               alt=""
             />
             <Text className="text-lg" text="교육" />

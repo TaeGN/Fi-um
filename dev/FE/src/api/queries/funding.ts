@@ -39,9 +39,9 @@ const getFundingRecordsQuery = () => {
 };
 
 // 펀딩하기 버튼
-const postFundingQuery = (money: number) => {
+const postFundingQuery = (itemNo: number, money: number) => {
   return {
-    mutationFn: () => postFunding(money),
+    mutationFn: () => postFunding(itemNo, money),
   };
 };
 
