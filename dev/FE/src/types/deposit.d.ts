@@ -4,6 +4,7 @@ interface MyDeposit {
   interestRate: number;
   primeInterestRate: number;
   savingBalance: number;
+  description?: string;
 }
 
 interface Deposit {
