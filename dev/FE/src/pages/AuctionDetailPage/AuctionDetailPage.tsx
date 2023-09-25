@@ -26,15 +26,17 @@ const AuctionDetailPage = ({
 
   useEffect(() => {
     if (isAuctionLoading === 'success') {
-      setAuctionPrice(auction.auctionPrice);
+      setAuctionPrice(auction.auctionPrice + 100);
     }
   }, [auction]);
 
-  const handleBlur = () => {
-    if (auction && auctionPrice < auction.auctionPrice) {
-      alert('입력하신 경매 금액이 현재 경매 금액보다 작습니다.');
-      setAuctionPrice(auction.auctionPrice);
+  const checkAuctionPrice = (): boolean => {
+    if (auction && auctionPrice < auction.auctionPrice + 100) {
+      alert('최소 100원 이상 상회 입찰해야 합니다.');
+      setAuctionPrice(auction.auctionPrice + 100);
+      return false;
     }
+    return true;
   };
 
   const postAuctionBidMutation = useMutation(
@@ -75,15 +77,14 @@ const AuctionDetailPage = ({
           imageClassName=""
           descriptionClassName={auction.content}
           auctionClick={() => {
-            // if (window.confirm('경매 하시겠습니까?'))
-            //   postAuctionBidMutation.mutate({
-            //     auctionNo: auction.auctionNo,
-            //     auctionPrice: auction.auctionPrice + 100,
-            //   });
             openToggle();
           }}
           buyItClick={() => {
-            if (window.confirm('즉시구매 하시겠습니까?'))
+            if (
+              window.confirm(
+                `${auction.instantPrice}원에 즉시구매 하시겠습니까?`,
+              )
+            )
               postAuctionBidMutation.mutate({
                 auctionNo: auction.auctionNo,
                 auctionPrice: auction.instantPrice,
@@ -91,6 +92,7 @@ const AuctionDetailPage = ({
           }}
           auctionPrice={auction.auctionPrice}
           instantPrice={auction.instantPrice}
+          createdTime={auction.createdTime}
         />
       )}
       <AuctionDetailDescription
@@ -105,21 +107,25 @@ const AuctionDetailPage = ({
       {auction && (
         <Modal isOpen={isOpen} toggle={closeToggle}>
           <>
+            <div>현재가: {auction.auctionPrice} 원</div>
+            <div>최소 경매 금액: {auction.auctionPrice + 100} 원</div>
             <input
               type="number"
               value={auctionPrice}
               onChange={(e) => {
                 setAuctionPrice(Number(e.target.value));
               }}
-              onBlur={handleBlur}
+              onBlur={checkAuctionPrice}
             />
             <Button
               label="경매하기"
               onClick={() => {
-                postAuctionBidMutation.mutate({
-                  auctionNo: auction.auctionNo,
-                  auctionPrice: auctionPrice,
-                });
+                if (checkAuctionPrice()) {
+                  postAuctionBidMutation.mutate({
+                    auctionNo: auction.auctionNo,
+                    auctionPrice: auctionPrice,
+                  });
+                }
               }}
             />
           </>
