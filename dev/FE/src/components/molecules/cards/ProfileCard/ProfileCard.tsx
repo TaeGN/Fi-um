@@ -45,6 +45,7 @@ const ProfileCard = ({ className, myPage, src, alt }: ProfileCardProps) => {
     resetUserInfo();
     closeToggle();
   };
+
   return (
     <div
       className={`${styles['profile-card']} ${convertClassName(
