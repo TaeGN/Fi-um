@@ -19,15 +19,13 @@ const DepositProduct = ({
   const { bankLogoClassName } = useMemo(() => {
     let bankLogoClassName = undefined;
     switch (deposit.bankName) {
-      case '신한은행':
+      case '햇살은행':
         bankLogoClassName = 'shinhan normal';
         break;
-      case '국민은행':
+      case '유니콘은행':
         bankLogoClassName = 'kb normal';
         break;
-      case '하나은행':
-        bankLogoClassName = 'hana normal';
-        break;
+
       default:
         bankLogoClassName = 'hana normal';
         break;
@@ -84,7 +82,7 @@ const DepositProduct = ({
               >
                 <Text text="거치기간: 7일" />
                 <Text
-                  text={`이자율: ${deposit.interestRate}% ~ ${
+                  text={`이자율: ${
                     deposit.interestRate + deposit.primeInterestRate
                   }%`}
                 />
@@ -94,7 +92,7 @@ const DepositProduct = ({
                 label="해지"
                 value="해지"
                 className={convertClassNameList(
-                  'bg-red xsmall',
+                  'bg-red white xsmall',
                   styles['deposit-product__item'],
                 )}
               />

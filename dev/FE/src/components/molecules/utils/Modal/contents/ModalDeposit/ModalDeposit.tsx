@@ -29,6 +29,7 @@ const ModalDeposit = ({
   const maxCount = label === '출금' ? savingBalance : point;
 
   const onClick = useCallback(() => {
+    if (count <= 0) return;
     if (!window.confirm(`${label} 하시겠습니까?`)) return;
 
     switch (label) {
