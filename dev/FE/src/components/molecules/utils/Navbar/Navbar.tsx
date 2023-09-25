@@ -1,4 +1,9 @@
-import { convertClassName, convertClassNameList, imgUrl } from '@/utils';
+import {
+  convertClassName,
+  convertClassNameList,
+  imgUrl,
+  priceFilter,
+} from '@/utils';
 import styles from './Navbar.module.scss';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '@/hooks/useAuth';
@@ -141,6 +146,14 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
             <Text className="text-lg" text="갤러리" />
           </div>
         </Link>,
+        <Button
+          key="point"
+          className={convertClassNameList(
+            styles['navbar__menu--item'],
+            styles['navbar__menu--point'],
+          )}
+          label={priceFilter(userInfo.point)}
+        />,
         <Button
           key="payment"
           className={convertClassNameList(

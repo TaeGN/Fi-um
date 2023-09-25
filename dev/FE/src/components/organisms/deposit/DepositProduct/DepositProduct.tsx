@@ -1,17 +1,14 @@
 import { BankLogo, Button, Text } from '@/components/atoms';
 import styles from './DepositProduct.module.scss';
-import {
-  convertClassName,
-  convertClassNameList,
-  formatCurrency,
-} from '@/utils';
-import { useMemo, MouseEvent } from 'react';
-import { Deposit } from '@/types';
+import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
+import { useMemo } from 'react';
+import { MyDeposit } from '@/types';
+import { LabelType } from '@/pages/DepositPage/DepositPage';
 
 interface DepositProductProps {
   className?: string;
-  deposit: Deposit;
-  onModal: (e: MouseEvent<HTMLButtonElement>) => void;
+  deposit: MyDeposit;
+  onModal: (label: LabelType, deposit: MyDeposit) => void;
 }
 
 const DepositProduct = ({
@@ -19,24 +16,26 @@ const DepositProduct = ({
   deposit,
   onModal,
 }: DepositProductProps) => {
-  const { bankLogoClassName, title } = useMemo(() => {
-    let bankLogoClassName = null;
+  const { bankLogoClassName } = useMemo(() => {
+    let bankLogoClassName = undefined;
     switch (deposit.bankName) {
-      case '신한':
+      case '신한은행':
         bankLogoClassName = 'shinhan normal';
         break;
-      case '국민':
+      case '국민은행':
         bankLogoClassName = 'kb normal';
         break;
-      case '하나':
+      case '하나은행':
+        bankLogoClassName = 'hana normal';
+        break;
+      default:
         bankLogoClassName = 'hana normal';
         break;
     }
     return {
       bankLogoClassName,
-      title: `${deposit.bankName} ${deposit.productType}`,
     };
-  }, [deposit.bankName, deposit.productType]);
+  }, [deposit.bankName]);
 
   return (
     <div
@@ -49,14 +48,14 @@ const DepositProduct = ({
         <BankLogo className={bankLogoClassName} />
       </div>
       <div className={styles.title}>
-        <Text text={title} />
-        <Text text={formatCurrency('123123')} />
+        <Text text={`${deposit.bankName} ${deposit.productType}`} />
+        <Text text={priceFilter(deposit.savingBalance)} />
       </div>
       <div className={styles.buttons}>
-        {deposit.productType === '입출금' && (
+        {deposit.productType == '예금' && (
           <>
             <Button
-              onClick={onModal}
+              onClick={() => onModal('입금', deposit)}
               label="입금"
               value="입금"
               className={convertClassNameList(
@@ -65,7 +64,7 @@ const DepositProduct = ({
               )}
             />
             <Button
-              onClick={onModal}
+              onClick={() => onModal('출금', deposit)}
               label="출금"
               value="출금"
               className={convertClassNameList(
@@ -75,9 +74,31 @@ const DepositProduct = ({
             />
           </>
         )}
-        {deposit.productType === '적금' &&
+        {deposit.productType == '적금' &&
           (deposit.savingBalance > 0 ? (
-            <Text text="만기일 : 2023. 09. 15" />
+            <>
+              <div
+                className={convertClassNameList(
+                  styles['deposit-product__item'],
+                )}
+              >
+                <Text text="거치기간: 7일" />
+                <Text
+                  text={`이자율: ${deposit.interestRate}% ~ ${
+                    deposit.interestRate + deposit.primeInterestRate
+                  }%`}
+                />
+              </div>
+              <Button
+                onClick={() => onModal('해지', deposit)}
+                label="해지"
+                value="해지"
+                className={convertClassNameList(
+                  'bg-red xsmall',
+                  styles['deposit-product__item'],
+                )}
+              />
+            </>
           ) : (
             <>
               <div
@@ -86,10 +107,14 @@ const DepositProduct = ({
                 )}
               >
                 <Text text="거치기간: 7일" />
-                <Text text="이자율: 7%" />
+                <Text
+                  text={`이자율: ${deposit.interestRate}% ~ ${
+                    deposit.interestRate + deposit.primeInterestRate
+                  }%`}
+                />
               </div>
               <Button
-                onClick={onModal}
+                onClick={() => onModal('가입', deposit)}
                 label="가입"
                 value="가입"
                 className={convertClassNameList(

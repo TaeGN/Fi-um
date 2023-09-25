@@ -25,6 +25,11 @@
       margin: 0.7rem;
       color: #666;
     }
+    &--point {
+      border: 0;
+      background-color: white;
+      cursor: auto;
+    }
     &--payment {
       padding: 0.3rem 0.5rem;
       border: 1px solid #7ae6e9;

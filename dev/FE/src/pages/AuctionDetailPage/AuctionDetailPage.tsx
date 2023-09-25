@@ -36,6 +36,8 @@ const AuctionDetailPage = ({
         alert(data);
       },
       onError(error) {
+        console.log(error);
+
         alert(`구매 실패.. \n ${error}`);
       },
     },

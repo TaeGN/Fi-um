@@ -1,7 +1,13 @@
 import { Button, Text } from '@/components/atoms';
 import { convertClassName, convertClassNameList, convertUser } from '@/utils';
 import styles from './Login.module.scss';
-import { useMemo, useState, ChangeEvent, useEffect } from 'react';
+import {
+  useMemo,
+  useState,
+  ChangeEvent,
+  useEffect,
+  KeyboardEvent,
+} from 'react';
 import { UserDetail } from '@/types';
 import { getUserCheckId, userLogin, userSignup } from '@/api/user';
 import { useMutation } from '@tanstack/react-query';
@@ -158,6 +164,16 @@ const Login = ({ className, signUp }: LoginProps): JSX.Element => {
     return arr;
   }, [signUp]);
 
+  const onEnter = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      if (signUp) {
+        handleSignUpClick();
+      } else {
+        handleLoginClick();
+      }
+    }
+  };
+
   return (
     <div
       className={convertClassNameList(
@@ -175,7 +191,7 @@ const Login = ({ className, signUp }: LoginProps): JSX.Element => {
       />
 
       {inputList.map(
-        (key): JSX.Element => (
+        (key, index): JSX.Element => (
           <div
             key={key}
             className={convertClassNameList(styles['login__item'])}
@@ -192,6 +208,7 @@ const Login = ({ className, signUp }: LoginProps): JSX.Element => {
               name={key}
               value={userInformation[key as keyof UserDetail]}
               onChange={handleChangeValue}
+              onKeyUp={index === inputList.length - 1 ? onEnter : () => {}}
             />
             {signUp && key === 'userId' ? <div>{idCheckResponse}</div> : ''}
           </div>
