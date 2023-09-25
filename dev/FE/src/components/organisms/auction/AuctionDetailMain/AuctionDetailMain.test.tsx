@@ -7,6 +7,7 @@ describe('AuctionDetailMain 컴포넌트', () => {
   test('컴포넌트 렌더링 테스트', () => {
     render(
       <AuctionDetailMain
+        createdTime={0}
         title="확인"
         src=""
         alt=""

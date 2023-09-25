@@ -2,7 +2,7 @@ import {
   ArtistAuction,
   Capital,
   ChildProfile,
-  Deposit,
+  MyDeposit,
   SponsorProfile,
   TotalCapital,
   UserDetail,
@@ -77,7 +77,7 @@ const getUserCapital = async ({
 };
 
 // 자신의 현재 예적금 조회
-const getUserDepositSaving = async (): Promise<Deposit[]> => {
+const getUserDepositSaving = async (): Promise<MyDeposit[]> => {
   return await authApi.get(`user/deposit-saving`).then(({ data }) => data);
 };
 

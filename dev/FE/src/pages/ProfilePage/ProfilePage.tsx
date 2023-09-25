@@ -13,10 +13,10 @@ import { USER_TYPE } from '@/constants';
 import {
   ArtistAuction,
   ChildProfile,
-  Deposit,
   FundingRecord,
   Funding as FundingType,
   Item,
+  MyDeposit,
   MyStock,
   Point,
   Purchase,
@@ -63,10 +63,6 @@ const SponsorProfilePage = () => {
 
   // 포인트 사용 내역
   const { data: pointRecords } = useQuery<Point[]>(getPointsQuery());
-  console.log('sponsorshipDetails', sponsorshipDetails);
-  console.log('auctionPurchases', auctionPurchases);
-  console.log('childProfiles', childProfiles);
-  console.log('pointRecords', pointRecords);
 
   return (
     <>
@@ -95,7 +91,7 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
 
   // 내 예적금
   const { data: depositSavings } = myPage
-    ? useQuery<Deposit[]>(getUserDepositSavingQuery())
+    ? useQuery<MyDeposit[]>(getUserDepositSavingQuery())
     : { data: undefined };
 
   // 내 주식

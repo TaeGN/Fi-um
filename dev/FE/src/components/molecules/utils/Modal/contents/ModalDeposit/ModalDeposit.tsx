@@ -2,29 +2,48 @@ import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
 import styles from './ModalDeposit.module.scss';
 import { Button, Text } from '@/components/atoms';
 import { ChangeEvent, MouseEvent, useCallback, useMemo, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
+import { postBankDeposit, postBankSaving } from '@/api/deposit';
+import { MyDeposit } from '@/types';
 
 interface ModalDepositProps {
   className?: string;
+  point: number;
   label: string;
+  deposit: MyDeposit;
   onClick?: () => void;
-  toggle?: () => void;
+  toggle: () => void;
 }
 
 // 나중에 props로 대체 예정
 const ratioList = [1, 5, 10, 100];
-const totalCount = 12;
-const price = 10000;
 
 const ModalDeposit = ({
   className,
   label,
-  onClick,
   toggle,
+  point,
+  deposit: { bankName, savingBalance },
 }: ModalDepositProps): JSX.Element => {
   const [count, setCount] = useState<number>(0);
+
+  const maxCount = label === '출금' ? savingBalance : point;
+
+  const onClick = useCallback(() => {
+    if (!window.confirm(`${label} 하시겠습니까?`)) return;
+
+    switch (label) {
+      case '입금':
+        postBankDeposit(bankName, count);
+        break;
+      case '출금':
+        postBankDeposit(bankName, -count);
+        break;
+      case '가입':
+        postBankSaving(bankName, count);
+        break;
+    }
+    toggle();
+  }, [bankName, count]);
 
   const colorStyle = useMemo(() => {
     if (label === '입금') {
@@ -47,11 +66,13 @@ const ModalDeposit = ({
     (
       e: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLButtonElement>,
     ): void => {
+      console.log(e);
+
       const newCount = Number(e.currentTarget.value);
-      if (newCount > totalCount || newCount < 0) return;
-      setCount(newCount);
+      if (newCount < 0) return;
+      setCount(Math.min(newCount, maxCount));
     },
-    [totalCount],
+    [],
   );
 
   return (
@@ -72,18 +93,16 @@ const ModalDeposit = ({
           text={label}
         />
       </div>
-      {/* <div className="flex-container jc-space-between">
-        <Text className="text-md" text="주문수량" />
-        <div className="flex-container">
-          <Text className="text-md" text="주문가능&nbsp;" />
-          <Text
-            className={convertClassNameList('text-md', colorStyle.textColor)}
-            text={String(totalCount)}
-          />
-          <Text className="text-md" text="&nbsp;주" />
-        </div>
-      </div> */}
 
+      <div
+        className={convertClassNameList(
+          'flex-container jc-space-between',
+          styles['modal-stock__price'],
+        )}
+      >
+        <Text className="text-md" text={'현재 보유 포인트'} />
+        <Text className="text-md" text={priceFilter(point)} />
+      </div>
       <div
         className={convertClassNameList(styles['modal-stock__input-container'])}
       >
@@ -105,24 +124,7 @@ const ModalDeposit = ({
           className={convertClassNameList(
             styles['modal-stock__input--button-container'],
           )}
-        >
-          <Button
-            className={convertClassNameList(
-              styles['modal-stock__input--button'],
-            )}
-            label={<FontAwesomeIcon icon={faChevronUp} size="xs" />}
-            value={count + 1}
-            onClick={handleChangeCount}
-          />
-          <Button
-            className={convertClassNameList(
-              styles['modal-stock__input--button'],
-            )}
-            label={<FontAwesomeIcon icon={faChevronDown} size="xs" />}
-            value={count - 1}
-            onClick={handleChangeCount}
-          />
-        </div>
+        ></div>
       </div>
 
       <div className="flex-container jc-space-between">
@@ -130,12 +132,13 @@ const ModalDeposit = ({
         {ratioList.map(
           (ratio: number): JSX.Element => (
             <Button
+              key={ratio}
               className={convertClassNameList(
                 styles['modal-stock__button'],
                 'bg-gray-light',
               )}
               label={priceFilter(ratio * 10000)}
-              value={String(Math.floor((totalCount * ratio) / 100))}
+              value={ratio * 10000}
               onClick={handleChangeCount}
             />
           ),
@@ -148,8 +151,8 @@ const ModalDeposit = ({
           styles['modal-stock__price'],
         )}
       >
-        <Text className="text-md" text="현재 잔액" />
-        <Text className="text-md" text={priceFilter(price)} />
+        <Text className="text-md" text={'현재 계좌 잔액'} />
+        <Text className="text-md" text={priceFilter(savingBalance)} />
       </div>
 
       <div
@@ -158,8 +161,13 @@ const ModalDeposit = ({
           styles['modal-stock__price'],
         )}
       >
-        <Text className="text-md" text="거래 후 잔액" />
-        <Text className="text-md" text={priceFilter(price * count)} />
+        <Text className="text-md" text="거래 후 계좌 잔액" />
+        <Text
+          className="text-md"
+          text={priceFilter(
+            savingBalance + (label === '출금' ? -count : count),
+          )}
+        />
       </div>
 
       <div
