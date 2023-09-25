@@ -1,6 +1,7 @@
 .gallery-page {
-  &__card-container {
-    padding-left: 10vw;
-    padding-right: 10vw;
-  }
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  padding-left: 10vw;
+  padding-right: 10vw;
 }

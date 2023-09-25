@@ -9,6 +9,8 @@ import { Auction } from '@/types';
 import { getAuctionDetailByAuctionNoQuery } from '@/api/queries';
 import useModal from '@/hooks/useModal';
 import { Button } from '@/components/atoms';
+import { getUserArtist } from '@/api/user';
+import { useEffect, useState } from 'react';
 
 interface AuctionDetailPageProps {
   className?: string;
@@ -41,6 +43,14 @@ const AuctionDetailPage = ({
     },
   );
   const { isOpen, closeToggle } = useModal();
+
+  const [arts, setArts] = useState();
+
+  useEffect(() => {
+    getUserArtist({
+      queryKey: ['', auction?.userNo],
+    }).then((res: any) => setArts(res.data));
+  }, [auction]);
 
   return (
     <div
@@ -83,6 +93,7 @@ const AuctionDetailPage = ({
       />
       <CreaterProfile
         className={convertClassNameList(styles['auction-detail-page__profile'])}
+        arts={arts}
       />
       {auction && (
         <Modal isOpen={isOpen} toggle={closeToggle}>

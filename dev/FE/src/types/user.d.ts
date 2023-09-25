@@ -69,6 +69,13 @@ interface ChildProfile {
   imagePath: string;
 }
 
+interface Art {
+  auctionNo: number;
+  imagePath: string;
+  title: string;
+  winner: string | null;
+}
+
 type UserType = 0 | 1 | 2 | 3;
 
 export type {
@@ -80,4 +87,5 @@ export type {
   Capital,
   SponsorProfile,
   ChildProfile,
+  Art,
 };
