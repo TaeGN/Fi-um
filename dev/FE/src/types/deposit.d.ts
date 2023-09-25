@@ -3,7 +3,7 @@ interface MyDeposit {
   productType: '입출금' | '예금' | '적금';
   interestRate: number;
   primeInterestRate: number;
-  savingBalance: number;
+  savingBalance: number | null;
   description?: string;
 }
 
@@ -15,11 +15,15 @@ interface Deposit {
   depositMoney: number;
 }
 
-interface Bank {
-  bankName: string;
-  productType: '입출금' | '예금' | '적금';
-  interestRate: number;
-  primeInterestRate: number;
+interface MyBankInfo extends MyDeposit {
+  // bankName: string;
+  // productType: '입출금' | '예금' | '적금';
+  // interestRate: number;
+  // primeInterestRate: number;
+  // savingBalance: number | null;
+  depositMoney: number | null;
+  createSaving: number;
+  // description?: string;
 }
 
-export type { MyDeposit, Deposit, Bank };
+export type { MyDeposit, Deposit, Bank, MyBankInfo };

@@ -1,14 +1,20 @@
 import { BankLogo, Button, Text } from '@/components/atoms';
 import styles from './DepositProduct.module.scss';
-import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
+import {
+  convertClassName,
+  convertClassNameList,
+  convertDataRemainDays,
+  convertDateAfter7days,
+  priceFilter,
+} from '@/utils';
 import { useMemo } from 'react';
-import { MyDeposit } from '@/types';
+import { MyBankInfo } from '@/types';
 import { LabelType } from '@/pages/DepositPage/DepositPage';
 
 interface DepositProductProps {
   className?: string;
-  deposit: MyDeposit;
-  onModal: (label: LabelType, deposit: MyDeposit) => void;
+  deposit: MyBankInfo;
+  onModal: (label: LabelType, deposit: MyBankInfo) => void;
 }
 
 const DepositProduct = ({
@@ -47,7 +53,9 @@ const DepositProduct = ({
       </div>
       <div className={styles.title}>
         <Text text={`${deposit.bankName} ${deposit.productType}`} />
-        <Text text={priceFilter(deposit.savingBalance)} />
+        <Text
+          text={priceFilter(deposit.savingBalance ?? deposit.depositMoney)}
+        />
       </div>
       <div className={styles.buttons}>
         {deposit.productType == '예금' && (
@@ -73,29 +81,32 @@ const DepositProduct = ({
           </>
         )}
         {deposit.productType == '적금' &&
-          (deposit.savingBalance > 0 ? (
+          (deposit.savingBalance ?? deposit.depositMoney ? (
             <>
               <div
                 className={convertClassNameList(
                   styles['deposit-product__item'],
                 )}
               >
-                <Text text="거치기간: 7일" />
                 <Text
+                  className={styles['deposit-product__text']}
+                  text={`남은 기간: ${convertDataRemainDays(
+                    deposit.createSaving,
+                  )}일`}
+                />
+                <Text
+                  className={styles['deposit-product__text']}
+                  text={`만기일: ${convertDateAfter7days(
+                    deposit.createSaving,
+                  )}`}
+                />
+                <Text
+                  className={styles['deposit-product__text']}
                   text={`이자율: ${
                     deposit.interestRate + deposit.primeInterestRate
                   }%`}
                 />
               </div>
-              <Button
-                onClick={() => onModal('해지', deposit)}
-                label="해지"
-                value="해지"
-                className={convertClassNameList(
-                  'bg-red white xsmall',
-                  styles['deposit-product__item'],
-                )}
-              />
             </>
           ) : (
             <>

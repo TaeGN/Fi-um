@@ -2,15 +2,17 @@ import DepositProduct from './DepositProduct';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import { MyDeposit } from '@/types';
+import { MyBankInfo } from '@/types';
 
-const depositList: MyDeposit[] = [
+const depositList: MyBankInfo[] = [
   {
     bankName: '신한은행',
     productType: '입출금',
     interestRate: 1000,
     primeInterestRate: 1,
     savingBalance: 1,
+    createSaving: 0,
+    depositMoney: null,
   },
   {
     bankName: '신한은행',
@@ -18,6 +20,8 @@ const depositList: MyDeposit[] = [
     interestRate: 2000,
     primeInterestRate: 1,
     savingBalance: 1,
+    createSaving: 0,
+    depositMoney: null,
   },
   {
     bankName: '신한은행',
@@ -25,6 +29,8 @@ const depositList: MyDeposit[] = [
     interestRate: 3000,
     primeInterestRate: 1,
     savingBalance: 1,
+    createSaving: 0,
+    depositMoney: null,
   },
 ];
 
