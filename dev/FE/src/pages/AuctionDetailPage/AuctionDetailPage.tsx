@@ -112,10 +112,7 @@ const AuctionDetailPage = ({
         )}
         description={auction?.content}
       />
-      <CreaterProfile
-        className={convertClassNameList(styles['auction-detail-page__profile'])}
-        arts={arts}
-      />
+      <CreaterProfile arts={arts} />
       {auction && (
         <Modal isOpen={isOpen} toggle={closeToggle}>
           <>

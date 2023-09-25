@@ -1,0 +1,14 @@
+.creator-profile {
+  display: grid;
+  grid-template-columns: 2fr 8fr;
+  gap: 10px;
+
+  &_arts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  &_art {
+    border: 2px solid lightblue;
+  }
+}
