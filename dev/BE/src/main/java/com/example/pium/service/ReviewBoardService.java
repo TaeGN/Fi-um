@@ -8,6 +8,7 @@ public interface ReviewBoardService {
 
     ReviewBoardDto createReview(Integer postUser, ReviewBoardDto review);
 
+
     List<ReviewBoardEntity> getAllReviews();
 
     ReviewBoardEntity getReviewById(int id);
