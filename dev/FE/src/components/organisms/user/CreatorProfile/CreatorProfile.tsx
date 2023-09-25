@@ -16,13 +16,15 @@ const CreatorProfile = ({
   return (
     <div className={convertClassNameList(convertClassName(className, styles))}>
       <ProfileCard />
-
-      {arts?.map((art) => (
-        <div>
-          <Image src={art.imagePath} />
-          <Text text={art.title} />
-        </div>
-      ))}
+      <Text className="text-lg" text="이 작가의 다른 작품" />
+      <div className="card-container">
+        {arts?.map((art) => (
+          <div>
+            <Image src={art.imagePath} />
+            <Text text={art.title} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

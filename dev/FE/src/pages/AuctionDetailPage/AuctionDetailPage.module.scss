@@ -1,11 +1,11 @@
 .auction-detail-page {
-  display: grid;
-  grid-template-areas:
-    'main main'
-    'description profile';
-  grid-template-columns: 7fr 3fr;
-  grid-template-rows: repeat(2, 60vh);
-  gap: 1rem;
+  // display: grid;
+  // grid-template-areas:
+  //   'main main'
+  //   'description profile';
+  // grid-template-columns: 7fr 3fr;
+  // grid-template-rows: repeat(2, 60vh);
+  // gap: 1rem;
   margin: 50px;
 
   &__main {
