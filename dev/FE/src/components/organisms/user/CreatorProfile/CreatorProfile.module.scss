@@ -10,5 +10,11 @@
   }
   &_art {
     border: 2px solid lightblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    &__image {
+      height: 85%;
+    }
   }
 }

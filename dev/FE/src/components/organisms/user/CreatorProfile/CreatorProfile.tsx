@@ -29,7 +29,10 @@ const CreatorProfile = ({
         <div className={styles['creator-profile_arts']}>
           {arts?.map((art) => (
             <div className={styles['creator-profile_art']}>
-              <Image src={art.imagePath} />
+              <Image
+                src={art.imagePath}
+                className={styles['creator-profile_art__image']}
+              />
               <div className="flex-container">
                 <Text text={`${art.title}`} />
                 {art.winner && <Text className="bold" text="(판매 완료)" />}
