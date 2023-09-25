@@ -3,13 +3,13 @@ import styles from './ModalDeposit.module.scss';
 import { Button, Text } from '@/components/atoms';
 import { ChangeEvent, MouseEvent, useCallback, useMemo, useState } from 'react';
 import { postBankDeposit, postBankSaving } from '@/api/deposit';
-import { MyDeposit } from '@/types';
+import { MyBankInfo } from '@/types';
 
 interface ModalDepositProps {
   className?: string;
   point: number;
   label: string;
-  deposit: MyDeposit;
+  deposit: MyBankInfo;
   onClick?: () => void;
   toggle: () => void;
 }
@@ -22,11 +22,12 @@ const ModalDeposit = ({
   label,
   toggle,
   point,
-  deposit: { bankName, savingBalance },
+  deposit: { bankName, savingBalance, depositMoney },
 }: ModalDepositProps): JSX.Element => {
   const [count, setCount] = useState<number>(0);
 
-  const maxCount = label === '출금' ? savingBalance : point;
+  const maxCount: number =
+    (label === '출금' ? savingBalance ?? depositMoney : point) || 0;
 
   const onClick = useCallback(() => {
     if (count <= 0) return;
@@ -166,7 +167,8 @@ const ModalDeposit = ({
         <Text
           className="text-md"
           text={priceFilter(
-            savingBalance + (label === '출금' ? -count : count),
+            (savingBalance || depositMoney) ??
+              0 + (label === '출금' ? -count : count),
           )}
         />
       </div>

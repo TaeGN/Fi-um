@@ -1,5 +1,5 @@
-import { Deposit, MyDeposit } from '@/types';
-import { api, authApi } from '.';
+import { Deposit, MyBankInfo } from '@/types';
+import { authApi } from '.';
 
 // 예금 정보 조회
 const getBankDeposit = async (): Promise<Deposit[]> => {
@@ -36,8 +36,9 @@ const postBankSaving = async (
     .then(({ data }) => data);
 };
 
-const getBankInfo = async (): Promise<MyDeposit[]> => {
-  return await api.get(`bank/bank-info`).then(({ data }) => data);
+// 내 은행 정보 조회
+const getBankInfo = async (): Promise<MyBankInfo[]> => {
+  return await authApi.get(`bank/bank-info`).then(({ data }) => data);
 };
 
 export {

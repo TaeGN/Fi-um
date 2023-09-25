@@ -1,3 +1,4 @@
+import { MyBankInfo } from '@/types';
 import {
   getBankCheckPrime,
   getBankDeposit,
@@ -39,6 +40,8 @@ const getBankInfoQuery = () => {
   return {
     queryKey: ['getBankInfo'],
     queryFn: getBankInfo,
+    select: (data: MyBankInfo[]) =>
+      data.sort((a, b) => (a.productType < b.productType ? -1 : 1)),
   };
 };
 
