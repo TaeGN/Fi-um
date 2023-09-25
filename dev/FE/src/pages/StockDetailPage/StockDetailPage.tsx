@@ -60,12 +60,18 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
   const hour = date.getHours();
   const minutes = date.getMinutes() - (date.getMinutes() % 2);
 
+  const calculateTime = (idx: number): string => {
+    const calculatedMinute = minutes - (19 - idx) * 2;
+    if (calculatedMinute < 0) {
+      return `${hour - 1}시 ${60 + calculatedMinute}분`;
+    }
+    return `${hour}시 ${minutes - (19 - idx) * 2}분`;
+  };
+
   useEffect(() => {
     if (isStockChartLoading === 'success' && stockChart) {
       const newChartData = {
-        labels: stockChart.map(
-          (_, idx) => `${hour}시 ${minutes - (19 - idx) * 2}분`,
-        ),
+        labels: stockChart.map((_, idx) => calculateTime(idx)),
         datasets: [
           {
             type: 'line',
