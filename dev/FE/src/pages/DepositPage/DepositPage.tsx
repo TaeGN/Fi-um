@@ -3,7 +3,7 @@ import styles from './DepositPage.module.scss';
 import { DepositProduct } from '@/components/organisms';
 import { MyBankInfo } from '@/types';
 import useModal from '@/hooks/useModal';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Modal, ModalDeposit, Swiper } from '@/components/molecules';
 import { getBankInfoQuery } from '@/api/queries';
 import { useQuery } from '@tanstack/react-query';
@@ -32,56 +32,75 @@ const DepositPage = ({ className }: DepositPageProps): JSX.Element => {
     openToggle();
   }, []);
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 700);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div
-      className={convertClassNameList(
-        convertClassName(className, styles),
-        styles['deposit-page'],
-      )}
-    >
-      <div className={styles['deposit-page__main']}>
-        {depositList?.map((deposit) => (
-          <DepositProduct
-            key={deposit.bankName + deposit.productType}
-            deposit={deposit}
-            onModal={onModal}
+    <>
+      {loading && (
+        <div className="page-loading">
+          <img
+            style={{ height: '250px', width: '250px' }}
+            src="./img/loading/deposit.gif"
           />
-        ))}
-      </div>
-
-      <Swiper
+        </div>
+      )}
+      <div
         className={convertClassNameList(
-          'bg-gray-light',
-          styles['deposit-page__swiper'],
+          convertClassName(className, styles),
+          styles['deposit-page'],
         )}
-        type="autoplay"
       >
-        {depositList?.map((deposit) => (
-          <div
-            key={deposit.bankName + deposit.productType}
-            className={convertClassNameList(
-              styles['deposit-page__swiper--item'],
-              styles['deposit-page__main'],
-            )}
-          >
-            {deposit.description}
-          </div>
-        ))}
-      </Swiper>
+        <div className={styles['deposit-page__main']}>
+          {depositList?.map((deposit) => (
+            <DepositProduct
+              key={deposit.bankName + deposit.productType}
+              deposit={deposit}
+              onModal={onModal}
+            />
+          ))}
+        </div>
 
-      {curDeposit && (
-        <Modal isOpen={isOpen} toggle={closeToggle}>
-          <ModalDeposit
-            point={userInfo?.point ?? 0}
-            className={className}
-            label={label}
-            deposit={curDeposit}
-            refetch={refetch}
-            toggle={closeToggle}
-          />
-        </Modal>
-      )}
-    </div>
+        <Swiper
+          className={convertClassNameList(
+            'bg-gray-light',
+            styles['deposit-page__swiper'],
+          )}
+          type="autoplay"
+        >
+          {depositList?.map((deposit) => (
+            <div
+              key={deposit.bankName + deposit.productType}
+              className={convertClassNameList(
+                styles['deposit-page__swiper--item'],
+                styles['deposit-page__main'],
+              )}
+            >
+              {deposit.description}
+            </div>
+          ))}
+        </Swiper>
+
+        {curDeposit && (
+          <Modal isOpen={isOpen} toggle={closeToggle}>
+            <ModalDeposit
+              point={userInfo?.point ?? 0}
+              className={className}
+              label={label}
+              deposit={curDeposit}
+              refetch={refetch}
+              toggle={closeToggle}
+            />
+          </Modal>
+        )}
+      </div>
+    </>
   );
 };
 

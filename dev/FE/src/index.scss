@@ -246,3 +246,14 @@ input[type='number']::-webkit-inner-spin-button {
 .border0 {
   border: 0;
 }
+
+.page-loading {
+  position: absolute;
+  height: 100vw;
+  width: 100vw;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  padding-top: 150px;
+  z-index: 99;
+}
