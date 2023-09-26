@@ -77,6 +77,7 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
           />
         </div>
       )}
+
       <div
         className={convertClassNameList(
           convertClassName(className, styles),
@@ -98,11 +99,7 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
         {ranking && <Ranking ranking={ranking} />}
         {fundings?.map((funding) => {
           return (
-            <>
-              <div key={funding.itemNo + funding.itemName}>
-                <FundingItem {...funding} onModal={onModal} />
-              </div>
-            </>
+            <FundingItem key={funding.itemNo} {...funding} onModal={onModal} />
           );
         })}
         <Modal scrollTop={scrollTop} isOpen={isOpen} toggle={closeToggle}>

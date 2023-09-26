@@ -15,7 +15,8 @@ const postBankDeposit = async (
     .then(({ data }) => {
       alert(data?.msg);
       return data;
-    });
+    })
+    .catch((err: any) => alert(err.response.data.msg));
 };
 
 // 우대 조건 만족 확인
@@ -39,7 +40,8 @@ const postBankSaving = async (
     .then(({ data }) => {
       alert(data?.msg);
       return data;
-    });
+    })
+    .catch((err: any) => alert(err.response.data.msg));
 };
 
 // 내 은행 정보 조회
