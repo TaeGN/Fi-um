@@ -28,6 +28,7 @@ const AuctionPage = ({ className }: AuctionPageProps): JSX.Element => {
     <div
       className={convertClassNameList(
         convertClassName(className, styles),
+        styles['auction-page'],
         'flex-container-col',
       )}
     >
@@ -42,7 +43,7 @@ const AuctionPage = ({ className }: AuctionPageProps): JSX.Element => {
           onClick={() => navigate(`/create`, { state: 'auction' })}
         />
       )}
-      <div className={styles['auction-page']}>
+      <div className={styles['auction-page-card-container']}>
         {auctions?.map((auction) => (
           <AuctionCard
             key={auction.auctionNo}

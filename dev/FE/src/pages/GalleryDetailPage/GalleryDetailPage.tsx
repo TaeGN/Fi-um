@@ -14,7 +14,12 @@ const GalleryDetailPage = ({
   console.log(state);
 
   return (
-    <div className={convertClassNameList(convertClassName(className, styles))}>
+    <div
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        styles['gallery-detail-page'],
+      )}
+    >
       <GalleryDetail review={state} />
     </div>
   );

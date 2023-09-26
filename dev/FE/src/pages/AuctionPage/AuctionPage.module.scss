@@ -1,8 +1,10 @@
 .auction-page {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-
   width: 1056px;
   margin: 0 auto;
   position: relative;
+}
+
+.auction-page-card-container {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
