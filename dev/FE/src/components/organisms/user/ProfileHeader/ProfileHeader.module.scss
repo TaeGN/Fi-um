@@ -1,3 +1,8 @@
 .profile-header {
   min-height: 30vh;
+
+  &__not-mypage {
+    justify-content: center;
+    align-items: center;
+  }
 }

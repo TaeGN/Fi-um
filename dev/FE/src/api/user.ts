@@ -6,10 +6,12 @@ import {
   SponsorProfile,
   TotalCapital,
   UserDetail,
+  UserInfo,
 } from '@/types';
 import { QueryKey } from '@tanstack/react-query';
 import { api, authApi } from '.';
 import { HTTP_STATUS } from '@/constants';
+import { getRefreshToken, removeTokens, setAccessToken } from '@/utils';
 
 // 아이디 중복 확인
 const getUserCheckId = async ({
@@ -34,8 +36,16 @@ const getUser = async (): Promise<SponsorProfile | ChildProfile> => {
   return await authApi.get(`user`).then(({ data }) => data);
 };
 
+// 로그인 유저 정보 갱신
+const getUserInfo = async (): Promise<UserInfo> => {
+  return await authApi.get(`user/user-info`).then(({ data }) => data);
+};
+
 // refresh token
-const getreissue = async (refreshToken: string): Promise<string> => {
+const getreissue = async (refreshToken?: string | null): Promise<string> => {
+  if (!refreshToken) refreshToken = getRefreshToken();
+  console.log('refreshToken', refreshToken);
+
   return await api
     .get(`user/reissue`, {
       headers: {
@@ -44,17 +54,15 @@ const getreissue = async (refreshToken: string): Promise<string> => {
     })
     .then(({ data }) => data)
     .then(({ token }) => {
-      const user = sessionStorage.getItem('user');
-      if (!user) throw new Error('비 로그인 상태');
-
-      const newUser = JSON.parse(user);
-      newUser.data.tokenResponse.accessToken = token;
-      sessionStorage.setItem('user', JSON.stringify(newUser));
+      setAccessToken(token);
       return token;
     })
     .catch((error) => {
       // 재 로그인 필요
-      if (error.response.status === HTTP_STATUS.FORBIDDEN) {
+      if (
+        error.response.status === HTTP_STATUS.FORBIDDEN ||
+        error.response.status === HTTP_STATUS.UNAUTHORIZED
+      ) {
         userLogout();
         alert('로그인 만료!!');
         window.location.href = '/login';
@@ -88,7 +96,12 @@ const userSignup = async (userDetail: UserDetail) => {
 
 // 로그인
 const userLogin = async (userDetail: UserDetail) => {
-  return await api.post('user/login', userDetail);
+  return await api.post('user/login', userDetail).then(({ data }) => {
+    const { accessToken, refreshToken } = data.tokenResponse;
+    sessionStorage.setItem('accessToken', accessToken);
+    sessionStorage.setItem('refreshToken', refreshToken);
+    return data;
+  });
 };
 
 // 로그아웃
@@ -100,7 +113,7 @@ const userLogout = async (): Promise<string> => {
       console.log(err);
     })
     .finally(() => {
-      sessionStorage.setItem('user', '');
+      removeTokens();
       alert('로그아웃 성공!!');
     });
 };
@@ -108,6 +121,42 @@ const userLogout = async (): Promise<string> => {
 // 프로필 사진 수정
 const putUserProfileImage = async (imagePath: string) => {
   return await authApi.put('user/profile-image', { imagePath });
+};
+
+// 라이벌 등록
+const postUserRival = async (userNo: number) => {
+  return await authApi
+    .post(`user/rival`, { userNo })
+    .then(({ data }) => {
+      alert(data?.msg);
+      return data;
+    })
+    .catch(async (error) => {
+      if (error?.response?.status === HTTP_STATUS.FORBIDDEN) {
+        await putUserRival(userNo).then(({ data }) => Promise.resolve(data));
+      } else {
+        alert(error.response.msg);
+      }
+    });
+};
+// 라이벌 수정
+const putUserRival = async (userNo: number) => {
+  return await authApi
+    .put(`user/rival`, { userNo })
+    .then(({ data }) => {
+      alert(data?.msg);
+      return data;
+    })
+    .catch((error) => {
+      alert(error.response.msg);
+    });
+};
+// 라이벌 삭제
+const deleteUserRival = async () => {
+  return await authApi.delete(`user/rival`).then(({ data }) => {
+    alert(data?.msg);
+    return data;
+  });
 };
 
 export {
@@ -122,4 +171,8 @@ export {
   userLogout,
   getUserDepositSaving,
   putUserProfileImage,
+  postUserRival,
+  putUserRival,
+  deleteUserRival,
+  getUserInfo,
 };

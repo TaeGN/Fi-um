@@ -23,7 +23,12 @@ const CreatorProfile = ({
         styles['creator-profile'],
       )}
     >
-      <ProfileCard myPage={false} src={state.userImagePath} alt={state.name} />
+      <ProfileCard
+        myPage={false}
+        src={state?.userImagePath}
+        alt={state?.name}
+        userNo={state?.userNo}
+      />
       <div>
         <Text className="text-lg" text="이 작가의 다른 작품" />
         <div className={styles['creator-profile_arts']}>
@@ -31,7 +36,11 @@ const CreatorProfile = ({
             <div key={art.imagePath} className={styles['creator-profile_art']}>
               <Image
                 src={art.imagePath}
-                className={styles['creator-profile_art__image']}
+                className={
+                  art.winner
+                    ? styles['creator-profile_art__image__dark']
+                    : styles['creator-profile_art__image']
+                }
               />
               <div className="flex-container">
                 <Text text={`${art.title}`} />

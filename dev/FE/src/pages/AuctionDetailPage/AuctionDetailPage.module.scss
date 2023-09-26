@@ -6,16 +6,15 @@
   // grid-template-columns: 7fr 3fr;
   // grid-template-rows: repeat(2, 60vh);
   // gap: 1rem;
-  margin: 50px;
+  width: 1056px;
+  margin: 0 auto;
+  position: relative;
 
   &__main {
-    grid-area: main;
   }
 
   &__description {
-    grid-area: description;
   }
   &__profile {
-    grid-area: profile;
   }
 }

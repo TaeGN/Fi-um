@@ -5,6 +5,7 @@ import {
   getUserCapital,
   userLogout,
   getUserDepositSaving,
+  postUserRival,
   // getUserCheckId,
   // userSignup,
   // userLogin,
@@ -54,6 +55,13 @@ const userLogoutQuery = () => {
   };
 };
 
+// 라이벌 등록
+const postUserRivalQuery = (userNo: number) => {
+  return {
+    mutaionFn: () => postUserRival(userNo),
+  };
+};
+
 export {
   getUserArtistQuery,
   getUserQuery,
@@ -61,6 +69,7 @@ export {
   getUserCapitalQuery,
   userLogoutQuery,
   getUserDepositSavingQuery,
+  postUserRivalQuery,
   // getUserCheckIdQuery,
   // userSignupQuery,
   // userLoginQuery,

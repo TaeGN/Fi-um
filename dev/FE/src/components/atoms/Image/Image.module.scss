@@ -1,7 +1,7 @@
 .image {
-  display: block;
   width: 100%;
-  max-width: inherit;
-  max-height: inherit;
-  object-fit: fill;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

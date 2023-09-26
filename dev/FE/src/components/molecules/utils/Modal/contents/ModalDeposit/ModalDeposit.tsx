@@ -37,13 +37,25 @@ const ModalDeposit = ({
 
     switch (label) {
       case '입금':
-        await postBankDeposit(bankName, count);
+        await postBankDeposit(bankName, count)
+          .then((res: any) => {
+            alert(res.msg);
+          })
+          .catch((err: any) => alert(err.response.data.msg));
         break;
       case '출금':
-        await postBankDeposit(bankName, -count);
+        await postBankDeposit(bankName, -count)
+          .then((res: any) => {
+            alert(res.msg);
+          })
+          .catch((err: any) => alert(err.response.data.msg));
         break;
       case '가입':
-        await postBankSaving(bankName, count);
+        await postBankSaving(bankName, count)
+          .then((res: any) => {
+            alert(res.msg);
+          })
+          .catch((err: any) => alert(err.response.data.msg));
         break;
     }
     toggle();
@@ -143,7 +155,7 @@ const ModalDeposit = ({
                 'bg-gray-light',
               )}
               label={priceFilter(ratio * 10000)}
-              value={ratio * 10000}
+              value={count + ratio * 10000}
               onClick={handleChangeCount}
             />
           ),

@@ -35,7 +35,7 @@ const Ranking = ({ className, ranking }: RankingProps): JSX.Element => {
               ) : (
                 ''
               )}
-              <ProfileCard key={id} src={src} alt={name} />
+              <ProfileCard key={id} src={src} alt={name} userNo={id} />
             </div>
           );
         })}

@@ -16,14 +16,8 @@ interface Deposit {
 }
 
 interface MyBankInfo extends MyDeposit {
-  // bankName: string;
-  // productType: '입출금' | '예금' | '적금';
-  // interestRate: number;
-  // primeInterestRate: number;
-  // savingBalance: number | null;
   depositMoney: number | null;
   createSaving: number;
-  // description?: string;
 }
 
 export type { MyDeposit, Deposit, Bank, MyBankInfo };

@@ -9,15 +9,20 @@ import { useMemo } from 'react';
 interface ProfileAssetProps {
   className?: string;
   userNo: number;
+  rival?: number;
 }
 
 const ProfileAsset = ({
   className,
   userNo,
+  rival,
 }: ProfileAssetProps): JSX.Element => {
   const { data: capital } = useQuery<Capital, Error>(
     getUserCapitalQuery(userNo),
   );
+  const { data: rivalCapital } = rival
+    ? useQuery<Capital, Error>(getUserCapitalQuery(rival))
+    : { data: undefined };
   console.log(capital);
 
   const { capitalChart, revenueChart, rivalChart } = useMemo(() => {
@@ -45,9 +50,24 @@ const ProfileAsset = ({
       length: 5,
     };
 
+    let rivalChart = undefined;
+    if (rivalCapital) {
+      rivalChart = {
+        labels: ['stock', 'deposit', 'saving', 'auction', 'quizIncome'],
+        data: [
+          rivalCapital.stockIncome,
+          rivalCapital.depositIncome,
+          rivalCapital.savingIncome,
+          rivalCapital.auctionIncome,
+          rivalCapital.quizIncome,
+        ],
+        length: 5,
+      };
+    }
     return {
       capitalChart,
       revenueChart,
+      rivalChart,
     };
   }, [capital]);
 
@@ -56,20 +76,20 @@ const ProfileAsset = ({
       style={{
         width: '75%',
       }}
-      className={
-        (convertClassNameList(convertClassName(className, styles)),
-        'flex-container')
-      }
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        styles['profile-asset'],
+      )}
     >
-      <div>
+      <div className={styles['profile-asset__pie-chart']}>
         <Text className="text-lg center" text="내 자산" />
         <PieChart chartData={capitalChart} />
       </div>
-      <div>
+      <div className={styles['profile-asset__pie-chart']}>
         <Text className="text-lg center" text="수익률" />
         <PieChart chartData={revenueChart} />
       </div>
-      <div>
+      <div className={styles['profile-asset__pie-chart']}>
         <Text className="text-lg center" text="라이벌의 자산" />
         <PieChart chartData={rivalChart} />
       </div>

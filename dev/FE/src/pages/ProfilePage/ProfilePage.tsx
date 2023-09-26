@@ -176,7 +176,7 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
       {myPage && (
         <>
           <ProfileSection label="자산 모아보기">
-            <div className="flex-container">
+            <div className={styles['profile-page__profile-section']}>
               <Table
                 data={
                   depositSavings &&
@@ -370,6 +370,7 @@ const ProfilePage = ({ className }: ProfilePageProps): JSX.Element => {
 
   const profile = useMemo(() => {
     if (!userInfo) return undefined;
+    if (!myPage) return <ChildProfilePage />;
     switch (userInfo?.userType) {
       case USER_TYPE.아이들:
         return <ChildProfilePage myPage={myPage} />;
