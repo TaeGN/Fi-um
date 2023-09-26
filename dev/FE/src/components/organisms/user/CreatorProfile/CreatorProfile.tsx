@@ -31,7 +31,11 @@ const CreatorProfile = ({
             <div key={art.imagePath} className={styles['creator-profile_art']}>
               <Image
                 src={art.imagePath}
-                className={styles['creator-profile_art__image']}
+                className={
+                  art.winner
+                    ? styles['creator-profile_art__image__dark']
+                    : styles['creator-profile_art__image']
+                }
               />
               <div className="flex-container">
                 <Text text={`${art.title}`} />

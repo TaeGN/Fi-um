@@ -39,7 +39,7 @@ const GalleryPage = ({ className }: GalleryPageProps): JSX.Element => {
     <div
       className={convertClassNameList(
         convertClassName(className, styles),
-        'flex-container-col',
+        styles['gallery-page'],
       )}
     >
       {userType === USER_TYPE.원장쌤 && (
@@ -54,10 +54,7 @@ const GalleryPage = ({ className }: GalleryPageProps): JSX.Element => {
         />
       )}
       <div
-        className={convertClassNameList(
-          styles['gallery-page__card-container'],
-          'card-container',
-        )}
+        className={convertClassNameList(styles['gallery-page__card-container'])}
       >
         {reviews
           ?.sort((a, b) => Number(a.createTime) - Number(b.createTime))
