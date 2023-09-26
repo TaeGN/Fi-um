@@ -4,11 +4,11 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './QuizPage.module.scss';
-import useAuth from '@/hooks/useAuth';
+// import useAuth from '@/hooks/useAuth';
 import { convertClassNameList } from '@/utils';
 
 const QuizPage = () => {
-  const userInfo = useAuth().userInfo;
+  //   const userInfo = useAuth().userInfo;
   const navigate = useNavigate();
   //   useEffect(() => {
   //     if (userInfo?.quiz) {
