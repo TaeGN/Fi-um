@@ -1,19 +1,17 @@
 // AuctionDetailMain.moudle.scss
 
 .auction-detail-main {
-  display: grid;
-  grid-template-areas: 'image description';
-  grid-template-columns: 7fr 3fr;
+  display: flex;
 
-  gap: 5vw;
+  gap: 1vw;
 
   &__image {
-    grid-area: image;
-
-    max-height: 70vh;
+    width: 70%;
   }
 
   &__description {
-    grid-area: description;
+    width: 30%;
+    border: 1px solid lightblue;
+    border-radius: 10px;
   }
 }
