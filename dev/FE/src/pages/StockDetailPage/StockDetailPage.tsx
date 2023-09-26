@@ -209,8 +209,8 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
           >
             <Button
               className={convertClassNameList(
-                'bg-blue white',
                 styles['stock-detail-page__content--button'],
+                styles['stock-detail-page__content--button__sell'],
               )}
               label="매도"
               value="매도"
@@ -218,8 +218,8 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
             />
             <Button
               className={convertClassNameList(
-                'bg-red white',
                 styles['stock-detail-page__content--button'],
+                styles['stock-detail-page__content--button__buy'],
               )}
               label="매수"
               value="매수"
