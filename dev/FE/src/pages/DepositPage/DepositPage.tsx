@@ -21,7 +21,9 @@ const DepositPage = ({ className }: DepositPageProps): JSX.Element => {
   const [curDeposit, setCurDeposit] = useState<MyBankInfo | undefined>(
     undefined,
   );
-  const { data: depositList } = useQuery<MyBankInfo[]>(getBankInfoQuery());
+  const { data: depositList, refetch } = useQuery<MyBankInfo[]>(
+    getBankInfoQuery(),
+  );
   const { userInfo } = useAuth();
 
   const onModal = useCallback((label: string, deposit: MyBankInfo) => {
@@ -74,6 +76,7 @@ const DepositPage = ({ className }: DepositPageProps): JSX.Element => {
             className={className}
             label={label}
             deposit={curDeposit}
+            refetch={refetch}
             toggle={closeToggle}
           />
         </Modal>

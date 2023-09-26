@@ -5,7 +5,7 @@ import {
   ProfileSection,
   UserList,
 } from '@/components/organisms';
-import { convertClassName, convertClassNameList } from '@/utils';
+import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
 import { Image, Table } from '@/components/atoms';
 import useAuth from '@/hooks/useAuth';
 import { useMemo } from 'react';
@@ -142,8 +142,49 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
         <>
           <ProfileSection label="자산 모아보기">
             <div className="flex-container">
-              <Table data={depositSavings} />
-              <Table data={myStocks} />
+              <Table
+                data={
+                  depositSavings &&
+                  depositSavings.map(
+                    ({
+                      bankName,
+                      interestRate,
+                      primeInterestRate,
+                      productType,
+                      savingBalance,
+                    }) => {
+                      return {
+                        은행명: bankName,
+                        상품명: productType,
+                        이자율: `${interestRate}% (+${primeInterestRate}%)`,
+                        잔액: priceFilter(savingBalance),
+                      };
+                    },
+                  )
+                }
+                size={5}
+              />
+              <Table
+                data={
+                  myStocks &&
+                  myStocks.map(
+                    ({
+                      stockCount,
+                      stockName,
+                      stockNowPrice,
+                      stockUnitPrice,
+                    }) => {
+                      return {
+                        주식명: stockName,
+                        보유주: stockCount,
+                        평단가: priceFilter(stockUnitPrice),
+                        현재가: priceFilter(stockNowPrice),
+                      };
+                    },
+                  )
+                }
+                size={5}
+              />
             </div>
           </ProfileSection>
           <ProfileSection label="내 펀딩">
