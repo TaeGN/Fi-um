@@ -34,11 +34,6 @@ const authInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     (config) => {
       const accessToken = getAccessToken();
-      if (!accessToken) {
-        alert('로그인이 필요합니다.!!');
-        window.location.href = '/login';
-        return Promise.reject(new Error('비 로그인'));
-      }
       config.headers['X-ACCESS-TOKEN'] = accessToken;
       return config;
     },
@@ -58,11 +53,6 @@ const authInterceptor = (instance: AxiosInstance) => {
           // 권한 없음
           case HTTP_STATUS.UNAUTHORIZED:
             const refreshToken = getRefreshToken();
-            if (!refreshToken) {
-              alert('로그인이 필요합니다.!!');
-              window.location.href = '/login';
-              return Promise.reject(error);
-            }
             // access token 재 발급
             if (!isRefresh) {
               // refresh 요청 한 번만
