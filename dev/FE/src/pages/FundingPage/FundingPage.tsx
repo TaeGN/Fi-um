@@ -102,15 +102,15 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
             <FundingItem key={funding.itemNo} {...funding} onModal={onModal} />
           );
         })}
-        <Modal scrollTop={scrollTop} isOpen={isOpen} toggle={closeToggle}>
-          <ModalFunding
-            className={className}
-            item={item}
-            onClick={sponBtn}
-            closeToggle={closeToggle}
-          />
-        </Modal>
       </div>
+      <Modal scrollTop={scrollTop} isOpen={isOpen} toggle={closeToggle}>
+        <ModalFunding
+          className={className}
+          item={item}
+          onClick={sponBtn}
+          closeToggle={closeToggle}
+        />
+      </Modal>
     </>
   );
 };

@@ -70,46 +70,50 @@ const AuctionDetailPage = ({
   const [arts, setArts] = useState();
 
   return (
-    <div
-      className={convertClassNameList(
-        convertClassName(className, styles),
-        styles['auction-detail-page'],
-      )}
-    >
-      {auction && (
-        <AuctionDetailMain
-          className={convertClassNameList(styles['auction-detail-page__main'])}
-          title={auction.title}
-          src={auction.itemImagePath}
-          alt={auction.title}
-          imageClassName=""
-          descriptionClassName={auction.content}
-          auctionClick={() => {
-            openToggle();
-          }}
-          buyItClick={() => {
-            if (
-              window.confirm(
-                `${auction.instantPrice}원에 즉시구매 하시겠습니까?`,
-              )
-            )
-              postAuctionBidMutation.mutate({
-                auctionNo: auction.auctionNo,
-                auctionPrice: auction.instantPrice,
-              });
-          }}
-          auctionPrice={auction.auctionPrice}
-          instantPrice={auction.instantPrice}
-          createdTime={auction.createdTime}
-        />
-      )}
-      <AuctionDetailDescription
+    <>
+      <div
         className={convertClassNameList(
-          styles['auction-detail-page__description'],
+          convertClassName(className, styles),
+          styles['auction-detail-page'],
         )}
-        description={auction?.content}
-      />
-      <CreaterProfile arts={arts} />
+      >
+        {auction && (
+          <AuctionDetailMain
+            className={convertClassNameList(
+              styles['auction-detail-page__main'],
+            )}
+            title={auction.title}
+            src={auction.itemImagePath}
+            alt={auction.title}
+            imageClassName=""
+            descriptionClassName={auction.content}
+            auctionClick={() => {
+              openToggle();
+            }}
+            buyItClick={() => {
+              if (
+                window.confirm(
+                  `${auction.instantPrice}원에 즉시구매 하시겠습니까?`,
+                )
+              )
+                postAuctionBidMutation.mutate({
+                  auctionNo: auction.auctionNo,
+                  auctionPrice: auction.instantPrice,
+                });
+            }}
+            auctionPrice={auction.auctionPrice}
+            instantPrice={auction.instantPrice}
+            createdTime={auction.createdTime}
+          />
+        )}
+        <AuctionDetailDescription
+          className={convertClassNameList(
+            styles['auction-detail-page__description'],
+          )}
+          description={auction?.content}
+        />
+        <CreaterProfile arts={arts} />
+      </div>
       {auction && (
         <Modal isOpen={isOpen} toggle={closeToggle}>
           <>
@@ -137,7 +141,7 @@ const AuctionDetailPage = ({
           </>
         </Modal>
       )}
-    </div>
+    </>
   );
 };
 

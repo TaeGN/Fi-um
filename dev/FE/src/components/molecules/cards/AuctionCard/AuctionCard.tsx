@@ -11,6 +11,7 @@ interface AuctionCardProps {
   instantPrice?: number;
   content?: string;
   review?: boolean;
+  noBtn?: boolean;
 }
 
 const AuctionCard = ({
@@ -22,33 +23,37 @@ const AuctionCard = ({
   instantPrice,
   content,
   review,
+  noBtn,
 }: AuctionCardProps) => {
   return (
     <div
       className={`${styles.auctionCard} ${convertClassName(className, styles)}`}
     >
-      <div className={styles.image}>
-        <Image src={itemImagePath} alt={title} />
-      </div>
-      <div className={styles.title}>
-        <Text text={title} className="text-lg" />
-      </div>
-      <div className={styles.content}>
-        {auctionPrice && (
-          <Text text={`현재가 : ${priceFilter(auctionPrice)}`} />
+      <div>
+        <div className={styles.image}>
+          <Image src={itemImagePath} alt={title} />
+        </div>
+        <div className={styles.title}>
+          <Text text={title} className="text-lg" />
+        </div>
+        <div className={styles.content}>
+          {auctionPrice && (
+            <Text text={`현재가 : ${priceFilter(auctionPrice)}`} />
+          )}
+          {instantPrice && (
+            <Text text={`즉시구매가 : ${priceFilter(instantPrice)}`} />
+          )}
+          {content && <Text text={content} />}
+        </div>
+        {!noBtn && (
+          <div className={styles.button}>
+            <Button
+              label={review ? '자세히 보기' : '경매하러가기'}
+              className="primary xsmall"
+              onClick={onClick}
+            />
+          </div>
         )}
-        {instantPrice && (
-          <Text text={`즉시구매가 : ${priceFilter(instantPrice)}`} />
-        )}
-        {content && <Text text={content} />}
-      </div>
-
-      <div className={styles.button}>
-        <Button
-          label={review ? '자세히 보기' : '경매하러가기'}
-          className="primary xsmall"
-          onClick={onClick}
-        />
       </div>
     </div>
   );
