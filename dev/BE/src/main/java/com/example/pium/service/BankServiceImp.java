@@ -6,6 +6,7 @@ import com.example.pium.entity.*;
 import com.example.pium.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -66,7 +67,7 @@ public class BankServiceImp {
         PointTypeEntity pointType = pointTypeRepository.findByPointType("적금").get();
         pointService.makePointRecord(userData, pointType, -savingMoney);
         // 재무상태표 변동
-        BalanceSheetEntity sellerBalance = balanceSheetRepository.findByUserNo(userData).get();
+        BalanceSheetEntity sellerBalance = balanceSheetRepository.findByUserNo(userData);
         sellerBalance.setSaving(savingMoney);
         sellerBalance.setPoint(sellerBalance.getPoint()-savingMoney);
         balanceSheetRepository.save(sellerBalance);
@@ -75,17 +76,23 @@ public class BankServiceImp {
     public void makeDeposit(Integer user, String bankName, Integer depositMoney){
         BankProductDataEntity productData = checkBankProduct("예금", bankName);
         UserEntity userData = userService.getUserInfo(user);
-        BalanceSheetEntity sellerBalance = balanceSheetRepository.findByUserNo(userData).get();
+        BalanceSheetEntity sellerBalance = balanceSheetRepository.findByUserNo(userData);
         // 예금 내역 추가
+        Optional<DepositEntity> depositRecent =  depositRepository.findTopByUserNoAndBankProductDataNoOrderByDepositNoDesc(userData, productData);
+        Integer totalBalance = 0;
+        if (depositRecent.isPresent()) {
+            totalBalance = depositRecent.get().getDepositBalance();
+        }
         DepositEntity createDeposit = DepositEntity.builder()
                 .userNo(userData)
                 .bankProductDataNo(productData)
                 .depositMoney(depositMoney)
-                .depositBalance(sellerBalance.getDeposit()+depositMoney)
+                .depositBalance(depositMoney+totalBalance)
                 .createDeposit(BigInteger.valueOf(System.currentTimeMillis()))
                 .build();
         depositRepository.save(createDeposit);
         // 재무상태표에 반영
+
         sellerBalance.setDeposit(sellerBalance.getDeposit()+depositMoney);
         sellerBalance.setPoint(sellerBalance.getPoint()-depositMoney);
         balanceSheetRepository.save(sellerBalance);
