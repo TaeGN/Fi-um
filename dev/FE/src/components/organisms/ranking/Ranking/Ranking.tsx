@@ -29,7 +29,10 @@ const Ranking = ({ className, ranking }: RankingProps): JSX.Element => {
       <div className={styles['ranking__main']}>
         {data.map(({ id, name, src }, index) => {
           return (
-            <div key={id} className={styles[`profileCard${index}`]}>
+            <div
+              key={id}
+              className={(styles[`profileCard${index}`], 'flex-container-col')}
+            >
               {index === 1 ? (
                 <img src="/img/crown.svg" alt="" className={styles.crown} />
               ) : (

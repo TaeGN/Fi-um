@@ -1,5 +1,9 @@
 .profile-header {
   min-height: 30vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   &__not-mypage {
     justify-content: center;
