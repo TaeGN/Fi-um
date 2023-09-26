@@ -5,8 +5,15 @@ import {
   ProfileSection,
   UserList,
 } from '@/components/organisms';
-import { convertClassName, convertClassNameList } from '@/utils';
-import { Image, Table } from '@/components/atoms';
+import {
+  checkConditionPointChange,
+  convertClassName,
+  convertClassNameList,
+  convertDate,
+  priceFilter,
+  priceFilterPlus,
+} from '@/utils';
+import { Image, Table, Text } from '@/components/atoms';
 import useAuth from '@/hooks/useAuth';
 import { useMemo } from 'react';
 import { USER_TYPE } from '@/constants';
@@ -77,10 +84,38 @@ const SponsorProfilePage = () => {
         ))}
       </ProfileSection>
       <ProfileSection label="포인트 사용 내역">
-        <Table data={pointRecords} />
+        <Table
+          data={
+            pointRecords &&
+            pointRecords.map(({ changedTime, pointChange, useType }) => {
+              return {
+                타입: useType,
+                변동량: (
+                  <Text
+                    className={checkConditionPointChange(pointChange)}
+                    text={priceFilterPlus(pointChange)}
+                  />
+                ),
+                변동날짜: convertDate(changedTime),
+              };
+            })
+          }
+          size={10}
+        />
       </ProfileSection>
       <ProfileSection label="나의 후원 목록">
-        <Table data={sponsorshipDetails} />
+        <Table
+          data={
+            sponsorshipDetails &&
+            sponsorshipDetails.map(({ itemName, price }) => {
+              return {
+                물품명: itemName,
+                변동량: priceFilter(price),
+              };
+            })
+          }
+          size={10}
+        />
       </ProfileSection>
     </>
   );
@@ -142,8 +177,49 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
         <>
           <ProfileSection label="자산 모아보기">
             <div className="flex-container">
-              <Table data={depositSavings} />
-              <Table data={myStocks} />
+              <Table
+                data={
+                  depositSavings &&
+                  depositSavings.map(
+                    ({
+                      bankName,
+                      interestRate,
+                      primeInterestRate,
+                      productType,
+                      savingBalance,
+                    }) => {
+                      return {
+                        은행명: bankName,
+                        상품명: productType,
+                        이자율: `${interestRate}% (+${primeInterestRate}%)`,
+                        잔액: priceFilter(savingBalance),
+                      };
+                    },
+                  )
+                }
+                size={5}
+              />
+              <Table
+                data={
+                  myStocks &&
+                  myStocks.map(
+                    ({
+                      stockCount,
+                      stockName,
+                      stockNowPrice,
+                      stockUnitPrice,
+                    }) => {
+                      return {
+                        주식명: stockName,
+                        보유주: stockCount,
+                        평단가: priceFilter(stockUnitPrice),
+                        현재가: priceFilter(stockNowPrice),
+                      };
+                    },
+                  )
+                }
+                size={5}
+              />
             </div>
           </ProfileSection>
           <ProfileSection label="내 펀딩">
@@ -151,12 +227,30 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
           </ProfileSection>
         </>
       )}
+
       <ProfileSection label="그림">
         <Swiper>{auction}</Swiper>
       </ProfileSection>
       {myPage && (
         <ProfileSection label="포인트 사용 내역">
-          <Table data={pointRecords} />
+          <Table
+            data={
+              pointRecords &&
+              pointRecords.map(({ changedTime, pointChange, useType }) => {
+                return {
+                  타입: useType,
+                  변동량: (
+                    <Text
+                      className={checkConditionPointChange(pointChange)}
+                      text={priceFilterPlus(pointChange)}
+                    />
+                  ),
+                  변동날짜: convertDate(changedTime),
+                };
+              })
+            }
+            size={10}
+          />
         </ProfileSection>
       )}
     </>

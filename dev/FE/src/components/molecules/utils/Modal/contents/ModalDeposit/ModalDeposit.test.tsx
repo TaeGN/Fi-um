@@ -18,6 +18,7 @@ describe('ModalDeposit 컴포넌트', () => {
   test.skip('컴포넌트 렌더링 테스트', () => {
     render(
       <ModalDeposit
+        refetch={() => {}}
         point={10}
         deposit={deposit}
         label=""

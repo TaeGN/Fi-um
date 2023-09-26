@@ -10,6 +10,7 @@ interface ModalDepositProps {
   point: number;
   label: string;
   deposit: MyBankInfo;
+  refetch: () => void;
   onClick?: () => void;
   toggle: () => void;
 }
@@ -22,6 +23,7 @@ const ModalDeposit = ({
   label,
   toggle,
   point,
+  refetch,
   deposit: { bankName, savingBalance, depositMoney },
 }: ModalDepositProps): JSX.Element => {
   const [count, setCount] = useState<number>(0);
@@ -29,22 +31,23 @@ const ModalDeposit = ({
   const maxCount: number =
     (label === '출금' ? savingBalance ?? depositMoney : point) || 0;
 
-  const onClick = useCallback(() => {
+  const onClick = useCallback(async () => {
     if (count <= 0) return;
     if (!window.confirm(`${label} 하시겠습니까?`)) return;
 
     switch (label) {
       case '입금':
-        postBankDeposit(bankName, count);
+        await postBankDeposit(bankName, count);
         break;
       case '출금':
-        postBankDeposit(bankName, -count);
+        await postBankDeposit(bankName, -count);
         break;
       case '가입':
-        postBankSaving(bankName, count);
+        await postBankSaving(bankName, count);
         break;
     }
     toggle();
+    refetch();
   }, [bankName, count]);
 
   const colorStyle = useMemo(() => {
