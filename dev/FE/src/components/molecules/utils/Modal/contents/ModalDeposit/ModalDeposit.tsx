@@ -155,7 +155,7 @@ const ModalDeposit = ({
                 'bg-gray-light',
               )}
               label={priceFilter(ratio * 10000)}
-              value={ratio * 10000}
+              value={count + ratio * 10000}
               onClick={handleChangeCount}
             />
           ),
