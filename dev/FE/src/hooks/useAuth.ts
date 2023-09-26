@@ -1,18 +1,31 @@
-import { UserInfo } from '@/types/user';
-import { useCallback, useEffect, useState } from 'react';
+import { getUserInfo } from '@/api/user';
+import { userState } from '@/store';
+import { UserInfo } from '@/types';
+import { getAccessToken } from '@/utils';
+import { useCallback, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+
+let isRefresh = false;
 
 const useAuth = () => {
-  const [userInfo, setUserInfo] = useState<UserInfo | undefined>(undefined);
-  const resetUserInfo = useCallback(() => {
-    const data = sessionStorage.getItem('user');
-    setUserInfo(data ? JSON.parse(data).data : '');
+  const [userInfo, setUserInfo] = useRecoilState<UserInfo | undefined>(
+    userState,
+  );
+  const refreshUserInfo = useCallback(async () => {
+    const newUserInfo = await getUserInfo();
+    setUserInfo(newUserInfo);
   }, []);
 
   useEffect(() => {
-    resetUserInfo();
-  }, [sessionStorage.getItem('user')]);
+    if (!userInfo && getAccessToken() && !isRefresh) {
+      isRefresh = true;
+      refreshUserInfo().then(() => {
+        isRefresh = false;
+      });
+    }
+  }, []);
 
-  return { userInfo, setUserInfo, resetUserInfo };
+  return { userInfo, setUserInfo, refreshUserInfo };
 };
 
 export default useAuth;

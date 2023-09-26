@@ -1,35 +1,27 @@
-const setSessionStorageItem = (key: string, value: any) => {
-  const user = sessionStorage.getItem('user');
-  if (!user) {
-    return;
-  }
-
-  const { data } = JSON.parse(user);
-  const newData = { ...data, [key]: value };
-  sessionStorage.setItem('user', JSON.stringify({ data: newData }));
+const getAccessToken = (): string | null => {
+  return sessionStorage.getItem('accessToken');
 };
 
-const getSessionStorageItem = (key: string) => {
-  const user = sessionStorage.getItem('user');
-  if (!user) {
-    return undefined;
-  }
-
-  const { data } = JSON.parse(user);
-  return data[key];
+const getRefreshToken = (): string | null => {
+  return sessionStorage.getItem('refreshToken');
+};
+const setAccessToken = (accessToken: string): void => {
+  sessionStorage.setItem('accessToken', accessToken);
 };
 
-const getAccessToken = (): string | undefined => {
-  return getSessionStorageItem('tokenResponse')?.accessToken;
+const setRefreshToken = (refreshToken: string): void => {
+  sessionStorage.setItem('refreshToken', refreshToken);
 };
 
-const getRefreshToken = (): string | undefined => {
-  return getSessionStorageItem('tokenResponse')?.refreshToken;
+const removeTokens = (): void => {
+  sessionStorage.removeItem('accessToken');
+  sessionStorage.removeItem('refreshToken');
 };
 
 export {
-  setSessionStorageItem,
-  getSessionStorageItem,
   getAccessToken,
   getRefreshToken,
+  setAccessToken,
+  setRefreshToken,
+  removeTokens,
 };

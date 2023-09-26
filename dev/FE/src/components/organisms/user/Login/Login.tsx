@@ -137,10 +137,7 @@ const Login = ({ className, signUp }: LoginProps): JSX.Element => {
 
   const loginMutation = useMutation(userLogin, {
     onSuccess: (data) => {
-      sessionStorage.setItem('user', JSON.stringify(data));
-      console.log(data.data);
-
-      setUserInfo(data.data);
+      setUserInfo(data);
       alert('로그인 성공!!');
       navigate('/');
     },

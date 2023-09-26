@@ -53,7 +53,7 @@ interface UserInfo {
   isPrimed1: boolean;
   isPrimed2: boolean;
   rival?: number;
-  tokenResponse: { accessToken: string; refreshToken: string };
+  tokenResponse?: { accessToken: string; refreshToken: string };
 }
 
 interface SponsorProfile {

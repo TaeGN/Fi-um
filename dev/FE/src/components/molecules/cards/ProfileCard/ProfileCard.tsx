@@ -35,7 +35,7 @@ const ProfileCard = ({
 }: ProfileCardProps) => {
   const { isOpen, openToggle, closeToggle } = useModal();
   const [file, setFile] = useState<File | undefined>(undefined);
-  const { userInfo, resetUserInfo } = useAuth();
+  const { userInfo, setUserInfo, refreshUserInfo } = useAuth();
   const { state } = useLocation();
   const navigate = useNavigate();
 
@@ -55,13 +55,9 @@ const ProfileCard = ({
     const imagePath = await postImage(formData);
 
     await putUserProfileImage(imagePath);
-    const newUserInfo = userInfo && { data: { ...userInfo, imagePath } };
-    sessionStorage.setItem(
-      'user',
-      newUserInfo ? JSON.stringify(newUserInfo) : '',
-    );
-
-    resetUserInfo();
+    setUserInfo((userInfo) => {
+      return userInfo && { ...userInfo, imagePath };
+    });
     closeToggle();
   };
 
@@ -75,13 +71,13 @@ const ProfileCard = ({
   const handleRegistRival = async () => {
     if (!userNo || !window.confirm('라이벌로 등록하시겠습니까?')) return;
     await postUserRival(state?.userNo ?? userNo).then(() => {});
-    resetUserInfo();
+    refreshUserInfo();
   };
 
   const handleRemoveRival = async () => {
     if (!userNo || !window.confirm('라이벌을 삭제하시겠습니까?')) return;
     await deleteUserRival();
-    resetUserInfo();
+    refreshUserInfo();
   };
 
   return (

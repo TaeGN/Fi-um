@@ -18,11 +18,12 @@ interface NavbarProps {
 }
 
 const Navbar = ({ className }: NavbarProps): JSX.Element => {
-  const { userInfo } = useAuth();
+  const { userInfo, setUserInfo } = useAuth();
   const navigate = useNavigate();
   const mutation = useMutation(userLogout, {
     onMutate() {
       navigate('/login');
+      setUserInfo(undefined);
     },
   });
 
