@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Auction } from '@/types';
 import { getAuctionsQuery } from '@/api/queries/auction';
 import useAuth from '@/hooks/useAuth';
-import { Button, Text } from '@/components/atoms';
+import { Button } from '@/components/atoms';
 import { USER_TYPE } from '@/constants';
 import { useEffect, useState } from 'react';
 
