@@ -4,6 +4,7 @@ import { Button, Text } from '@/components/atoms';
 import { ChangeEvent, MouseEvent, useCallback, useMemo, useState } from 'react';
 import { postBankDeposit, postBankSaving } from '@/api/deposit';
 import { MyBankInfo } from '@/types';
+import useAuth from '@/hooks/useAuth';
 
 interface ModalDepositProps {
   className?: string;
@@ -27,6 +28,7 @@ const ModalDeposit = ({
   deposit: { bankName, savingBalance, depositMoney },
 }: ModalDepositProps): JSX.Element => {
   const [count, setCount] = useState<number>(0);
+  const { refreshUserInfo } = useAuth();
 
   const maxCount: number =
     (label === '출금' ? savingBalance ?? depositMoney : point) || 0;
@@ -37,29 +39,18 @@ const ModalDeposit = ({
 
     switch (label) {
       case '입금':
-        await postBankDeposit(bankName, count)
-          .then((res: any) => {
-            alert(res.msg);
-          })
-          .catch((err: any) => alert(err.response.data.msg));
+        await postBankDeposit(bankName, count);
         break;
       case '출금':
-        await postBankDeposit(bankName, -count)
-          .then((res: any) => {
-            alert(res.msg);
-          })
-          .catch((err: any) => alert(err.response.data.msg));
+        await postBankDeposit(bankName, -count);
         break;
       case '가입':
-        await postBankSaving(bankName, count)
-          .then((res: any) => {
-            alert(res.msg);
-          })
-          .catch((err: any) => alert(err.response.data.msg));
+        await postBankSaving(bankName, count);
         break;
     }
     toggle();
     refetch();
+    refreshUserInfo();
   }, [bankName, count]);
 
   const colorStyle = useMemo(() => {
