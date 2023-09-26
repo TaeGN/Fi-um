@@ -7,7 +7,7 @@ import { Funding, Ranking as RankingType } from '@/types';
 import { Modal } from '@/components/molecules';
 import ModalFunding from '@/components/molecules/utils/Modal/contents/ModalFunding/ModalFunding';
 import useModal from '@/hooks/useModal';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Button } from '@/components/atoms';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '@/hooks/useAuth';
@@ -57,40 +57,61 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
   };
   console.log(fundings);
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 700);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div
-      className={convertClassNameList(
-        convertClassName(className, styles),
-        styles['funding-page'],
-        'flex-container-col',
+    <>
+      {loading && (
+        <div className="page-loading">
+          <img
+            style={{ height: '250px', width: '250px' }}
+            src="./img/loading/funding.gif"
+          />
+        </div>
       )}
-    >
-      {userType === 1 && (
-        <Button
-          className={convertClassNameList(
-            convertClassName(className, styles),
-            'self-end m-1',
-            'primary xsmall',
-          )}
-          label="등록하기"
-          onClick={() => navigate(`/create`, { state: 'funding' })}
-        />
-      )}
-      {ranking && <Ranking ranking={ranking} />}
-      {fundings?.map((funding) => {
-        return (
-          <FundingItem key={funding.itemNo} {...funding} onModal={onModal} />
-        );
-      })}
-      <Modal scrollTop={scrollTop} isOpen={isOpen} toggle={closeToggle}>
-        <ModalFunding
-          className={className}
-          item={item}
-          onClick={sponBtn}
-          closeToggle={closeToggle}
-        />
-      </Modal>
-    </div>
+
+      <div
+        className={convertClassNameList(
+          convertClassName(className, styles),
+          styles['funding-page'],
+          'flex-container-col',
+        )}
+      >
+        {userType === 1 && (
+          <Button
+            className={convertClassNameList(
+              convertClassName(className, styles),
+              'self-end m-1',
+              'primary xsmall',
+            )}
+            label="등록하기"
+            onClick={() => navigate(`/create`, { state: 'funding' })}
+          />
+        )}
+        {ranking && <Ranking ranking={ranking} />}
+        {fundings?.map((funding) => {
+          return (
+            <FundingItem key={funding.itemNo} {...funding} onModal={onModal} />
+          );
+        })}
+        <Modal scrollTop={scrollTop} isOpen={isOpen} toggle={closeToggle}>
+          <ModalFunding
+            className={className}
+            item={item}
+            onClick={sponBtn}
+            closeToggle={closeToggle}
+          />
+        </Modal>
+      </div>
+    </>
   );
 };
 

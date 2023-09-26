@@ -1,7 +1,7 @@
 import { convertClassName, convertClassNameList, eduBook } from '@/utils';
 import styles from './EducationPage.module.scss';
 import { Button } from '@/components/atoms';
-import { useCallback, useReducer, useEffect } from 'react';
+import { useCallback, useReducer, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface EducationPageProps {
@@ -109,46 +109,67 @@ const EducationPage = ({ className }: EducationPageProps): JSX.Element => {
       window.removeEventListener('keydown', handleKeydown);
     };
   }, [handlePageNoIncrement, handlePageNoDecrement]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 700);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <div
-      className={convertClassNameList(
-        convertClassName(className, styles),
-        styles['education-page'],
-      )}
-    >
-      <div className={styles['education-page__index']}>
-        <span className={styles['education-page__index__title']}>목차</span>
-        {indexList.map(({ titleNo, pageNo }, idx) => (
-          <Button
-            key={pageNo}
-            className={convertClassNameList(
-              styles[`education-page__index__button`],
-              styles[
-                `education-page__index__button__${idx % 2 ? 'odd' : 'even'}`
-              ],
-            )}
-            label={indexNameList[titleNo]}
-            onClick={handlePageNoChange(pageNo)}
+    <>
+      {loading && (
+        <div className="page-loading">
+          <img
+            style={{ height: '250px', width: '250px' }}
+            src="./img/loading/education.gif"
           />
-        ))}
-        <button onClick={handleGoQuiz}>퀴즈 풀러 가기</button>
+        </div>
+      )}
+      <div
+        className={convertClassNameList(
+          convertClassName(className, styles),
+          styles['education-page'],
+        )}
+      >
+        <div className={styles['education-page__index']}>
+          <span className={styles['education-page__index__title']}>목차</span>
+          {indexList.map(({ titleNo, pageNo }, idx) => (
+            <Button
+              key={pageNo}
+              className={convertClassNameList(
+                styles[`education-page__index__button`],
+                styles[
+                  `education-page__index__button__${idx % 2 ? 'odd' : 'even'}`
+                ],
+              )}
+              label={indexNameList[titleNo]}
+              onClick={handlePageNoChange(pageNo)}
+            />
+          ))}
+          <button onClick={handleGoQuiz}>퀴즈 풀러 가기</button>
+        </div>
+        <div className={styles['education-page__image']}>
+          {eduBooks[pageNo]}
+        </div>
+        <div className={styles['education-page__pagination']}>
+          <Button
+            className={styles['education-page__pagination--button']}
+            label={'이전'}
+            onClick={handlePageNoDecrement}
+          />
+          {pageNo}쪽
+          <Button
+            className={styles['education-page__pagination--button']}
+            label={'다음'}
+            onClick={handlePageNoIncrement}
+          />
+        </div>
       </div>
-      <div className={styles['education-page__image']}>{eduBooks[pageNo]}</div>
-      <div className={styles['education-page__pagination']}>
-        <Button
-          className={styles['education-page__pagination--button']}
-          label={'이전'}
-          onClick={handlePageNoDecrement}
-        />
-        {pageNo}쪽
-        <Button
-          className={styles['education-page__pagination--button']}
-          label={'다음'}
-          onClick={handlePageNoIncrement}
-        />
-      </div>
-    </div>
+    </>
   );
 };
 

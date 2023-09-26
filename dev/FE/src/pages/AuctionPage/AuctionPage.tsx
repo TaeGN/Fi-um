@@ -8,6 +8,7 @@ import { getAuctionsQuery } from '@/api/queries/auction';
 import useAuth from '@/hooks/useAuth';
 import { Button } from '@/components/atoms';
 import { USER_TYPE } from '@/constants';
+import { useEffect, useState } from 'react';
 
 interface AuctionPageProps {
   className?: string;
@@ -33,35 +34,57 @@ const AuctionPage = ({ className }: AuctionPageProps): JSX.Element => {
     navigate(`/auction/${auctionNo}`, { state: auction });
   };
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 700);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div
-      className={convertClassNameList(
-        convertClassName(className, styles),
-        styles['auction-page'],
-        'flex-container-col',
-      )}
-    >
-      {userType === USER_TYPE.아이들 && (
-        <Button
-          className={convertClassNameList(
-            convertClassName(className, styles),
-            'self-end m-1',
-            'primary xsmall',
-          )}
-          label="등록하기"
-          onClick={() => navigate(`/create`, { state: 'auction' })}
-        />
-      )}
-      <div className={styles['auction-page-card-container']}>
-        {auctions?.map((auction) => (
-          <AuctionCard
-            key={auction.auctionNo}
-            {...auction}
-            onClick={() => handleMoveAuctionDetail(auction.auctionNo, auction)}
+    <>
+      {loading && (
+        <div className="page-loading">
+          <img
+            style={{ height: '250px', width: '250px' }}
+            src="./img/loading/auction.gif"
           />
-        ))}
+        </div>
+      )}
+      <div
+        className={convertClassNameList(
+          convertClassName(className, styles),
+          styles['auction-page'],
+          'flex-container-col',
+        )}
+      >
+        {userType === USER_TYPE.아이들 && (
+          <Button
+            className={convertClassNameList(
+              convertClassName(className, styles),
+              'self-end m-1',
+              'primary xsmall',
+            )}
+            label="등록하기"
+            onClick={() => navigate(`/create`, { state: 'auction' })}
+          />
+        )}
+        <div className={styles['auction-page-card-container']}>
+          {auctions?.map((auction) => (
+            <AuctionCard
+              key={auction.auctionNo}
+              {...auction}
+              onClick={() =>
+                handleMoveAuctionDetail(auction.auctionNo, auction)
+              }
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
