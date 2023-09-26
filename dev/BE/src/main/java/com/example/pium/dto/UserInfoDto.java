@@ -29,4 +29,6 @@ public class UserInfoDto {
     private boolean isPrimed2;
 
     private TokenResponseDto tokenResponse;
+
+    private Integer cash;
 }
