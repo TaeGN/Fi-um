@@ -17,7 +17,6 @@ interface GalleryPageProps {
 const GalleryPage = ({ className }: GalleryPageProps): JSX.Element => {
   const { userInfo } = useAuth();
   const navigate = useNavigate();
-  const userType = userInfo?.userType ?? 3;
   const { data: reviews } = useQuery<Review[], Error>(getReviewsQuery());
   console.log(reviews);
 
@@ -62,7 +61,7 @@ const GalleryPage = ({ className }: GalleryPageProps): JSX.Element => {
           styles['gallery-page'],
         )}
       >
-        {userType === USER_TYPE.원장쌤 && (
+        {userInfo?.userType === USER_TYPE.원장쌤 && (
           <Button
             className={convertClassNameList(
               convertClassName(className, styles),

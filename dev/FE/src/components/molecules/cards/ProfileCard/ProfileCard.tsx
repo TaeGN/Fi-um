@@ -122,13 +122,13 @@ const ProfileCard = ({
           userInfo?.rival === userNo ? (
             <Button
               label="라이벌 취소"
-              className="bg-red white xsmall border0"
+              className="bg-red white xxsmall border0"
               onClick={handleRemoveRival}
             />
           ) : (
             <Button
               label="라이벌 등록"
-              className="gray xsmall"
+              className="gray xxsmall"
               onClick={handleRegistRival}
             />
           ))

@@ -1,4 +1,4 @@
-import { convertClassName, convertClassNameList } from '@/utils';
+import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
 import styles from './ProfileDonator.module.scss';
 import { Text } from '@/components/atoms';
 import { useQuery } from '@tanstack/react-query';
@@ -40,17 +40,17 @@ const ProfileDonator = ({ className }: ProfileDonatorProps): JSX.Element => {
       }
     >
       <div>
-        <div className="flex-container">
+        <div className="flex-container jc-space-between">
           <Text className="text-lg" text="후원 총액 :" />
-          <Text className="blue text-lg" text={sponsoredAmount} />
+          <Text className="blue text-lg" text={priceFilter(sponsoredAmount)} />
         </div>
-        <div className="flex-container">
+        <div className="flex-container jc-space-between">
           <Text className="text-lg" text="내 캐시 :" />
-          <Text className="blue text-lg" text={cash} />
+          <Text className="blue text-lg" text={priceFilter(cash)} />
         </div>
-        <div className="flex-container">
+        <div className="flex-container jc-space-between">
           <Text className="text-lg" text="내 포인트 :" />
-          <Text className="blue text-lg" text={point} />
+          <Text className="blue text-lg" text={priceFilter(point)} />
         </div>
       </div>
       <div>

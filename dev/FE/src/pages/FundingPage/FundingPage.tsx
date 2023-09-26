@@ -26,7 +26,7 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
   const { isOpen, openToggle, closeToggle } = useModal();
   const { userInfo } = useAuth();
   const navigate = useNavigate();
-  const userType = userInfo?.userType ?? 3;
+  const userType = userInfo?.userType ?? 0;
   const { data: fundings } =
     userType === USER_TYPE.아이들
       ? useQuery<Funding[], Error>(getFundingsQuery())
@@ -85,7 +85,7 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
           'flex-container-col',
         )}
       >
-        {userType === 1 && (
+        {userType === USER_TYPE.원장쌤 && (
           <Button
             className={convertClassNameList(
               convertClassName(className, styles),

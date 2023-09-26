@@ -14,7 +14,7 @@ interface Item extends Funding {
 }
 
 interface SponsorshipDetail {
-  sponsorName: string;
+  userName: string;
   itemName: string;
   price: number;
 }

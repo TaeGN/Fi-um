@@ -24,18 +24,18 @@ const options: any = {
   },
 };
 
-const initialData: ChartData<'doughnut', number[], string> = {
-  labels: ['aa'],
-  datasets: [
-    {
-      label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: getLightColors(6),
-      borderColor: getDarkColors(6),
-      borderWidth: 1,
-    },
-  ],
-};
+// const initialData: ChartData<'doughnut', number[], string> = {
+//   labels: ['aa'],
+//   datasets: [
+//     {
+//       label: '# of Votes',
+//       data: [12, 19, 3, 5, 2, 3],
+//       backgroundColor: getLightColors(6),
+//       borderColor: getDarkColors(6),
+//       borderWidth: 1,
+//     },
+//   ],
+// };
 
 const PieChart = ({ className, chartData }: PieChartProps): JSX.Element => {
   const data: ChartData<'doughnut', number[], string> | undefined =
@@ -62,11 +62,11 @@ const PieChart = ({ className, chartData }: PieChartProps): JSX.Element => {
         styles['pie-chart'],
       )}
     >
-      <Doughnut
-        data={data ?? initialData}
-        options={options}
-        data-testid="pie"
-      ></Doughnut>
+      {!data || chartData?.data?.every((elm) => elm === 0) ? (
+        <div className={styles['pie-chart__no-data']}>데이터 없음</div>
+      ) : (
+        <Doughnut data={data} options={options} data-testid="pie" />
+      )}
     </div>
   );
 };
