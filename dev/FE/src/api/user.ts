@@ -93,11 +93,16 @@ const userLogin = async (userDetail: UserDetail) => {
 
 // 로그아웃
 const userLogout = async (): Promise<string> => {
-  return await authApi.post('user/logout').then(({ data }) => {
-    sessionStorage.setItem('user', '');
-    alert('로그아웃 성공!!');
-    return data;
-  });
+  return await authApi
+    .post('user/logout')
+    .then(({ data }) => data)
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      sessionStorage.setItem('user', '');
+      alert('로그아웃 성공!!');
+    });
 };
 
 // 프로필 사진 수정

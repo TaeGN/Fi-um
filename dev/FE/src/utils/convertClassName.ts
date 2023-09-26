@@ -17,5 +17,15 @@ const convertClassNameList = (...classNameList: string[]): string => {
 const checkConditionClassName = (condition: boolean, className: string) => {
   return condition ? className : '';
 };
+
+const checkConditionPointChange = (point: number): string => {
+  if (point == 0) return '';
+  return point > 0 ? 'blue' : 'red';
+};
+
 export default convertClassName;
-export { convertClassNameList, checkConditionClassName };
+export {
+  convertClassNameList,
+  checkConditionClassName,
+  checkConditionPointChange,
+};
