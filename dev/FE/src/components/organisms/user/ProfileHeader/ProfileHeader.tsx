@@ -1,4 +1,8 @@
-import { convertClassName, convertClassNameList } from '@/utils';
+import {
+  checkConditionClassName,
+  convertClassName,
+  convertClassNameList,
+} from '@/utils';
 import styles from './ProfileHeader.module.scss';
 import {
   ProfileAdmin,
@@ -27,17 +31,31 @@ const ProfileHeader = ({
         styles['profile-header'],
       )}
     >
-      <div className="flex-container">
-        <ProfileCard myPage={myPage} />
-        {userInfo?.userType === USER_TYPE.아이들 ? (
-          <ProfileAsset userNo={userInfo.userNo} />
-        ) : userInfo?.userType === USER_TYPE.원장쌤 ? (
-          <ProfileAdmin />
-        ) : userInfo?.userType === USER_TYPE.후원자 ? (
-          <ProfileDonator />
-        ) : (
-          ''
+      <div
+        className={convertClassNameList(
+          checkConditionClassName(
+            !myPage,
+            styles['profile-header__not-mypage'],
+          ),
+          'flex-container',
         )}
+      >
+        <ProfileCard
+          myPage={myPage}
+          src={userInfo?.imagePath}
+          alt={userInfo?.userName}
+          userNo={userInfo?.userNo}
+        />
+        {myPage &&
+          (userInfo?.userType === USER_TYPE.아이들 ? (
+            <ProfileAsset userNo={userInfo.userNo} rival={userInfo.rival} />
+          ) : userInfo?.userType === USER_TYPE.원장쌤 ? (
+            <ProfileAdmin />
+          ) : userInfo?.userType === USER_TYPE.후원자 ? (
+            <ProfileDonator />
+          ) : (
+            ''
+          ))}
       </div>
     </div>
   );

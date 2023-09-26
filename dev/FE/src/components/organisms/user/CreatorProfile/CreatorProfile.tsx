@@ -23,7 +23,12 @@ const CreatorProfile = ({
         styles['creator-profile'],
       )}
     >
-      <ProfileCard myPage={false} src={state.userImagePath} alt={state.name} />
+      <ProfileCard
+        myPage={false}
+        src={state?.userImagePath}
+        alt={state?.name}
+        userNo={state?.userNo}
+      />
       <div>
         <Text className="text-lg" text="이 작가의 다른 작품" />
         <div className={styles['creator-profile_arts']}>

@@ -12,7 +12,10 @@ const postBankDeposit = async (
 ): Promise<string> => {
   return await authApi
     .post(`bank/deposit?option=${bankName}`, { money })
-    .then(({ data }) => data);
+    .then(({ data }) => {
+      alert(data?.msg);
+      return data;
+    });
 };
 
 // 우대 조건 만족 확인
@@ -33,7 +36,10 @@ const postBankSaving = async (
 ): Promise<string> => {
   return await authApi
     .post(`bank/saving?option=${bankName}`, { money })
-    .then(({ data }) => data);
+    .then(({ data }) => {
+      alert(data?.msg);
+      return data;
+    });
 };
 
 // 내 은행 정보 조회

@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import { getreissue } from './user';
 import { HTTP_STATUS } from '@/constants';
+import { getAccessToken } from '@/utils';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 let isRefresh = false;
@@ -38,13 +39,7 @@ const authInterceptor = (instance: AxiosInstance) => {
         window.location.href = '/login';
         return Promise.reject(new Error('비 로그인'));
       }
-
-      const {
-        data: {
-          tokenResponse: { accessToken },
-        },
-      } = JSON.parse(user);
-
+      const accessToken = getAccessToken();
       config.headers['X-ACCESS-TOKEN'] = accessToken;
       return config;
     },
@@ -69,18 +64,11 @@ const authInterceptor = (instance: AxiosInstance) => {
               window.location.href = '/login';
               return Promise.reject(error);
             }
-
-            const {
-              data: {
-                tokenResponse: { refreshToken },
-              },
-            } = JSON.parse(user);
-
             // access token 재 발급
             if (!isRefresh) {
               // refresh 요청 한 번만
               isRefresh = true;
-              getreissue(refreshToken).finally(() => (isRefresh = false));
+              getreissue().finally(() => (isRefresh = false));
             }
             break;
         }

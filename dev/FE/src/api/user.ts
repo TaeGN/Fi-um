@@ -10,6 +10,7 @@ import {
 import { QueryKey } from '@tanstack/react-query';
 import { api, authApi } from '.';
 import { HTTP_STATUS } from '@/constants';
+import { getRefreshToken, setSessionStorageItem } from '@/utils';
 
 // 아이디 중복 확인
 const getUserCheckId = async ({
@@ -35,7 +36,8 @@ const getUser = async (): Promise<SponsorProfile | ChildProfile> => {
 };
 
 // refresh token
-const getreissue = async (refreshToken: string): Promise<string> => {
+const getreissue = async (refreshToken?: string): Promise<string> => {
+  if (!refreshToken) refreshToken = getRefreshToken();
   return await api
     .get(`user/reissue`, {
       headers: {
@@ -100,7 +102,7 @@ const userLogout = async (): Promise<string> => {
       console.log(err);
     })
     .finally(() => {
-      sessionStorage.setItem('user', '');
+      sessionStorage.removeItem('user');
       alert('로그아웃 성공!!');
     });
 };
@@ -108,6 +110,45 @@ const userLogout = async (): Promise<string> => {
 // 프로필 사진 수정
 const putUserProfileImage = async (imagePath: string) => {
   return await authApi.put('user/profile-image', { imagePath });
+};
+
+// 라이벌 등록
+const postUserRival = async (userNo: number) => {
+  return await authApi
+    .post(`user/rival`, { userNo })
+    .then(({ data }) => {
+      alert(data?.msg);
+      setSessionStorageItem('rival', userNo);
+      return data;
+    })
+    .catch(async (error) => {
+      if (error?.response?.status === HTTP_STATUS.FORBIDDEN) {
+        await putUserRival(userNo).then(({ data }) => Promise.resolve(data));
+      } else {
+        alert(error.response.msg);
+      }
+    });
+};
+// 라이벌 수정
+const putUserRival = async (userNo: number) => {
+  return await authApi
+    .put(`user/rival`, { userNo })
+    .then(({ data }) => {
+      alert(data?.msg);
+      setSessionStorageItem('rival', userNo);
+      return data;
+    })
+    .catch((error) => {
+      alert(error.response.msg);
+    });
+};
+// 라이벌 삭제
+const deleteUserRival = async () => {
+  return await authApi.delete(`user/rival`).then(({ data }) => {
+    alert(data?.msg);
+    setSessionStorageItem('rival', null);
+    return data;
+  });
 };
 
 export {
@@ -122,4 +163,7 @@ export {
   userLogout,
   getUserDepositSaving,
   putUserProfileImage,
+  postUserRival,
+  putUserRival,
+  deleteUserRival,
 };

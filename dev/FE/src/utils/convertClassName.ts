@@ -14,7 +14,7 @@ const convertClassNameList = (...classNameList: string[]): string => {
   return classNameList.join(' ');
 };
 
-const checkConditionClassName = (condition: boolean, className: string) => {
+const checkConditionClassName = (condition: any, className: string) => {
   return condition ? className : '';
 };
 

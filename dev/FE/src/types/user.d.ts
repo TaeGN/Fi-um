@@ -52,6 +52,7 @@ interface UserInfo {
   point: number;
   isPrimed1: boolean;
   isPrimed2: boolean;
+  rival?: number;
   tokenResponse: { accessToken: string; refreshToken: string };
 }
 
