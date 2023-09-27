@@ -65,6 +65,8 @@ const authInterceptor = (instance: AxiosInstance) => {
         console.error('response error : ', error);
         return Promise.reject(error);
       }
+      console.error('response error : ', error);
+      return Promise.reject(error);
     },
   );
 
