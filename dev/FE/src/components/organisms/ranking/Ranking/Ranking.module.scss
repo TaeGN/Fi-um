@@ -29,18 +29,31 @@
     padding: 0 5vw;
   }
 
-  .profileCard0 {
-    width: 30%;
+  img {
+    height: 100%;
+    object-fit: cover;
   }
-  .profileCard1 {
+
+  .crownWrapper {
+    height: 5vh;
+    text-align: center;
+  }
+
+  .profileCard__0 {
+    width: 30%;
+    height: 60%;
+  }
+  .profileCard__1 {
     width: 45%;
+    height: 90%;
   }
   .crown {
-    width: 30%;
-    margin: 0 auto 0 auto;
-    object-fit: fill;
+    height: 100%;
+    // margin: 0 auto 0 auto;
+    // object-fit: fill;
   }
-  .profileCard2 {
+  .profileCard__2 {
     width: 20%;
+    height: 50%;
   }
 }
