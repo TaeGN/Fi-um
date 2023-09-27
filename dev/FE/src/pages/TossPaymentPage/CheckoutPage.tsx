@@ -6,6 +6,7 @@ import {
 } from '@tosspayments/payment-widget-sdk';
 import { nanoid } from 'nanoid';
 import styles from './CheckoutPage.module.scss';
+import useAuth from '@/hooks/useAuth';
 
 // import '../App.css';
 
@@ -69,8 +70,8 @@ const CheckoutPage = () => {
   }, [price]);
 
   // 유저 정보
-  const userProfile = JSON.parse(sessionStorage.getItem('user') as string).data;
-  const userName = userProfile.userName;
+  const userProfile = useAuth();
+  const userName = userProfile.userInfo?.userName;
 
   return (
     <div>
