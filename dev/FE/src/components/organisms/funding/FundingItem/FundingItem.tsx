@@ -3,7 +3,7 @@ import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './FundingItem.module.scss';
 import { Image, Text } from '@/components/atoms';
 import { FundingBar, FundingDescription } from '@/components/molecules';
-import { Funding } from '@/types';
+import { Funding, FundingRanking } from '@/types';
 
 interface FundingItemProps {
   className?: string;
@@ -16,6 +16,7 @@ interface FundingItemProps {
   description: string;
   unitPrice: number;
   sponsorshipAmount: number;
+  fundingRanking: FundingRanking[];
   onModal: (i: Funding) => void;
 }
 

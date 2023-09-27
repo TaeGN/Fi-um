@@ -8,6 +8,7 @@ interface Funding {
   description: string;
   unitPrice: number;
   sponsorshipAmount: number;
+  fundingRanking: FundingRanking[];
 }
 
 interface FundingProgress {
@@ -21,4 +22,9 @@ interface FundingRecord {
   price: number;
 }
 
-export type { Funding, FundingProgress, FundingRecord };
+interface FundingRanking {
+  userName: string;
+  userFundingAmount: number;
+}
+
+export type { Funding, FundingProgress, FundingRecord, FundingRanking };
