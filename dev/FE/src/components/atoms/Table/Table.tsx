@@ -28,10 +28,6 @@ const Table = ({
     });
   }, [data]);
 
-  useEffect(() => {
-    if (size) setPageSize(size);
-  }, [size]);
-
   const {
     getTableProps,
     getTableBodyProps,
@@ -56,6 +52,11 @@ const Table = ({
     usePagination,
   );
   const { pageIndex, pageSize } = state;
+
+  useEffect(() => {
+    if (size) setPageSize(size);
+  }, [size]);
+
   return (
     <div
       className={convertClassNameList(

@@ -23,6 +23,7 @@ const UserList = ({
       )}
     >
       <Table
+        className={styles['user-list__table']}
         data={
           totalCapitals &&
           totalCapitals.map(
@@ -41,14 +42,7 @@ const UserList = ({
                 주식: priceFilter(stockMoney),
                 예적금: priceFilter(depositMoney),
                 차트: (
-                  <Button
-                    // className={checkConditionClassName(
-                    //   chartState === userNo,
-                    //   styles['disabled'],
-                    // )}
-                    label="차트 보기"
-                    onClick={() => onClick(userNo)}
-                  />
+                  <Button label="차트 보기" onClick={() => onClick(userNo)} />
                 ),
               };
             },
@@ -60,4 +54,12 @@ const UserList = ({
   );
 };
 
-export default memo(UserList);
+const propsAreEqual: (
+  prevProps: Readonly<UserListProps>,
+  nextProps: Readonly<UserListProps>,
+) => boolean = (prevProps, nextProps) => {
+  if (prevProps.totalCapitals === nextProps.totalCapitals) return true;
+  return false;
+};
+
+export default memo(UserList, propsAreEqual);

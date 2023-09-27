@@ -25,30 +25,41 @@ const UserCapital = ({
   }, [chartState]);
 
   return (
-    <div className={convertClassNameList(convertClassName(className, styles))}>
+    <div
+      className={convertClassNameList(
+        convertClassName(className, styles),
+        styles['user-capital'],
+      )}
+    >
       {totalCapital && (
-        <div className={convertClassNameList('flex-container')}>
-          <PieChart
-            className={styles['user-list__pie-chart']}
-            chartData={{
-              labels: ['주식', '예적금', '펀딩', '포인트'],
-              data: [
-                totalCapital.stockMoney,
-                totalCapital.depositMoney,
-                totalCapital.fundingMoney,
-                totalCapital.point,
-              ],
-              length: 4,
-            }}
-          />
-          <PieChart
-            className={styles['user-list__pie-chart']}
-            chartData={{
-              labels: totalCapital.stockList.map(({ stockName }) => stockName),
-              data: totalCapital.stockList.map(({ stockCount }) => stockCount),
-              length: totalCapital.stockList.length,
-            }}
-          />
+        <>
+          <div className={styles['user-capital__pie-chart-container']}>
+            <PieChart
+              className={styles['user-capital__pie-chart']}
+              chartData={{
+                labels: ['주식', '예적금', '펀딩', '포인트'],
+                data: [
+                  totalCapital.stockMoney,
+                  totalCapital.depositMoney,
+                  totalCapital.fundingMoney,
+                  totalCapital.point,
+                ],
+                length: 4,
+              }}
+            />
+            <PieChart
+              className={styles['user-capital__pie-chart']}
+              chartData={{
+                labels: totalCapital.stockList.map(
+                  ({ stockName }) => stockName,
+                ),
+                data: totalCapital.stockList.map(
+                  ({ stockCount }) => stockCount,
+                ),
+                length: totalCapital.stockList.length,
+              }}
+            />
+          </div>
 
           <Table
             className={styles['user-list__table']}
@@ -75,9 +86,9 @@ const UserCapital = ({
                   };
                 })
             }
-            size={2}
+            size={5}
           />
-        </div>
+        </>
       )}
     </div>
   );
