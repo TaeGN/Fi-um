@@ -13,5 +13,14 @@ const priceFilterPlus = (price?: number | null): string => {
   return price > 0 ? `+${res}` : res;
 };
 
+const countFilter = (count?: number | null): string => {
+  if (!count) return '0개';
+  return count.toLocaleString('ko-KR', option) + '개';
+};
+
+const ratioFilter = (price1: number, price2: number): string => {
+  return Math.round((price1 / price2) * 100) + '%';
+};
+
 export default priceFilter;
-export { priceFilterPlus };
+export { priceFilterPlus, countFilter, ratioFilter };

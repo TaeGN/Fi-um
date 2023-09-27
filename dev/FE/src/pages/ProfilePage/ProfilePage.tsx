@@ -11,8 +11,10 @@ import {
   convertClassName,
   convertClassNameList,
   convertDate,
+  countFilter,
   priceFilter,
   priceFilterPlus,
+  ratioFilter,
 } from '@/utils';
 import { Image, Table, Text } from '@/components/atoms';
 import useAuth from '@/hooks/useAuth';
@@ -307,19 +309,28 @@ const AdminProfilePage = () => {
           <UserCapital totalCapitals={totalCapitals} chartState={chartState} />
         </ProfileSection>
       </div>
-      <div className={styles['profile-page__profile-section']}>
+      <div className={styles['profile-page__profile-section2']}>
         <ProfileSection label="후원품 목록">
           <Table
             data={
               sponsorships &&
               sponsorships.map(
-                ({ imagePath, itemName, itemCount, fundingAmount }) => {
+                ({
+                  imagePath,
+                  itemName,
+                  itemCount,
+                  unitPrice,
+                  fundingAmount,
+                }) => {
                   return {
                     사진: <Image src={imagePath} />,
                     이름: itemName,
-                    개수: itemCount,
-                    펀딩수: fundingAmount,
-                    펀딩완료여부: itemCount === fundingAmount ? 'ok' : 'no',
+                    개수: countFilter(itemCount),
+                    펀딩금액: priceFilter(fundingAmount),
+                    // 펀딩금액: `${priceFilter(fundingAmount)} / ${priceFilter(
+                    //   itemCount * unitPrice,
+                    // )}`,
+                    펀딩률: ratioFilter(fundingAmount, itemCount * unitPrice),
                   };
                 },
               )
@@ -335,7 +346,7 @@ const AdminProfilePage = () => {
                 return {
                   '아이템 이름': itemName,
                   '후원한 사람': userName,
-                  개수: price,
+                  금액: priceFilter(price),
                 };
               })
             }
@@ -343,19 +354,31 @@ const AdminProfilePage = () => {
           />
         </ProfileSection>
       </div>
-      <div className={styles['profile-page__profile-section']}>
+      <div className={styles['profile-page__profile-section2']}>
         <ProfileSection label="펀딩 목록">
           <Table
             data={
               fundings &&
               fundings.map(
-                ({ imagePath, itemName, itemCount, fundingAmount }) => {
+                ({
+                  imagePath,
+                  itemName,
+                  itemCount,
+                  itemUnitPrice,
+                  fundingAmount,
+                }) => {
                   return {
                     사진: <Image src={imagePath} />,
                     이름: itemName,
-                    개수: itemCount,
-                    후원수: fundingAmount,
-                    후원완료여부: itemCount === fundingAmount ? 'ok' : 'no',
+                    개수: countFilter(itemCount),
+                    후원금액: priceFilter(fundingAmount),
+                    // 후원금액: `${priceFilter(fundingAmount)} / ${priceFilter(
+                    //   itemCount * itemUnitPrice,
+                    // )}`,
+                    후원률: ratioFilter(
+                      fundingAmount,
+                      itemCount * itemUnitPrice,
+                    ),
                   };
                 },
               )
@@ -371,7 +394,7 @@ const AdminProfilePage = () => {
                 return {
                   '아이템 이름': itemName,
                   '펀딩한 사람': userName,
-                  개수: price,
+                  금액: priceFilter(price),
                 };
               })
             }

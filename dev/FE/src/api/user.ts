@@ -63,7 +63,7 @@ const getreissue = async (refreshToken?: string | null): Promise<string> => {
         error.response.status === HTTP_STATUS.FORBIDDEN ||
         error.response.status === HTTP_STATUS.UNAUTHORIZED
       ) {
-        userLogout();
+        removeTokens();
         alert('로그인 만료!!');
         window.location.href = '/login';
       }

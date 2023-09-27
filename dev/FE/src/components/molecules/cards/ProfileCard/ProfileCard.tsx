@@ -118,8 +118,8 @@ const ProfileCard = ({
           />
         ) : (
           userInfo &&
-          (userInfo?.userType === USER_TYPE.아이들 &&
-          userInfo?.rival === userNo ? (
+          userInfo?.userType === USER_TYPE.아이들 &&
+          (userInfo?.rival === userNo ? (
             <Button
               label="라이벌 취소"
               className="bg-red white xxsmall border0"

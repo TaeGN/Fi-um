@@ -1,6 +1,7 @@
 .deposit-page {
-  // background-color: #ececec;
-
+  &__bank {
+    height: 50vh;
+  }
   &__main {
     margin-left: 25vw;
     margin-right: 25vw;
@@ -20,8 +21,9 @@
   }
 
   &__swiper {
+    min-height: 35vh;
     &--item {
-      padding-top: 10vh;
+      padding-top: 12vh;
       padding-bottom: 10vh;
       text-align: center;
     }

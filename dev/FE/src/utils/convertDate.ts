@@ -15,7 +15,7 @@ const convertDateAfter7days = (val: number) => {
 
 const convertDataRemainDays = (val: number) => {
   if (!val) return '';
-  return Math.ceil(
+  return Math.floor(
     (new Date(val + WEEK).getTime() - new Date().getTime()) / DAY,
   );
 };

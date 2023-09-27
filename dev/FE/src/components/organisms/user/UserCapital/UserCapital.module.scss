@@ -1,0 +1,12 @@
+.user-capital {
+  display: flex;
+
+  &__pie-chart {
+    max-height: 30vh;
+  }
+
+  &__pie-chart-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
