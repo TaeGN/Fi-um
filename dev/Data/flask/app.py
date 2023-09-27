@@ -79,7 +79,7 @@ def makeCountValance(userNo):
         return jsonify({"error": str(e)})
 
 
-@app.route("/api/v1/<int:userNo>")
+@app.route("/api/v1/portfolio/<int:userNo>")
 def makeCount(userNo):
     return makeCountValance(userNo)
 
