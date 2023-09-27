@@ -9,6 +9,7 @@ interface Funding {
   unitPrice: number;
   sponsorshipAmount: number;
   fundingRanking: FundingRanking[];
+  isCompleted: boolean;
 }
 
 interface FundingProgress {
