@@ -4,6 +4,7 @@
   justify-content: space-between;
   text-align: end;
   padding-right: 2vw;
+
   &__item {
     flex: 1;
   }
@@ -14,6 +15,10 @@
 }
 
 .user-list {
+  display: flex;
+  &__pie-chart {
+    max-height: 30vh;
+  }
   &__table {
     max-height: 30vh;
   }

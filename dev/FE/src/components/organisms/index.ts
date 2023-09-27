@@ -4,6 +4,7 @@ export { default as Login } from '@/components/organisms/user/Login/Login';
 export { default as ProfileHeader } from '@/components/organisms/user/ProfileHeader/ProfileHeader';
 export { default as ProfileSection } from '@/components/organisms/user/ProfileSection/ProfileSection';
 export { default as UserList } from '@/components/organisms/user/UserList/UserList';
+export { default as UserCapital } from '@/components/organisms/user/UserCapital/UserCapital';
 
 // funding folder
 export { default as Funding } from '@/components/organisms/funding/Funding/Funding';
