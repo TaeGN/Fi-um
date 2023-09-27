@@ -2,4 +2,9 @@
   width: 100%;
   height: 100%;
   object-fit: fill;
+
+  &__no-data {
+    text-align: center;
+    padding-top: 10vh;
+  }
 }

@@ -3,6 +3,7 @@ import {
   Funding,
   ProfileHeader,
   ProfileSection,
+  UserCapital,
   UserList,
 } from '@/components/organisms';
 import {
@@ -15,7 +16,7 @@ import {
 } from '@/utils';
 import { Image, Table, Text } from '@/components/atoms';
 import useAuth from '@/hooks/useAuth';
-import { useMemo } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { USER_TYPE } from '@/constants';
 import {
   ArtistAuction,
@@ -265,6 +266,13 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
 };
 
 const AdminProfilePage = () => {
+  const [chartState, setChartState] = useState<number>(0);
+
+  const handleChangeChartState = useCallback((userNo: number) => {
+    if (userNo === chartState) setChartState(0);
+    else setChartState(userNo);
+  }, []);
+
   // 아이들 전체 자산
   const { data: totalCapitals } = useQuery<TotalCapital[]>(
     getUserTotalCapitalQuery(),
@@ -288,9 +296,17 @@ const AdminProfilePage = () => {
 
   return (
     <>
-      <ProfileSection label="아이들 자산 현황">
-        <UserList totalCapitals={totalCapitals} />
-      </ProfileSection>
+      <div className={styles['profile-page__profile-section']}>
+        <ProfileSection label="아이들 자산 현황">
+          <UserList
+            totalCapitals={totalCapitals}
+            onClick={handleChangeChartState}
+          />
+        </ProfileSection>
+        <ProfileSection label="아이들 자산 상세">
+          <UserCapital totalCapitals={totalCapitals} chartState={chartState} />
+        </ProfileSection>
+      </div>
       <div className={styles['profile-page__profile-section']}>
         <ProfileSection label="후원품 목록">
           <Table
@@ -315,10 +331,10 @@ const AdminProfilePage = () => {
           <Table
             data={
               sponsorshipRecords &&
-              sponsorshipRecords.map(({ itemName, price, sponsorName }) => {
+              sponsorshipRecords.map(({ itemName, price, userName }) => {
                 return {
                   '아이템 이름': itemName,
-                  '후원한 사람': sponsorName,
+                  '후원한 사람': userName,
                   개수: price,
                 };
               })

@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect, Dispatch, SetStateAction } from 'react';
 import { usePagination, useTable } from 'react-table';
 import { convertClassName, convertClassNameList, snakeToTitle } from '@/utils';
 import styles from './Table.module.scss';
@@ -9,6 +9,7 @@ interface TableProps {
   onClick?: any;
   size?: number;
   checkPagination?: boolean;
+  setChartState?: Dispatch<SetStateAction<number>>;
 }
 
 const Table = ({
