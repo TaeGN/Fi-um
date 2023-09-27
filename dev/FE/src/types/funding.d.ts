@@ -8,6 +8,7 @@ interface Funding {
   description: string;
   unitPrice: number;
   sponsorshipAmount: number;
+  isCompleted: boolean;
 }
 
 interface FundingProgress {
