@@ -1,5 +1,6 @@
 import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './Footer.module.scss';
+import { Text } from '@/components/atoms';
 
 interface FooterProps {
   className?: string;
@@ -14,7 +15,8 @@ const Footer = ({ className }: FooterProps): JSX.Element => {
         'container',
       )}
     >
-      Footer
+      <Text text="천사 투자단" />
+      <Text text="천사의 마음으로..." />
     </div>
   );
 };

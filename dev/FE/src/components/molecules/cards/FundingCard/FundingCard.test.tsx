@@ -1,8 +1,9 @@
 import FundingCard from './FundingCard';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { Funding } from '@/types';
 
-const funding = {
+const funding: Funding = {
   itemNo: 'string',
   imagePath: '0',
   itemName: '0',
@@ -12,6 +13,8 @@ const funding = {
   description: 'string',
   unitPrice: 0,
   sponsorshipAmount: 0,
+  fundingRanking: [],
+  isCompleted: false,
 };
 
 const renderFundingCard = () => {

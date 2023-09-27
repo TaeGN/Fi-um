@@ -57,7 +57,12 @@ const DepositPage = ({ className }: DepositPageProps): JSX.Element => {
           styles['deposit-page'],
         )}
       >
-        <div className={styles['deposit-page__main']}>
+        <div
+          className={convertClassNameList(
+            styles['deposit-page__main'],
+            styles['deposit-page__bank'],
+          )}
+        >
           {depositList?.map((deposit) => (
             <DepositProduct
               key={deposit.bankName + deposit.productType}

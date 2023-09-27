@@ -8,7 +8,12 @@ export { default as snakeToTitle } from './snakeToTitle';
 export { getColors, getLightColors, getDarkColors } from './randomColor';
 export { loremData } from './testData';
 export { formatCurrency } from './formatCurrency';
-export { default as priceFilter, priceFilterPlus } from './priceFilter';
+export {
+  default as priceFilter,
+  priceFilterPlus,
+  countFilter,
+  ratioFilter,
+} from './filter';
 export { default as convertUser } from './convertUser';
 export { imgUrl, bankIconUrl, eduBook, eduBookUrl } from './imgUrl';
 export {

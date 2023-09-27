@@ -3,7 +3,7 @@ import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './FundingItem.module.scss';
 import { Image, Text } from '@/components/atoms';
 import { FundingBar, FundingDescription } from '@/components/molecules';
-import { Funding } from '@/types';
+import { Funding, FundingRanking } from '@/types';
 
 interface FundingItemProps {
   className?: string;
@@ -16,6 +16,8 @@ interface FundingItemProps {
   description: string;
   unitPrice: number;
   sponsorshipAmount: number;
+  fundingRanking: FundingRanking[];
+  isCompleted: boolean;
   onModal: (i: Funding) => void;
 }
 
@@ -63,24 +65,36 @@ const FundingItem = ({
               fundingAmount={funding.fundingAmount}
               itemCount={funding.itemCount}
               ratio={
-                funding.fundingAmount !== 0
-                  ? (funding.fundingAmount /
-                      (funding.itemUnitPrice * funding.itemCount)) *
-                    300
-                  : 0
+                (funding.fundingAmount /
+                  (funding.itemUnitPrice * funding.itemCount) /
+                  3) *
+                10 *
+                100
               }
             />
           ) : (
             <FundingBar
-              itemUnitPrice={funding.unitPrice * funding.itemCount}
-              fundingAmount={funding.sponsorshipAmount}
+              itemUnitPrice={
+                funding.isCompleted
+                  ? funding.unitPrice * funding.itemCount * 0.3
+                  : funding.unitPrice * funding.itemCount
+              }
+              fundingAmount={
+                funding.isCompleted
+                  ? funding.fundingAmount
+                  : funding.sponsorshipAmount
+              }
               itemCount={funding.itemCount}
               ratio={
-                funding.sponsorshipAmount !== 0
-                  ? (funding.sponsorshipAmount /
+                funding.isCompleted
+                  ? (funding.fundingAmount /
+                      (funding.unitPrice * funding.itemCount) /
+                      3) *
+                    10 *
+                    100
+                  : (funding.sponsorshipAmount /
                       (funding.unitPrice * funding.itemCount)) *
                     100
-                  : 0
               }
             />
           )}

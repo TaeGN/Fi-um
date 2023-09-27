@@ -4,10 +4,18 @@ import RankingCard from './RankingCard';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import { FundingRanking } from '@/types';
+
+const fundingRanking: FundingRanking[] = [
+  {
+    userName: '',
+    userFundingAmount: 0,
+  },
+];
 
 describe('RankingCard 컴포넌트', () => {
   test('컴포넌트 렌더링 테스트', () => {
-    render(<RankingCard no1="남완희" no2="김영우" no3="신기정" />);
+    render(<RankingCard fundingRanking={fundingRanking} />);
     userEvent.setup();
     screen.debug();
   });

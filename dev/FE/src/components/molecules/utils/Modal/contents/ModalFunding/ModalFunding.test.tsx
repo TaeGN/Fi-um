@@ -10,6 +10,8 @@ describe('ModalFunding 컴포넌트', () => {
         onClick={() => {}}
         closeToggle={() => {}}
         item={{
+          fundingRanking: [],
+          isCompleted: false,
           itemNo: 'string',
           itemName: 'string',
           imagePath: 'string',

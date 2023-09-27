@@ -32,6 +32,8 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
       ? useQuery<Funding[], Error>(getFundingsQuery())
       : useQuery<Funding[], Error>(getSponsorShipQuery());
   const [item, setItem] = useState<any>();
+  const [sponSwitch, setSponSwitch] = useState<boolean>(false);
+
   const { data: rankings } = useQuery<RankingType[]>(getRankingsQuery());
   const ranking = useMemo<RankingType | undefined>(() => {
     return rankings?.find((ranking) => ranking.type === '펀딩');
@@ -56,6 +58,10 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
     closeToggle();
   };
   console.log(fundings);
+
+  const handleSponSwitch = () => {
+    setSponSwitch(!sponSwitch);
+  };
 
   const [loading, setLoading] = useState(true);
 
@@ -97,11 +103,34 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
           />
         )}
         {ranking && <Ranking ranking={ranking} />}
-        {fundings?.map((funding) => {
-          return (
-            <FundingItem key={funding.itemNo} {...funding} onModal={onModal} />
-          );
-        })}
+        {userType !== USER_TYPE.아이들 && (
+          <Button
+            className="xsmall primary"
+            onClick={handleSponSwitch}
+            label={sponSwitch ? '펀딩' : '후원'}
+          />
+        )}
+        {userType === USER_TYPE.아이들
+          ? fundings?.map((funding) => {
+              return (
+                <FundingItem
+                  key={funding.itemNo}
+                  {...funding}
+                  onModal={onModal}
+                />
+              );
+            })
+          : fundings
+              ?.filter((funding) => funding.isCompleted === sponSwitch)
+              .map((funding) => {
+                return (
+                  <FundingItem
+                    key={funding.itemNo}
+                    {...funding}
+                    onModal={onModal}
+                  />
+                );
+              })}
       </div>
       <Modal scrollTop={scrollTop} isOpen={isOpen} toggle={closeToggle}>
         <ModalFunding

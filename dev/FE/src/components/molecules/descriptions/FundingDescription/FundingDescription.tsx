@@ -21,7 +21,7 @@ const FundingDescription = ({
         styles['funding-description'])
       }
     >
-      <RankingCard no1="노태균" no2="신기정" no3="김승우" />
+      <RankingCard fundingRanking={funding.fundingRanking} />
       <FundingItemStatus funding={funding} onModal={onModal} />
     </div>
   );
