@@ -20,19 +20,8 @@ const GalleryPage = ({ className }: GalleryPageProps): JSX.Element => {
   const { data: reviews } = useQuery<Review[], Error>(getReviewsQuery());
   console.log(reviews);
 
-  const handleMoveReviewDetail = (
-    reviewNo: number,
-    title: string,
-    content: string,
-    imagePath: string,
-  ) => {
-    navigate(`/gallery/${reviewNo}`, {
-      state: {
-        title: title,
-        content: content,
-        imagePath: imagePath,
-      },
-    });
+  const handleMoveReviewDetail = (reviewNo: number) => {
+    navigate(`/gallery/${reviewNo}`);
   };
 
   const [loading, setLoading] = useState(true);
@@ -86,9 +75,7 @@ const GalleryPage = ({ className }: GalleryPageProps): JSX.Element => {
                 title={title}
                 content={content}
                 review={true}
-                onClick={() =>
-                  handleMoveReviewDetail(reviewNo, title, content, imagePath)
-                }
+                onClick={() => handleMoveReviewDetail(reviewNo)}
               />
             ))}
         </div>

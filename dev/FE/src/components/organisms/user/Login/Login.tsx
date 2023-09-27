@@ -200,6 +200,7 @@ const Login = ({ className, signUp }: LoginProps): JSX.Element => {
               />
             </label>
             <input
+              autoFocus={index === 0}
               className={convertClassNameList(styles['login__item--input'])}
               type={key.includes('password') ? 'password' : 'text'}
               name={key}

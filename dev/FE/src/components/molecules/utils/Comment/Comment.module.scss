@@ -1,0 +1,40 @@
+.comment {
+  overflow: scroll;
+
+  &__create-box {
+    // textarea {
+    //   margin: 0;
+    //   height: 100% !important;
+    //   width: 90% !important;
+    //   overflow: scroll;
+    // }
+
+    &--text {
+    }
+
+    &--button {
+      margin-left: auto;
+    }
+  }
+
+  &__item {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    border-bottom: 1px solid #333;
+
+    &--content {
+      font-size: 1.5vw;
+      margin-bottom: 0.5vh;
+    }
+
+    &--info {
+      font-size: 1vw;
+      margin-left: 1vw;
+    }
+
+    &--remove {
+    }
+  }
+}

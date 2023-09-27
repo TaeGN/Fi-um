@@ -2,15 +2,11 @@ import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './GalleryDetail.module.scss';
 import { Image, Text } from '@/components/atoms';
 import { Comment } from '@/components/molecules';
+import { Review } from '@/types';
 
 interface GalleryDetailProps {
   className?: string;
-  review: ReviewDetail;
-}
-interface ReviewDetail {
-  title: string;
-  content: string;
-  imagePath: string;
+  review: Review;
 }
 
 const GalleryDetail = ({
@@ -46,7 +42,10 @@ const GalleryDetail = ({
           text={review.content}
         />
         <Comment
-          className={convertClassNameList(styles['gallery-detail__comment'])}
+          reviewNo={review.reviewNo}
+          className={convertClassNameList(
+            styles['gallery-detail__content--comment'],
+          )}
         />
       </div>
     </div>
