@@ -21,13 +21,16 @@
     width: 40%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-  }
 
-  &__comment {
-    background-color: cyan;
-    height: 4rem;
-    width: 100%;
+    &--description {
+    }
+
+    &--comment {
+      height: 40vh;
+      width: 30vw;
+      overflow: scroll;
+    }
   }
 }

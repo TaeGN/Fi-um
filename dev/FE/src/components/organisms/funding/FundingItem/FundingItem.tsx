@@ -101,7 +101,10 @@ const FundingItem = ({
         </div>
       </div>
       {showDescription ? (
-        <FundingDescription onModal={onModal} funding={funding} />
+        <FundingDescription
+          onModal={!funding.isCompleted ? onModal : () => {}}
+          funding={funding}
+        />
       ) : (
         <></>
       )}

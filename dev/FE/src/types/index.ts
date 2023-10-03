@@ -8,3 +8,4 @@ export type * from './point';
 export type * from './review';
 export type * from './ranking';
 export type * from './quiz';
+export type * from './comment';

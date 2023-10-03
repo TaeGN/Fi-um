@@ -35,7 +35,7 @@ const Router = ({ className }: { className?: string }) => {
           <Route path="funding" element={<FundingPage />} />
           <Route path="profile/:userNo" element={<ProfilePage />} />
           <Route path="gallery" element={<GalleryPage />} />
-          <Route path="gallery/:detail" element={<GalleryDetailPage />} />
+          <Route path="gallery/:reviewNo" element={<GalleryDetailPage />} />
           <Route path="tosspay" element={<CheckoutPage />} />
           <Route path="tosspay/success" element={<TossSuccessPage />} />
           <Route path="education" element={<EducationPage />} />

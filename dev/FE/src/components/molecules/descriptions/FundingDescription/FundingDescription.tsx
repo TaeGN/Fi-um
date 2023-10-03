@@ -21,7 +21,15 @@ const FundingDescription = ({
         styles['funding-description'])
       }
     >
-      <RankingCard fundingRanking={funding.fundingRanking} />
+      {funding.isCompleted || funding.itemUnitPrice ? (
+        <RankingCard fundingRanking={funding.fundingRanking} />
+      ) : (
+        <img
+          style={{ width: '200px', height: '200px' }}
+          src="./img/loading/funding.gif"
+          alt=""
+        />
+      )}
       <FundingItemStatus funding={funding} onModal={onModal} />
     </div>
   );

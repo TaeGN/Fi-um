@@ -1,7 +1,10 @@
 import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './GalleryDetailPage.module.scss';
 import { GalleryDetail } from '@/components/organisms';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { Review } from '@/types';
+import { getReviewQuery } from '@/api/queries';
+import { useQuery } from '@tanstack/react-query';
 
 interface GalleryDetailPageProps {
   className?: string;
@@ -10,8 +13,9 @@ interface GalleryDetailPageProps {
 const GalleryDetailPage = ({
   className,
 }: GalleryDetailPageProps): JSX.Element => {
-  const { state } = useLocation();
-  console.log(state);
+  const { reviewNo } = useParams();
+  const { data: review } = useQuery<Review>(getReviewQuery(Number(reviewNo)));
+  console.log(reviewNo);
 
   return (
     <div
@@ -20,7 +24,7 @@ const GalleryDetailPage = ({
         styles['gallery-detail-page'],
       )}
     >
-      <GalleryDetail review={state} />
+      {review && <GalleryDetail review={review} />}
     </div>
   );
 };
