@@ -41,11 +41,15 @@ const StockPage = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // 현재 cors에러로 인해 작동 안함..
   const { data: portFolio, status: isPortFolioLoading } = useQuery<
     Portfoilo,
     Error
-  >(getPortfolioQuery(userInfo?.userNo));
-  console.log(portFolio);
+  >({
+    ...getPortfolioQuery(userInfo ? userInfo.userNo : 0),
+    enabled: !!userInfo,
+  });
+  console.log(portFolio, isPortFolioLoading);
 
   return (
     <>
