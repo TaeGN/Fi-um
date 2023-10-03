@@ -1,0 +1,14 @@
+.profile-admin {
+    display: flex;
+
+    &__record {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &--text {
+            margin-bottom: 1rem;
+            font-size: 3vh;
+        }
+    }
+}

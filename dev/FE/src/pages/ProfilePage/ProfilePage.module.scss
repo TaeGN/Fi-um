@@ -1,4 +1,7 @@
 .profile-page {
+  table th {
+    background-color: #3579d4;
+  }
   &__swiper {
     height: 60vh;
     &--image {
@@ -11,12 +14,14 @@
   }
 
   &__profile-section {
+    min-height: 80vh;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: minmax(1fr, 50vh);
+    grid-template-rows: minmax(50vh, 60vh);
     gap: 5vw;
 
     &2 {
+      min-height: 80vh;
       display: grid;
       grid-template-columns: 7fr 3fr;
       grid-template-rows: minmax(1fr, 50vh);

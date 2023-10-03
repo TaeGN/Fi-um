@@ -42,7 +42,7 @@ const UserList = ({
                 주식: priceFilter(stockMoney),
                 예적금: priceFilter(depositMoney),
                 차트: (
-                  <Button label="차트 보기" onClick={() => onClick(userNo)} />
+                  <Button label="상세" onClick={() => onClick(userNo)} />
                 ),
               };
             },

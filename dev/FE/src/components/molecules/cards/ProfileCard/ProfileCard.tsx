@@ -17,6 +17,7 @@ import { Modal } from '@/components/molecules';
 import useAuth from '@/hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { USER_TYPE } from '@/constants';
+import { apiImgUrl } from '@/utils/imgUrl';
 
 interface ProfileCardProps {
   className?: string;
@@ -58,6 +59,7 @@ const ProfileCard = ({
     setUserInfo((userInfo) => {
       return userInfo && { ...userInfo, imagePath };
     });
+    setFile(undefined)
     closeToggle();
   };
 
@@ -144,11 +146,15 @@ const ProfileCard = ({
           <input
             className={convertClassNameList(
               styles['profile-card__modal--input'],
-            )}
+              )}
             type="file"
             name="file"
+            accept='image/*'
             onChange={handleChangeFile}
           />
+
+
+          <img className={styles["profile-card__modal--image"]} src={file ? URL.createObjectURL(file) : apiImgUrl(userInfo?.imagePath)} alt={userInfo?.userName}/>
           <div className={styles['profile-card__modal--button-container']}>
             <Button
               className={convertClassNameList(
