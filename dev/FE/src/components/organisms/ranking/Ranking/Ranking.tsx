@@ -40,7 +40,10 @@ const Ranking = ({ className, ranking }: RankingProps): JSX.Element => {
         styles.ranking,
       )}
     >
-      <Text className={styles['ranking__title']} text={ranking.type} />
+      <Text
+        className={styles['ranking__title']}
+        text={ranking.type + ' 랭킹'}
+      />
       <div className={styles['ranking__main']}>
         {data.map(({ id, name, src, type }, index) => {
           console.log(`profileCard__${index}`, '???');
