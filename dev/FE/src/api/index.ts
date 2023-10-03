@@ -4,11 +4,24 @@ import { HTTP_STATUS } from '@/constants';
 import { getAccessToken, getRefreshToken } from '@/utils';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_PORTFOLIO_URL = import.meta.env.VITE_API_PORTFOLIO_URL;
 let isRefresh = false;
 
 const apiInstance = () => {
   const instance = axios.create({
     baseURL: API_BASE_URL,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json;charset=UTF-8',
+      Accept: 'application/json,',
+    },
+  });
+  return instance;
+};
+
+const portfolioApiInstance = () => {
+  const instance = axios.create({
+    baseURL: API_PORTFOLIO_URL,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json;charset=UTF-8',
@@ -82,8 +95,9 @@ const authFormInstance = () => {
 };
 
 const api = apiInstance();
+const portfolioApi = portfolioApiInstance();
 const formApi = formApiInstance();
 const authApi = authApiInstance();
 const authFormApi = authFormInstance();
 
-export { formApi, authFormApi, api, authApi };
+export { formApi, authFormApi, api, authApi, portfolioApi };

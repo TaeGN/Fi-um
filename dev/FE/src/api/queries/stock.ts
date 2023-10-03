@@ -10,6 +10,7 @@ import {
   getRecentNews,
   getStockNews,
   getTradeHistory,
+  getPortfolio,
 } from '../stock';
 
 // 내 주식 확인
@@ -74,6 +75,14 @@ const getTradeHistoryQuery = (stockNo: number) => {
   };
 };
 
+// 주식 추천 포토폴리오 조회
+const getPortfolioQuery = (userNo: number) => {
+  return {
+    queryKey: ['getPortfolio', userNo],
+    queryFn: getPortfolio,
+  };
+};
+
 export {
   getMyStocksQuery,
   getStocksQuery,
@@ -85,4 +94,5 @@ export {
   getRecentNewsQuery,
   getStockNewsQuery,
   getTradeHistoryQuery,
+  getPortfolioQuery,
 };

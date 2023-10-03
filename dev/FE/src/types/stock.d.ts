@@ -53,6 +53,19 @@ interface TradeHistory {
   tradeTime: number;
 }
 
+interface PortfolioKeys {
+  고양이: number;
+  공룡: number;
+  마법쿠키: number;
+  스피드킹: number;
+  해적선: number;
+}
+
+interface Portfoilo {
+  moneyBalance: PortfolioKeys;
+  ratioBalance: PortfolioKeys;
+}
+
 export type {
   Stock,
   StockRanking,
@@ -62,4 +75,5 @@ export type {
   StockAccount,
   News,
   TradeHistory,
+  Portfoilo,
 };

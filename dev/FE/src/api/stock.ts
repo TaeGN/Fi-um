@@ -1,13 +1,14 @@
 import {
   MyStock,
   News,
+  Portfoilo,
   Stock,
   StockAccount,
   StockMyAccount,
   StockRanking,
   TradeHistory,
 } from '@/types';
-import { api, authApi } from '.';
+import { api, authApi, portfolioApi } from '.';
 
 // 내 주식 확인
 const getMyStocks = async (): Promise<MyStock[]> => {
@@ -73,6 +74,13 @@ const getTradeHistory = async ({
 }: any): Promise<TradeHistory[]> => {
   return await api.get(`stock/trade/${stockNo}`).then(({ data }) => data);
 };
+
+// 주식 포토폴리오 조회
+const getPortfolio = async ({
+  queryKey: [_, userNo],
+}: any): Promise<Portfoilo> => {
+  return await portfolioApi.get(`${userNo}`).then(({ data }) => data);
+};
 export {
   getMyStocks,
   getStocks,
@@ -84,4 +92,5 @@ export {
   getRecentNews,
   getStockNews,
   getTradeHistory,
+  getPortfolio,
 };
