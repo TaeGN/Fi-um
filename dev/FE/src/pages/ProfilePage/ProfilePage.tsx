@@ -289,7 +289,7 @@ const AdminProfilePage = () => {
   );
 
   // 전체 펀딩
-  const { data: fundings } = useQuery<FundingType[]>(getFundingsQuery());
+  // const { data: fundings } = useQuery<FundingType[]>(getFundingsQuery());
 
   // 펀딩 히스토리
   const { data: fundingRecords } = useQuery<FundingRecord[]>(
@@ -314,23 +314,20 @@ const AdminProfilePage = () => {
           <Table
             data={
               sponsorships &&
-              sponsorships.map(
+              sponsorships.filter((sponsorship)=> !sponsorship.isCompleted).map(
                 ({
                   imagePath,
                   itemName,
                   itemCount,
                   unitPrice,
-                  fundingAmount,
+                  sponsorshipAmount
                 }) => {
                   return {
                     사진: <Image src={imagePath} />,
                     이름: itemName,
                     개수: countFilter(itemCount),
-                    펀딩금액: priceFilter(fundingAmount),
-                    // 펀딩금액: `${priceFilter(fundingAmount)} / ${priceFilter(
-                    //   itemCount * unitPrice,
-                    // )}`,
-                    펀딩률: ratioFilter(fundingAmount, itemCount * unitPrice),
+                    후원금액: priceFilter(sponsorshipAmount),
+                    후원률: ratioFilter(sponsorshipAmount, itemCount * unitPrice),
                   };
                 },
               )
@@ -358,26 +355,23 @@ const AdminProfilePage = () => {
         <ProfileSection label="펀딩 목록">
           <Table
             data={
-              fundings &&
-              fundings.map(
+              sponsorships &&
+              sponsorships.filter((sponsorship)=> sponsorship.isCompleted).map(
                 ({
                   imagePath,
                   itemName,
                   itemCount,
-                  itemUnitPrice,
+                  unitPrice,
                   fundingAmount,
                 }) => {
                   return {
                     사진: <Image src={imagePath} />,
                     이름: itemName,
                     개수: countFilter(itemCount),
-                    후원금액: priceFilter(fundingAmount),
-                    // 후원금액: `${priceFilter(fundingAmount)} / ${priceFilter(
-                    //   itemCount * itemUnitPrice,
-                    // )}`,
-                    후원률: ratioFilter(
+                    펀딩금액: priceFilter(fundingAmount),
+                    펀딩률: ratioFilter(
                       fundingAmount,
-                      itemCount * itemUnitPrice,
+                      itemCount * unitPrice * 0.3,
                     ),
                   };
                 },

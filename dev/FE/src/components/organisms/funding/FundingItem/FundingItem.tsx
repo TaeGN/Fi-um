@@ -61,7 +61,8 @@ const FundingItem = ({
           />
           {funding.itemUnitPrice ? (
             <FundingBar
-              itemUnitPrice={funding.itemUnitPrice * funding.itemCount * 0.3}
+              itemUnitPrice={funding.itemUnitPrice}
+              totalPrice={funding.itemUnitPrice * funding.itemCount * 0.3}
               fundingAmount={funding.fundingAmount}
               itemCount={funding.itemCount}
               ratio={
@@ -75,6 +76,11 @@ const FundingItem = ({
           ) : (
             <FundingBar
               itemUnitPrice={
+                funding.isCompleted
+                  ? funding.unitPrice * 0.3
+                  : funding.unitPrice
+              }
+              totalPrice={
                 funding.isCompleted
                   ? funding.unitPrice * funding.itemCount * 0.3
                   : funding.unitPrice * funding.itemCount

@@ -56,10 +56,11 @@ const Comment = ({ className, reviewNo }: CommentProps): JSX.Element => {
         <Button
           className={styles['comment__create-box--button']}
           onClick={handleCommentCreate}
-          label="댓글 등록"
+          label="등록"
         />
       </div>
-
+      
+      <div className={styles['comment__item-container']}>
       {comments?.map(({ comment, commentNo, createTime, userName, userNo }) => (
         <div className={styles['comment__item']} key={commentNo}>
           <Text className={styles['comment__item--content']} text={comment} />
@@ -68,14 +69,6 @@ const Comment = ({ className, reviewNo }: CommentProps): JSX.Element => {
               className={styles['comment__item--info']}
               text={`${userName} | ${convertDate(createTime)}`}
             />
-            {/* {userInfo?.userNo === userNo && (
-              <Button
-                className={styles['comment__item--remove']}
-                value={commentNo}
-                onClick={handleCommentRemove}
-                label="수정"
-              />
-            )} */}
             {(userInfo?.userNo === userNo ||
               userInfo?.userType === USER_TYPE.원장쌤) && (
               <Button
@@ -88,6 +81,8 @@ const Comment = ({ className, reviewNo }: CommentProps): JSX.Element => {
           </div>
         </div>
       ))}
+      </div>
+        
     </div>
   );
 };

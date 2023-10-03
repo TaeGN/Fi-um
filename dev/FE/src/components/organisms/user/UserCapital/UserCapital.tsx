@@ -34,31 +34,35 @@ const UserCapital = ({
       {totalCapital && (
         <>
           <div className={styles['user-capital__pie-chart-container']}>
-            <PieChart
-              className={styles['user-capital__pie-chart']}
-              chartData={{
-                labels: ['주식', '예적금', '펀딩', '포인트'],
-                data: [
-                  totalCapital.stockMoney,
-                  totalCapital.depositMoney,
-                  totalCapital.fundingMoney,
-                  totalCapital.point,
-                ],
-                length: 4,
-              }}
-            />
-            <PieChart
-              className={styles['user-capital__pie-chart']}
-              chartData={{
-                labels: totalCapital.stockList.map(
-                  ({ stockName }) => stockName,
-                ),
-                data: totalCapital.stockList.map(
-                  ({ stockCount }) => stockCount,
-                ),
-                length: totalCapital.stockList.length,
-              }}
-            />
+            <div className={styles['user-capital__pie-chart']}>
+              <Text text="자산 현황"/>
+              <PieChart
+                chartData={{
+                  labels: ['주식', '예적금', '펀딩', '포인트'],
+                  data: [
+                    totalCapital.stockMoney,
+                    totalCapital.depositMoney,
+                    totalCapital.fundingMoney,
+                    totalCapital.point,
+                  ],
+                  length: 4,
+                }}
+                />
+            </div>
+            <div className={styles['user-capital__pie-chart']}>
+              <Text text="주식 현황"/>
+              <PieChart
+                chartData={{
+                  labels: totalCapital.stockList.map(
+                    ({ stockName }) => stockName,
+                  ),
+                  data: totalCapital.stockList.map(
+                    ({ stockCount }) => stockCount,
+                  ),
+                  length: totalCapital.stockList.length,
+                }}
+                />
+            </div>
           </div>
 
           <Table
@@ -86,7 +90,7 @@ const UserCapital = ({
                   };
                 })
             }
-            size={5}
+            size={3}
           />
         </>
       )}

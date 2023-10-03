@@ -105,7 +105,7 @@ const Table = ({
         </tbody>
       </table>
 
-      {!checkPagination ? (
+      {!checkPagination && pageCount !== 0 ? (
         <>
           <div
             className="table-pagination"

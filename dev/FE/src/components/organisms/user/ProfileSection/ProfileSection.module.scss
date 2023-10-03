@@ -1,5 +1,11 @@
 .profile-section {
   text-align: center;
   width: inherit;
-  height: 80vh;
+  min-height: 80vh;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  &__text {
+    margin-bottom: 1rem;
+  }
 }

@@ -20,7 +20,10 @@ const ProfileSection = ({
         styles['profile-section'],
       )}
     >
-      <Text className="text-xl" text={label} />
+      <Text className={convertClassNameList(
+        styles['profile-section__text'],
+        "text-xl"
+      )} text={label} />
       {children ?? 'empty'}
     </div>
   );

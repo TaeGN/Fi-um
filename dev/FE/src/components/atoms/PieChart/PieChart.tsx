@@ -12,6 +12,8 @@ interface PieChartProps {
   chartData?: { labels: string[]; data: number[]; length: number };
 }
 
+// const colors = ["#3579d4","#ed2926","#7ae6e9","#07a59f","#aadaff"]
+
 const options: any = {
   responsive: true,
   plugins: {
@@ -19,7 +21,7 @@ const options: any = {
       display: false,
     },
     title: {
-      display: false,
+      display: true,
     },
   },
 };
@@ -45,8 +47,8 @@ const PieChart = ({ className, chartData }: PieChartProps): JSX.Element => {
         labels: chartData.labels,
         datasets: [
           {
-            // label: '# of Votes',
             data: chartData.data,
+            // backgroundColor: colors.slice(0,chartData.length),
             backgroundColor: getLightColors(chartData.length),
             borderColor: getDarkColors(chartData.length),
             borderWidth: 1,

@@ -20,6 +20,7 @@
   &__modal {
     display: flex;
     flex-direction: column;
+    position: relative;
 
     &--title {
       text-align: center;
@@ -27,6 +28,14 @@
     }
 
     &--input {
+      color: white;
+      margin-top: 1vh;
+    }
+
+    &--image {
+      max-height: 40vh;
+      max-width: 40vw;
+      object-fit: fill;
     }
 
     &--button-container {
@@ -34,12 +43,14 @@
       margin-left: auto;
     }
 
-    &--button {
+    &--button,
+    input[type="file"]::file-selector-button {
       height: 5vh;
       width: 10vw;
       border-radius: 5px;
       border: 0;
       margin-right: 5px;
+      cursor: pointer;
     }
   }
 }

@@ -1,12 +1,13 @@
 import { BarChart, Text } from '@/components/atoms';
 import styles from './FundingBar.module.scss';
-import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
+import { convertClassName, convertClassNameList, countFilter, priceFilter } from '@/utils';
 
 interface FundingBar {
   className?: string;
   ratio: number;
   itemCount?: number;
-  itemUnitPrice: number;
+  totalPrice?: number;
+  itemUnitPrice?: number;
   fundingAmount: number;
 }
 
@@ -16,6 +17,7 @@ const FundingBar = ({
   itemCount,
   itemUnitPrice,
   fundingAmount,
+  totalPrice
 }: FundingBar): JSX.Element => {
   return (
     <div
@@ -30,7 +32,6 @@ const FundingBar = ({
       ></Text>
       <BarChart
         className={convertClassNameList(
-          // 'bg-orange',
           styles['funding-bar__item'],
         )}
         ratio={ratio}
@@ -41,24 +42,24 @@ const FundingBar = ({
           styles['funding-bar__item--bottom'],
         )}
       >
+        {itemUnitPrice ? <div className="flex-container-col flex-item">
+          <Text className="text-sm gray" text="개당 가격" />
+          <Text className="text-sm" text={priceFilter(itemUnitPrice)} />
+        </div> : ''}
+        {itemCount ? <div className="flex-container-col flex-item">
+          <Text className="text-sm gray" text="개수" />
+          <Text className="text-sm orange" text={countFilter(itemCount)} />
+        </div>:''}
         <div className="flex-container-col flex-item">
-          <Text className="text-sm gray" text="내 펀딩액"></Text>
-          <Text className="text-sm" text="???원"></Text>
-        </div>
-        <div className="flex-container-col flex-item">
-          <Text className="text-sm gray" text="개수"></Text>
-          <Text className="text-sm orange" text={itemCount}></Text>
-        </div>
-        <div className="flex-container-col flex-item">
-          <Text className="text-sm gray" text="현재 금액"></Text>
+          <Text className="text-sm gray" text="현재 금액"/>
           <Text
             className="text-sm orange"
             text={priceFilter(fundingAmount)}
           ></Text>
         </div>
         <div className="flex-container-col flex-item">
-          <Text className="text-sm gray" text="목표 금액"></Text>
-          <Text className="text-sm" text={priceFilter(itemUnitPrice)}></Text>
+          <Text className="text-sm gray" text="목표 금액"/>
+          <Text className="text-sm" text={priceFilter(totalPrice)}/>
         </div>
       </div>
     </div>

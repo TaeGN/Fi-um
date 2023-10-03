@@ -29,17 +29,12 @@ const ProfileHeader = ({
       className={convertClassNameList(
         convertClassName(className, styles),
         styles['profile-header'],
+        checkConditionClassName(
+          !myPage,
+          styles['profile-header__not-mypage'],
+        ),
       )}
     >
-      <div
-        className={convertClassNameList(
-          checkConditionClassName(
-            !myPage,
-            styles['profile-header__not-mypage'],
-          ),
-          'flex-container',
-        )}
-      >
         <ProfileCard
           myPage={myPage}
           src={userInfo?.imagePath}
@@ -57,7 +52,6 @@ const ProfileHeader = ({
             ''
           ))}
       </div>
-    </div>
   );
 };
 

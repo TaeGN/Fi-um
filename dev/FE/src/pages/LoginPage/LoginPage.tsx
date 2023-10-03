@@ -23,7 +23,7 @@ const LoginPage = ({ className, signUp }: LoginPageProps): JSX.Element => {
     >
       <Image
         className={convertClassNameList(styles['login-page__image'])}
-        src={auctions ? auctions[0].itemImagePath : '/img/loading/auction.gif'}
+        src={auctions ? auctions?.[0]?.itemImagePath : '/img/loading/auction.gif'}
         alt="image"
       />
       <Login

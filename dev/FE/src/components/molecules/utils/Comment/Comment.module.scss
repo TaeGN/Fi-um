@@ -1,19 +1,19 @@
 .comment {
-  overflow: scroll;
-
+  overflow: auto;
   &__create-box {
-    // textarea {
-    //   margin: 0;
-    //   height: 100% !important;
-    //   width: 90% !important;
-    //   overflow: scroll;
-    // }
+    display: flex;
+    height: 5vh;
 
     &--text {
+      width: 100% !important;
     }
 
     &--button {
-      margin-left: auto;
+      height: 5vh;
+      width: 5vw;
+      color: white;
+      background-color: #3579d4;
+      border: 0;
     }
   }
 
@@ -23,6 +23,10 @@
     padding-left: 2vw;
     padding-right: 2vw;
     border-bottom: 1px solid #333;
+
+    &-container {
+      // overflow: scroll;
+    }
 
     &--content {
       font-size: 1.5vw;
@@ -35,6 +39,9 @@
     }
 
     &--remove {
+      color: white;
+      background-color: #ed2926;
+      border: 0;
     }
   }
 }
