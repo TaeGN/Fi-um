@@ -39,7 +39,6 @@ import {
   getAuctionPurchaseQuery,
   getFollowingQuery,
   getFundingRecordsQuery,
-  getFundingsQuery,
   getMyFundingsQuery,
   getMyStocksQuery,
   getPointsQuery,

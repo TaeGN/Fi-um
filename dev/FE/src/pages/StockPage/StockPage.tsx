@@ -41,10 +41,10 @@ const StockPage = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const { data: portFolio, status: isPortFolioLoading } = useQuery<
+  const { data: portFolio } = userInfo?.userNo ? useQuery<
     Portfoilo,
     Error
-  >(getPortfolioQuery(userInfo?.userNo));
+  >(getPortfolioQuery(userInfo.userNo)) : {data:undefined};
   console.log(portFolio);
 
   return (
