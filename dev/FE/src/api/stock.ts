@@ -79,7 +79,7 @@ const getTradeHistory = async ({
 const getPortfolio = async ({
   queryKey: [_, userNo],
 }: any): Promise<Portfoilo> => {
-  return await portfolioApi.get(`${userNo}`).then(({ data }) => data);
+  return await portfolioApi.get(`portfolio/${userNo}`).then(({ data }) => data);
 };
 export {
   getMyStocks,
