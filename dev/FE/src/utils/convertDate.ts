@@ -1,6 +1,10 @@
 const DAY = 1000 * 60 * 60 * 24;
 const WEEK = DAY * 7;
 
+const getDay = (val: number) => {
+  return Math.round(new Date(val).getTime() / DAY);
+};
+
 const convertDate = (val: number) => {
   const date = new Date(val);
   if (!val) return '';
@@ -15,9 +19,8 @@ const convertDateAfter7days = (val: number) => {
 
 const convertDataRemainDays = (val: number) => {
   if (!val) return '';
-  return Math.floor(
-    (new Date(val + WEEK).getTime() - new Date().getTime()) / DAY,
-  );
+  const res = getDay(val + WEEK) - getDay(new Date().getTime());
+  return res < 0 ? 0 : res;
 };
 
 export { convertDate, convertDateAfter7days, convertDataRemainDays };

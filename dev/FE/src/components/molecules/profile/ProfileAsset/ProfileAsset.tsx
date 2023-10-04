@@ -23,7 +23,6 @@ const ProfileAsset = ({
   const { data: rivalCapital } = rival
     ? useQuery<Capital, Error>(getUserCapitalQuery(rival))
     : { data: undefined };
-  console.log(capital);
 
   const { capitalChart, revenueChart, rivalChart } = useMemo(() => {
     if (!capital)

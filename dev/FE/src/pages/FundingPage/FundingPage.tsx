@@ -57,7 +57,6 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
     }
     closeToggle();
   };
-  console.log(fundings);
 
   const handleSponSwitch = () => {
     setSponSwitch(!sponSwitch);

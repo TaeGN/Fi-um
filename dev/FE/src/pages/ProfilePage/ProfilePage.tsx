@@ -279,16 +279,13 @@ const AdminProfilePage = () => {
     getUserTotalCapitalQuery(),
   );
 
-  // 전체 후원품
+  // 전체 후원 & 펀딩
   const { data: sponsorships } = useQuery<Item[]>(getSponsorShipQuery());
 
   // 후원 히스토리
   const { data: sponsorshipRecords } = useQuery<SponsorshipDetail[]>(
     getSponsorShipRecordsQuery(),
   );
-
-  // 전체 펀딩
-  // const { data: fundings } = useQuery<FundingType[]>(getFundingsQuery());
 
   // 펀딩 히스토리
   const { data: fundingRecords } = useQuery<FundingRecord[]>(
@@ -313,23 +310,28 @@ const AdminProfilePage = () => {
           <Table
             data={
               sponsorships &&
-              sponsorships.filter((sponsorship)=> !sponsorship.isCompleted).map(
-                ({
-                  imagePath,
-                  itemName,
-                  itemCount,
-                  unitPrice,
-                  sponsorshipAmount
-                }) => {
-                  return {
-                    사진: <Image src={imagePath} />,
-                    이름: itemName,
-                    개수: countFilter(itemCount),
-                    후원금액: priceFilter(sponsorshipAmount),
-                    후원률: ratioFilter(sponsorshipAmount, itemCount * unitPrice),
-                  };
-                },
-              )
+              sponsorships
+                .filter((sponsorship) => !sponsorship.isCompleted)
+                .map(
+                  ({
+                    imagePath,
+                    itemName,
+                    itemCount,
+                    unitPrice,
+                    sponsorshipAmount,
+                  }) => {
+                    return {
+                      사진: <Image src={imagePath} />,
+                      이름: itemName,
+                      개수: countFilter(itemCount),
+                      후원금액: priceFilter(sponsorshipAmount),
+                      후원률: ratioFilter(
+                        sponsorshipAmount,
+                        itemCount * unitPrice,
+                      ),
+                    };
+                  },
+                )
             }
             size={5}
           />
@@ -355,26 +357,28 @@ const AdminProfilePage = () => {
           <Table
             data={
               sponsorships &&
-              sponsorships.filter((sponsorship)=> sponsorship.isCompleted).map(
-                ({
-                  imagePath,
-                  itemName,
-                  itemCount,
-                  unitPrice,
-                  fundingAmount,
-                }) => {
-                  return {
-                    사진: <Image src={imagePath} />,
-                    이름: itemName,
-                    개수: countFilter(itemCount),
-                    펀딩금액: priceFilter(fundingAmount),
-                    펀딩률: ratioFilter(
-                      fundingAmount,
-                      itemCount * unitPrice * 0.3,
-                    ),
-                  };
-                },
-              )
+              sponsorships
+                .filter((sponsorship) => sponsorship.isCompleted)
+                .map(
+                  ({
+                    imagePath,
+                    itemName,
+                    itemCount,
+                    unitPrice,
+                    fundingAmount,
+                  }) => {
+                    return {
+                      사진: <Image src={imagePath} />,
+                      이름: itemName,
+                      개수: countFilter(itemCount),
+                      펀딩금액: priceFilter(fundingAmount),
+                      펀딩률: ratioFilter(
+                        fundingAmount,
+                        itemCount * unitPrice * 0.3,
+                      ),
+                    };
+                  },
+                )
             }
             size={5}
           />

@@ -153,15 +153,20 @@ const ModalDeposit = ({
         )}
       </div>
 
-      <div
-        className={convertClassNameList(
-          'flex-container jc-space-between',
-          styles['modal-stock__price'],
-        )}
-      >
-        <Text className="text-md" text={'현재 계좌 잔액'} />
-        <Text className="text-md" text={priceFilter(savingBalance)} />
-      </div>
+      {label !== '가입' && (
+        <div
+          className={convertClassNameList(
+            'flex-container jc-space-between',
+            styles['modal-stock__price'],
+          )}
+        >
+          <Text className="text-md" text={'현재 계좌 잔액'} />
+          <Text
+            className="text-md"
+            text={priceFilter((savingBalance || depositMoney) ?? 0)}
+          />
+        </div>
+      )}
 
       <div
         className={convertClassNameList(
@@ -173,8 +178,8 @@ const ModalDeposit = ({
         <Text
           className="text-md"
           text={priceFilter(
-            (savingBalance || depositMoney) ??
-              0 + (label === '출금' ? -count : count),
+            ((savingBalance || depositMoney) ?? 0) +
+              (label === '출금' ? -count : count),
           )}
         />
       </div>
