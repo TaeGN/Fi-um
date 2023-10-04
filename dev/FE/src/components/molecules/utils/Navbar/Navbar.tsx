@@ -22,8 +22,8 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
   const navigate = useNavigate();
   const mutation = useMutation(userLogout, {
     onMutate() {
-      navigate('/login');
       setUserInfo(undefined);
+      navigate('/login');
     },
   });
 
