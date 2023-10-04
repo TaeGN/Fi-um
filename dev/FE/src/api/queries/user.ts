@@ -1,3 +1,4 @@
+import { ArtistAuction } from '@/types';
 import {
   getUserArtist,
   getUser,
@@ -15,6 +16,14 @@ const getUserArtistQuery = (userNo: number) => {
   return {
     queryKey: ['getArtist', userNo],
     queryFn: getUserArtist,
+    select: (data: ArtistAuction[]) =>
+      data.sort((a, b) => {
+        if (a.winner && b.winner) {
+          return a.auctionNo - b.auctionNo;
+        } else {
+          return b.winner ? -1 : 1;
+        }
+      }),
   };
 };
 

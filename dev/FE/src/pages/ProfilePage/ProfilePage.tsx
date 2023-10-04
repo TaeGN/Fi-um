@@ -7,6 +7,7 @@ import {
   UserList,
 } from '@/components/organisms';
 import {
+  checkConditionClassName,
   checkConditionPointChange,
   convertClassName,
   convertClassNameList,
@@ -49,7 +50,7 @@ import {
   getUserDepositSavingQuery,
   getUserTotalCapitalQuery,
 } from '@/api/queries';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 interface ProfilePageProps {
   className?: string;
@@ -154,6 +155,7 @@ const SponsorProfilePage = () => {
 
 const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
   const { userNo } = useParams<string>();
+  const navigate = useNavigate();
 
   // 내 예적금
   const { data: depositSavings } = myPage
@@ -189,10 +191,23 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
           <div className={styles['profile-page__auction-container']}>
             {myAuctions
               .slice(index * 4, Math.min((index + 1) * 4, len))
-              .map(({ auctionNo, imagePath, title }) => (
+              .map(({ auctionNo, imagePath, title, winner }) => (
                 <AuctionCard
                   key={auctionNo}
-                  {...{ auctionNo, itemImagePath: imagePath, title }}
+                  className={checkConditionClassName(
+                    winner,
+                    styles['profile-page__auction'],
+                  )}
+                  {...{
+                    auctionNo,
+                    itemImagePath: imagePath,
+                    title,
+                    onClick: myPage
+                      ? undefined
+                      : () => {
+                          navigate(`/auction/${auctionNo}`);
+                        },
+                  }}
                 />
               ))}
           </div>,

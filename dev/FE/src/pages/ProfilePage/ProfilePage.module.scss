@@ -10,6 +10,19 @@
     }
   }
 
+  &__auction {
+    filter: brightness(50%);
+    position: relative;
+
+    &::after {
+      position: absolute;
+      top: 10vh;
+      content: '판매완료';
+      color: white;
+      font-size: 2vw;
+    }
+  }
+
   table th {
     background-color: #3579d4;
   }

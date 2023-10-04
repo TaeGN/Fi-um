@@ -22,7 +22,8 @@ const useFollowing = () => {
     )
       return;
     setFollowing(newFollowing);
-  }, []);
+  }, [userInfo, newFollowing]);
+
   return { following, setFollowing, refreshFollowing };
 };
 
