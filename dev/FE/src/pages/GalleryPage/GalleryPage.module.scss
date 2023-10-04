@@ -7,7 +7,8 @@
 
   &__card-container {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    place-items: center;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 
     gap: 1rem;
   }

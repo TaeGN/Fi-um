@@ -3,7 +3,6 @@ import styles from './Funding.module.scss';
 import { FundingCard, Swiper } from '@/components/molecules';
 import { Funding as FundingType } from '@/types';
 import { useMemo } from 'react';
-import { Text } from '@/components/atoms';
 
 interface FundingProps {
   className?: string;
@@ -38,7 +37,6 @@ const Funding = ({ className, fundings }: FundingProps): JSX.Element => {
         styles['funding'],
       )}
     >
-      <Text className="text-xl bold m-1" text="진행중인 펀딩" />
       <Swiper>{funding}</Swiper>
     </div>
   );
