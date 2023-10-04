@@ -90,7 +90,7 @@ const ProfileCard = ({
     if (!userNo) return;
     const msg = await postFollowing(userNo);
     alert(msg);
-    await refreshFollowing();
+    if (refreshFollowing) await refreshFollowing();
   };
 
   return (
