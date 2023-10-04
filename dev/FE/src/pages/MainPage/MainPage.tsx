@@ -12,6 +12,8 @@ import { getFundingsQuery, getRankingsQuery } from '@/api/queries';
 import { useEffect, useState } from 'react';
 import { Text } from '@/components/atoms';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const MainPage = () => {
   const { data: auctions } = useQuery<Auction[], Error>(getAuctionsQuery());
   const { data: fundings } = useQuery<FundingType[]>(getFundingsQuery());
@@ -19,6 +21,8 @@ const MainPage = () => {
   console.log(fundings);
 
   const [loading, setLoading] = useState(true);
+  console.log('확인?');
+  console.log(API_BASE_URL);
 
   useEffect(() => {
     const timer = setTimeout(() => {
