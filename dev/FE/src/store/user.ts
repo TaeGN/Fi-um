@@ -1,4 +1,4 @@
-import { UserInfo } from '@/types';
+import { ChildProfile, UserInfo } from '@/types';
 import { atom } from 'recoil';
 
 const userState = atom<UserInfo | undefined>({
@@ -6,4 +6,9 @@ const userState = atom<UserInfo | undefined>({
   default: undefined,
 });
 
-export { userState };
+const followingState = atom<ChildProfile[] | undefined>({
+  key: 'followingState',
+  default: undefined,
+});
+
+export { userState, followingState };

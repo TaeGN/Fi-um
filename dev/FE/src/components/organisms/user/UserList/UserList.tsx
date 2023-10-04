@@ -7,7 +7,7 @@ import { memo } from 'react';
 interface UserListProps {
   className?: string;
   totalCapitals?: TotalCapital[];
-  onClick: (userNo: number) => void;
+  onClick: (capital: TotalCapital) => void;
 }
 
 const UserList = ({
@@ -26,27 +26,16 @@ const UserList = ({
         className={styles['user-list__table']}
         data={
           totalCapitals &&
-          totalCapitals.map(
-            ({
-              point,
-              depositMoney,
-              fundingMoney,
-              stockMoney,
-              userName,
-              userNo,
-            }) => {
-              return {
-                이름: <div key={userNo}>{userName}</div>,
-                포인트: priceFilter(point),
-                펀딩: priceFilter(fundingMoney),
-                주식: priceFilter(stockMoney),
-                예적금: priceFilter(depositMoney),
-                차트: (
-                  <Button label="상세" onClick={() => onClick(userNo)} />
-                ),
-              };
-            },
-          )
+          totalCapitals.map((capital) => {
+            return {
+              이름: <div key={capital.userNo}>{capital.userName}</div>,
+              포인트: priceFilter(capital.point),
+              펀딩: priceFilter(capital.fundingMoney),
+              주식: priceFilter(capital.stockMoney),
+              예적금: priceFilter(capital.depositMoney),
+              차트: <Button label="상세" onClick={() => onClick(capital)} />,
+            };
+          })
         }
         size={5}
       />

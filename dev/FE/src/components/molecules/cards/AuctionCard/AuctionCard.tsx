@@ -12,6 +12,7 @@ interface AuctionCardProps {
   content?: string;
   review?: boolean;
   noBtn?: boolean;
+  winner?: number | null;
 }
 
 const AuctionCard = ({
@@ -24,6 +25,7 @@ const AuctionCard = ({
   content,
   review,
   noBtn,
+  winner,
 }: AuctionCardProps) => {
   return (
     <div
@@ -55,9 +57,15 @@ const AuctionCard = ({
       {!noBtn && onClick && (
         <div className={styles.button}>
           <Button
-            label={review ? '자세히 보기' : '경매하러가기'}
-            className="primary xsmall"
-            onClick={onClick}
+            label={
+              review ? '자세히 보기' : winner ? '경매 완료' : '경매하러가기'
+            }
+            className={
+              winner
+                ? `gray xsmall ${styles['auction-card__finished']}`
+                : 'primary xsmall'
+            }
+            onClick={winner ? undefined : onClick}
           />
         </div>
       )}

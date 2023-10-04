@@ -1,4 +1,4 @@
-import { getFollowing } from '@/api/follow';
+import { getFollowing, postFollowing } from '@/api/follow';
 
 // 팔로우 전체 조회
 const getFollowingQuery = () => {
@@ -8,4 +8,11 @@ const getFollowingQuery = () => {
   };
 };
 
-export { getFollowingQuery };
+// 팔로우 등록 & 취소
+const postFollowingQuery = (userNo: number) => {
+  return {
+    mutationFn: () => postFollowing(userNo),
+  };
+};
+
+export { getFollowingQuery, postFollowingQuery };

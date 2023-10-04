@@ -7,6 +7,7 @@ import {
   UserList,
 } from '@/components/organisms';
 import {
+  checkConditionClassName,
   checkConditionPointChange,
   convertClassName,
   convertClassNameList,
@@ -18,7 +19,7 @@ import {
 } from '@/utils';
 import { Image, Table, Text } from '@/components/atoms';
 import useAuth from '@/hooks/useAuth';
-import { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback, useEffect } from 'react';
 import { USER_TYPE } from '@/constants';
 import {
   ArtistAuction,
@@ -56,7 +57,7 @@ import {
   getUserDepositSavingQuery,
   getUserTotalCapitalQuery,
 } from '@/api/queries';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 interface ProfilePageProps {
   className?: string;
@@ -80,6 +81,30 @@ const SponsorProfilePage = () => {
   // 포인트 사용 내역
   const { data: pointRecords } = useQuery<Point[]>(getPointsQuery());
 
+  const followings = useMemo(() => {
+    const followings: JSX.Element[] = [];
+    if (childProfiles) {
+      const len = childProfiles?.length ?? 0;
+      for (let index = 0; index < len / 4; index++) {
+        followings.push(
+          <div className={styles['profile-page__auction-container']}>
+            {childProfiles
+              .slice(index * 4, Math.min((index + 1) * 4, len))
+              .map(({ imagePath, userName, userNo }) => (
+                <ProfileCard
+                  key={userNo}
+                  src={imagePath}
+                  alt={userName}
+                  userNo={userNo}
+                />
+              ))}
+          </div>,
+        );
+      }
+    }
+    return followings;
+  }, [childProfiles]);
+
   return (
     <>
       <ProfileSection label="내가 구매한 그림">
@@ -95,9 +120,7 @@ const SponsorProfilePage = () => {
         </div>
       </ProfileSection>
       <ProfileSection label="팔로우 한 아이들">
-        {childProfiles?.map(({ userNo, userName, imagePath }) => (
-          <ProfileCard key={userNo} src={imagePath} alt={userName} />
-        ))}
+        <Swiper>{followings}</Swiper>
       </ProfileSection>
       <ProfileSection label="포인트 사용 내역">
         <Table
@@ -139,6 +162,7 @@ const SponsorProfilePage = () => {
 
 const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
   const { userNo } = useParams<string>();
+  const navigate = useNavigate();
 
   // 내 예적금
   const { data: depositSavings } = myPage
@@ -185,13 +209,32 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
       const len = myAuctions?.length ?? 0;
       for (let index = 0; index < len / 4; index++) {
         auction.push(
-          <div className={styles['profile-page__auction-container']}>
+          <div
+            className={convertClassNameList(
+              styles['profile-page__auction-container'],
+              'flex-container',
+            )}
+          >
             {myAuctions
               .slice(index * 4, Math.min((index + 1) * 4, len))
-              .map(({ auctionNo, imagePath, title }) => (
+              .map(({ auctionNo, imagePath, title, winner }) => (
                 <AuctionCard
                   key={auctionNo}
-                  {...{ auctionNo, itemImagePath: imagePath, title }}
+                  className={checkConditionClassName(
+                    winner,
+                    styles['profile-page__auction'],
+                  )}
+                  {...{
+                    auctionNo,
+                    itemImagePath: imagePath,
+                    title,
+                    winner,
+                    onClick: myPage
+                      ? undefined
+                      : () => {
+                          navigate(`/auction/${auctionNo}`);
+                        },
+                  }}
                 />
               ))}
           </div>,
@@ -336,7 +379,9 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
       )}
 
       <ProfileSection label="그림">
-        <Swiper>{auction}</Swiper>
+        <Swiper className={styles['child-profile-page__swiper']}>
+          {auction}
+        </Swiper>
       </ProfileSection>
       {myPage && (
         <ProfileSection label="포인트 사용 내역">
@@ -365,11 +410,10 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
 };
 
 const AdminProfilePage = () => {
-  const [chartState, setChartState] = useState<number>(0);
+  const [curCapital, setCurCapital] = useState<TotalCapital>();
 
-  const handleChangeChartState = useCallback((userNo: number) => {
-    if (userNo === chartState) setChartState(0);
-    else setChartState(userNo);
+  const handleChangeChartState = useCallback((capital: TotalCapital) => {
+    setCurCapital(capital);
   }, []);
 
   // 아이들 전체 자산
@@ -390,6 +434,10 @@ const AdminProfilePage = () => {
     getFundingRecordsQuery(),
   );
 
+  useEffect(() => {
+    totalCapitals?.[0] && setCurCapital(totalCapitals[0]);
+  }, [totalCapitals]);
+
   return (
     <>
       <div className={styles['profile-page__profile-section']}>
@@ -399,8 +447,8 @@ const AdminProfilePage = () => {
             onClick={handleChangeChartState}
           />
         </ProfileSection>
-        <ProfileSection label="아이들 자산 상세">
-          <UserCapital totalCapitals={totalCapitals} chartState={chartState} />
+        <ProfileSection label={`${curCapital?.userName}의 자산 상세`}>
+          <UserCapital totalCapitals={totalCapitals} curCapital={curCapital} />
         </ProfileSection>
       </div>
       <div className={styles['profile-page__profile-section2']}>

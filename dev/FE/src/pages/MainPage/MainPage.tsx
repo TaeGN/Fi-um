@@ -10,6 +10,7 @@ import {
 } from '@/types';
 import { getFundingsQuery, getRankingsQuery } from '@/api/queries';
 import { useEffect, useState } from 'react';
+import { Text } from '@/components/atoms';
 
 const MainPage = () => {
   const { data: auctions } = useQuery<Auction[], Error>(getAuctionsQuery());
@@ -48,7 +49,10 @@ const MainPage = () => {
             </Swiper>
           )}
         </div>
-        <Funding fundings={fundings} />
+        <div>
+          <Text className="text-xl bold m-1" text="진행중인 펀딩" />
+          <Funding fundings={fundings} />
+        </div>
       </div>
     </>
   );
