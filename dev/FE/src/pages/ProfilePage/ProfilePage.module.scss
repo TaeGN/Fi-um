@@ -1,6 +1,7 @@
 .profile-page {
   &__auction-container {
     display: grid;
+    place-items: center;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 18vw));
     grid-auto-rows: 40vh;
     gap: 2rem;
