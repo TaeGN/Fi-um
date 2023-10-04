@@ -1,4 +1,11 @@
 .profile-page {
+  &__auction-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 20vw));
+    grid-auto-rows: 40vh;
+    gap: 2rem;
+  }
+
   table th {
     background-color: #3579d4;
   }

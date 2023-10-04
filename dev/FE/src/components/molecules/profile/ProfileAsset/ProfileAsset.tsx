@@ -32,7 +32,7 @@ const ProfileAsset = ({
         rivalChart: undefined,
       };
     const capitalChart = {
-      labels: ['stock', 'deposit', 'saving', 'donation', 'point'],
+      labels: ['주식', '예금', '적금', '기부', '포인트'],
       data: [
         capital.stock,
         capital.deposit,
@@ -44,7 +44,7 @@ const ProfileAsset = ({
     };
 
     const revenueChart = {
-      labels: ['stock', 'deposit', 'saving', 'auction', 'quizIncome'],
+      labels: ['주식', '예금', '적금', '경매', '퀴즈'],
       data: [
         capital.stockIncome,
         capital.depositIncome,
@@ -58,7 +58,7 @@ const ProfileAsset = ({
     let rivalChart = undefined;
     if (rivalCapital) {
       rivalChart = {
-        labels: ['stock', 'deposit', 'saving', 'auction', 'quizIncome'],
+        labels: ['주식', '예금', '적금', '경매', '퀴즈'],
         data: [
           rivalCapital.stockIncome,
           rivalCapital.depositIncome,

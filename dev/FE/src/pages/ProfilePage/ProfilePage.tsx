@@ -164,7 +164,7 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
       const len = myAuctions?.length ?? 0;
       for (let index = 0; index < len / 4; index++) {
         auction.push(
-          <div className="card-container">
+          <div className={styles['profile-page__auction-container']}>
             {myAuctions
               .slice(index * 4, Math.min((index + 1) * 4, len))
               .map(({ auctionNo, imagePath, title }) => (

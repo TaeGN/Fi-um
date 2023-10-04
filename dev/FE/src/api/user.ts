@@ -43,7 +43,7 @@ const getUserInfo = async (): Promise<UserInfo> => {
 
 // refresh token
 const getreissue = async (refreshToken?: string | null): Promise<string> => {
-  if (!refreshToken) refreshToken = getRefreshToken();
+  if (!refreshToken) refreshToken = await getRefreshToken();
   console.log('refreshToken', refreshToken);
 
   return await api

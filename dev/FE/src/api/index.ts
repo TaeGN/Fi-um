@@ -60,12 +60,12 @@ const authInterceptor = (instance: AxiosInstance) => {
     (response) => {
       return response;
     },
-    (error) => {
+    async (error) => {
       if (error.response) {
         switch (error.response.status) {
           // 권한 없음
           case HTTP_STATUS.UNAUTHORIZED:
-            const refreshToken = getRefreshToken();
+            const refreshToken = await getRefreshToken();
             // access token 재 발급
             if (!isRefresh) {
               // refresh 요청 한 번만
