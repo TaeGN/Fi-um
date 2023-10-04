@@ -61,7 +61,7 @@ const AuctionPage = ({ className }: AuctionPageProps): JSX.Element => {
           'flex-container-col',
         )}
       >
-        <div className="flex-container jc-space-between align-center">
+        <div className="flex-container jc-space-between align-center m-1">
           <Text className="text-xxl bold" text="경매하기" />
           <div>
             {userType === USER_TYPE.아이들 && (
