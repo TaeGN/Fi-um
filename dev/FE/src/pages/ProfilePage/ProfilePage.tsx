@@ -205,6 +205,7 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
                     auctionNo,
                     itemImagePath: imagePath,
                     title,
+                    winner,
                     onClick: myPage
                       ? undefined
                       : () => {
@@ -278,7 +279,9 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
       )}
 
       <ProfileSection label="그림">
-        <Swiper>{auction}</Swiper>
+        <Swiper className={styles['child-profile-page__swiper']}>
+          {auction}
+        </Swiper>
       </ProfileSection>
       {myPage && (
         <ProfileSection label="포인트 사용 내역">

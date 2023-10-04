@@ -3,7 +3,7 @@
     display: grid;
     place-items: center;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 18vw));
-    grid-auto-rows: 40vh;
+    grid-auto-rows: 60vh;
     gap: 2rem;
 
     img {
@@ -12,7 +12,9 @@
   }
 
   &__auction {
-    filter: brightness(50%);
+    img {
+      filter: brightness(70%);
+    }
     position: relative;
 
     &::after {
@@ -63,5 +65,11 @@
     background-color: #f6fbfd;
 
     // background-color: #ececec;
+  }
+}
+
+.child-profile-page {
+  &__swiper {
+    min-height: 60vh;
   }
 }

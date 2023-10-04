@@ -8,7 +8,6 @@
   justify-content: center;
   padding: 1vw;
   border-radius: 16px;
-
   width: 240px;
   background-color: white;
   border: 1px solid lightblue;
@@ -33,5 +32,11 @@
   }
   .button {
     margin-top: 0.5rem;
+  }
+}
+
+.auction-card {
+  &__finished {
+    cursor: default;
   }
 }
