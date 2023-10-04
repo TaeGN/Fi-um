@@ -59,30 +59,34 @@ const Comment = ({ className, reviewNo }: CommentProps): JSX.Element => {
           label="등록"
         />
       </div>
-      
+
       <div className={styles['comment__item-container']}>
-      {comments?.map(({ comment, commentNo, createTime, userName, userNo }) => (
-        <div className={styles['comment__item']} key={commentNo}>
-          <Text className={styles['comment__item--content']} text={comment} />
-          <div className="flex-container jc-space-between">
-            <Text
-              className={styles['comment__item--info']}
-              text={`${userName} | ${convertDate(createTime)}`}
-            />
-            {(userInfo?.userNo === userNo ||
-              userInfo?.userType === USER_TYPE.원장쌤) && (
-              <Button
-                className={styles['comment__item--remove']}
-                value={commentNo}
-                onClick={handleCommentRemove}
-                label="X"
+        {comments?.map(
+          ({ comment, commentNo, createTime, userName, userNo }) => (
+            <div className={styles['comment__item']} key={commentNo}>
+              <Text
+                className={styles['comment__item--content']}
+                text={comment}
               />
-            )}
-          </div>
-        </div>
-      ))}
+              <div className="flex-container jc-space-between">
+                <Text
+                  className={styles['comment__item--info']}
+                  text={`${userName} | ${convertDate(createTime)}`}
+                />
+                {(userInfo?.userNo === userNo ||
+                  userInfo?.userType === USER_TYPE.원장쌤) && (
+                  <Button
+                    className={styles['comment__item--remove']}
+                    value={commentNo}
+                    onClick={handleCommentRemove}
+                    label="X"
+                  />
+                )}
+              </div>
+            </div>
+          ),
+        )}
       </div>
-        
     </div>
   );
 };
