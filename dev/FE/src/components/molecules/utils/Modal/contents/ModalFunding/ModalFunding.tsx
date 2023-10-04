@@ -26,8 +26,6 @@ const ModalFunding = ({
 }: ModalFundingProps): JSX.Element => {
   const [price, setPrice] = useState<number>(0);
 
-  console.log(item);
-
   const colorStyle = useMemo(() => {
     return {
       textColor: 'blue',
@@ -80,7 +78,7 @@ const ModalFunding = ({
           className={convertClassNameList(styles['modal-funding__input'])}
           type="number"
           name="price"
-          value={price}
+          value={price.toFixed(0)}
           onChange={handleChangePrice}
         />
         <Text

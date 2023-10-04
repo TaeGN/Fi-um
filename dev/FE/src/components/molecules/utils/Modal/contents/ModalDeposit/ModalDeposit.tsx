@@ -74,9 +74,9 @@ const ModalDeposit = ({
     (
       e: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLButtonElement>,
     ): void => {
-      console.log(e);
-
       const newCount = Number(e.currentTarget.value);
+      console.log(newCount);
+
       if (newCount < 0) return;
       setCount(Math.min(newCount, maxCount));
     },
@@ -118,7 +118,7 @@ const ModalDeposit = ({
           className={convertClassNameList(styles['modal-stock__input'])}
           type="number"
           name="count"
-          value={count}
+          value={count.toFixed(0)}
           onChange={handleChangeCount}
         />
         <Text
