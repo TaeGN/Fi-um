@@ -182,6 +182,10 @@ body {
   justify-content: space-around;
 }
 
+.align-end {
+  align-items: end;
+}
+
 .jc-center {
   justify-content: center;
 }
@@ -257,4 +261,9 @@ input[type='number']::-webkit-inner-spin-button {
   justify-content: center;
   padding-top: 150px;
   z-index: 99;
+}
+
+.md-1vw {
+  margin-left: 1vw;
+  margin-right: 1vw;
 }

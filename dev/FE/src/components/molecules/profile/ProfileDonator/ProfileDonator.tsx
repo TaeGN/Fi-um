@@ -41,27 +41,30 @@ const ProfileDonator = ({ className }: ProfileDonatorProps): JSX.Element => {
     >
       <div>
         <div className="flex-container jc-space-between">
-          <Text className="text-lg" text="후원 총액 :" />
-          <Text className="blue text-lg" text={priceFilter(sponsoredAmount)} />
-        </div>
-        <div className="flex-container jc-space-between">
-          <Text className="text-lg" text="내 캐시 :" />
-          <Text className="blue text-lg" text={priceFilter(cash)} />
-        </div>
-        <div className="flex-container jc-space-between">
-          <Text className="text-lg" text="내 포인트 :" />
-          <Text className="blue text-lg" text={priceFilter(point)} />
+          <div className="flex-container-col align-end md-1vw">
+            <Text className="text-lg" text="후원 총액 :" />
+            <Text className="text-lg" text="내 캐시 :" />
+            <Text className="text-lg" text="내 포인트 :" />
+          </div>
+          <div className="flex-container-col align-end">
+            <Text
+              className="blue text-lg"
+              text={priceFilter(sponsoredAmount)}
+            />
+            <Text className="blue text-lg" text={priceFilter(cash)} />
+            <Text className="blue text-lg" text={priceFilter(point)} />
+          </div>
         </div>
       </div>
-      <div>
-        <Text
-          className="text-lg"
-          text={`구매한 그림 : ${auctionPurchases?.length} 개`}
-        />
-        <Text
-          className="text-lg"
-          text={`팔로우한 아이들 : ${childProfiles?.length} 명`}
-        />
+      <div className="flex-container jc-space-between">
+        <div className="flex-container-col align-end md-1vw">
+          <Text className="text-lg" text={`구매한 그림 :`} />
+          <Text className="text-lg" text={`팔로우한 아이들 :`} />
+        </div>
+        <div className="flex-container-col align-end">
+          <Text className="text-lg" text={`${auctionPurchases?.length} 개`} />
+          <Text className="text-lg" text={`${childProfiles?.length} 명`} />
+        </div>
       </div>
     </div>
   );
