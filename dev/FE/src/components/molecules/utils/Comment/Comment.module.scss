@@ -1,11 +1,18 @@
 .comment {
+  position: relative;
   overflow: auto;
   &__create-box {
     display: flex;
     height: 5vh;
+    position: sticky;
+    top: 0px;
+    background-color: #f2f2f2;
 
     &--text {
       width: 100% !important;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      border: 0;
     }
 
     &--button {
@@ -14,6 +21,8 @@
       color: white;
       background-color: #3579d4;
       border: 0;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
     }
   }
 
