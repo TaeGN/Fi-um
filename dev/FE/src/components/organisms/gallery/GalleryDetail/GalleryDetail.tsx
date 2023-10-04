@@ -41,6 +41,7 @@ const GalleryDetail = ({
           )}
           text={review.content}
         />
+
         <Comment
           reviewNo={review.reviewNo}
           className={convertClassNameList(
