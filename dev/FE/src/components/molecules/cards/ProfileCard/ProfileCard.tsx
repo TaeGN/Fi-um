@@ -15,7 +15,7 @@ import {
 import { postImage } from '@/api/image';
 import { Modal } from '@/components/molecules';
 import useAuth from '@/hooks/useAuth';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { USER_TYPE } from '@/constants';
 import { apiImgUrl } from '@/utils/imgUrl';
 
@@ -38,11 +38,11 @@ const ProfileCard = ({
   const [file, setFile] = useState<File | undefined>(undefined);
   const { userInfo, setUserInfo, refreshUserInfo } = useAuth();
   const { state } = useLocation();
+  const params = useParams();
   const navigate = useNavigate();
 
   const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
     setFile((e.currentTarget.files as FileList)[0]);
-    if (file) console.log(URL.createObjectURL(file));
   };
 
   const handleChangeImage = async () => {
@@ -59,11 +59,12 @@ const ProfileCard = ({
     setUserInfo((userInfo) => {
       return userInfo && { ...userInfo, imagePath };
     });
-    setFile(undefined)
+    setFile(undefined);
     closeToggle();
   };
 
   const handleMoveProfilePage = () => {
+    if (params && state && Number(params.userNo) === state.userNo) return;
     if (!userInfo || (state?.userNo ?? userNo) === userInfo.userNo) return;
     navigate(`/profile/${state?.userNo ?? userNo}`, {
       state: { src, alt, userNo: state?.userNo ?? userNo },
@@ -146,15 +147,20 @@ const ProfileCard = ({
           <input
             className={convertClassNameList(
               styles['profile-card__modal--input'],
-              )}
+            )}
             type="file"
             name="file"
-            accept='image/*'
+            accept="image/*"
             onChange={handleChangeFile}
           />
 
-
-          <img className={styles["profile-card__modal--image"]} src={file ? URL.createObjectURL(file) : apiImgUrl(userInfo?.imagePath)} alt={userInfo?.userName}/>
+          <img
+            className={styles['profile-card__modal--image']}
+            src={
+              file ? URL.createObjectURL(file) : apiImgUrl(userInfo?.imagePath)
+            }
+            alt={userInfo?.userName}
+          />
           <div className={styles['profile-card__modal--button-container']}>
             <Button
               className={convertClassNameList(
