@@ -101,14 +101,16 @@ const SponsorProfilePage = () => {
   return (
     <>
       <ProfileSection label="내가 구매한 그림">
-        {auctionPurchases?.map(({ actionNo, imagePath, title }) => (
-          <AuctionCard
-            key={actionNo}
-            itemImagePath={imagePath}
-            title={title}
-            noBtn={true}
-          />
-        ))}
+        <div className="card-container jc-center">
+          {auctionPurchases?.map(({ actionNo, imagePath, title }) => (
+            <AuctionCard
+              key={actionNo}
+              itemImagePath={imagePath}
+              title={title}
+              noBtn={true}
+            />
+          ))}
+        </div>
       </ProfileSection>
       <ProfileSection label="팔로우 한 아이들">
         <Swiper>{followings}</Swiper>
