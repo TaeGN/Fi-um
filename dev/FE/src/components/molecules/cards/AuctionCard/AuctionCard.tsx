@@ -65,7 +65,7 @@ const AuctionCard = ({
                 ? `gray xsmall ${styles['auction-card__finished']}`
                 : 'primary xsmall'
             }
-            onClick={onClick}
+            onClick={winner ? undefined : onClick}
           />
         </div>
       )}
