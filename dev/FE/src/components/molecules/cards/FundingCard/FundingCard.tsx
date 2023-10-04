@@ -7,7 +7,7 @@ import {
 } from '@/utils';
 import { FundingBar } from '../..';
 import { Funding } from '@/types';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface FundingCardProps {
   className?: string;
@@ -21,11 +21,8 @@ const FundingCard = ({
   funding: { imagePath, itemName, itemUnitPrice, itemCount, fundingAmount },
 }: FundingCardProps): JSX.Element => {
   const navigate = useNavigate();
-  const location = useLocation();
   const handleClick = () => {
-    if (!location.pathname.includes('profile')) {
-      navigate('/funding');
-    }
+    navigate('/funding');
   };
   const fundingGoalPrice = formatCurrency(
     String(itemUnitPrice * itemCount * 0.3),
