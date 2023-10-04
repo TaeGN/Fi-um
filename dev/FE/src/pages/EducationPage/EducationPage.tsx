@@ -123,10 +123,10 @@ const EducationPage = ({ className }: EducationPageProps): JSX.Element => {
     };
   }, [handlePageNoIncrement, handlePageNoDecrement]);
   const [loading, setLoading] = useState(true);
-  // const [isDropdownView, setDropdownView] = useState(false);
-  // const handleClickContainer = () => {
-  //   setDropdownView(!isDropdownView);
-  // };
+  const [isDropdownView, setDropdownView] = useState(false);
+  const handleClickContainer = () => {
+    setDropdownView(!isDropdownView);
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -155,28 +155,34 @@ const EducationPage = ({ className }: EducationPageProps): JSX.Element => {
         )}
       >
         <div className={styles['education-page__index']}>
-          <span className={styles['education-page__index__title']}>목차</span>
-          {indexList.map(({ titleNo, pageNo }, idx) => (
-            <Button
-              key={pageNo}
-              className={convertClassNameList(
-                styles[`education-page__index__button`],
-                styles[
-                  `education-page__index__button__${idx % 2 ? 'odd' : 'even'}`
-                ],
-                pageNo <= currentPageNo &&
-                  idx < indexList.length - 1 &&
-                  currentPageNo < indexList[idx + 1].pageNo
-                  ? styles[`education-page__index__button--active`]
-                  : '',
-                pageNo <= currentPageNo && idx === indexList.length - 1
-                  ? styles[`education-page__index__button--active`]
-                  : '',
-              )}
-              label={indexNameList[titleNo]}
-              onClick={handlePageNoChange(pageNo)}
-            />
-          ))}
+          <span
+            className={styles['education-page__index__title']}
+            onClick={handleClickContainer}
+          >
+            목차{isDropdownView ? '▲' : '▼'}
+          </span>
+          {isDropdownView &&
+            indexList.map(({ titleNo, pageNo }, idx) => (
+              <Button
+                key={pageNo}
+                className={convertClassNameList(
+                  styles[`education-page__index__button`],
+                  styles[
+                    `education-page__index__button__${idx % 2 ? 'odd' : 'even'}`
+                  ],
+                  pageNo <= currentPageNo &&
+                    idx < indexList.length - 1 &&
+                    currentPageNo < indexList[idx + 1].pageNo
+                    ? styles[`education-page__index__button--active`]
+                    : '',
+                  pageNo <= currentPageNo && idx === indexList.length - 1
+                    ? styles[`education-page__index__button--active`]
+                    : '',
+                )}
+                label={indexNameList[titleNo]}
+                onClick={handlePageNoChange(pageNo)}
+              />
+            ))}
           {userInfo && (
             <button className={styles.goQuizButton} onClick={handleGoQuiz}>
               퀴즈 풀러 가기
