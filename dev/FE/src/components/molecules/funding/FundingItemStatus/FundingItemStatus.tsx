@@ -55,7 +55,7 @@ const FundingItemStatus = ({
             styles['funding-item-status__price'],
           )}
           text={`현재 금액 : ${priceFilter(
-            !funding.isCompleted
+            funding.isCompleted !== undefined && !funding.isCompleted
               ? funding.sponsorshipAmount
               : funding.fundingAmount,
           )}`}
