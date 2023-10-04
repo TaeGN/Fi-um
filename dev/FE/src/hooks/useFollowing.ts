@@ -9,9 +9,9 @@ import { USER_TYPE } from '@/constants';
 const useFollowing = () => {
   const [following, setFollowing] = useRecoilState(followingState);
   const { userInfo } = useAuth();
-  const { data: newFollowing, refetch: refreshFollowing } = userInfo
-    ? useQuery(getFollowingQuery())
-    : { data: undefined, refetch: undefined };
+  const { data: newFollowing, refetch: refreshFollowing } = useQuery(
+    getFollowingQuery(),
+  );
 
   useEffect(() => {
     if (
@@ -22,7 +22,7 @@ const useFollowing = () => {
     )
       return;
     setFollowing(newFollowing);
-  });
+  }, []);
   return { following, setFollowing, refreshFollowing };
 };
 
