@@ -1,5 +1,7 @@
 .comment {
   overflow: auto;
+  padding: 15px;
+  border: 1px solid lightgray;
   &__create-box {
     display: flex;
     height: 5vh;
@@ -43,5 +45,7 @@
       background-color: #ed2926;
       border: 0;
     }
+  }
+  input {
   }
 }

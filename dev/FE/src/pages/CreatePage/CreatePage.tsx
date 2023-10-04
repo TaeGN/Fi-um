@@ -103,6 +103,7 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
       <div className="flex-container">
         <Text className="text-lg" text="제목" />
         <input
+          className={styles['input']}
           type="text"
           name="name"
           value={item.name}
@@ -118,6 +119,7 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
           <div className="flex-container">
             <Text className="text-lg" text="가격" />
             <input
+              className={styles['input']}
               type="number"
               name="unitPrice"
               value={item.unitPrice}
@@ -132,6 +134,7 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
               <div className="flex-container">
                 <Text className="text-lg" text="수량" />
                 <input
+                  className={styles['input']}
                   type="number"
                   name="count"
                   value={item.count}
@@ -161,7 +164,11 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
       <div className="flex-container">
         <Text className="text-lg" text="사진 업로드" />
         <div>
-          <input type="file" onChange={handleFile} />
+          <input
+            className={styles['input']}
+            type="file"
+            onChange={handleFile}
+          />
           <div className="preview">
             {imageUrl && (
               <img
