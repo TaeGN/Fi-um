@@ -47,6 +47,8 @@ const FundingItemStatus = ({
         text={`목표 금액 : ${priceFilter(
           funding.itemUnitPrice
             ? funding.itemUnitPrice * funding.itemCount * 0.3
+            : funding.isCompleted
+            ? funding.unitPrice * funding.itemCount * 0.3
             : funding.unitPrice * funding.itemCount,
         )}`}
       />
@@ -57,7 +59,7 @@ const FundingItemStatus = ({
             styles['funding-item-status__price'],
           )}
           text={`현재 금액 : ${priceFilter(
-            userType === USER_TYPE.후원자
+            !funding.isCompleted
               ? funding.sponsorshipAmount
               : funding.fundingAmount,
           )}`}
