@@ -1,5 +1,5 @@
 #Dockerfile
-FROM nginx:latest
+FROM my-nginx-image:latest
 COPY ./dist /usr/share/nginx/html
 # Optionally copy over a custom Nginx config
 # COPY ./
