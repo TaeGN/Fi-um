@@ -101,16 +101,14 @@ const SponsorProfilePage = () => {
   return (
     <>
       <ProfileSection label="내가 구매한 그림">
-        <div className="card-container jc-center">
-          {auctionPurchases?.map(({ actionNo, imagePath, title }) => (
-            <AuctionCard
-              key={actionNo}
-              itemImagePath={imagePath}
-              title={title}
-              noBtn={true}
-            />
-          ))}
-        </div>
+        {auctionPurchases?.map(({ actionNo, imagePath, title }) => (
+          <AuctionCard
+            key={actionNo}
+            itemImagePath={imagePath}
+            title={title}
+            noBtn={true}
+          />
+        ))}
       </ProfileSection>
       <ProfileSection label="팔로우 한 아이들">
         <Swiper>{followings}</Swiper>
@@ -188,7 +186,12 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
       const len = myAuctions?.length ?? 0;
       for (let index = 0; index < len / 4; index++) {
         auction.push(
-          <div className={styles['profile-page__auction-container']}>
+          <div
+            className={convertClassNameList(
+              styles['profile-page__auction-container'],
+              'flex-container',
+            )}
+          >
             {myAuctions
               .slice(index * 4, Math.min((index + 1) * 4, len))
               .map(({ auctionNo, imagePath, title, winner }) => (

@@ -10,7 +10,8 @@
   border-radius: 16px;
 
   width: 240px;
-  background-color: lightcyan;
+  background-color: white;
+  border: 1px solid lightblue;
   .image {
     height: 200px;
     background-color: #fff;
@@ -18,7 +19,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: lightcyan;
+    background-color: white;
+    border-bottom: 1px solid lightblue;
   }
   .title {
     margin-top: 1rem;
