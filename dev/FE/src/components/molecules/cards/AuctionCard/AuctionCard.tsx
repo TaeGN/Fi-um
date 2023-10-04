@@ -1,6 +1,6 @@
 import { Button, Image, Text } from '@/components/atoms';
 import styles from './AuctionCard.module.scss';
-import { convertClassName, priceFilter } from '@/utils';
+import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
 
 interface AuctionCardProps {
   className?: string;
@@ -29,31 +29,30 @@ const AuctionCard = ({
     <div
       className={`${styles.auctionCard} ${convertClassName(className, styles)}`}
     >
-      <div>
-        <div className={styles.image}>
-          <Image src={itemImagePath} alt={title} />
-        </div>
-
-        <div className={styles.title}>
-          <Text text={title} className="text-lg" />
-        </div>
-        <div className={styles.content}>
-          {auctionPrice && (
-            <Text
-              className="bold"
-              text={`현재가 : ${priceFilter(auctionPrice)}`}
-            />
-          )}
-          {instantPrice && (
-            <Text
-              className="bold"
-              text={`즉시구매가 : ${priceFilter(instantPrice)}`}
-            />
-          )}
-          {content && <Text text={content} />}
-        </div>
+      <div className={styles.image}>
+        <Image src={itemImagePath} alt={title} />
       </div>
-      {!noBtn && (
+
+      <Text
+        text={title}
+        className={convertClassNameList('text-lg', styles['title'])}
+      />
+      <div className={styles.content}>
+        {auctionPrice && (
+          <Text
+            className="bold"
+            text={`현재가 : ${priceFilter(auctionPrice)}`}
+          />
+        )}
+        {instantPrice && (
+          <Text
+            className="bold"
+            text={`즉시구매가 : ${priceFilter(instantPrice)}`}
+          />
+        )}
+        {content && <Text text={content} />}
+      </div>
+      {!noBtn && onClick && (
         <div className={styles.button}>
           <Button
             label={review ? '자세히 보기' : '경매하러가기'}
