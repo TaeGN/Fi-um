@@ -263,9 +263,7 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
       )}
 
       <ProfileSection label="그림">
-        <div className="card-container-col jc-center">
-          <Swiper>{auction}</Swiper>
-        </div>
+        <Swiper>{auction}</Swiper>
       </ProfileSection>
       {myPage && (
         <ProfileSection label="포인트 사용 내역">

@@ -12,10 +12,13 @@
   background-color: $shinhan-skyblue;
 
   &-imageWrapper {
-    height: 70%;
-    .funding-card-image {
-      height: 95%;
-    }
+    height: 200px;
+    background-color: #fff;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
   }
   &-text {
     font-weight: 600;
