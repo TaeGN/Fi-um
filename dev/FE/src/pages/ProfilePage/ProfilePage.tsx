@@ -161,7 +161,7 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
   const auction = useMemo(() => {
     const auction: JSX.Element[] = [];
     if (myAuctions) {
-      const len = myAuctions.length;
+      const len = myAuctions?.length ?? 0;
       for (let index = 0; index < len / 4; index++) {
         auction.push(
           <div className="card-container">
