@@ -5,6 +5,12 @@
   display: flex;
   background-color: #f2f2f2;
   justify-content: space-between;
+  max-height: 80vh;
+
+  img {
+    object-fit: fill;
+    max-height: 75vh;
+  }
 
   .imageWrapper {
     width: 60%;
