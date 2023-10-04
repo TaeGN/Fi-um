@@ -194,12 +194,14 @@ const Navbar = ({ className }: NavbarProps): JSX.Element => {
         'container jc-space-between',
       )}
     >
-      <Link className={convertClassNameList(styles['navbar__logo'])} to={'/'}>
-        <img
-          style={{ width: '100%', height: '100%' }}
-          src="/lotus.png"
-          alt="logo"
-        />
+      <Link
+        className={convertClassNameList(
+          styles['navbar__logo'],
+          'flex-container jc-center align-center',
+        )}
+        to={'/'}
+      >
+        <img style={{ height: '90%' }} src="/fium.PNG" alt="logo" />
       </Link>
       <div className={convertClassNameList(styles['navbar__menu'])}>
         <Link
