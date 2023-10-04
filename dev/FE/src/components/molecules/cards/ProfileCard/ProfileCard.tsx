@@ -144,7 +144,10 @@ const ProfileCard = ({
             />
           )
         ) : userInfo && userInfo.userType === USER_TYPE.후원자 ? (
-          following && following.some((follow) => follow.userNo === userNo) ? (
+          following &&
+          following.some(
+            (follow) => follow.userNo === (state?.userNo ?? userNo),
+          ) ? (
             <Button
               label="팔로우 취소"
               className="bg-red white xxsmall border0"
