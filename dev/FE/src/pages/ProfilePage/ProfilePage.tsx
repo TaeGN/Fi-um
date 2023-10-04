@@ -19,7 +19,7 @@ import {
 } from '@/utils';
 import { Image, Table, Text } from '@/components/atoms';
 import useAuth from '@/hooks/useAuth';
-import { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback, useEffect } from 'react';
 import { USER_TYPE } from '@/constants';
 import {
   ArtistAuction,
@@ -101,16 +101,14 @@ const SponsorProfilePage = () => {
   return (
     <>
       <ProfileSection label="내가 구매한 그림">
-        <div className="card-container jc-center">
-          {auctionPurchases?.map(({ actionNo, imagePath, title }) => (
-            <AuctionCard
-              key={actionNo}
-              itemImagePath={imagePath}
-              title={title}
-              noBtn={true}
-            />
-          ))}
-        </div>
+        {auctionPurchases?.map(({ actionNo, imagePath, title }) => (
+          <AuctionCard
+            key={actionNo}
+            itemImagePath={imagePath}
+            title={title}
+            noBtn={true}
+          />
+        ))}
       </ProfileSection>
       <ProfileSection label="팔로우 한 아이들">
         <Swiper>{followings}</Swiper>
@@ -188,7 +186,12 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
       const len = myAuctions?.length ?? 0;
       for (let index = 0; index < len / 4; index++) {
         auction.push(
-          <div className={styles['profile-page__auction-container']}>
+          <div
+            className={convertClassNameList(
+              styles['profile-page__auction-container'],
+              'flex-container',
+            )}
+          >
             {myAuctions
               .slice(index * 4, Math.min((index + 1) * 4, len))
               .map(({ auctionNo, imagePath, title, winner }) => (
@@ -307,11 +310,10 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
 };
 
 const AdminProfilePage = () => {
-  const [chartState, setChartState] = useState<number>(0);
+  const [curCapital, setCurCapital] = useState<TotalCapital>();
 
-  const handleChangeChartState = useCallback((userNo: number) => {
-    if (userNo === chartState) setChartState(0);
-    else setChartState(userNo);
+  const handleChangeChartState = useCallback((capital: TotalCapital) => {
+    setCurCapital(capital);
   }, []);
 
   // 아이들 전체 자산
@@ -332,6 +334,10 @@ const AdminProfilePage = () => {
     getFundingRecordsQuery(),
   );
 
+  useEffect(() => {
+    totalCapitals?.[0] && setCurCapital(totalCapitals[0]);
+  }, [totalCapitals]);
+
   return (
     <>
       <div className={styles['profile-page__profile-section']}>
@@ -341,8 +347,8 @@ const AdminProfilePage = () => {
             onClick={handleChangeChartState}
           />
         </ProfileSection>
-        <ProfileSection label="아이들 자산 상세">
-          <UserCapital totalCapitals={totalCapitals} chartState={chartState} />
+        <ProfileSection label={`${curCapital?.userName}의 자산 상세`}>
+          <UserCapital totalCapitals={totalCapitals} curCapital={curCapital} />
         </ProfileSection>
       </div>
       <div className={styles['profile-page__profile-section2']}>

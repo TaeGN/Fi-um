@@ -50,7 +50,7 @@ const GalleryPage = ({ className }: GalleryPageProps): JSX.Element => {
           styles['gallery-page'],
         )}
       >
-        <div className="flex-container jc-space-between align-center m-1">
+        <div className="flex-container jc-space-between align-center">
           <Text className="text-xxl bold" text="후기 게시판" />
           <div>
             {userInfo?.userType === USER_TYPE.원장쌤 && (
