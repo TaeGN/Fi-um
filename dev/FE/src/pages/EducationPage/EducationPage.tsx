@@ -123,6 +123,10 @@ const EducationPage = ({ className }: EducationPageProps): JSX.Element => {
     };
   }, [handlePageNoIncrement, handlePageNoDecrement]);
   const [loading, setLoading] = useState(true);
+  const [isDropdownView, setDropdownView] = useState(false);
+  const handleClickContainer = () => {
+    setDropdownView(!isDropdownView);
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {

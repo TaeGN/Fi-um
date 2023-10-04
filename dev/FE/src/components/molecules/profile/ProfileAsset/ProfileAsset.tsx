@@ -32,13 +32,13 @@ const ProfileAsset = ({
         rivalChart: undefined,
       };
     const capitalChart = {
-      labels: ['stock', 'deposit', 'saving', 'donation'],
-      data: [capital.stock, capital.deposit, capital.saving, capital.donation],
+      labels: ['주식', '예금', '적금', '포인트'],
+      data: [capital.stock, capital.deposit, capital.saving, capital.point],
       length: 4,
     };
 
     const revenueChart = {
-      labels: ['stock', 'deposit', 'saving', 'auction', 'quizIncome'],
+      labels: ['주식', '예금', '적금', '경매', '퀴즈'],
       data: [
         capital.stockIncome,
         capital.depositIncome,
@@ -52,7 +52,7 @@ const ProfileAsset = ({
     let rivalChart = undefined;
     if (rivalCapital) {
       rivalChart = {
-        labels: ['stock', 'deposit', 'saving', 'auction', 'quizIncome'],
+        labels: ['주식', '예금', '적금', '경매', '퀴즈'],
         data: [
           rivalCapital.stockIncome,
           rivalCapital.depositIncome,
@@ -89,7 +89,7 @@ const ProfileAsset = ({
         <PieChart chartData={revenueChart} />
       </div>
       <div className={styles['profile-asset__pie-chart']}>
-        <Text className="text-lg center" text="라이벌의 자산" />
+        <Text className="text-lg center" text="라이벌의 수익률" />
         <PieChart chartData={rivalChart} />
       </div>
     </div>

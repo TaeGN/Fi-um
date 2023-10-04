@@ -115,7 +115,7 @@ const ModalStock = ({
           className={convertClassNameList(styles['modal-stock__input'])}
           type="number"
           name="count"
-          value={count}
+          value={count.toFixed(0)}
           onChange={handleChangeCount}
         />
         <Text

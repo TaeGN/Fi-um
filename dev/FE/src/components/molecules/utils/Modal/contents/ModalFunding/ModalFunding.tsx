@@ -26,8 +26,6 @@ const ModalFunding = ({
 }: ModalFundingProps): JSX.Element => {
   const [price, setPrice] = useState<number>(0);
 
-  console.log(item);
-
   const colorStyle = useMemo(() => {
     return {
       textColor: 'blue',
@@ -67,7 +65,7 @@ const ModalFunding = ({
       >
         <Text
           className={convertClassNameList('text-xl', colorStyle.textColor)}
-          text="펀딩"
+          text={item.isCompleted ? '펀딩' : '후원'}
         />
       </div>
 
@@ -80,7 +78,7 @@ const ModalFunding = ({
           className={convertClassNameList(styles['modal-funding__input'])}
           type="number"
           name="price"
-          value={price}
+          value={price.toFixed(0)}
           onChange={handleChangePrice}
         />
         <Text
@@ -138,7 +136,10 @@ const ModalFunding = ({
           styles['modal-funding__price'],
         )}
       >
-        <Text className="text-md" text="전체 펀딩액" />
+        <Text
+          className="text-md"
+          text={item.isCompleted ? '전체 펀딩액' : '전체 후원액'}
+        />
         <Text
           className="text-md"
           text={priceFilter(
@@ -155,7 +156,10 @@ const ModalFunding = ({
           styles['modal-funding__price'],
         )}
       >
-        <Text className="text-md" text="현재 펀딩액" />
+        <Text
+          className="text-md"
+          text={item.isCompleted ? '현재 펀딩액' : '현재 후원액'}
+        />
         <Text
           className="text-md"
           text={priceFilter(
@@ -172,7 +176,10 @@ const ModalFunding = ({
           styles['modal-funding__price'],
         )}
       >
-        <Text className="text-md" text="거래 후 펀딩액" />
+        <Text
+          className="text-md"
+          text={item.isCompleted ? '거래 후 펀딩액' : '거래 후 후원액'}
+        />
         <Text
           className="text-md"
           text={priceFilter(
@@ -204,7 +211,7 @@ const ModalFunding = ({
             'white',
             colorStyle.bgColor,
           )}
-          label="펀딩"
+          label={item.isCompleted ? '펀딩' : '후원'}
           onClick={handleFundingSend}
         />
       </div>

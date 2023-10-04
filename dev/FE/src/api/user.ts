@@ -28,7 +28,7 @@ const getUserArtist = async ({
 }: {
   queryKey: QueryKey;
 }): Promise<ArtistAuction[]> => {
-  return await authApi.get(`user/artist/${userNo}`);
+  return await authApi.get(`user/artist/${userNo}`).then(({ data }) => data);
 };
 
 // 개인정보 조회
@@ -43,7 +43,7 @@ const getUserInfo = async (): Promise<UserInfo> => {
 
 // refresh token
 const getreissue = async (refreshToken?: string | null): Promise<string> => {
-  if (!refreshToken) refreshToken = getRefreshToken();
+  if (!refreshToken) refreshToken = await getRefreshToken();
   console.log('refreshToken', refreshToken);
 
   return await api
