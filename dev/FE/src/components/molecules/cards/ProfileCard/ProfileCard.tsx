@@ -18,6 +18,8 @@ import useAuth from '@/hooks/useAuth';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { USER_TYPE } from '@/constants';
 import { apiImgUrl } from '@/utils/imgUrl';
+import { useFollowing } from '@/hooks/useFollowing';
+import { postFollowing } from '@/api/follow';
 
 interface ProfileCardProps {
   className?: string;
@@ -37,6 +39,7 @@ const ProfileCard = ({
   const { isOpen, openToggle, closeToggle } = useModal();
   const [file, setFile] = useState<File | undefined>(undefined);
   const { userInfo, setUserInfo, refreshUserInfo } = useAuth();
+  const { following, refreshFollowing } = useFollowing();
   const { state } = useLocation();
   const params = useParams();
   const navigate = useNavigate();
@@ -83,6 +86,13 @@ const ProfileCard = ({
     refreshUserInfo();
   };
 
+  const handleFollowing = async () => {
+    if (!userNo) return;
+    const msg = await postFollowing(userNo);
+    alert(msg);
+    if (refreshFollowing) await refreshFollowing();
+  };
+
   return (
     <div
       className={`${styles['profile-card']} ${convertClassName(
@@ -119,11 +129,8 @@ const ProfileCard = ({
             className="gray xsmall"
             onClick={openToggle}
           />
-        ) : (
-          userInfo &&
-          userInfo.userNo !== userNo &&
-          (userInfo.userType === USER_TYPE.아이들 &&
-          userInfo.rival === userNo ? (
+        ) : userInfo && userInfo.userType === USER_TYPE.아이들 ? (
+          userInfo.userNo !== userNo && userInfo.rival === userNo ? (
             <Button
               label="라이벌 취소"
               className="bg-red white xxsmall border0"
@@ -135,7 +142,23 @@ const ProfileCard = ({
               className="gray xxsmall"
               onClick={handleRegistRival}
             />
-          ))
+          )
+        ) : userInfo && userInfo.userType === USER_TYPE.후원자 ? (
+          following && following.some((follow) => follow.userNo === userNo) ? (
+            <Button
+              label="팔로우 취소"
+              className="bg-red white xxsmall border0"
+              onClick={handleFollowing}
+            />
+          ) : (
+            <Button
+              label="팔로우 등록"
+              className="gray xxsmall"
+              onClick={handleFollowing}
+            />
+          )
+        ) : (
+          ''
         )}
       </div>
       <Modal isOpen={isOpen} toggle={closeToggle}>

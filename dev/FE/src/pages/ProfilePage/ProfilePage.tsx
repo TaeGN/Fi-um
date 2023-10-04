@@ -73,6 +73,30 @@ const SponsorProfilePage = () => {
   // 포인트 사용 내역
   const { data: pointRecords } = useQuery<Point[]>(getPointsQuery());
 
+  const followings = useMemo(() => {
+    const followings: JSX.Element[] = [];
+    if (childProfiles) {
+      const len = childProfiles?.length ?? 0;
+      for (let index = 0; index < len / 4; index++) {
+        followings.push(
+          <div className={styles['profile-page__auction-container']}>
+            {childProfiles
+              .slice(index * 4, Math.min((index + 1) * 4, len))
+              .map(({ imagePath, userName, userNo }) => (
+                <ProfileCard
+                  key={userNo}
+                  src={imagePath}
+                  alt={userName}
+                  userNo={userNo}
+                />
+              ))}
+          </div>,
+        );
+      }
+    }
+    return followings;
+  }, [childProfiles]);
+
   return (
     <>
       <ProfileSection label="내가 구매한 그림">
@@ -88,9 +112,7 @@ const SponsorProfilePage = () => {
         </div>
       </ProfileSection>
       <ProfileSection label="팔로우 한 아이들">
-        {childProfiles?.map(({ userNo, userName, imagePath }) => (
-          <ProfileCard key={userNo} src={imagePath} alt={userName} />
-        ))}
+        <Swiper>{followings}</Swiper>
       </ProfileSection>
       <ProfileSection label="포인트 사용 내역">
         <Table

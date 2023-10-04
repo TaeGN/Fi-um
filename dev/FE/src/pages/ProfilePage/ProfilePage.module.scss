@@ -1,9 +1,13 @@
 .profile-page {
   &__auction-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 20vw));
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 18vw));
     grid-auto-rows: 40vh;
     gap: 2rem;
+
+    img {
+      height: 30vh;
+    }
   }
 
   table th {
