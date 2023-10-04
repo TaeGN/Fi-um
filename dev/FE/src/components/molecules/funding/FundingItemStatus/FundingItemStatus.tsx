@@ -2,8 +2,6 @@ import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
 import styles from './FundingItemStatus.module.scss';
 import { Button, Text } from '@/components/atoms';
 import { Funding } from '@/types';
-import useAuth from '@/hooks/useAuth';
-import { USER_TYPE } from '@/constants';
 
 interface FundingItemStatusProps {
   className?: string;
@@ -20,8 +18,6 @@ const FundingItemStatus = ({
     onModal(funding);
   };
   console.log(funding);
-  const { userInfo } = useAuth();
-  const userType = userInfo?.userType;
 
   return (
     <div
