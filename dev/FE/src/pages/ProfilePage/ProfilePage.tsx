@@ -76,7 +76,7 @@ const SponsorProfilePage = () => {
   return (
     <>
       <ProfileSection label="내가 구매한 그림">
-        <div className="card-container">
+        <div className="card-container jc-center">
           {auctionPurchases?.map(({ actionNo, imagePath, title }) => (
             <AuctionCard
               key={actionNo}

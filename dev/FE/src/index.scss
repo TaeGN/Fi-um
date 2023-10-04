@@ -145,6 +145,7 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(15rem, 20vw));
   grid-auto-rows: 1fr;
   gap: 2rem;
+  place-items: center;
 }
 
 .container {
