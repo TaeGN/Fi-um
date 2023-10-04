@@ -140,7 +140,7 @@ const EducationPage = ({ className }: EducationPageProps): JSX.Element => {
         )}
       >
         <div className={styles['education-page__index']}>
-          <Text className="text-xxl bold" text="학습마당" />
+          <Text className="m-1 text-xxl bold" text="학습마당" />
           <span
             className={styles['education-page__index__title']}
             onClick={handleClickContainer}
