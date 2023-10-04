@@ -12,17 +12,17 @@ import { useMemo } from 'react';
 interface UserCapitalProps {
   className?: string;
   totalCapitals?: TotalCapital[];
-  chartState: number;
+  curCapital?: TotalCapital;
 }
 
 const UserCapital = ({
   className,
   totalCapitals,
-  chartState,
+  curCapital,
 }: UserCapitalProps): JSX.Element => {
   const totalCapital = useMemo<TotalCapital | undefined>(() => {
-    return totalCapitals?.find(({ userNo }) => userNo === chartState);
-  }, [chartState]);
+    return totalCapitals?.find(({ userNo }) => userNo === curCapital?.userNo);
+  }, [curCapital]);
 
   return (
     <div
@@ -35,7 +35,7 @@ const UserCapital = ({
         <>
           <div className={styles['user-capital__pie-chart-container']}>
             <div className={styles['user-capital__pie-chart']}>
-              <Text text="자산 현황"/>
+              <Text text="자산 현황" />
               <PieChart
                 chartData={{
                   labels: ['주식', '예적금', '펀딩', '포인트'],
@@ -47,10 +47,10 @@ const UserCapital = ({
                   ],
                   length: 4,
                 }}
-                />
+              />
             </div>
             <div className={styles['user-capital__pie-chart']}>
-              <Text text="주식 현황"/>
+              <Text text="주식 현황" />
               <PieChart
                 chartData={{
                   labels: totalCapital.stockList.map(
@@ -61,7 +61,7 @@ const UserCapital = ({
                   ),
                   length: totalCapital.stockList.length,
                 }}
-                />
+              />
             </div>
           </div>
 

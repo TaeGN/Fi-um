@@ -18,7 +18,7 @@ import {
 } from '@/utils';
 import { Image, Table, Text } from '@/components/atoms';
 import useAuth from '@/hooks/useAuth';
-import { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback, useEffect } from 'react';
 import { USER_TYPE } from '@/constants';
 import {
   ArtistAuction,
@@ -289,11 +289,10 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
 };
 
 const AdminProfilePage = () => {
-  const [chartState, setChartState] = useState<number>(0);
+  const [curCapital, setCurCapital] = useState<TotalCapital>();
 
-  const handleChangeChartState = useCallback((userNo: number) => {
-    if (userNo === chartState) setChartState(0);
-    else setChartState(userNo);
+  const handleChangeChartState = useCallback((capital: TotalCapital) => {
+    setCurCapital(capital);
   }, []);
 
   // 아이들 전체 자산
@@ -314,6 +313,10 @@ const AdminProfilePage = () => {
     getFundingRecordsQuery(),
   );
 
+  useEffect(() => {
+    totalCapitals?.[0] && setCurCapital(totalCapitals[0]);
+  }, [totalCapitals]);
+
   return (
     <>
       <div className={styles['profile-page__profile-section']}>
@@ -323,8 +326,8 @@ const AdminProfilePage = () => {
             onClick={handleChangeChartState}
           />
         </ProfileSection>
-        <ProfileSection label="아이들 자산 상세">
-          <UserCapital totalCapitals={totalCapitals} chartState={chartState} />
+        <ProfileSection label={`${curCapital?.userName}의 자산 상세`}>
+          <UserCapital totalCapitals={totalCapitals} curCapital={curCapital} />
         </ProfileSection>
       </div>
       <div className={styles['profile-page__profile-section2']}>
