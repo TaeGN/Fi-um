@@ -12,7 +12,7 @@ interface AuctionCardProps {
   content?: string;
   review?: boolean;
   noBtn?: boolean;
-  winner: number | null;
+  winner?: number | null;
 }
 
 const AuctionCard = ({
