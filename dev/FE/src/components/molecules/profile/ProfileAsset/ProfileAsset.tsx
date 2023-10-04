@@ -32,14 +32,8 @@ const ProfileAsset = ({
         rivalChart: undefined,
       };
     const capitalChart = {
-      labels: ['주식', '예금', '적금', '기부', '포인트'],
-      data: [
-        capital.stock,
-        capital.deposit,
-        capital.saving,
-        capital.donation,
-        capital.point,
-      ],
+      labels: ['주식', '예금', '적금', '포인트'],
+      data: [capital.stock, capital.deposit, capital.saving, capital.point],
       length: 4,
     };
 
