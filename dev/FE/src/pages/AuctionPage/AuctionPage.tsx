@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Auction } from '@/types';
 import { getAuctionsQuery } from '@/api/queries/auction';
 import useAuth from '@/hooks/useAuth';
-import { Button } from '@/components/atoms';
+import { Button, Text } from '@/components/atoms';
 import { USER_TYPE } from '@/constants';
 import { useEffect, useState } from 'react';
 
@@ -61,17 +61,22 @@ const AuctionPage = ({ className }: AuctionPageProps): JSX.Element => {
           'flex-container-col',
         )}
       >
-        {userType === USER_TYPE.아이들 && (
-          <Button
-            className={convertClassNameList(
-              convertClassName(className, styles),
-              'self-end m-1',
-              'primary xsmall',
+        <div className="flex-container jc-space-between align-center">
+          <Text className="text-xxl bold" text="경매하기" />
+          <div>
+            {userType === USER_TYPE.아이들 && (
+              <Button
+                className={convertClassNameList(
+                  convertClassName(className, styles),
+                  'self-end m-1',
+                  'primary xsmall',
+                )}
+                label="등록하기"
+                onClick={() => navigate(`/create`, { state: 'auction' })}
+              />
             )}
-            label="등록하기"
-            onClick={() => navigate(`/create`, { state: 'auction' })}
-          />
-        )}
+          </div>
+        </div>
         <div className={styles['auction-page-card-container']}>
           {auctions?.map((auction) => (
             <AuctionCard

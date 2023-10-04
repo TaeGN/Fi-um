@@ -1,6 +1,6 @@
 import { convertClassName, convertClassNameList, eduBook } from '@/utils';
 import styles from './EducationPage.module.scss';
-import { Button } from '@/components/atoms';
+import { Button, Text } from '@/components/atoms';
 import { useCallback, useReducer, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -140,6 +140,7 @@ const EducationPage = ({ className }: EducationPageProps): JSX.Element => {
         )}
       >
         <div className={styles['education-page__index']}>
+          <Text className="text-xxl bold" text="학습마당" />
           <span
             className={styles['education-page__index__title']}
             onClick={handleClickContainer}

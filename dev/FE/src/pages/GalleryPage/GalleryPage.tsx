@@ -1,6 +1,6 @@
 import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './GalleryPage.module.scss';
-import { Button } from '@/components/atoms';
+import { Button, Text } from '@/components/atoms';
 import useAuth from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { USER_TYPE } from '@/constants';
@@ -50,17 +50,22 @@ const GalleryPage = ({ className }: GalleryPageProps): JSX.Element => {
           styles['gallery-page'],
         )}
       >
-        {userInfo?.userType === USER_TYPE.원장쌤 && (
-          <Button
-            className={convertClassNameList(
-              convertClassName(className, styles),
-              'self-end m-1',
-              'primary xsmall',
+        <div className="flex-container jc-space-between align-center">
+          <Text className="text-xxl bold" text="후기 게시판" />
+          <div>
+            {userInfo?.userType === USER_TYPE.원장쌤 && (
+              <Button
+                className={convertClassNameList(
+                  convertClassName(className, styles),
+                  'self-end m-1',
+                  'primary xsmall',
+                )}
+                label="등록하기"
+                onClick={() => navigate(`/create`, { state: 'gallery' })}
+              />
             )}
-            label="등록하기"
-            onClick={() => navigate(`/create`, { state: 'gallery' })}
-          />
-        )}
+          </div>
+        </div>
         <div
           className={convertClassNameList(
             styles['gallery-page__card-container'],
