@@ -20,7 +20,7 @@ const checkConditionClassName = (condition: any, className: string) => {
 
 const checkConditionPointChange = (point: number): string => {
   if (point == 0) return '';
-  return point > 0 ? 'blue' : 'red';
+  return point > 0 ? 'red' : 'blue';
 };
 
 export default convertClassName;
