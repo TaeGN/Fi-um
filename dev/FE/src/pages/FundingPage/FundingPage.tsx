@@ -39,6 +39,8 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
     return rankings?.find((ranking) => ranking.type === '펀딩');
   }, [rankings]);
 
+  console.log(fundings);
+
   const onModal = useCallback((i: Funding) => {
     setItem(i);
     setScrollTop(document.documentElement.scrollTop);
@@ -116,17 +118,39 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
           />
         )}
         {userType === USER_TYPE.아이들
-          ? fundings?.map((funding) => {
-              return (
-                <FundingItem
-                  key={funding.itemNo}
-                  {...funding}
-                  onModal={onModal}
-                />
-              );
-            })
+          ? fundings
+              ?.sort((a, b) => {
+                return (
+                  (b.fundingAmount / (b.itemUnitPrice * b.itemCount) / 3) *
+                    10 *
+                    100 -
+                  (a.fundingAmount / (a.itemUnitPrice * a.itemCount) / 3) *
+                    10 *
+                    100
+                );
+              })
+              .map((funding) => {
+                return (
+                  <FundingItem
+                    key={funding.itemNo}
+                    {...funding}
+                    onModal={onModal}
+                  />
+                );
+              })
           : fundings
               ?.filter((funding) => funding.isCompleted === sponSwitch)
+              .sort((a, b) => {
+                return a.isCompleted
+                  ? (b.fundingAmount / (b.unitPrice * b.itemCount) / 3) *
+                      10 *
+                      100 -
+                      (a.fundingAmount / (a.unitPrice * a.itemCount) / 3) *
+                        10 *
+                        100
+                  : (b.sponsorshipAmount / (b.unitPrice * b.itemCount)) * 100 -
+                      (a.sponsorshipAmount / (a.unitPrice * a.itemCount)) * 100;
+              })
               .map((funding) => {
                 return (
                   <FundingItem
