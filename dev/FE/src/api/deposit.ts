@@ -25,7 +25,7 @@ const getBankCheckPrime = async (bankName: string): Promise<string> => {
     .get(`bank/checkPrime?option=${bankName}`)
     .then(({ data }) => data)
     .catch((error) => {
-      console.log(error);
+      console.error(error);
       return Promise.reject(error);
     });
 };

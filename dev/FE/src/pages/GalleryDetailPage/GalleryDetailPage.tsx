@@ -15,7 +15,6 @@ const GalleryDetailPage = ({
 }: GalleryDetailPageProps): JSX.Element => {
   const { reviewNo } = useParams();
   const { data: review } = useQuery<Review>(getReviewQuery(Number(reviewNo)));
-  console.log(reviewNo);
 
   return (
     <div

@@ -41,7 +41,7 @@ const Login = ({ className, signUp }: LoginProps): JSX.Element => {
             : setIdCheckResponse('사용할 수 없는 아이디입니다.');
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
       if (userInformation.userId === '') {
         setIdCheckResponse('');
@@ -75,7 +75,6 @@ const Login = ({ className, signUp }: LoginProps): JSX.Element => {
     }
     // ID 중복 확인
     if (idCheckResponse === '사용할 수 없는 아이디입니다.') {
-      console.log(idCheckResponse);
       setErrorMessage('다른 아이디를 사용하여야 합니다.');
       return;
     }
@@ -117,13 +116,12 @@ const Login = ({ className, signUp }: LoginProps): JSX.Element => {
   };
 
   const signUpMutation = useMutation(userSignup, {
-    onSuccess: (data) => {
+    onSuccess: () => {
       alert('회원가입 되었습니다.');
       navigate('/login');
-      console.log(data);
     },
     onError: (err) => {
-      console.log(err);
+      console.error(err);
     },
   });
 
@@ -142,7 +140,7 @@ const Login = ({ className, signUp }: LoginProps): JSX.Element => {
       navigate('/');
     },
     onError: (err) => {
-      console.log(err);
+      console.error(err);
       alert('아이디 또는 비밀번호를 확인해주세요');
     },
   });

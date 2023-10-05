@@ -18,7 +18,6 @@ const GalleryPage = ({ className }: GalleryPageProps): JSX.Element => {
   const { userInfo } = useAuth();
   const navigate = useNavigate();
   const { data: reviews } = useQuery<Review[], Error>(getReviewsQuery());
-  console.log(reviews);
 
   const handleMoveReviewDetail = (reviewNo: number) => {
     navigate(`/gallery/${reviewNo}`);

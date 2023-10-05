@@ -74,7 +74,7 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
           navigate('/');
         })
         .catch((err) => {
-          console.log(err.data);
+          console.error(err.data);
         });
     } else {
       postReview({
@@ -87,7 +87,7 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
           navigate('/');
         })
         .catch((err) => {
-          console.log(err.data);
+          console.error(err.data);
         });
     }
   };

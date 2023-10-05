@@ -108,7 +108,6 @@ const CheckoutPage = () => {
                   failUrl: `${window.location.origin}/fail`,
                 })
                 .then((res) => {
-                  console.log(res);
                   alert(res);
                 });
             } catch (error) {

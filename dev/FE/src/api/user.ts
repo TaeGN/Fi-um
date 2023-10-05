@@ -117,7 +117,7 @@ const userLogout = async (): Promise<string> => {
     .post('user/logout')
     .then(({ data }) => data)
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     })
     .finally(() => {
       removeTokens();

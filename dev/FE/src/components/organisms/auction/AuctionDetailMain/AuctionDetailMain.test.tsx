@@ -11,12 +11,8 @@ describe('AuctionDetailMain 컴포넌트', () => {
         title="확인"
         src=""
         alt=""
-        auctionClick={() => {
-          console.log('경매하기');
-        }}
-        buyItClick={() => {
-          console.log('즉시구매');
-        }}
+        auctionClick={() => {}}
+        buyItClick={() => {}}
         auctionPrice={123123}
         instantPrice={2359820}
       />,

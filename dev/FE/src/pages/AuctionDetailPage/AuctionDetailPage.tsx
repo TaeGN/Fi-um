@@ -55,13 +55,12 @@ const AuctionDetailPage = ({
     }) => postAuctionBid({ auctionNo, auctionPrice }),
     {
       onSuccess(data) {
-        console.log(data);
         alert(data);
         refreshUserInfo();
         closeToggle();
       },
       onError(error) {
-        console.log(error);
+        console.error(error);
         alert(`구매 실패.. \n 잔액이 부족합니다.`);
       },
     },

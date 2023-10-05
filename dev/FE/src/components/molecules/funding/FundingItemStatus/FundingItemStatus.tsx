@@ -17,7 +17,6 @@ const FundingItemStatus = ({
   const handleModal = () => {
     onModal(funding);
   };
-  console.log(funding);
 
   return (
     <div
