@@ -5,6 +5,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  &__title {
+    font-weight: 600;
+  }
 
   &__button {
     width: 40%;
