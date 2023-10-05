@@ -52,8 +52,12 @@ const DepositProduct = ({
         <BankLogo className={bankLogoClassName} />
       </div>
       <div className={styles.title}>
-        <Text text={`${deposit.bankName} ${deposit.productType}`} />
         <Text
+          className="text-sm"
+          text={`${deposit.bankName} ${deposit.productType}`}
+        />
+        <Text
+          className="text-sm"
           text={priceFilter(deposit.savingBalance ?? deposit.depositMoney)}
         />
       </div>
@@ -118,11 +122,13 @@ const DepositProduct = ({
                 )}
               >
                 <Text
+                  className="text-sm"
                   text={`거치기간: ${
                     deposit.bankName === '햇살은행' ? 7 : 10
                   }일`}
                 />
                 <Text
+                  className="text-sm"
                   text={`이자율: ${deposit.interestRate}% ~ ${
                     deposit.interestRate + deposit.primeInterestRate
                   }%`}

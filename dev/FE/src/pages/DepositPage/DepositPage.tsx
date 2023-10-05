@@ -8,6 +8,7 @@ import { Modal, ModalDeposit, Swiper } from '@/components/molecules';
 import { getBankInfoQuery } from '@/api/queries';
 import { useQuery } from '@tanstack/react-query';
 import useAuth from '@/hooks/useAuth';
+import { Text } from '@/components/atoms';
 
 interface DepositPageProps {
   className?: string;
@@ -87,7 +88,7 @@ const DepositPage = ({ className }: DepositPageProps): JSX.Element => {
                 styles['deposit-page__main'],
               )}
             >
-              {deposit.description}
+              <Text className="text-sm" text={deposit.description} />
             </div>
           ))}
         </Swiper>
