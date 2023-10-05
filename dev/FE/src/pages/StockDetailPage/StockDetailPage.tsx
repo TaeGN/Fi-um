@@ -1,5 +1,5 @@
 import { useState, useCallback, MouseEvent, useEffect } from 'react';
-import { convertClassName, convertClassNameList } from '@/utils';
+import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
 import styles from './StockDetailPage.module.scss';
 import useModal from '@/hooks/useModal';
 import { Button, LineChart } from '@/components/atoms';
@@ -204,8 +204,11 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
             myStock && (
               <div className={styles.myStock}>
                 <p>내가 갖고있는 수량: {myStock.stockCount}주</p>
-                <p>평균 단가: {myStock.stockAverage}</p>
-                <p>현재 가격: {stockChart[stockChart.length - 1].nowPrice}</p>
+                <p>평균 단가: {priceFilter(myStock.stockAverage)}</p>
+                <p>
+                  현재 가격:{' '}
+                  {priceFilter(stockChart[stockChart.length - 1].nowPrice)}
+                </p>
               </div>
             )}
           {userInfo && userInfo.userType === 2 && (
