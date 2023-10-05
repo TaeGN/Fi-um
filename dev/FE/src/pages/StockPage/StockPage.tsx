@@ -1,5 +1,5 @@
 import { getStockKing, getStocks } from '@/api/stock';
-import { Table } from '@/components/atoms';
+import { Table, Text } from '@/components/atoms';
 import { StockRanking } from '@/components/molecules';
 import { News, Stock, StockRanking as StockRank } from '@/types';
 import { useQuery } from '@tanstack/react-query';
@@ -14,7 +14,12 @@ import {
   AccordionItemPanel,
   AccordionItemState,
 } from 'react-accessible-accordion';
-import { convertClassNameList, priceFilter, priceFilterPlus } from '@/utils';
+import {
+  checkConditionPointChange,
+  convertClassNameList,
+  priceFilter,
+  priceFilterPlus,
+} from '@/utils';
 import { useEffect, useState } from 'react';
 
 const StockPage = () => {
@@ -60,7 +65,12 @@ const StockPage = () => {
                   return {
                     주식명: stockName,
                     현재가격: priceFilter(nowPrice),
-                    변동가격: priceFilterPlus(fluctuationPrice),
+                    변동가격: (
+                      <Text
+                        className={checkConditionPointChange(fluctuationPrice)}
+                        text={priceFilterPlus(fluctuationPrice)}
+                      />
+                    ),
                   };
                 })
               }
