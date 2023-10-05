@@ -8,6 +8,7 @@ interface ModalProps {
   scrollTop?: number;
   children: JSX.Element;
   aiModal?: boolean;
+  auctionModal?: boolean;
 }
 
 const Modal = ({
@@ -17,7 +18,18 @@ const Modal = ({
   scrollTop,
   children,
   aiModal,
+  auctionModal,
 }: ModalProps): JSX.Element => {
+  const checkModal = () => {
+    if (aiModal) {
+      return styles['modal-aiBox'];
+    }
+    if (auctionModal) {
+      return styles['modal-auctionBox'];
+    }
+    return styles['modal-box'];
+  };
+
   return (
     <>
       {isOpen && (
@@ -33,9 +45,7 @@ const Modal = ({
           }}
         >
           <div
-            className={convertClassNameList(
-              aiModal ?? false ? styles['modal-aiBox'] : styles['modal-box'],
-            )}
+            className={convertClassNameList(checkModal())}
             onClick={(e) => e.stopPropagation()}
           >
             {children}
