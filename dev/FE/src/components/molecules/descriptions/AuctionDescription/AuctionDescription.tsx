@@ -2,6 +2,7 @@ import { Button, Text } from '@/components/atoms';
 import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
 import styles from './AuctionDescription.module.scss';
 import { useEffect, useState } from 'react';
+import useAuth from '@/hooks/useAuth';
 
 interface AuctionDescriptionProps {
   className?: string;
@@ -22,9 +23,16 @@ const AuctionDescription = ({
   auctionClick,
   buyItClick,
 }: AuctionDescriptionProps): JSX.Element => {
+  const { userInfo } = useAuth();
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const endTime = new Date(createdTime).getTime() + 24 * 60 * 60 * 1000;
 
+  const checkUser = () => {
+    if (userInfo?.userType === 1 || userInfo?.userType === 3) {
+      return true;
+    }
+    return false;
+  };
   useEffect(() => {
     const updateCountdown = () => {
       const now = Date.now();
@@ -73,7 +81,7 @@ const AuctionDescription = ({
           }
         />
       </div>
-      {endTime > Date.now() ? (
+      {endTime > Date.now() && checkUser() && (
         <div className={styles.buttonWrapper}>
           <Button
             className={convertClassNameList('primary', styles['button'])}
@@ -86,8 +94,6 @@ const AuctionDescription = ({
             onClick={buyItClick}
           />
         </div>
-      ) : (
-        ''
       )}
     </div>
   );

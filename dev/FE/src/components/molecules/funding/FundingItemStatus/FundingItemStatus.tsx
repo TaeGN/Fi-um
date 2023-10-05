@@ -62,7 +62,13 @@ const FundingItemStatus = ({
         />
         <Button
           onClick={handleModal}
-          label={funding.isCompleted ? '펀딩하기' : '후원하기'}
+          label={
+            funding.isCompleted
+              ? '펀딩하기'
+              : funding.isCompleted === undefined
+              ? '펀딩하기'
+              : '후원하기'
+          }
           className={convertClassNameList(
             'bg-blue white',
             'xsmall',
