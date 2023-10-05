@@ -1,3 +1,5 @@
+@import '@/index.scss';
+
 .create-page {
   margin: 50px;
 }
@@ -18,4 +20,25 @@ textarea {
 }
 .input {
   margin-left: 30px;
+
+  &::file-selector-button {
+    border: 1px solid $shinhan-blue !important;
+    border-radius: 5px;
+    background-color: white;
+    color: $shinhan-blue;
+    height: 5vh;
+    width: 10vw;
+    margin-right: 5px;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+      color: white;
+      background-color: $shinhan-blue;
+    }
+  }
+}
+
+input[type='file'] {
+  color: $main-bg;
 }

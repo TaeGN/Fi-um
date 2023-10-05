@@ -122,7 +122,7 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
               className={styles['input']}
               type="number"
               name="unitPrice"
-              value={item.unitPrice}
+              value={item.unitPrice.toFixed(0)}
               onChange={handleItem}
             />
           </div>
@@ -167,6 +167,7 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
           <input
             className={styles['input']}
             type="file"
+            accept="image/*"
             onChange={handleFile}
           />
           <div className="preview">
