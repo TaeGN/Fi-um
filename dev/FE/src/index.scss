@@ -23,7 +23,8 @@ body {
 
 body {
   font-family: 'Gowun Dodum', sans-serif;
-  font-size: 14px;
+  font-weight: 400;
+  font-size: 16px;
   margin: 0;
   padding: 0;
   overflow-y: scroll;
@@ -217,7 +218,7 @@ body {
 }
 
 .text-vsm {
-  font-size: 10px;
+  font-size: 0.8rem;
 }
 
 input[type='number']::-webkit-outer-spin-button,
