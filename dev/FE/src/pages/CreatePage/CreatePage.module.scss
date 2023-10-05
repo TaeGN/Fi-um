@@ -2,6 +2,7 @@
 
 .create-page {
   margin: 50px;
+  position: relative;
 }
 
 .image {
@@ -11,6 +12,13 @@
 
 .btn {
   margin-top: 10px;
+  position: absolute;
+  top: 1rem;
+  right: 5vw;
+
+  @media screen and (max-width: 500px) {
+    top: 90%;
+  }
 }
 
 textarea {

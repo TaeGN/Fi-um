@@ -122,7 +122,7 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
               className={styles['input']}
               type="number"
               name="unitPrice"
-              value={item.unitPrice.toFixed(0)}
+              value={item.unitPrice}
               onChange={handleItem}
             />
           </div>
