@@ -2,8 +2,8 @@ const getAccessToken = (): string | null => {
   return sessionStorage.getItem('accessToken');
 };
 
-const getRefreshToken = async (): Promise<string | null> => {
-  return await sessionStorage.getItem('refreshToken');
+const getRefreshToken = (): string | null => {
+  return sessionStorage.getItem('refreshToken');
 };
 const setAccessToken = (accessToken: string): void => {
   sessionStorage.setItem('accessToken', accessToken);

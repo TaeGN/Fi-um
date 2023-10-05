@@ -8,7 +8,6 @@ const API_PORTFOLIO_URL = import.meta.env.VITE_API_PORTFOLIO_URL;
 let isRefresh = false;
 
 const apiInstance = () => {
-  console.log(API_BASE_URL);
   const instance = axios.create({
     baseURL: API_BASE_URL,
     headers: {
@@ -66,12 +65,14 @@ const authInterceptor = (instance: AxiosInstance) => {
         switch (error.response.status) {
           // 권한 없음
           case HTTP_STATUS.UNAUTHORIZED:
-            const refreshToken = await getRefreshToken();
+            const refreshToken = getRefreshToken();
             // access token 재 발급
             if (!isRefresh) {
               // refresh 요청 한 번만
               isRefresh = true;
-              getreissue(refreshToken).finally(() => (isRefresh = false));
+              return getreissue(refreshToken).finally(
+                () => (isRefresh = false),
+              );
             }
             break;
         }

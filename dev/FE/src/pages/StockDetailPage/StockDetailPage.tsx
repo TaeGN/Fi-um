@@ -27,7 +27,7 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
   const [chartData, setChartData] = useState<any | undefined>();
   const { detail } = useParams<{ detail: string }>();
   const [news, setNews] = useState<News[] | null>(null);
-  const { userInfo } = useAuth();
+  const { userInfo, refreshUserInfo } = useAuth();
 
   const onModal = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     setLabel(e.currentTarget.value);
@@ -106,6 +106,7 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
       onSuccess: () => {
         refetchMyStock();
         refetchTradeHistory();
+        refreshUserInfo();
         closeToggle();
       },
       onError: () => {},
@@ -122,6 +123,7 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
       onSuccess: () => {
         refetchMyStock();
         refetchTradeHistory();
+        refreshUserInfo();
         closeToggle();
       },
       onError: () => {},

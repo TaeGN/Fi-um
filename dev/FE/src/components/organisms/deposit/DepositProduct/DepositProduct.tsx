@@ -92,12 +92,14 @@ const DepositProduct = ({
                   className={styles['deposit-product__text']}
                   text={`남은 기간: ${convertDataRemainDays(
                     deposit.createSaving,
+                    deposit.bankName,
                   )}일`}
                 />
                 <Text
                   className={styles['deposit-product__text']}
                   text={`만기일: ${convertDateAfter7days(
                     deposit.createSaving,
+                    deposit.bankName,
                   )}`}
                 />
                 <Text
