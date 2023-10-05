@@ -50,6 +50,8 @@ const ModalFunding = ({
     onClick(Number(item.itemNo), price);
   };
 
+  const isChild = 'itemUnitPrice' in item;
+
   return (
     <div
       className={
@@ -65,7 +67,7 @@ const ModalFunding = ({
       >
         <Text
           className={convertClassNameList('text-xl', colorStyle.textColor)}
-          text={item.isCompleted ? '펀딩' : '후원'}
+          text={item.isCompleted || isChild ? '펀딩' : '후원'}
         />
       </div>
 
@@ -138,7 +140,7 @@ const ModalFunding = ({
       >
         <Text
           className="text-md"
-          text={item.isCompleted ? '전체 펀딩액' : '전체 후원액'}
+          text={item.isCompleted || isChild ? '전체 펀딩액' : '전체 후원액'}
         />
         <Text
           className="text-md"
@@ -158,7 +160,7 @@ const ModalFunding = ({
       >
         <Text
           className="text-md"
-          text={item.isCompleted ? '현재 펀딩액' : '현재 후원액'}
+          text={item.isCompleted || isChild ? '현재 펀딩액' : '현재 후원액'}
         />
         <Text
           className="text-md"
@@ -178,7 +180,9 @@ const ModalFunding = ({
       >
         <Text
           className="text-md"
-          text={item.isCompleted ? '거래 후 펀딩액' : '거래 후 후원액'}
+          text={
+            item.isCompleted || isChild ? '거래 후 펀딩액' : '거래 후 후원액'
+          }
         />
         <Text
           className="text-md"
@@ -211,7 +215,7 @@ const ModalFunding = ({
             'white',
             colorStyle.bgColor,
           )}
-          label={item.isCompleted ? '펀딩' : '후원'}
+          label={item.isCompleted || isChild ? '펀딩' : '후원'}
           onClick={handleFundingSend}
         />
       </div>
