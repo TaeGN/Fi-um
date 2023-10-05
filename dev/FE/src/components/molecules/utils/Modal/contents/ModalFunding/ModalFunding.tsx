@@ -2,10 +2,8 @@ import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
 import styles from './ModalFunding.module.scss';
 import { Button, Text } from '@/components/atoms';
 import { ChangeEvent, MouseEvent, useCallback, useMemo, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import { Funding } from '@/types';
+import useAuth from '@/hooks/useAuth';
 
 interface ModalFundingProps {
   className?: string;
@@ -25,6 +23,17 @@ const ModalFunding = ({
   closeToggle,
 }: ModalFundingProps): JSX.Element => {
   const [price, setPrice] = useState<number>(0);
+  const { userInfo } = useAuth();
+  const point = userInfo?.point ?? 0;
+
+  const isChild = 'itemUnitPrice' in item;
+  const totalPrice = item.unitPrice
+    ? item.unitPrice * item.itemCount
+    : item.itemUnitPrice * item.itemCount * 0.3;
+  const curPrice = item.sponsorshipAmount
+    ? item.sponsorshipAmount
+    : item.fundingAmount;
+  const maxPrice = Math.min(totalPrice - curPrice, point);
 
   const colorStyle = useMemo(() => {
     return {
@@ -40,8 +49,8 @@ const ModalFunding = ({
       e: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLButtonElement>,
     ): void => {
       const newPrice = Number(e.currentTarget.value);
-      if (newPrice > balance || newPrice < 0) return;
-      setPrice(newPrice);
+      if (newPrice < 0) return;
+      setPrice(Math.min(newPrice, maxPrice));
     },
     [balance],
   );
@@ -49,8 +58,6 @@ const ModalFunding = ({
   const handleFundingSend = () => {
     onClick(Number(item.itemNo), price);
   };
-
-  const isChild = 'itemUnitPrice' in item;
 
   return (
     <div
@@ -73,6 +80,16 @@ const ModalFunding = ({
 
       <div
         className={convertClassNameList(
+          'flex-container jc-space-between',
+          styles['modal-funding__price'],
+        )}
+      >
+        <Text className="text-md" text={'거래 후 보유 포인트'} />
+        <Text className="text-md" text={priceFilter(point - price)} />
+      </div>
+
+      <div
+        className={convertClassNameList(
           styles['modal-funding__input-container'],
         )}
       >
@@ -90,28 +107,6 @@ const ModalFunding = ({
           )}
           text="&nbsp;원"
         />
-        <div
-          className={convertClassNameList(
-            styles['modal-funding__input--button-container'],
-          )}
-        >
-          <Button
-            className={convertClassNameList(
-              styles['modal-funding__input--button'],
-            )}
-            label={<FontAwesomeIcon icon={faChevronUp} size="xs" />}
-            value={price + 1}
-            onClick={handleChangePrice}
-          />
-          <Button
-            className={convertClassNameList(
-              styles['modal-funding__input--button'],
-            )}
-            label={<FontAwesomeIcon icon={faChevronDown} size="xs" />}
-            value={price - 1}
-            onClick={handleChangePrice}
-          />
-        </div>
       </div>
 
       <div className="flex-container jc-space-between">
@@ -125,7 +120,7 @@ const ModalFunding = ({
                 'bg-gray-light',
               )}
               label={priceFilter(ratio * 10000)}
-              value={String(Math.floor((balance * ratio) / 10))}
+              value={price + ratio * 10000}
               onClick={handleChangePrice}
             />
           ),
@@ -142,14 +137,7 @@ const ModalFunding = ({
           className="text-md"
           text={item.isCompleted || isChild ? '전체 펀딩액' : '전체 후원액'}
         />
-        <Text
-          className="text-md"
-          text={priceFilter(
-            item.unitPrice
-              ? item.unitPrice * item.itemCount
-              : item.itemUnitPrice * item.itemCount * 0.3,
-          )}
-        />
+        <Text className="text-md" text={priceFilter(totalPrice)} />
       </div>
 
       <div
@@ -162,14 +150,7 @@ const ModalFunding = ({
           className="text-md"
           text={item.isCompleted || isChild ? '현재 펀딩액' : '현재 후원액'}
         />
-        <Text
-          className="text-md"
-          text={priceFilter(
-            item.sponsorshipAmount
-              ? item.sponsorshipAmount
-              : item.fundingAmount,
-          )}
-        />
+        <Text className="text-md" text={priceFilter(curPrice)} />
       </div>
 
       <div

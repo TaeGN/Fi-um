@@ -75,8 +75,6 @@ const ModalDeposit = ({
       e: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLButtonElement>,
     ): void => {
       const newCount = Number(e.currentTarget.value);
-      console.log(newCount);
-
       if (newCount < 0) return;
       setCount(Math.min(newCount, maxCount));
     },
@@ -108,8 +106,11 @@ const ModalDeposit = ({
           styles['modal-stock__price'],
         )}
       >
-        <Text className="text-md" text={'현재 보유 포인트'} />
-        <Text className="text-md" text={priceFilter(point)} />
+        <Text className="text-md" text={'거래 후 보유 포인트'} />
+        <Text
+          className="text-md"
+          text={priceFilter(point + (label === '입금' ? -count : count))}
+        />
       </div>
       <div
         className={convertClassNameList(styles['modal-stock__input-container'])}
