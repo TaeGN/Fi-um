@@ -9,9 +9,10 @@ import { USER_TYPE } from '@/constants';
 const useFollowing = () => {
   const [following, setFollowing] = useRecoilState(followingState);
   const { userInfo } = useAuth();
-  const { data: newFollowing, refetch: refreshFollowing } = useQuery(
-    getFollowingQuery(),
-  );
+  const { data: newFollowing, refetch: refreshFollowing } = useQuery({
+    ...getFollowingQuery(),
+    enabled: userInfo?.userNo === 3,
+  });
 
   useEffect(() => {
     if (
