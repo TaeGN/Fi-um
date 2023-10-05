@@ -23,9 +23,9 @@ const AuctionDescription = ({
   buyItClick,
 }: AuctionDescriptionProps): JSX.Element => {
   const [timeLeft, setTimeLeft] = useState<number>(0);
+  const endTime = new Date(createdTime).getTime() + 24 * 60 * 60 * 1000;
 
   useEffect(() => {
-    const endTime = new Date(createdTime).getTime() + 24 * 60 * 60 * 1000;
     const updateCountdown = () => {
       const now = Date.now();
       const diff = endTime - now;
@@ -34,6 +34,7 @@ const AuctionDescription = ({
 
     updateCountdown();
     const interval = setInterval(updateCountdown, 1000);
+    if (endTime <= Date.now()) clearInterval(interval);
 
     return () => clearInterval(interval);
   }, [createdTime]);
@@ -65,21 +66,29 @@ const AuctionDescription = ({
         <Text className="text-lg" text="남은 시간" /> :
         <Text
           className="blue"
-          text={`${hours}시간 ${minutes}분 ${seconds}초 남았습니다.`}
+          text={
+            endTime > Date.now()
+              ? `${hours}시간 ${minutes}분 ${seconds}초 남았습니다.`
+              : `경매 완료`
+          }
         />
       </div>
-      <div className={styles.buttonWrapper}>
-        <Button
-          className={convertClassNameList('primary', styles['button'])}
-          label="경매하기"
-          onClick={auctionClick}
-        />
-        <Button
-          className={convertClassNameList('primary', styles['button'])}
-          label="즉시구매"
-          onClick={buyItClick}
-        />
-      </div>
+      {endTime > Date.now() ? (
+        <div className={styles.buttonWrapper}>
+          <Button
+            className={convertClassNameList('primary', styles['button'])}
+            label="경매하기"
+            onClick={auctionClick}
+          />
+          <Button
+            className={convertClassNameList('primary', styles['button'])}
+            label="즉시구매"
+            onClick={buyItClick}
+          />
+        </div>
+      ) : (
+        ''
+      )}
     </div>
   );
 };
