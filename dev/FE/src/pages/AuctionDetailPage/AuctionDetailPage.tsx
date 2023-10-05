@@ -11,6 +11,7 @@ import useModal from '@/hooks/useModal';
 import { Button } from '@/components/atoms';
 import { getUserArtist } from '@/api/user';
 import { useEffect, useState } from 'react';
+import useAuth from '@/hooks/useAuth';
 
 interface AuctionDetailPageProps {
   className?: string;
@@ -24,6 +25,7 @@ const AuctionDetailPage = ({
   const { data: auction, status: isAuctionLoading } = useQuery<Auction>(
     getAuctionDetailByAuctionNoQuery(auctionNo),
   );
+  const { refreshUserInfo } = useAuth();
 
   useEffect(() => {
     if (isAuctionLoading === 'success') {
@@ -54,13 +56,12 @@ const AuctionDetailPage = ({
     {
       onSuccess(data) {
         console.log(data);
-
         alert(data);
+        refreshUserInfo();
         closeToggle();
       },
       onError(error) {
         console.log(error);
-
         alert(`구매 실패.. \n ${error}`);
       },
     },

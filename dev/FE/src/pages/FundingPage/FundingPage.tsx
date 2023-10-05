@@ -24,7 +24,7 @@ interface FundingPageProps {
 const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
   const [scrollTop, setScrollTop] = useState<number>(0);
   const { isOpen, openToggle, closeToggle } = useModal();
-  const { userInfo } = useAuth();
+  const { userInfo, refreshUserInfo } = useAuth();
   const navigate = useNavigate();
   const userType = userInfo?.userType ?? 0;
   const { data: fundings } =
@@ -48,11 +48,17 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
   const sponBtn = (id: number, price: number) => {
     if (userType === USER_TYPE.아이들) {
       postFunding(id, price)
-        .then(() => alert('펀딩 성공!'))
+        .then(() => {
+          alert('펀딩 성공!');
+          refreshUserInfo();
+        })
         .catch((err) => alert(err.response.data.msg));
     } else {
       postSponsorshipSupport(id, price)
-        .then(() => alert('후원 성공!'))
+        .then(() => {
+          alert('후원 성공!');
+          refreshUserInfo();
+        })
         .catch((err) => alert(err.response.data.msg));
     }
     closeToggle();
