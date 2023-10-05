@@ -36,13 +36,28 @@ const MainAuctionDescription = ({
         styles['main-auction-description'],
       )}
     >
-      <Text className="text-xl" text={auction.title} />
+      <Text
+        className={convertClassNameList(
+          'text-xl',
+          styles['main-auction-description__title'],
+        )}
+        text={auction.title}
+      />
       <Text className="text-sm" text={auction.name} />
       <Text text={auction.content} />
-      <div className="flex-container">
-        <Text className="text-sm" text={priceFilter(auction.auctionPrice)} />
-        &nbsp;
-        <Text className="text-sm" text={priceFilter(auction.instantPrice)} />
+      <div className="flex-container-col">
+        <div>
+          <Text
+            className="text-sm"
+            text={'현재 가격 : ' + priceFilter(auction.auctionPrice)}
+          />
+        </div>
+        <div>
+          <Text
+            className="text-sm"
+            text={'즉시 구매가 : ' + priceFilter(auction.instantPrice)}
+          />
+        </div>
       </div>
 
       <Button
