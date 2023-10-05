@@ -13,7 +13,16 @@ const getFundingProgress = async (): Promise<FundingProgress> => {
 
 // 내 펀딩 확인
 const getMyFundings = async (): Promise<Funding[]> => {
-  return await authApi.get(`funding/myFunding`).then(({ data }) => data);
+  return await authApi
+    .get(`funding/myFunding`)
+    .then(({ data }: { data: Funding[] }) =>
+      data.sort((a, b) =>
+        a.itemUnitPrice * a.itemCount - a.fundingAmount >
+        b.itemUnitPrice * b.itemCount - b.fundingAmount
+          ? -1
+          : 1,
+      ),
+    );
 };
 
 // 전체 펀딩 현황 조회

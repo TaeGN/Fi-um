@@ -1,4 +1,8 @@
-import { convertClassName, convertClassNameList } from '@/utils';
+import {
+  checkConditionClassName,
+  convertClassName,
+  convertClassNameList,
+} from '@/utils';
 import styles from './Funding.module.scss';
 import { FundingCard, Swiper } from '@/components/molecules';
 import { Funding as FundingType } from '@/types';
@@ -21,7 +25,15 @@ const Funding = ({ className, fundings }: FundingProps): JSX.Element => {
             {fundings
               .slice(index * 4, Math.min((index + 1) * 4, len))
               .map((funding) => (
-                <FundingCard key={funding.itemNo} funding={funding} />
+                <FundingCard
+                  className={checkConditionClassName(
+                    funding.fundingAmount ===
+                      funding.itemCount * funding.itemUnitPrice * 0.3,
+                    styles['funding__finished'],
+                  )}
+                  key={funding.itemNo}
+                  funding={funding}
+                />
               ))}
           </div>,
         );
