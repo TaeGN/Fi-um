@@ -8,7 +8,13 @@ interface BankLogoProps {
 const BankLogo = ({ className }: BankLogoProps) => {
   return (
     <>
-      <div className={convertClassName(className, styles)}></div>
+      <div className={convertClassName(className, styles)}>
+        <img
+          className={styles.img}
+          src={`/img/bankicon/${className}.png`}
+          alt=""
+        />
+      </div>
     </>
   );
 };

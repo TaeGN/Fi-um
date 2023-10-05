@@ -26,10 +26,10 @@ const DepositProduct = ({
     let bankLogoClassName = undefined;
     switch (deposit.bankName) {
       case '햇살은행':
-        bankLogoClassName = 'shinhan normal';
+        bankLogoClassName = 'shinhan';
         break;
       case '유니콘은행':
-        bankLogoClassName = 'kb normal';
+        bankLogoClassName = 'kb';
         break;
 
       default:
