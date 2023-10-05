@@ -28,7 +28,17 @@ const getUserArtist = async ({
 }: {
   queryKey: QueryKey;
 }): Promise<ArtistAuction[]> => {
-  return await authApi.get(`user/artist/${userNo}`).then(({ data }) => data);
+  return await authApi
+    .get(`user/artist/${userNo}`)
+    .then(({ data }: { data: ArtistAuction[] }) =>
+      data.sort((a, b) => {
+        if (a.winner && b.winner) {
+          return a.auctionNo - b.auctionNo;
+        } else {
+          return b.winner ? -1 : 1;
+        }
+      }),
+    );
 };
 
 // 개인정보 조회
