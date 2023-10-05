@@ -364,7 +364,14 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
                       if (ratio > 0) {
                         return (
                           <span>
-                            {item}를 {Math.floor(ratio * 100)}%{' '}
+                            {item}를{' '}
+                            <span
+                              className={
+                                styles['aiPortFolio__content__percent']
+                              }
+                            >
+                              {Math.floor(ratio * 100)}%
+                            </span>{' '}
                           </span>
                         );
                       }
