@@ -87,7 +87,10 @@ const SponsorProfilePage = () => {
       const len = childProfiles?.length ?? 0;
       for (let index = 0; index < len / 4; index++) {
         followings.push(
-          <div className={styles['profile-page__auction-container']}>
+          <div
+            key={index}
+            className={styles['profile-page__auction-container']}
+          >
             {childProfiles
               .slice(index * 4, Math.min((index + 1) * 4, len))
               .map(({ imagePath, userName, userNo }) => (

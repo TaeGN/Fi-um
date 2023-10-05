@@ -32,7 +32,7 @@ const AuctionDetailPage = ({
       setAuctionPrice(auction.auctionPrice + 100);
       getUserArtist({
         queryKey: ['', auction.userNo],
-      }).then((res: any) => setArts(res.data));
+      }).then((res: any) => setArts(res));
     }
   }, [auction]);
 

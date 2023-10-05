@@ -117,7 +117,11 @@ const DepositProduct = ({
                   styles['deposit-product__item'],
                 )}
               >
-                <Text text="거치기간: 7일" />
+                <Text
+                  text={`거치기간: ${
+                    deposit.bankName === '햇살은행' ? 7 : 10
+                  }일`}
+                />
                 <Text
                   text={`이자율: ${deposit.interestRate}% ~ ${
                     deposit.interestRate + deposit.primeInterestRate

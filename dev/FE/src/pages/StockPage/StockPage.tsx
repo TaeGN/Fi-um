@@ -14,7 +14,7 @@ import {
   AccordionItemPanel,
   AccordionItemState,
 } from 'react-accessible-accordion';
-import { convertClassNameList } from '@/utils';
+import { convertClassNameList, priceFilter, priceFilterPlus } from '@/utils';
 import { useEffect, useState } from 'react';
 
 const StockPage = () => {
@@ -53,7 +53,20 @@ const StockPage = () => {
         <div className={styles.allStocks}>
           <div className={styles.allStocks__title}>주식 리스트</div>
           {isAllStocksLoading === 'success' ? (
-            <Table data={allStocks} onClick={navigate} checkPagination={true} />
+            <Table
+              data={
+                allStocks &&
+                allStocks.map(({ fluctuationPrice, nowPrice, stockName }) => {
+                  return {
+                    주식명: stockName,
+                    현재가격: priceFilter(nowPrice),
+                    변동가격: priceFilterPlus(fluctuationPrice),
+                  };
+                })
+              }
+              onClick={navigate}
+              checkPagination={true}
+            />
           ) : (
             ''
           )}
