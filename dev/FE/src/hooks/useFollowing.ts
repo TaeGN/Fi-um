@@ -10,10 +10,10 @@ import { USER_TYPE } from '@/constants';
 const useFollowing = () => {
   const [following, setFollowing] = useRecoilState(followingState);
   const { userInfo } = useAuth();
-  const { data: newFollowing, refetch: refreshFollowing } =
-    userInfo?.userType == USER_TYPE.후원자
-      ? useQuery(getFollowingQuery())
-      : { data: undefined, refetch: undefined };
+  const { data: newFollowing, refetch: refreshFollowing } = useQuery({
+    ...getFollowingQuery(),
+    enabled: userInfo?.userType == USER_TYPE.후원자,
+  });
 
   useEffect(() => {
     if (
