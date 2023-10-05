@@ -279,7 +279,18 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
                         return {
                           은행명: bankName,
                           상품명: productType,
-                          이자율: `${interestRate}% (+${primeInterestRate}%)`,
+                          이자율: (
+                            <div className="flex-container jc-center">
+                              <Text
+                                className="mr-1"
+                                text={`${interestRate}%`}
+                              />
+                              <Text
+                                className={primeInterestRate > 0 ? 'blue' : ''}
+                                text={`(+${primeInterestRate}%)`}
+                              />
+                            </div>
+                          ),
                           잔액: priceFilter(savingBalance),
                         };
                       },
@@ -329,62 +340,64 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
             </div>
           </ProfileSection>
           <ProfileSection label="내 펀딩">
-            <Funding fundings={myFundings} />
-          </ProfileSection>
-          {portFolio && (
-            <div className={styles.modal}>
-              <Modal
-                aiModal={true}
-                isOpen={portFolioModal}
-                toggle={handlePortFolioButtonClick}
-              >
-                <div className={styles['aiPortFolio']}>
-                  <div className={styles['aiPortFolio__title']}>
-                    AI 포트폴리오 분석
-                  </div>
-                  <div>
-                    <Table
-                      data={
-                        myStocks &&
-                        myStocks.map(({ stockCount, stockName }) => {
-                          return {
-                            주식명: stockName,
-                            보유주: stockCount,
-                            AI기준: portFolio?.moneyBalance[stockName] ?? 0,
-                            'AI기준 비율': `${Math.floor(
-                              portFolio?.ratioBalance[stockName] * 100 ?? 0,
-                            )}%`,
-                          };
-                        })
-                      }
-                      size={5}
-                    />
-                  </div>
-                  <div className={styles['aiPortFolio__content']}>
-                    현재 AI 포트폴리오에서 주식 투자의 비율을{' '}
-                    {Object.keys(portFolio?.moneyBalance).map((item) => {
-                      const ratio = portFolio?.ratioBalance[item];
-                      if (ratio > 0) {
-                        return (
-                          <span key={item}>
-                            {item}를{' '}
-                            <span
-                              className={
-                                styles['aiPortFolio__content__percent']
-                              }
-                            >
-                              {Math.floor(ratio * 100)}%
-                            </span>{' '}
-                          </span>
-                        );
-                      }
-                    })}
-                    갖도록 분석해줬어요
-                  </div>
+            <>
+              <Funding fundings={myFundings} />
+              {portFolio && (
+                <div className={styles.modal}>
+                  <Modal
+                    aiModal={true}
+                    isOpen={portFolioModal}
+                    toggle={handlePortFolioButtonClick}
+                  >
+                    <div className={styles['aiPortFolio']}>
+                      <div className={styles['aiPortFolio__title']}>
+                        AI 포트폴리오 분석
+                      </div>
+                      <div>
+                        <Table
+                          data={
+                            myStocks &&
+                            myStocks.map(({ stockCount, stockName }) => {
+                              return {
+                                주식명: stockName,
+                                보유주: stockCount,
+                                AI기준: portFolio?.moneyBalance[stockName] ?? 0,
+                                'AI기준 비율': `${Math.floor(
+                                  portFolio?.ratioBalance[stockName] * 100 ?? 0,
+                                )}%`,
+                              };
+                            })
+                          }
+                          size={5}
+                        />
+                      </div>
+                      <div className={styles['aiPortFolio__content']}>
+                        현재 AI 포트폴리오에서 주식 투자의 비율을{' '}
+                        {Object.keys(portFolio?.moneyBalance).map((item) => {
+                          const ratio = portFolio?.ratioBalance[item];
+                          if (ratio > 0) {
+                            return (
+                              <span key={item}>
+                                {item}를{' '}
+                                <span
+                                  className={
+                                    styles['aiPortFolio__content__percent']
+                                  }
+                                >
+                                  {Math.floor(ratio * 100)}%
+                                </span>{' '}
+                              </span>
+                            );
+                          }
+                        })}
+                        갖도록 분석해줬어요
+                      </div>
+                    </div>
+                  </Modal>
                 </div>
-              </Modal>
-            </div>
-          )}
+              )}
+            </>
+          </ProfileSection>
         </>
       )}
 

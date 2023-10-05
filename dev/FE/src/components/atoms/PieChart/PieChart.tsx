@@ -12,7 +12,7 @@ interface PieChartProps {
   chartData?: { labels: string[]; data: number[]; length: number };
 }
 
-// const colors = ["#3579d4","#ed2926","#7ae6e9","#07a59f","#aadaff"]
+// const colors = ['#3579d4', '#ed2926', '#7ae6e9', '#07a59f', '#aadaff'];
 
 const options: any = {
   responsive: true,
@@ -26,32 +26,20 @@ const options: any = {
   },
 };
 
-// const initialData: ChartData<'doughnut', number[], string> = {
-//   labels: ['aa'],
-//   datasets: [
-//     {
-//       label: '# of Votes',
-//       data: [12, 19, 3, 5, 2, 3],
-//       backgroundColor: getLightColors(6),
-//       borderColor: getDarkColors(6),
-//       borderWidth: 1,
-//     },
-//   ],
-// };
-
 const PieChart = ({ className, chartData }: PieChartProps): JSX.Element => {
   const data: ChartData<'doughnut', number[], string> | undefined =
     useMemo(() => {
       if (!chartData) return undefined;
+      const colors = getLightColors(chartData.length);
       return {
         labels: chartData.labels,
         datasets: [
           {
             data: chartData.data,
-            // backgroundColor: colors.slice(0,chartData.length),
-            backgroundColor: getLightColors(chartData.length),
-            borderColor: getDarkColors(chartData.length),
-            borderWidth: 1,
+            backgroundColor: colors,
+            borderColor: colors.map(() => '#ececec'),
+            borderWidth: 0.5,
+            rotation: Math.random() * 360,
           },
         ],
       };

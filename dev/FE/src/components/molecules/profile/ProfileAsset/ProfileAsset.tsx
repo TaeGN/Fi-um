@@ -68,7 +68,7 @@ const ProfileAsset = ({
       revenueChart,
       rivalChart,
     };
-  }, [capital]);
+  }, [capital, rivalCapital]);
 
   return (
     <div
