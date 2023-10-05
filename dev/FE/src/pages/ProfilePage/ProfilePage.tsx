@@ -232,7 +232,9 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
                     onClick: myPage
                       ? undefined
                       : () => {
-                          navigate(`/auction/${auctionNo}`);
+                          navigate(`/auction/${auctionNo}`, {
+                            state: { src: imagePath, alt: title, userNo },
+                          });
                         },
                   }}
                 />

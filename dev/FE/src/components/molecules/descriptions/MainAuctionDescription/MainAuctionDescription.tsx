@@ -18,9 +18,15 @@ const MainAuctionDescription = ({
 
   const onMove = useCallback(
     (e: MouseEvent<HTMLButtonElement>) => {
-      navigate(`/auction/${e.currentTarget.value}`);
+      navigate(`/auction/${e.currentTarget.value}`, {
+        state: {
+          src: auction.userImagePath,
+          alt: auction.title,
+          userNo: auction.userNo,
+        },
+      });
     },
-    [auction.auctionNo],
+    [auction],
   );
 
   return (
