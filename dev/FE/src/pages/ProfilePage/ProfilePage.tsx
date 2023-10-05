@@ -210,6 +210,7 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
       for (let index = 0; index < len / 4; index++) {
         auction.push(
           <div
+            key={index}
             className={convertClassNameList(
               styles['profile-page__auction-container'],
               'flex-container',
@@ -365,7 +366,7 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
                       const ratio = portFolio?.ratioBalance[item];
                       if (ratio > 0) {
                         return (
-                          <span>
+                          <span key={item}>
                             {item}를{' '}
                             <span
                               className={
