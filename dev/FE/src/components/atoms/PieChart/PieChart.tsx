@@ -1,7 +1,7 @@
 import { Doughnut } from 'react-chartjs-2';
 import { ChartData } from 'chart.js';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { getLightColors, getDarkColors } from '@/utils';
+import { getLightColors } from '@/utils';
 import { convertClassName, convertClassNameList } from '@/utils';
 import styles from './PieChart.module.scss';
 import { useMemo } from 'react';
@@ -11,8 +11,6 @@ interface PieChartProps {
   className?: string;
   chartData?: { labels: string[]; data: number[]; length: number };
 }
-
-// const colors = ['#3579d4', '#ed2926', '#7ae6e9', '#07a59f', '#aadaff'];
 
 const options: any = {
   responsive: true,
