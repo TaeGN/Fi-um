@@ -62,7 +62,7 @@ const AuctionDetailPage = ({
       },
       onError(error) {
         console.log(error);
-        alert(`구매 실패.. \n ${error}`);
+        alert(`구매 실패.. \n 잔액이 부족합니다.`);
       },
     },
   );
@@ -116,30 +116,37 @@ const AuctionDetailPage = ({
         <CreaterProfile arts={arts} />
       </div>
       {auction && (
-        <Modal isOpen={isOpen} toggle={closeToggle}>
-          <>
-            <div>현재가: {auction.auctionPrice} 원</div>
-            <div>최소 경매 금액: {auction.auctionPrice + 100} 원</div>
-            <input
-              type="number"
-              value={auctionPrice}
-              onChange={(e) => {
-                setAuctionPrice(Number(e.target.value));
-              }}
-              onBlur={checkAuctionPrice}
-            />
-            <Button
-              label="경매하기"
-              onClick={() => {
-                if (checkAuctionPrice()) {
-                  postAuctionBidMutation.mutate({
-                    auctionNo: auction.auctionNo,
-                    auctionPrice: auctionPrice,
-                  });
-                }
-              }}
-            />
-          </>
+        <Modal isOpen={isOpen} toggle={closeToggle} auctionModal={true}>
+          <div className={styles['modal']}>
+            <div className={styles['modal__title']}>경매하기</div>
+            <div className={styles['modal__content']}>
+              현재가: {auction.auctionPrice} 원
+            </div>
+            <div className={styles['modal__content']}>
+              최소 경매 금액: {auction.auctionPrice + 100} 원
+            </div>
+            <div className={styles['modal__buttonWrapper']}>
+              <input
+                type="number"
+                value={auctionPrice}
+                onChange={(e) => {
+                  setAuctionPrice(Number(e.target.value));
+                }}
+                onBlur={checkAuctionPrice}
+              />
+              <Button
+                label="경매하기"
+                onClick={() => {
+                  if (checkAuctionPrice()) {
+                    postAuctionBidMutation.mutate({
+                      auctionNo: auction.auctionNo,
+                      auctionPrice: auctionPrice,
+                    });
+                  }
+                }}
+              />
+            </div>
+          </div>
         </Modal>
       )}
     </>
