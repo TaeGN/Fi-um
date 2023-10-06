@@ -29,7 +29,9 @@ const useAuth = () => {
   }, []);
 
   useEffect(() => {
-    setUserInfo(undefined);
+    if (!refreshToken) {
+      setUserInfo(undefined);
+    }
   }, [refreshToken]);
 
   return { userInfo, setUserInfo, refreshUserInfo };
