@@ -2,8 +2,11 @@ import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
 import styles from './ModalFunding.module.scss';
 import { Button, Text } from '@/components/atoms';
 import { ChangeEvent, MouseEvent, useCallback, useMemo, useState } from 'react';
-import { Funding } from '@/types';
+import { Funding, SponsorProfile } from '@/types';
 import useAuth from '@/hooks/useAuth';
+import { useQuery } from '@tanstack/react-query';
+import { getUserQuery } from '@/api/queries';
+import { USER_TYPE } from '@/constants';
 
 interface ModalFundingProps {
   className?: string;
@@ -25,6 +28,11 @@ const ModalFunding = ({
   const [price, setPrice] = useState<number>(0);
   const { userInfo } = useAuth();
   const point = userInfo?.point ?? 0;
+  const { data: sponsorInfo } =
+    userInfo?.userType === USER_TYPE.후원자
+      ? useQuery(getUserQuery())
+      : { data: undefined };
+  const cash = sponsorInfo && 'cash' in sponsorInfo ? sponsorInfo?.cash : 0;
 
   const isChild = 'itemUnitPrice' in item;
   const totalPrice = item.unitPrice
@@ -33,7 +41,10 @@ const ModalFunding = ({
   const curPrice = item.sponsorshipAmount
     ? item.sponsorshipAmount
     : item.fundingAmount;
-  const maxPrice = Math.min(totalPrice - curPrice, point);
+  const maxPrice = Math.min(
+    totalPrice - curPrice,
+    item.isCompleted || isChild ? point : cash,
+  );
 
   const colorStyle = useMemo(() => {
     return {
@@ -78,19 +89,27 @@ const ModalFunding = ({
         />
       </div>
 
-      {item.isCompleted || isChild ? (
-        <div
-          className={convertClassNameList(
-            'flex-container jc-space-between',
-            styles['modal-funding__price'],
+      <div
+        className={convertClassNameList(
+          'flex-container jc-space-between',
+          styles['modal-funding__price'],
+        )}
+      >
+        <Text
+          className="text-md"
+          text={
+            item.isCompleted || isChild
+              ? '거래 후 보유 포인트'
+              : '거래 후 보유 캐시'
+          }
+        />
+        <Text
+          className="text-md"
+          text={priceFilter(
+            (item.isCompleted || isChild ? point : cash) - price,
           )}
-        >
-          <Text className="text-md" text={'거래 후 보유 포인트'} />
-          <Text className="text-md" text={priceFilter(point - price)} />
-        </div>
-      ) : (
-        ''
-      )}
+        />
+      </div>
 
       <div
         className={convertClassNameList(
