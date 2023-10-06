@@ -2,11 +2,16 @@
 
 .auction-detail-main {
   display: flex;
-
+  height: 600px;
   gap: 1vw;
 
   &__image {
     width: 70%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid lightblue;
   }
 
   &__description {
