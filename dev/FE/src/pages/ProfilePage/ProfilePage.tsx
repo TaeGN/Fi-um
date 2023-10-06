@@ -463,7 +463,7 @@ const AdminProfilePage = () => {
 
   return (
     <>
-      <div className={styles['profile-page__profile-section']}>
+      <div className={styles['profile-page__profile-section3']}>
         <ProfileSection label="아이들 자산 현황">
           <UserList
             totalCapitals={totalCapitals}

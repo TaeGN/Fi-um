@@ -31,10 +31,10 @@ const FundingBar = ({
         convertClassName(className, styles),
       )}
     >
-      <Text
+      {/* <Text
         text="목표금액"
         className={convertClassNameList('text-sm', styles['funding-bar__item'])}
-      ></Text>
+      ></Text> */}
       <BarChart
         className={convertClassNameList(styles['funding-bar__item'])}
         ratio={ratio}

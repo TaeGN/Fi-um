@@ -49,7 +49,10 @@ const MainPage = () => {
           )}
         </div>
         <div>
-          <Text className="text-xl bold m-1" text="진행중인 펀딩" />
+          <Text
+            className="text-xl bold m-1 text-align-center"
+            text="진행중인 펀딩"
+          />
           <Funding fundings={fundings} />
         </div>
       </div>
