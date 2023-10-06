@@ -12,7 +12,7 @@ interface Auction extends ArtistAuction {
 }
 
 interface Purchase {
-  actionNo: number;
+  auctionNo: number;
   imagePath: string;
   title: string;
 }

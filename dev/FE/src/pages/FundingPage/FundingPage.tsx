@@ -39,8 +39,6 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
     return rankings?.find((ranking) => ranking.type === '펀딩');
   }, [rankings]);
 
-  console.log(fundings);
-
   const onModal = useCallback((i: Funding) => {
     setItem(i);
     setScrollTop(document.documentElement.scrollTop);

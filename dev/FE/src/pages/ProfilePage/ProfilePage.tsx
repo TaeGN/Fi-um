@@ -120,9 +120,9 @@ const SponsorProfilePage = () => {
           >
             {auctionPurchases
               ?.slice(index * 4, Math.min((index + 1) * 4, len))
-              .map(({ actionNo, imagePath, title }) => (
+              .map(({ auctionNo, imagePath, title }) => (
                 <AuctionCard
-                  key={actionNo}
+                  key={auctionNo}
                   itemImagePath={imagePath}
                   title={title}
                   noBtn={true}
