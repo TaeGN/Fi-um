@@ -108,19 +108,37 @@ const SponsorProfilePage = () => {
     return followings;
   }, [childProfiles]);
 
+  const auctions = useMemo(() => {
+    const auctions: JSX.Element[] = [];
+    if (auctionPurchases) {
+      const len = auctionPurchases?.length ?? 0;
+      for (let index = 0; index < len / 4; index++) {
+        auctions.push(
+          <div
+            key={index}
+            className={styles['profile-page__auction-container']}
+          >
+            {auctionPurchases
+              ?.slice(index * 4, Math.min((index + 1) * 4, len))
+              .map(({ actionNo, imagePath, title }) => (
+                <AuctionCard
+                  key={actionNo}
+                  itemImagePath={imagePath}
+                  title={title}
+                  noBtn={true}
+                />
+              ))}
+          </div>,
+        );
+      }
+    }
+    return auctions;
+  }, [auctionPurchases]);
+
   return (
     <>
       <ProfileSection label="내가 구매한 그림">
-        <div className="card-container jc-center">
-          {auctionPurchases?.map(({ actionNo, imagePath, title }) => (
-            <AuctionCard
-              key={actionNo}
-              itemImagePath={imagePath}
-              title={title}
-              noBtn={true}
-            />
-          ))}
-        </div>
+        <Swiper>{auctions}</Swiper>
       </ProfileSection>
       <ProfileSection label="팔로우 한 아이들">
         <Swiper>{followings}</Swiper>
