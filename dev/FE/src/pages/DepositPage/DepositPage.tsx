@@ -17,7 +17,7 @@ interface DepositPageProps {
 export type LabelType = '입금' | '출금' | '가입' | '해지';
 
 const DepositPage = ({ className }: DepositPageProps): JSX.Element => {
-  const { isOpen, openToggle, closeToggle } = useModal();
+  const { isOpen, openToggle, closeToggle, scrollTop } = useModal();
   const [label, setLabel] = useState<LabelType>('입금');
   const [curDeposit, setCurDeposit] = useState<MyBankInfo | undefined>(
     undefined,
@@ -94,7 +94,7 @@ const DepositPage = ({ className }: DepositPageProps): JSX.Element => {
         </Swiper>
 
         {curDeposit && (
-          <Modal isOpen={isOpen} toggle={closeToggle}>
+          <Modal scrollTop={scrollTop} isOpen={isOpen} toggle={closeToggle}>
             <ModalDeposit
               point={userInfo?.point ?? 0}
               className={className}

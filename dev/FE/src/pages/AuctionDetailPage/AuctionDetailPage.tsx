@@ -65,7 +65,7 @@ const AuctionDetailPage = ({
       },
     },
   );
-  const { isOpen, closeToggle, openToggle } = useModal();
+  const { isOpen, closeToggle, openToggle, scrollTop } = useModal();
 
   const [arts, setArts] = useState();
 
@@ -115,7 +115,12 @@ const AuctionDetailPage = ({
         <CreaterProfile arts={arts} />
       </div>
       {auction && (
-        <Modal isOpen={isOpen} toggle={closeToggle} auctionModal={true}>
+        <Modal
+          scrollTop={scrollTop}
+          isOpen={isOpen}
+          toggle={closeToggle}
+          auctionModal={true}
+        >
           <div className={styles['modal']}>
             <div className={styles['modal__title']}>경매하기</div>
             <div className={styles['modal__content']}>

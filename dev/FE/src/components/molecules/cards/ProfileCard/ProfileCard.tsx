@@ -36,7 +36,7 @@ const ProfileCard = ({
   alt,
   userNo,
 }: ProfileCardProps) => {
-  const { isOpen, openToggle, closeToggle } = useModal();
+  const { isOpen, openToggle, closeToggle, scrollTop } = useModal();
   const [file, setFile] = useState<File | undefined>(undefined);
   const { userInfo, setUserInfo, refreshUserInfo } = useAuth();
   const { following, refreshFollowing } = useFollowing();
@@ -164,7 +164,7 @@ const ProfileCard = ({
           ''
         )}
       </div>
-      <Modal isOpen={isOpen} toggle={closeToggle}>
+      <Modal scrollTop={scrollTop} isOpen={isOpen} toggle={closeToggle}>
         <div className={styles['profile-card__modal']}>
           <Text
             className={styles['profile-card__modal--title']}

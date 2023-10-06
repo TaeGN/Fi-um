@@ -22,8 +22,7 @@ interface FundingPageProps {
 }
 
 const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
-  const [scrollTop, setScrollTop] = useState<number>(0);
-  const { isOpen, openToggle, closeToggle } = useModal();
+  const { isOpen, openToggle, closeToggle, scrollTop } = useModal();
   const { userInfo, refreshUserInfo } = useAuth();
   const navigate = useNavigate();
   const userType = userInfo?.userType ?? 0;
@@ -41,7 +40,6 @@ const FundingPage = ({ className }: FundingPageProps): JSX.Element => {
 
   const onModal = useCallback((i: Funding) => {
     setItem(i);
-    setScrollTop(document.documentElement.scrollTop);
     openToggle();
   }, []);
 

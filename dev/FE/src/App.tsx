@@ -7,9 +7,8 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const App = () => {
-  const { isOpen } = useModal();
-
-  const location = useLocation();
+  const { isOpen, closeToggle } = useModal();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
@@ -24,6 +23,11 @@ const App = () => {
       }
     });
   }, [document.documentElement.scrollTop]);
+
+  useEffect(() => {
+    closeToggle();
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div

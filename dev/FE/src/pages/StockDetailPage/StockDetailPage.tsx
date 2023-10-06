@@ -22,7 +22,7 @@ interface StockDetailPageProps {
 }
 
 const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
-  const { isOpen, openToggle, closeToggle } = useModal();
+  const { isOpen, openToggle, closeToggle, scrollTop } = useModal();
   const [label, setLabel] = useState('매도');
   const [chartData, setChartData] = useState<any | undefined>();
   const { detail } = useParams<{ detail: string }>();
@@ -240,7 +240,7 @@ const StockDetailPage = ({ className }: StockDetailPageProps): JSX.Element => {
       </div>
 
       {isMyStockLoading === 'success' && isStockChartLoading === 'success' && (
-        <Modal isOpen={isOpen} toggle={closeToggle}>
+        <Modal scrollTop={scrollTop} isOpen={isOpen} toggle={closeToggle}>
           <ModalStock
             setStockAccount={setStockAccount}
             className={className}
