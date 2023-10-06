@@ -1,7 +1,7 @@
 import { getUserInfo } from '@/api/user';
 import { userState } from '@/store';
 import { UserInfo } from '@/types';
-import { getAccessToken } from '@/utils';
+import { getAccessToken, getRefreshToken } from '@/utils';
 import { useCallback, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
@@ -16,14 +16,21 @@ const useAuth = () => {
     setUserInfo(newUserInfo);
   }, []);
 
+  const accessToken = getAccessToken();
+  const refreshToken = getRefreshToken();
+
   useEffect(() => {
-    if (!userInfo && getAccessToken() && !isRefresh) {
+    if (!userInfo && accessToken && !isRefresh) {
       isRefresh = true;
       refreshUserInfo().then(() => {
         isRefresh = false;
       });
     }
   }, []);
+
+  useEffect(() => {
+    setUserInfo(undefined);
+  }, [refreshToken]);
 
   return { userInfo, setUserInfo, refreshUserInfo };
 };
