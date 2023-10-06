@@ -21,5 +21,6 @@ export {
   convertDateAfter7days,
   convertDataRemainDays,
 } from './convertDate';
+export { default as TruncateText } from './TruncateText';
 
 export * from './sessionStorage';
