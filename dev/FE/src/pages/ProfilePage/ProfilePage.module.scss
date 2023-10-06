@@ -43,8 +43,8 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 100%;
     gap: 5vw;
-    justify-content: center;
-    align-items: center;
+    // justify-content: center;
+    // align-items: center;
 
     &2 {
       min-height: 80vh;
@@ -61,8 +61,8 @@
       grid-template-columns: 6fr 4fr;
       grid-template-rows: 100%;
       gap: 5vw;
-      justify-content: center;
-      align-items: center;
+      // justify-content: center;
+      // align-items: center;
     }
     &__tableWrapper {
       &__buttonWrapper {

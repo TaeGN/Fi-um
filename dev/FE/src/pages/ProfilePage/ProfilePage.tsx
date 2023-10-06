@@ -282,7 +282,7 @@ const ChildProfilePage = ({ myPage }: { myPage?: boolean }) => {
                           이자율: (
                             <div className="flex-container jc-center">
                               <Text
-                                className="mr-1"
+                                className="mr-01"
                                 text={`${interestRate}%`}
                               />
                               <Text
