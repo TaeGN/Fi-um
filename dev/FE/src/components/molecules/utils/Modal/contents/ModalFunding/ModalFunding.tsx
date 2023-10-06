@@ -2,7 +2,7 @@ import { convertClassName, convertClassNameList, priceFilter } from '@/utils';
 import styles from './ModalFunding.module.scss';
 import { Button, Text } from '@/components/atoms';
 import { ChangeEvent, MouseEvent, useCallback, useMemo, useState } from 'react';
-import { Funding, SponsorProfile } from '@/types';
+import { Funding } from '@/types';
 import useAuth from '@/hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import { getUserQuery } from '@/api/queries';
