@@ -78,15 +78,19 @@ const ModalFunding = ({
         />
       </div>
 
-      <div
-        className={convertClassNameList(
-          'flex-container jc-space-between',
-          styles['modal-funding__price'],
-        )}
-      >
-        <Text className="text-md" text={'거래 후 보유 포인트'} />
-        <Text className="text-md" text={priceFilter(point - price)} />
-      </div>
+      {item.isCompleted || isChild ? (
+        <div
+          className={convertClassNameList(
+            'flex-container jc-space-between',
+            styles['modal-funding__price'],
+          )}
+        >
+          <Text className="text-md" text={'거래 후 보유 포인트'} />
+          <Text className="text-md" text={priceFilter(point - price)} />
+        </div>
+      ) : (
+        ''
+      )}
 
       <div
         className={convertClassNameList(
