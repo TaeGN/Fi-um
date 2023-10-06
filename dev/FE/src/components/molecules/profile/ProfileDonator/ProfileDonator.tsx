@@ -42,17 +42,17 @@ const ProfileDonator = ({ className }: ProfileDonatorProps): JSX.Element => {
       <div>
         <div className="flex-container jc-space-between">
           <div className="flex-container-col align-end md-1vw">
-            <Text className="text-lg" text="후원 총액 :" />
             <Text className="text-lg" text="내 캐시 :" />
             <Text className="text-lg" text="내 포인트 :" />
+            <Text className="text-lg" text="후원 총액 :" />
           </div>
           <div className="flex-container-col align-end">
+            <Text className="blue text-lg" text={priceFilter(cash)} />
+            <Text className="blue text-lg" text={priceFilter(point)} />
             <Text
               className="blue text-lg"
               text={priceFilter(sponsoredAmount)}
             />
-            <Text className="blue text-lg" text={priceFilter(cash)} />
-            <Text className="blue text-lg" text={priceFilter(point)} />
           </div>
         </div>
       </div>
