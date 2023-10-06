@@ -1,4 +1,4 @@
-import { convertClassName, convertClassNameList } from '@/utils';
+import { TruncateText, convertClassName, convertClassNameList } from '@/utils';
 import styles from './GalleryPage.module.scss';
 import { Button, Text } from '@/components/atoms';
 import useAuth from '@/hooks/useAuth';
@@ -76,8 +76,8 @@ const GalleryPage = ({ className }: GalleryPageProps): JSX.Element => {
               <AuctionCard
                 key={reviewNo}
                 itemImagePath={imagePath}
-                title={title}
-                content={content}
+                title={TruncateText(title, 10)}
+                content={TruncateText(content, 30)}
                 review={true}
                 onClick={() => handleMoveReviewDetail(reviewNo)}
               />

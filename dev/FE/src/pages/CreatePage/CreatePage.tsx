@@ -100,55 +100,73 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
         'flex-container-col',
       )}
     >
-      <div className="flex-container">
-        <Text className="text-lg" text="제목" />
-        <input
-          className={styles['input']}
-          type="text"
-          name="name"
-          value={item.name}
-          onChange={handleItem}
-        />
-      </div>
-
-      <br />
-      {state === 'gallery' ? (
-        <></>
-      ) : (
-        <>
+      <div className="flex-container jc-space-between">
+        <div>
           <div className="flex-container">
-            <Text className="text-lg" text="가격" />
+            <Text className="text-lg" text="제목" />
             <input
               className={styles['input']}
-              type="number"
-              name="unitPrice"
-              value={item.unitPrice}
+              type="text"
+              name="name"
+              value={item.name}
               onChange={handleItem}
             />
           </div>
 
           <br />
-
-          {state === 'funding' ? (
+          {state === 'gallery' ? (
+            <></>
+          ) : (
             <>
               <div className="flex-container">
-                <Text className="text-lg" text="수량" />
+                <Text className="text-lg" text="가격" />
                 <input
                   className={styles['input']}
                   type="number"
-                  name="count"
-                  value={item.count}
+                  name="unitPrice"
+                  value={item.unitPrice}
                   onChange={handleItem}
                 />
               </div>
 
               <br />
+
+              {state === 'funding' ? (
+                <>
+                  <div className="flex-container">
+                    <Text className="text-lg" text="수량" />
+                    <input
+                      className={styles['input']}
+                      type="number"
+                      name="count"
+                      value={item.count}
+                      onChange={handleItem}
+                    />
+                  </div>
+
+                  <br />
+                </>
+              ) : (
+                <></>
+              )}
             </>
-          ) : (
-            <></>
           )}
-        </>
-      )}
+        </div>
+        <Button
+          className={convertClassNameList(
+            convertClassName(className, styles),
+            'primary xsmall self-end mr-1 mb-1',
+          )}
+          onClick={handleAddItem}
+          label={
+            state === 'gallery'
+              ? '게시글 등록'
+              : state === 'funding'
+              ? '물품 등록 하기'
+              : '그림 등록 하기'
+          }
+        />
+      </div>
 
       <div className="flex-container">
         <Text className="text-lg" text="내용" />
@@ -181,21 +199,6 @@ const CreatePage = ({ className }: CreatePageProps): JSX.Element => {
           </div>
         </div>
       </div>
-      <Button
-        className={convertClassNameList(
-          convertClassName(className, styles),
-          'primary xsmall self-end',
-          styles['btn'],
-        )}
-        onClick={handleAddItem}
-        label={
-          state === 'gallery'
-            ? '게시글 등록'
-            : state === 'funding'
-            ? '물품 등록 하기'
-            : '그림 등록 하기'
-        }
-      />
     </div>
   );
 };
